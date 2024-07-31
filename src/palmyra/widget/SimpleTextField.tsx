@@ -11,7 +11,24 @@ const SimpleTextField = forwardRef(function SimpleTextField(o: ITextFieldDefinit
     const currentRef = ref ? ref : useRef<ITextField>(null);
     const inputRef = useRef<HTMLInputElement>();
 
-    console.log('re-rendering', o.attribute);
+    const register = (o: ITextFieldDefinition) => {
+        var result: any = {
+            name: o.attribute,
+            value: getValue(),
+            onChange: (e: any) => (setValue(e.target.value))
+        };
+
+        if (o.onBlur) result.onblur = o.onBlur;
+        if(o.onFocus) result.onfocus = o.onFocus;
+
+        if (o.disabled)
+            result.disabled = true;
+
+        if (o.readonly)
+            result.readOnly = true;
+
+        return result;
+    }
 
     useImperativeHandle(currentRef, () => {
         return {
@@ -46,8 +63,11 @@ const SimpleTextField = forwardRef(function SimpleTextField(o: ITextFieldDefinit
     }, [fieldManager, getValue]);
 
 
+
     return (<>
-        <div>{props.name}</div> : <input type='text' value={getValue()} onChange={e => setValue(e.target.value)} ></input>
+        <div>{props.name}</div> : <input type='text'
+            {...register(o)}
+        ></input>
         {error.status && <div>{error.message}</div>}
     </>
     );

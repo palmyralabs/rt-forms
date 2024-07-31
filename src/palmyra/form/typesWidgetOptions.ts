@@ -96,6 +96,7 @@ interface IAbstractField extends FieldDefinition,
     autoFocus?: boolean,
     onChange?: (key: string, value: any, valid?: boolean) => void
     onBlur?: (key: string, value: any, valid?: boolean) => void
+    onFocus?: (key: string, value: any) => void
 }
 
 interface ITextFieldDefinition extends IAbstractField, IDecoration,

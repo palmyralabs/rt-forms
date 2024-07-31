@@ -31,12 +31,13 @@ interface IFormFieldError {
 interface IFormManager {
     getData: Supplier<any>,
     isValid: OPredicate
-    registerFieldManager: IConsumer<IFormFieldManager>
+    getFieldGroupManager: IFunction<string, IFieldGroupManager>
+    registerFieldGroupManager: IConsumer<IFieldGroupManager>
     setFieldData: BiConsumer<string, any>
     setData: IConsumer<any>
 }
 
-interface IFormFieldManager {
+interface IFieldGroupManager {
     // field specific functions
     registerField: IConsumer<FieldDefinition>
 
@@ -52,4 +53,4 @@ interface IFormFieldManager {
     isValid: OPredicate
 }
 
-export type { FormMode, IForm, IFieldManager, IFormOptions, IFormFieldError, IFormManager, IFormFieldManager }
+export type { FormMode, IForm, IFieldManager, IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager }
