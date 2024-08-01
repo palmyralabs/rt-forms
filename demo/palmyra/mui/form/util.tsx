@@ -2,8 +2,9 @@
 import { IMutateOptions } from "../../../../src/palmyra";
 import { MuiInputFieldOptions } from "./types";
 
-const generateOptions = (p: any, o: IMutateOptions) => {
+const generateOptions = (p: any, o: IMutateOptions, v?:any) => {
     var result: any = { ...p, ...o };
+    result.value = (undefined == v) ? '' : v;
     return result;
 }
 

@@ -13,11 +13,15 @@ interface MuiInputFieldOptions extends FieldOptions {
     attribute:string
 }
 
+interface ISelectDefinition extends MuiInputFieldOptions, ILayoutOptions{
+    options?: Record<any, any> | Record<string, any>
+}
+
 interface ITextFieldDefinition extends MuiInputFieldOptions, ILayoutOptions {
 
 }
 
 
-export type { ITextFieldDefinition }
+export type { ITextFieldDefinition, ISelectDefinition }
 
 export type { MuiInputFieldOptions }

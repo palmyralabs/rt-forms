@@ -7,7 +7,7 @@ import FieldDecorator from './FieldDecorator';
 import { ITextFieldDefinition } from './types';
 
 
-const MuiTextField = forwardRef(function MuiTextField(props: ITextFieldDefinition & TextFieldProps, ref: MutableRefObject<ITextField>) {
+const MuiTextField = forwardRef(function MuiTextField(props: TextFieldProps & ITextFieldDefinition, ref: MutableRefObject<ITextField>) {
     const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
     const fieldManager = fieldGroupManager.registerField(props);
     const { getError, getValue, setValue, mutateOptions, setMutateOptions } = fieldManager;
@@ -16,7 +16,6 @@ const MuiTextField = forwardRef(function MuiTextField(props: ITextFieldDefinitio
 
     const inputRef: any = useRef(null);
     const variant = props.variant || 'standard';
-    const autoFocus = props.autoFocus || false;
 
     useImperativeHandle(currentRef, () => {
         return {
@@ -49,10 +48,10 @@ const MuiTextField = forwardRef(function MuiTextField(props: ITextFieldDefinitio
         };
     }, [fieldManager]);
 
-    var options = generateOptions(props, mutateOptions);
+    var options = generateOptions(props, mutateOptions, getValue());
 
     options.onChange = (d: any) => { if (!props.readonly) setValue(d.target.value); }
-    options.value = getValue();
+    
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
@@ -63,7 +62,6 @@ const MuiTextField = forwardRef(function MuiTextField(props: ITextFieldDefinitio
                 inputRef={inputRef}
                 error={error.status}
                 helperText={error.message}
-                autoFocus={autoFocus}
             />
         </FieldDecorator>}
     </>

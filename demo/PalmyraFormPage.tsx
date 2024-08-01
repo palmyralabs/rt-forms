@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { IForm, ITextField, PalmyraForm, SimpleTextField } from "../src/palmyra"
 import { FieldGroup } from "../src/palmyra/form/FieldGroup";
 import MuiTextField from "./palmyra/mui/form/MuiTextField";
+import MuiSelect from "./palmyra/mui/form/MuiSelect";
+import { MenuItem } from "@mui/material";
 
 
 const PalmyraFormPage = () => {
@@ -20,7 +22,7 @@ const PalmyraFormPage = () => {
     useEffect(() => {
         setTimeout(() => {
             formRef.current.setData({
-                firstName: "raja", lastName: 'k', address: { 'pincode': 627806 }
+                firstName: "raja", lastName: 'k', address: { 'pincode': 627806, mode: 20 }
             })
         }, 2000)
     }, [formRef.current])
@@ -38,8 +40,16 @@ const PalmyraFormPage = () => {
 
     return <>
         <PalmyraForm formData={{
-            firstName: "raja", lastName: 'sri', address: { 'pincode': 6273 }
+            firstName: "raja", lastName: 'sri', address: { 'pincode': 6273, mode: 10 }
         }} mode="new" ref={formRef}>
+
+            <MuiSelect attribute="address.mode" label="mode"
+    options={{10: "Ten", 20: "Twenty"}}
+            >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+            </MuiSelect>
 
             <MuiTextField attribute="address.pincode" label="PinCode" length={{ eq: 6 }} />
 
@@ -47,7 +57,7 @@ const PalmyraFormPage = () => {
                 label="First Name" length={{ eq: 6 }}></MuiTextField>
 
             <FieldGroup name='group'>
-                <SimpleTextField attribute="lastName" label="Last Name" length={{ eq: 6 }}/>
+                <SimpleTextField attribute="lastName" label="Last Name" length={{ eq: 6 }} />
             </FieldGroup>
             <br />
             <br />
