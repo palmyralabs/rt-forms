@@ -26,8 +26,8 @@ const PalmyraFormPage = () => {
     }, [formRef.current])
 
 
-    const toggleReadOnly= () => {
-        ro.current = ! ro.current;
+    const toggleReadOnly = () => {
+        ro.current = !ro.current;
         fieldRef.current.setReadOnly(ro.current);
     }
 
@@ -41,13 +41,13 @@ const PalmyraFormPage = () => {
             firstName: "raja", lastName: 'sri', address: { 'pincode': 6273 }
         }} mode="new" ref={formRef}>
 
-            <SimpleTextField attribute="address.pincode" label="PinCode" length={{ eq: 6 }} />
+            <MuiTextField attribute="address.pincode" label="PinCode" length={{ eq: 6 }} />
 
-            <MuiTextField variant="standard" attribute="firstName"  ref={fieldRef}
-            label="First Name" length={{ eq: 6 }}></MuiTextField>
+            <MuiTextField variant="standard" attribute="firstName" ref={fieldRef}
+                label="First Name" length={{ eq: 6 }}></MuiTextField>
 
             <FieldGroup name='group'>
-                <SimpleTextField attribute="lastName" label="Last Name"  />
+                <SimpleTextField attribute="lastName" label="Last Name" length={{ eq: 6 }}/>
             </FieldGroup>
             <br />
             <br />

@@ -2,8 +2,7 @@ import { useCallback, useState } from "react";
 import { IFieldCustomizer, IFieldGroupManager, IFieldManager, IFormFieldError } from "./types";
 import { Supplier } from "@palmyralabs/ts-utils";
 import { FieldOptions, IMutateOptions } from "./typesFieldOptions";
-import { PredicateResponse } from "@palmyralabs/ts-predicates";
-import { generatePredicate, getErrorMessage } from ".";
+import { generatePredicate, validate } from ".";
 
 const createFieldManager = (fieldGroupManager: IFieldGroupManager, field: FieldOptions, customizer?: IFieldCustomizer): IFieldManager => {
 
@@ -32,23 +31,29 @@ const createFieldManager = (fieldGroupManager: IFieldGroupManager, field: FieldO
     }
 
     const setValue = (v: any) => {
-        validate(v);
+        const status = validate(v, validator, field) ;
+        const error = getError();
+
+        if(error.message != status.message){
+            setError(status);
+        }
+
         fieldGroupManager.setFieldData(attribute, v);
     }
 
-    const validate = (v: any) => {
-        const validity: PredicateResponse = validator(v);
-        const error = getError();
+    // const validate = (v: any) => {
+    //     const validity: PredicateResponse = validator(v);
+    //     const error = getError();
 
-        if (validity.valid) {
-            setError({ status: false, message: '' });
-        } else {
-            const errorMessage: string = getErrorMessage(validity, field);
-            if (error.message != errorMessage) {
-                setError({ status: true, message: errorMessage })
-            }
-        }
-    }
+    //     if (validity.valid) {
+    //         setError({ status: false, message: '' });
+    //     } else {
+    //         const errorMessage: string = getErrorMessage(validity, field);
+    //         if (error.message != errorMessage) {
+    //             setError({ status: true, message: errorMessage })
+    //         }
+    //     }
+    // }
 
     return { getValidator, getValue, setValue, getError, setError, mutateOptions, setMutateOptions, getFieldProps }
 }

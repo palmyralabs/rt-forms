@@ -17,7 +17,7 @@
     "start": "vite",
     "dev": "vite",
     "build": "tsc --p ./build.tsconfig.json && vite --config vite.config.js build",
-    "compile": "tsc --p ./tsconfig.json",
+    "compile": "tsc --p ./demo.tsconfig.json && tsc --p ./build.tsconfig.json",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
     "test": "jest"

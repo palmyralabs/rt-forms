@@ -74,4 +74,14 @@ const assignNumber = (src: any, tgt: any, srcKey: string, tgtKey?: string) => {
     }
 }
 
-export { generatePredicate, getErrorMessage }
+const validate = (v: any, validator: Function, field) => {
+    const validity: PredicateResponse = validator(v);
+    if (validity.valid) {
+        return { status: false, message: '' };
+    } else {
+        const errorMessage: string = getErrorMessage(validity, field);
+        return { status: true, message: errorMessage };
+    }
+}
+
+export { generatePredicate, getErrorMessage, validate }

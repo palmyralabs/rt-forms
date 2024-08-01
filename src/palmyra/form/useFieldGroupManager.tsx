@@ -4,7 +4,7 @@ import { BiConsumer, getValueByKey, hasDot, IFunction, setValueByKey } from "@pa
 import { FormManagerContext } from "./formContext";
 import { FieldOptions } from "./typesFieldOptions";
 import { createFieldManager } from "./createFieldManager";
-
+import { validate } from "./validatorHelper";
 
 const useFieldGroupManager = (p: IFieldGroupOptions): IFieldGroupManager => {
     const formManager: IFormManager = useContext(FormManagerContext);
@@ -23,14 +23,17 @@ const createFieldGroupManager = (p: IFieldGroupOptions, formManager: IFormManage
     const fieldsRef = useRef<Record<string, { options: FieldOptions, field: IFieldManager }>>({});
     const initialData = formManager.getData() || {};
     const [data, setData] = useState<any>(initialData);
+    const errorRef = useRef<any>({});
+
 
     const getError = () => {
         const error = {};
         for (const attribute in fieldsRef.current) {
             const fieldManager = fieldsRef.current[attribute].field;
             const validator = fieldManager.getValidator();
+            const v = getFieldData(attribute);
             if (validator) {
-                error[attribute] = validator(getFieldData(attribute));
+                error[attribute] = validator(v);
             }
         }
         return error;
@@ -39,8 +42,6 @@ const createFieldGroupManager = (p: IFieldGroupOptions, formManager: IFormManage
     const getFieldData: IFunction<string, any> = (key: string) => {
         return getValueByKey(key, data);
     }
-
-    const errorRef = useRef<any>(getError());
 
     const getName = () => {
         return p.name;
@@ -71,8 +72,15 @@ const createFieldGroupManager = (p: IFieldGroupOptions, formManager: IFormManage
         const e = errorRef.current[key];
         if (e)
             return e;
-        else
-            return { message: '', status: false };
+        else {
+            const fieldManager = fieldsRef.current[key];
+            if (fieldManager) {
+                const validator = fieldManager.field.getValidator();
+                const status = validate(getFieldData(key), validator, fieldManager.options);
+                errorRef.current[key] = status;
+                return status;
+            }
+        }
     }
 
     const setFieldError = (key: string, v: IFormFieldError) => {
