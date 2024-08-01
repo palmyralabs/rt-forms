@@ -16,7 +16,8 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "build": "tsc --p ./tsconfig.json && vite --config vite.config.js build",
+    "build": "tsc --p ./build.tsconfig.json && vite --config vite.config.js build",
+    "compile": "tsc --p ./tsconfig.json",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
     "test": "jest"
