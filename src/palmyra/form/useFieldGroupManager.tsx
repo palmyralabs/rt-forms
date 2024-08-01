@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { IFieldGroupManager, IFieldManager, IFormFieldError, IFormManager } from "./types";
+import { IFieldCustomizer, IFieldGroupManager, IFieldManager, IFormFieldError, IFormManager } from "./types";
 import { BiConsumer, getValueByKey, hasDot, IFunction, setValueByKey } from "@palmyralabs/ts-utils";
-import { FormManagerContext } from "./formBase";
+import { FormManagerContext } from "./formContext";
 import { FieldOptions } from "./typesFieldOptions";
 import { createFieldManager } from "./createFieldManager";
 
@@ -55,9 +55,9 @@ const createFieldGroupManager = (p: IFormFieldManagerOptions, formManager: IForm
 
     const refreshError = () => {
         errorRef.current = getError();
-    }    
+    }
 
-    const getData = () => {
+    const getFieldGroupData = () => {
         var result = {};
         Object.keys(fieldsRef.current).every((key: string) => {
             if (hasDot(key)) {
@@ -70,14 +70,12 @@ const createFieldGroupManager = (p: IFormFieldManagerOptions, formManager: IForm
         return result;
     }
 
-   
-
     const getFieldError: IFunction<string, IFormFieldError> = (key: string) => {
         const e = errorRef.current[key];
         if (e)
             return e;
         else
-            return { message: 'sdf', status: true };
+            return { message: '', status: false };
     }
 
     const setFieldError = (key: string, v: IFormFieldError) => {
@@ -101,10 +99,13 @@ const createFieldGroupManager = (p: IFormFieldManagerOptions, formManager: IForm
         return true;
     }
 
-    const fieldGroupManager: any = { getData, setData, getName, getFieldData, setFieldData, getFieldError, setFieldError, isValid }
+    const fieldGroupManager: any = {
+        data, setData, getName, getFieldGroupData,
+        getFieldData, setFieldData, getFieldError, setFieldError, isValid
+    }
 
-    const registerField: IFunction<FieldOptions, IFieldManager> = (p: FieldOptions) => {
-        const fieldManager = createFieldManager(fieldGroupManager, p);
+    const registerField: IFunction<FieldOptions, IFieldManager> = (p: FieldOptions, customizer?: IFieldCustomizer) => {
+        const fieldManager = createFieldManager(fieldGroupManager, p, customizer);
         fieldsRef.current[p.attribute] = { field: fieldManager, options: p }
         return fieldManager
     }

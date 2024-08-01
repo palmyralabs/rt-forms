@@ -1,20 +1,19 @@
 import { useCallback, useState } from "react";
-import { IFieldGroupManager, IFieldManager, IFormFieldError } from "./types";
+import { IFieldCustomizer, IFieldGroupManager, IFieldManager, IFormFieldError } from "./types";
 import { Supplier } from "@palmyralabs/ts-utils";
 import { FieldOptions, IMutateOptions } from "./typesFieldOptions";
 import { PredicateResponse } from "@palmyralabs/ts-predicates";
 import { generatePredicate, getErrorMessage } from ".";
 
-const createFieldManager = (fieldGroupManager: IFieldGroupManager, field: FieldOptions): IFieldManager => {
+const createFieldManager = (fieldGroupManager: IFieldGroupManager, field: FieldOptions, customizer?: IFieldCustomizer): IFieldManager => {
 
     const [mutateOptions, setMutateOptions] = useState<IMutateOptions>({});
-
-    const attribute = field.attribute;    
+    const { data } = fieldGroupManager;
+    const attribute = field.attribute;
     const validator = useCallback(() => generatePredicate(field), [field])();
 
-    const getValue = () => {
-        return fieldGroupManager.getFieldData(attribute);
-    }
+    const getValue = customizer?.fieldAccessor ? (() => customizer?.fieldAccessor(data))
+        : () => fieldGroupManager.getFieldData(field.attribute);
 
     const getValidator = () => {
         return validator;
@@ -24,7 +23,7 @@ const createFieldManager = (fieldGroupManager: IFieldGroupManager, field: FieldO
         return fieldGroupManager.getFieldError(attribute);
     }
 
-    const setError = (error:IFormFieldError) => {
+    const setError = (error: IFormFieldError) => {
         return fieldGroupManager.setFieldError(attribute, error);
     }
 

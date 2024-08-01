@@ -1,7 +1,7 @@
 import { IFieldGroupManager, IFormManager } from "./types"
 import { forwardRef, MutableRefObject, useImperativeHandle, useRef } from "react";
 import { IFieldManager, IForm, IFormOptions } from "./types";
-import { FormManagerContext, StoreFactoryContext } from "./formBase";
+import { FormManagerContext, StoreFactoryContext } from "./formContext";
 import { FieldGroup } from "./FieldGroup";
 import { IFunction } from "@palmyralabs/ts-utils";
 
@@ -57,7 +57,7 @@ const useFormManager = (props: IFormOptions): IFormManager => {
     const getData = () => {
         var result = dataRef.current || {};
         Object.values(fieldManagersRef.current).every((fm: IFieldGroupManager) => {
-            result = { ...result, ...fm.getData() }
+            result = { ...result, ...fm.getFieldGroupData() }
             return true;
         })
         return result;

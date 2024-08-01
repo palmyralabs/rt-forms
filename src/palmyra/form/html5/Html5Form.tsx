@@ -1,6 +1,6 @@
 
 import { IFieldGroupManager } from "../types";
-import { FormManagerContext } from "../formBase";
+import { FormManagerContext } from "../formContext";
 import { useFormManager } from "../PalmyraForm";
 import { IHtmlField, IHtmlFormManager, IHtmlFormOptions } from "./types";
 import { registerFieldGroupManager } from "../useFieldGroupManager";

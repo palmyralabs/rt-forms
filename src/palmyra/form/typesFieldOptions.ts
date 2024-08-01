@@ -52,7 +52,8 @@ interface IFieldValidation extends ILengthValidation, IRangeValidation {
 interface FieldOptions extends IMutateOptions, IFieldValidation {
     attribute?: string,
     defaultValue?: InputType,
-    validator? : (value: any) => PredicateResponse
+    validator?: (value: any) => PredicateResponse
 }
+
 
 export type { FieldOptions, IMutateOptions, IFieldValidation }

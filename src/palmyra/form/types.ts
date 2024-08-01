@@ -34,7 +34,7 @@ interface IFieldManager {
     mutateOptions: IMutateOptions,
     setMutateOptions: Dispatch<SetStateAction<IMutateOptions>>
     getFieldProps: Supplier<any>,
-    getValidator: Supplier<(v: any) => PredicateResponse>
+    getValidator: Supplier<(v: any) => PredicateResponse>,
 }
 
 interface IFormFieldError {
@@ -51,15 +51,23 @@ interface IFormManager {
     setData: IConsumer<any>
 }
 
+interface IFieldCustomizer {
+    fieldAccessor?: (d: any) => any
+    fieldWriter?: (v: any, setData: Dispatch<SetStateAction<any>>) => void
+}
+
+
 interface IFieldGroupManager {
     // field specific functions
-    registerField: IFunction<FieldOptions, IFieldManager>
+    registerField: (o: FieldOptions, accessor?: IFieldCustomizer) => IFieldManager
 
     getName: Supplier<string>
 
     // form data functions
-    getData: Supplier<any>
-    setData: IConsumer<any>
+    data: Supplier<any>
+    setData: Dispatch<SetStateAction<any>>
+
+    getFieldGroupData: Supplier<any>
 
     getFieldData: IFunction<string, any>
     setFieldData: BiConsumer<string, any>
@@ -70,4 +78,8 @@ interface IFieldGroupManager {
     isValid: OPredicate
 }
 
-export type { FormMode, IForm, IFieldManager, IFieldGroup, IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager }
+
+export type {
+    FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer,
+    IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager
+}

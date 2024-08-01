@@ -3,8 +3,9 @@ import { FieldGroupManagerContext, IFieldGroupManager, IMutateOptions, ITextFiel
 
 
 const SimpleTextField = forwardRef(function SimpleTextField(o: ITextFieldDefinition, ref: MutableRefObject<ITextField>) {
-    console.log('re-rendering textfield', o.attribute)
+    
     const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
+
     const fieldManager = fieldGroupManager.registerField(o);
 
     const { getError, getValue, setValue, mutateOptions, setMutateOptions } = fieldManager;
