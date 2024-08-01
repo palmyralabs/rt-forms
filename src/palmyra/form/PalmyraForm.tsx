@@ -14,10 +14,8 @@ const PalmyraForm = forwardRef(function PalmyraForm(props: IFormOptions, ref: Mu
     const data = props.formData;
     const onValidityChange = props.onValidChange;
     const mode = props.mode;
-    
-    const formManagerRef = useRef(useFormManager(props));
 
-    const formManager = formManagerRef.current;
+    const formManager = useFormManager(props);
 
     useImperativeHandle(currentRef, (): IForm => {
         return {
@@ -26,8 +24,8 @@ const PalmyraForm = forwardRef(function PalmyraForm(props: IFormOptions, ref: Mu
             },
             isValid() {
                 return true;
-            }, 
-            setData(d:any){
+            },
+            setData(d: any) {
                 formManager.setData(d)
             }
         };
@@ -50,10 +48,9 @@ export { PalmyraForm }
 
 
 const useFormManager = (props: IFormOptions): IFormManager => {
-    const counter = useRef<number>(0);
     const dataRef = useRef<any>(props.formData || {});
     const fieldManagersRef = useRef<Record<string, IFieldGroupManager>>({})
-    counter.current = counter.current  + 1;
+
     const getData = () => {
         var result = dataRef.current || {};
         Object.values(fieldManagersRef.current).every((fm: IFieldGroupManager) => {
@@ -68,10 +65,10 @@ const useFormManager = (props: IFormOptions): IFormManager => {
     }
 
     const setData = (d: any) => {
-        const fieldManagers = fieldManagersRef.current;        
-        for(const key in fieldManagers){
+        const fieldManagers = fieldManagersRef.current;
+        for (const key in fieldManagers) {
             const fieldManager = fieldManagers[key];
-            fieldManager.setData(d);            
+            fieldManager.setData(d);
         }
         dataRef.current = d;
     }
@@ -80,7 +77,7 @@ const useFormManager = (props: IFormOptions): IFormManager => {
         return true;
     }
 
-    const getFieldGroupManager:IFunction<string, IFieldGroupManager> = (fieldGroup: string) => {
+    const getFieldGroupManager: IFunction<string, IFieldGroupManager> = (fieldGroup: string) => {
         return fieldManagersRef.current[fieldGroup];
     }
 

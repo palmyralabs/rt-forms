@@ -38,7 +38,10 @@
     "typescript": "^5.5.2",
     "vite": "^5.3.5",
     "vite-plugin-dts": "^3.9.1",
-    "vite-plugin-lib-inject-css": "^2.1.1"
+    "vite-plugin-lib-inject-css": "^2.1.1",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.15",
+    "@mui/material": "^5.15.15"
   },
   "sideEffects": [
     "**/*.css"
@@ -46,8 +49,7 @@
   "dependencies": {
     "@palmyralabs/palmyra-wire": "^1.0.1",
     "@palmyralabs/ts-utils": "github:palmyralabs/ts-utils",
-    "@palmyralabs/ts-predicates": "github:palmyralabs/ts-predicates",
-    "dayjs": "^1.11.12"
+    "@palmyralabs/ts-predicates": "github:palmyralabs/ts-predicates"
   },
   "overrides": {
     "glob": "^11.0.0"

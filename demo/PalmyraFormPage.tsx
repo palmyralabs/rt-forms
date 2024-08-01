@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { IForm, ITextField, PalmyraForm, SimpleTextField } from "../src/palmyra"
 import { FieldGroup } from "../src/palmyra/form/FieldGroup";
+import MuiTextField from "./palmyra/mui/form/MuiTextField";
 
 
 const PalmyraFormPage = () => {
@@ -40,12 +41,13 @@ const PalmyraFormPage = () => {
             firstName: "raja", lastName: 'sri', address: { 'pincode': 6273 }
         }} mode="new" ref={formRef}>
 
-            {/* <SimpleTextField attribute="firstName" label="First Name" /> */}
-
             <SimpleTextField attribute="address.pincode" label="PinCode" length={{ eq: 6 }} />
 
+            <MuiTextField variant="standard" attribute="firstName"  ref={fieldRef}
+            label="First Name" length={{ eq: 6 }}></MuiTextField>
+
             <FieldGroup name='group'>
-                <SimpleTextField attribute="lastName" label="Last Name" ref={fieldRef} />
+                <SimpleTextField attribute="lastName" label="Last Name"  />
             </FieldGroup>
             <br />
             <br />
