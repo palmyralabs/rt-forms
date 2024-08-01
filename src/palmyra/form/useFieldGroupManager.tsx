@@ -1,27 +1,24 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { IFieldCustomizer, IFieldGroupManager, IFieldManager, IFormFieldError, IFormManager } from "./types";
+import { IFieldCustomizer, IFieldGroupManager, IFieldGroupOptions, IFieldManager, IFormFieldError, IFormManager } from "./types";
 import { BiConsumer, getValueByKey, hasDot, IFunction, setValueByKey } from "@palmyralabs/ts-utils";
 import { FormManagerContext } from "./formContext";
 import { FieldOptions } from "./typesFieldOptions";
 import { createFieldManager } from "./createFieldManager";
 
-interface IFormFieldManagerOptions {
-    name: string
-}
 
-const useFieldGroupManager = (p: IFormFieldManagerOptions): IFieldGroupManager => {
+const useFieldGroupManager = (p: IFieldGroupOptions): IFieldGroupManager => {
     const formManager: IFormManager = useContext(FormManagerContext);
     return registerFieldGroupManager(p, formManager);
 }
 
-const registerFieldGroupManager = (p: IFormFieldManagerOptions, formManager: IFormManager): IFieldGroupManager => {
+const registerFieldGroupManager = (p: IFieldGroupOptions, formManager: IFormManager): IFieldGroupManager => {
     const name = p.name || '_default';
     const fieldGroupManager: IFieldGroupManager = createFieldGroupManager({ name }, formManager);
     formManager.registerFieldGroupManager(fieldGroupManager);
     return fieldGroupManager;
 }
 
-const createFieldGroupManager = (p: IFormFieldManagerOptions, formManager: IFormManager): IFieldGroupManager => {
+const createFieldGroupManager = (p: IFieldGroupOptions, formManager: IFormManager): IFieldGroupManager => {
 
     const fieldsRef = useRef<Record<string, { options: FieldOptions, field: IFieldManager }>>({});
     const initialData = formManager.getData() || {};
@@ -118,4 +115,4 @@ const createFieldGroupManager = (p: IFormFieldManagerOptions, formManager: IForm
 
 
 export { useFieldGroupManager, registerFieldGroupManager }
-export type { IFormFieldManagerOptions }
+export type { IFieldGroupOptions }

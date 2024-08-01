@@ -1,12 +1,15 @@
-import { IAbstractField } from "../../widget/typesWidgetOptions";
-import { IFormManager, IFormOptions } from "../types";
+
+import { IAbstractField } from "../";
+import { IFieldGroupManager, IFormManager, IFormOptions } from "../types";
+import { IFieldGroupOptions } from "../useFieldGroupManager";
 
 interface IHtmlFormOptions extends IFormOptions {
 
 }
 
 interface IHtmlFormManager extends IFormManager {
-    register: (options: IHtmlField, fieldGroup?: string) => {};
+    register: (options: IHtmlField, fieldGroup?: string) => {}
+    registerFieldGroup: (options: IFieldGroupOptions) => IFieldGroupManager
 }
 
 interface IHtmlField extends IAbstractField {

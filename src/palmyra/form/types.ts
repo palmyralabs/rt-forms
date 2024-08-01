@@ -26,6 +26,10 @@ interface IFieldGroup {
 
 }
 
+interface IFieldGroupOptions {
+    name: string
+}
+
 interface IFieldManager {
     getValue: Supplier<any>,
     setValue: IConsumer<any>,
@@ -80,6 +84,6 @@ interface IFieldGroupManager {
 
 
 export type {
-    FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer,
+    FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions,
     IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager
 }
