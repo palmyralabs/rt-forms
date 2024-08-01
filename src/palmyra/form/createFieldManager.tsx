@@ -41,20 +41,6 @@ const createFieldManager = (fieldGroupManager: IFieldGroupManager, field: FieldO
         fieldGroupManager.setFieldData(attribute, v);
     }
 
-    // const validate = (v: any) => {
-    //     const validity: PredicateResponse = validator(v);
-    //     const error = getError();
-
-    //     if (validity.valid) {
-    //         setError({ status: false, message: '' });
-    //     } else {
-    //         const errorMessage: string = getErrorMessage(validity, field);
-    //         if (error.message != errorMessage) {
-    //             setError({ status: true, message: errorMessage })
-    //         }
-    //     }
-    // }
-
     return { getValidator, getValue, setValue, getError, setError, mutateOptions, setMutateOptions, getFieldProps }
 }
 

@@ -13,7 +13,8 @@ interface IFormOptions {
     formData: any,
     onValidChange?: Function,
     mode: FormMode,
-    storeFactory?: StoreFactory<any>
+    storeFactory?: StoreFactory<any>,
+    formListener?: IFormListener
 }
 
 interface IForm {
@@ -83,7 +84,14 @@ interface IFieldGroupManager {
 }
 
 
+interface IFormListener {
+    onSaveSuccess?: (data: any) => void,
+    onSaveFailure?: (e: any) => void,
+    preProcessSaveData?: (data: FormData) => FormData
+    postProcessQueryData?: (data: FormData) => FormData
+}
+
 export type {
     FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions,
-    IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager
+    IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IFormListener
 }
