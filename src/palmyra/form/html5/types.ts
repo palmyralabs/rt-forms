@@ -1,5 +1,5 @@
+import { IAbstractField } from "../../widget/typesWidgetOptions";
 import { IFormManager, IFormOptions } from "../types";
-import { IAbstractField } from "../typesWidgetOptions";
 
 interface IHtmlFormOptions extends IFormOptions {
 

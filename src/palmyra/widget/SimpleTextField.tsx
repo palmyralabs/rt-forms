@@ -1,15 +1,19 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { IMutateOptions, ITextField, ITextFieldDefinition, useFieldManager } from '../form';
-
+import { useRef, useImperativeHandle, forwardRef, MutableRefObject, useContext } from 'react';
+import { FieldGroupManagerContext, IFieldGroupManager, IMutateOptions, ITextField, ITextFieldDefinition } from '../form';
 
 
 const SimpleTextField = forwardRef(function SimpleTextField(o: ITextFieldDefinition, ref: MutableRefObject<ITextField>) {
-    const fieldManager = useFieldManager(o);
-    const { error, getValue, setValue, setMutateOptions } = fieldManager;
-    const props = fieldManager.getFieldProps();
+    console.log('re-rendering textfield', o.attribute)
+    const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
+    const fieldManager = fieldGroupManager.registerField(o);
+
+    const { getError, getValue, setValue, mutateOptions, setMutateOptions } = fieldManager;
 
     const currentRef = ref ? ref : useRef<ITextField>(null);
     const inputRef = useRef<HTMLInputElement>();
+    const error = getError();
+
+    const p = { ...o, ...mutateOptions };
 
     const register = (o: ITextFieldDefinition) => {
         var result: any = {
@@ -19,7 +23,7 @@ const SimpleTextField = forwardRef(function SimpleTextField(o: ITextFieldDefinit
         };
 
         if (o.onBlur) result.onblur = o.onBlur;
-        if(o.onFocus) result.onfocus = o.onFocus;
+        if (o.onFocus) result.onfocus = o.onFocus;
 
         if (o.disabled)
             result.disabled = true;
@@ -50,6 +54,9 @@ const SimpleTextField = forwardRef(function SimpleTextField(o: ITextFieldDefinit
             setVisible(visible: boolean) {
                 setMutateOptions((d: IMutateOptions) => ({ ...d, visible }));
             },
+            setDisabled(disabled: boolean) {
+                setMutateOptions((d: IMutateOptions) => ({ ...d, disabled }));
+            },
             setRequired(required: boolean) {
                 setMutateOptions((d: IMutateOptions) => ({ ...d, required }));
             },
@@ -65,8 +72,8 @@ const SimpleTextField = forwardRef(function SimpleTextField(o: ITextFieldDefinit
 
 
     return (<>
-        <div>{props.name}</div> : <input type='text'
-            {...register(o)}
+        <div>{o.label}</div> : <input type='text'
+            {...register(p)}
         ></input>
         {error.status && <div>{error.message}</div>}
     </>

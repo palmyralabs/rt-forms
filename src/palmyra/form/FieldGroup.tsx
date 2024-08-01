@@ -1,21 +1,17 @@
-import { forwardRef, MutableRefObject, useContext, useImperativeHandle, useRef } from "react";
-import { FieldGroupManagerContext, FormManagerContext } from "./formBase";
-import { IFieldManager, IFieldGroupManager, IFormManager } from "./types";
+import { forwardRef, MutableRefObject,  useImperativeHandle, useRef } from "react";
+import { FieldGroupManagerContext} from "./formBase";
+import { IFieldManager, IFieldGroupManager, IFieldGroup} from "./types";
 import { IFormFieldManagerOptions, useFieldGroupManager } from "./useFieldGroupManager";
 
 interface IFieldManagerOptions extends IFormFieldManagerOptions {
     children?: any
 }
 
-const FieldGroup = forwardRef(function FieldGroup(p: IFieldManagerOptions, ref: MutableRefObject<IFieldManager>) {
-    const currentRef = ref ? ref : useRef<IFieldManager>(null);
-
-    const formManager: IFormManager = useContext(FormManagerContext);
+const FieldGroup = forwardRef(function FieldGroup(p: IFieldManagerOptions, ref: MutableRefObject<IFieldGroup>) {
+    const currentRef = ref ? ref : useRef<IFieldManager>(null);    
     const fieldGroupManager: IFieldGroupManager = useFieldGroupManager(p);
     
-    formManager.registerFieldGroupManager(fieldGroupManager);
-
-    useImperativeHandle(currentRef, (): IFieldManager => {
+    useImperativeHandle(currentRef, (): IFieldGroup => {
         return {
 
         };

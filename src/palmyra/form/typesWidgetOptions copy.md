@@ -39,7 +39,8 @@ interface ILengthValidation {
     length?: {
         min?: number,
         max?: number,
-        errorMessage?: string
+        eq?: number,
+        errorMessage?: string | {}
     }
 }
 
@@ -105,4 +106,4 @@ interface ITextFieldDefinition extends IAbstractField, IDecoration,
 }
 
 
-export type { ITextFieldDefinition, IAbstractField, IMutateOptions, FieldDefinition }
+// export type { ITextFieldDefinition, IAbstractField, IMutateOptions, FieldDefinition }

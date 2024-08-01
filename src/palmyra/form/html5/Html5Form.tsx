@@ -3,7 +3,6 @@ import { IFieldGroupManager } from "../types";
 import { FormManagerContext } from "../formBase";
 import { useFormManager } from "../PalmyraForm";
 import { IHtmlField, IHtmlFormManager, IHtmlFormOptions } from "./types";
-import { registerField } from "../useFieldManager";
 import { registerFieldGroupManager } from "../useFieldGroupManager";
 
 interface IOptions {
@@ -29,7 +28,7 @@ const useHtmlFormManager = (props: IHtmlFormOptions): IHtmlFormManager => {
 
     const register = (options: IHtmlField, fieldGroup?: string) => {
         const group = fieldGroup || '_default';
-        var fieldGroupManager: IFieldGroupManager = formManager.getFieldGroupManager(group);        
+        var fieldGroupManager: IFieldGroupManager = formManager.getFieldGroupManager(group);
         if (null == fieldGroupManager)
             fieldGroupManager = formManager.getFieldGroupManager('_default');
 
@@ -39,8 +38,9 @@ const useHtmlFormManager = (props: IHtmlFormOptions): IHtmlFormManager => {
             }
         }
 
-        const { getValue, setValue }
-            = registerField(fieldGroupManager, options);
+        const { registerField } = fieldGroupManager;
+
+        const { getValue, setValue } = registerField(options);
 
         var result: any = {
             name: options.attribute,

@@ -1,4 +1,4 @@
-import { IMutateOptions } from "./typesWidgetOptions"
+import { IMutateOptions } from "./typesFieldOptions"
 
 interface IInputField {
     focus: () => void
@@ -7,6 +7,7 @@ interface IInputField {
     getValue: () => any
     setValue: (v: any, doValidate?: boolean) => void,
     setRequired: (required: boolean) => void
+    setDisabled: (required: boolean) => void
     setReadOnly: (readonly: boolean) => void
     setVisible: (visible: boolean) => void
     setAttribute: (options: IMutateOptions) => void

@@ -1,8 +1,9 @@
-import { useContext, useRef, useState } from "react";
-import { FieldDefinition } from "./typesWidgetOptions";
-import { IFieldGroupManager, IFormManager } from "./types";
-import { BiConsumer, getValueByKey, hasDot, IConsumer, IFunction, setValueByKey } from "@palmyralabs/ts-utils";
+import { useContext, useEffect, useRef, useState } from "react";
+import { IFieldGroupManager, IFieldManager, IFormFieldError, IFormManager } from "./types";
+import { BiConsumer, getValueByKey, hasDot, IFunction, setValueByKey } from "@palmyralabs/ts-utils";
 import { FormManagerContext } from "./formBase";
+import { FieldOptions } from "./typesFieldOptions";
+import { createFieldManager } from "./createFieldManager";
 
 interface IFormFieldManagerOptions {
     name: string
@@ -21,18 +22,40 @@ const registerFieldGroupManager = (p: IFormFieldManagerOptions, formManager: IFo
 }
 
 const createFieldGroupManager = (p: IFormFieldManagerOptions, formManager: IFormManager): IFieldGroupManager => {
-    
-    const fieldsRef = useRef<Record<string, FieldDefinition>>({});
+
+    const fieldsRef = useRef<Record<string, { options: FieldOptions, field: IFieldManager }>>({});
     const initialData = formManager.getData() || {};
     const [data, setData] = useState<any>(initialData);
 
-    const registerField: IConsumer<FieldDefinition> = (p: FieldDefinition) => {
-        fieldsRef.current[p.attribute] = p;
+    const getError = () => {
+        const error = {};
+        for (const attribute in fieldsRef.current) {
+            const fieldManager = fieldsRef.current[attribute].field;
+            const validator = fieldManager.getValidator();
+            if (validator) {
+                error[attribute] = validator(getFieldData(attribute));
+            }
+        }
+        return error;
     }
+
+    const getFieldData: IFunction<string, any> = (key: string) => {
+        return getValueByKey(key, data);
+    }
+
+    const errorRef = useRef<any>(getError());
 
     const getName = () => {
         return p.name;
     }
+
+    useEffect(() => {
+        refreshError();
+    }, [data]);
+
+    const refreshError = () => {
+        errorRef.current = getError();
+    }    
 
     const getData = () => {
         var result = {};
@@ -47,13 +70,23 @@ const createFieldGroupManager = (p: IFormFieldManagerOptions, formManager: IForm
         return result;
     }
 
-    const getFieldData: IFunction<string, any> = (key: string) => {
-        return getValueByKey(key, data);
+   
+
+    const getFieldError: IFunction<string, IFormFieldError> = (key: string) => {
+        const e = errorRef.current[key];
+        if (e)
+            return e;
+        else
+            return { message: 'sdf', status: true };
+    }
+
+    const setFieldError = (key: string, v: IFormFieldError) => {
+        errorRef.current[key] = v;
     }
 
     const setFieldData: BiConsumer<string, any> = (key: string, value: any) => {
         if (hasDot(key)) {
-            setData((d) => {
+            setData((d: any) => {
                 setValueByKey(key, d, value);
                 return { ...d }
             });
@@ -68,7 +101,18 @@ const createFieldGroupManager = (p: IFormFieldManagerOptions, formManager: IForm
         return true;
     }
 
-    return { registerField, getData, setData, getName, getFieldData, setFieldData, isValid }
+    const fieldGroupManager: any = { getData, setData, getName, getFieldData, setFieldData, getFieldError, setFieldError, isValid }
+
+    const registerField: IFunction<FieldOptions, IFieldManager> = (p: FieldOptions) => {
+        const fieldManager = createFieldManager(fieldGroupManager, p);
+        fieldsRef.current[p.attribute] = { field: fieldManager, options: p }
+        return fieldManager
+    }
+
+    fieldGroupManager.registerField = registerField;
+
+    return fieldGroupManager;
+
 }
 
 

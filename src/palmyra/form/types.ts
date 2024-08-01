@@ -1,6 +1,8 @@
 import { StoreFactory } from "@palmyralabs/palmyra-wire";
 import { BiConsumer, IConsumer, IFunction, Supplier } from "@palmyralabs/ts-utils";
-import { FieldDefinition } from "./typesWidgetOptions";
+import { FieldOptions, IMutateOptions } from "./typesFieldOptions";
+import { Dispatch, SetStateAction } from "react";
+import { PredicateResponse } from "@palmyralabs/ts-predicates";
 
 type FormMode = 'view' | 'new' | 'edit';
 
@@ -16,11 +18,23 @@ interface IFormOptions {
 
 interface IForm {
     getData: () => any,
+    setData: IConsumer<any>
     isValid: () => boolean
 }
 
-interface IFieldManager {
+interface IFieldGroup {
 
+}
+
+interface IFieldManager {
+    getValue: Supplier<any>,
+    setValue: IConsumer<any>,
+    getError: Supplier<IFormFieldError>,
+    setError: IConsumer<IFormFieldError>,
+    mutateOptions: IMutateOptions,
+    setMutateOptions: Dispatch<SetStateAction<IMutateOptions>>
+    getFieldProps: Supplier<any>,
+    getValidator: Supplier<(v: any) => PredicateResponse>
 }
 
 interface IFormFieldError {
@@ -39,7 +53,7 @@ interface IFormManager {
 
 interface IFieldGroupManager {
     // field specific functions
-    registerField: IConsumer<FieldDefinition>
+    registerField: IFunction<FieldOptions, IFieldManager>
 
     getName: Supplier<string>
 
@@ -50,7 +64,10 @@ interface IFieldGroupManager {
     getFieldData: IFunction<string, any>
     setFieldData: BiConsumer<string, any>
 
+    getFieldError: IFunction<string, any>
+    setFieldError: BiConsumer<string, any>
+
     isValid: OPredicate
 }
 
-export type { FormMode, IForm, IFieldManager, IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager }
+export type { FormMode, IForm, IFieldManager, IFieldGroup, IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager }
