@@ -1,12 +1,10 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject, useContext } from 'react';
-import { FieldGroupManagerContext, IFieldGroupManager, IMutateOptions, ITextField, ITextFieldDefinition } from '../form';
+import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
+import { IFieldManager, IMutateOptions, ITextField, ITextFieldDefinition, useFieldManager } from '../form';
 
 
-const SimpleTextField = forwardRef(function SimpleTextField(o: ITextFieldDefinition, ref: MutableRefObject<ITextField>) {
-    
-    const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
+const SimpleTextField = forwardRef(function SimpleTextField(props: ITextFieldDefinition, ref: MutableRefObject<ITextField>) {
 
-    const fieldManager = fieldGroupManager.registerField(o);
+    const fieldManager:IFieldManager = useFieldManager(props.attribute, props);
 
     const { getError, getValue, setValue, mutateOptions, setMutateOptions } = fieldManager;
 
@@ -14,7 +12,7 @@ const SimpleTextField = forwardRef(function SimpleTextField(o: ITextFieldDefinit
     const inputRef = useRef<HTMLInputElement>();
     const error = getError();
 
-    const p = { ...o, ...mutateOptions };
+    const p = { ...props, ...mutateOptions };
 
     const register = (o: ITextFieldDefinition) => {
         var result: any = {
@@ -73,7 +71,7 @@ const SimpleTextField = forwardRef(function SimpleTextField(o: ITextFieldDefinit
 
 
     return (<>
-        <div>{o.label}</div> : <input type='text'
+        <div>{props.label}</div> : <input type='text'
             {...register(p)}
         ></input>
         {error.status && <div>{error.message}</div>}

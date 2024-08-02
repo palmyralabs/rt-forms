@@ -22,7 +22,7 @@ const PalmyraFormPage = () => {
     useEffect(() => {
         setTimeout(() => {
             formRef.current.setData({
-                firstName: "raja", lastName: 'k', address: { 'pincode': 627806, mode: 20 }
+                firstName: "k.raja", lastName: 'k', address: { 'pincode': '627806', mode: 20 }
             })
         }, 2000)
     }, [formRef.current])
@@ -44,7 +44,7 @@ const PalmyraFormPage = () => {
         }} mode="new" ref={formRef}>
 
             <MuiSelect attribute="address.mode" label="mode"
-    options={{10: "Ten", 20: "Twenty"}}
+                options={{ 10: "Ten", 20: "Twenty" }}
             >
                 <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
@@ -56,9 +56,12 @@ const PalmyraFormPage = () => {
             <MuiTextField variant="standard" attribute="firstName" ref={fieldRef}
                 label="First Name" length={{ eq: 6 }}></MuiTextField>
 
-            <FieldGroup name='group'>
+            <MuiTextField variant="standard" attribute="lastName" ref={fieldRef}
+                label="Last Name" length={{ eq: 3 }}></MuiTextField>
+
+            {/* <FieldGroup name='group'>
                 <SimpleTextField attribute="lastName" label="Last Name" length={{ eq: 6 }} />
-            </FieldGroup>
+            </FieldGroup> */}
             <br />
             <br />
             <button type={"button"} onClick={printData}> submit </button>

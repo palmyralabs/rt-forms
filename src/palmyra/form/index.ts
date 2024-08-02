@@ -6,3 +6,5 @@ export * from '../widget/typesWidgetOptions'
 
 export * from './formContext'
 export * from './validatorHelper'
+
+export * from './useFieldManager'

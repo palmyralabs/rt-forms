@@ -1,10 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { IFieldCustomizer, IFieldGroupManager, IFieldGroupOptions, IFieldManager, IFormFieldError, IFormManager } from "./types";
+import { useContext, useEffect, useRef } from "react";
+import { IFieldGroupManager, IFieldGroupOptions, IFieldManager, IFormManager } from "./types";
 import { BiConsumer, getValueByKey, hasDot, IFunction, setValueByKey } from "@palmyralabs/ts-utils";
 import { FormManagerContext } from "./formContext";
 import { FieldOptions } from "./typesFieldOptions";
-import { createFieldManager } from "./createFieldManager";
-import { validate } from "./validatorHelper";
 
 const useFieldGroupManager = (p: IFieldGroupOptions): IFieldGroupManager => {
     const formManager: IFormManager = useContext(FormManagerContext);
@@ -22,25 +20,13 @@ const createFieldGroupManager = (p: IFieldGroupOptions, formManager: IFormManage
 
     const fieldsRef = useRef<Record<string, { options: FieldOptions, field: IFieldManager }>>({});
     const initialData = formManager.getData() || {};
-    const [data, setData] = useState<any>(initialData);
-    const errorRef = useRef<any>({});
+    const dataRef = useRef<any>(initialData);
 
-
-    const getError = () => {
-        const error = {};
-        for (const attribute in fieldsRef.current) {
-            const fieldManager = fieldsRef.current[attribute].field;
-            const validator = fieldManager.getValidator();
-            const v = getFieldData(attribute);
-            if (validator) {
-                error[attribute] = validator(v);
-            }
-        }
-        return error;
-    }
+    const data = dataRef.current;
+    const errorRef = useRef<Record<string, Boolean>>({});
 
     const getFieldData: IFunction<string, any> = (key: string) => {
-        return getValueByKey(key, data);
+        return getValueByKey(key, dataRef.current);
     }
 
     const getName = () => {
@@ -48,12 +34,16 @@ const createFieldGroupManager = (p: IFieldGroupOptions, formManager: IFormManage
     }
 
     useEffect(() => {
-        refreshError();
-    }, [data]);
+        const fields = fieldsRef.current || {};
 
-    const refreshError = () => {
-        errorRef.current = getError();
-    }
+        Object.keys(fields).every((key: string) => {
+            const fieldManager = fields[key].field;
+            const accessor = fieldManager.valueAccessor;
+            fieldManager.setValue(accessor(data));
+            return true;
+        })
+
+    }, [data]);
 
     const getFieldGroupData = () => {
         var result = {};
@@ -68,35 +58,15 @@ const createFieldGroupManager = (p: IFieldGroupOptions, formManager: IFormManage
         return result;
     }
 
-    const getFieldError: IFunction<string, IFormFieldError> = (key: string) => {
-        const e = errorRef.current[key];
-        if (e)
-            return e;
-        else {
-            const fieldManager = fieldsRef.current[key];
-            if (fieldManager) {
-                const validator = fieldManager.field.getValidator();
-                const status = validate(getFieldData(key), validator, fieldManager.options);
-                errorRef.current[key] = status;
-                return status;
-            }
-        }
-    }
-
-    const setFieldError = (key: string, v: IFormFieldError) => {
+    const setFieldValidity = (key: string, v: boolean) => {
         errorRef.current[key] = v;
     }
 
     const setFieldData: BiConsumer<string, any> = (key: string, value: any) => {
         if (hasDot(key)) {
-            setData((d: any) => {
-                setValueByKey(key, d, value);
-                return { ...d }
-            });
+            setValueByKey(key, data, value);
         } else {
-            setData((d) => {
-                return { ...d, [key]: value }
-            });
+            data[key] = value;
         }
     }
 
@@ -104,21 +74,29 @@ const createFieldGroupManager = (p: IFieldGroupOptions, formManager: IFormManage
         return true;
     }
 
-    const fieldGroupManager: any = {
-        data, setData, getName, getFieldGroupData,
-        getFieldData, setFieldData, getFieldError, setFieldError, isValid
+    const registerFieldManager = (fieldManager: IFieldManager, options: FieldOptions) => {
+        fieldsRef.current[options.attribute] = { field: fieldManager, options }
     }
 
-    const registerField: IFunction<FieldOptions, IFieldManager> = (p: FieldOptions, customizer?: IFieldCustomizer) => {
-        const fieldManager = createFieldManager(fieldGroupManager, p, customizer);
-        fieldsRef.current[p.attribute] = { field: fieldManager, options: p }
-        return fieldManager
+    const setData = (data: any) => {
+        dataRef.current = data;
+
+        const fields = fieldsRef.current || {};
+
+        Object.keys(fields).every((key: string) => {
+            const fieldManager = fields[key].field;
+            const accessor = fieldManager.valueAccessor;
+            fieldManager.setValue(accessor(data));
+            return true;
+        })
     }
 
-    fieldGroupManager.registerField = registerField;
+    const fieldGroupManager: IFieldGroupManager = {
+        data, setData, getName, getFieldGroupData, registerFieldManager,
+        getFieldData, setFieldData, setFieldValidity, isValid
+    }
 
     return fieldGroupManager;
-
 }
 
 

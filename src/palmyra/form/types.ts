@@ -34,12 +34,14 @@ interface IFieldGroupOptions {
 interface IFieldManager {
     getValue: Supplier<any>,
     setValue: IConsumer<any>,
+    isValid: OPredicate,
     getError: Supplier<IFormFieldError>,
-    setError: IConsumer<IFormFieldError>,
+    refreshError: (force?: boolean) => void,
     mutateOptions: IMutateOptions,
     setMutateOptions: Dispatch<SetStateAction<IMutateOptions>>
     getFieldProps: Supplier<any>,
     getValidator: Supplier<(v: any) => PredicateResponse>,
+    valueAccessor: IFunction<any, any>
 }
 
 interface IFormFieldError {
@@ -52,19 +54,20 @@ interface IFormManager {
     isValid: OPredicate
     getFieldGroupManager: IFunction<string, IFieldGroupManager>
     registerFieldGroupManager: IConsumer<IFieldGroupManager>
-    setFieldData: BiConsumer<string, any>
     setData: IConsumer<any>
 }
 
 interface IFieldCustomizer {
     fieldAccessor?: (d: any) => any
-    fieldWriter?: (v: any, setData: Dispatch<SetStateAction<any>>) => void
+    fieldWriter?: (v: any, d: any) => void
 }
 
 
 interface IFieldGroupManager {
     // field specific functions
-    registerField: (o: FieldOptions, accessor?: IFieldCustomizer) => IFieldManager
+    //registerField: (o: FieldOptions, accessor?: IFieldCustomizer) => IFieldManager
+
+    registerFieldManager: (fieldManager: IFieldManager, options: FieldOptions) => void
 
     getName: Supplier<string>
 
@@ -77,8 +80,7 @@ interface IFieldGroupManager {
     getFieldData: IFunction<string, any>
     setFieldData: BiConsumer<string, any>
 
-    getFieldError: IFunction<string, any>
-    setFieldError: BiConsumer<string, any>
+    setFieldValidity: BiConsumer<string, boolean>
 
     isValid: OPredicate
 }

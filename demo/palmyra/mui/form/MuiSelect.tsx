@@ -1,14 +1,13 @@
-import { useRef, useImperativeHandle, forwardRef, useContext, MutableRefObject } from 'react';
+import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectProps } from '@mui/material';
 import FieldDecorator from './FieldDecorator';
-import { FieldGroupManagerContext, IFieldGroupManager, IFormFieldError, IMutateOptions, ISelectField, ITextField } from '../../../../src/palmyra';
+import { IFormFieldError, IMutateOptions, ISelectField, ITextField, useFieldManager } from '../../../../src/palmyra';
 import { generateOptions, getFieldLabel } from './util';
 import { ISelectDefinition } from './types';
 
 
 const MuiSelect = forwardRef(function MuiSelect(props: SelectProps & ISelectDefinition, ref: MutableRefObject<ISelectField>) {
-    const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
-    const fieldManager = fieldGroupManager.registerField(props);
+    const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, setMutateOptions } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);
     const error: IFormFieldError = getError();
