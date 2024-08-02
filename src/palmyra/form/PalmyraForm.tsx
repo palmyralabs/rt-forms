@@ -4,13 +4,13 @@ import { IFieldManager, IForm, IFormOptions } from "./types";
 import { FormManagerContext, StoreFactoryContext } from "./formContext";
 import { FieldGroup } from "./FieldGroup";
 import { IFunction } from "@palmyralabs/ts-utils";
+import { useValidityTracker } from "./useValidityTracker";
 
 
 const PalmyraForm = forwardRef(function PalmyraForm(props: IFormOptions, ref: MutableRefObject<IForm>) {
     const currentRef = ref ? ref : useRef<IForm>(null);
 
     const defaultFieldMangerRef = useRef<IFieldManager>();
-
     const data = props.formData;
     const onValidityChange = props.onValidChange;
     const mode = props.mode;
@@ -23,7 +23,7 @@ const PalmyraForm = forwardRef(function PalmyraForm(props: IFormOptions, ref: Mu
                 return formManager.getData();
             },
             isValid() {
-                return true;
+                return formManager.isValid();
             },
             setData(d: any) {
                 formManager.setData(d)
@@ -49,7 +49,10 @@ export { PalmyraForm }
 
 const useFormManager = (props: IFormOptions): IFormManager => {
     const dataRef = useRef<any>(props.formData || {});
+    const validityListener = props.onValidChange || ((v) => { console.log(v) });
+
     const fieldManagersRef = useRef<Record<string, IFieldGroupManager>>({})
+    const { isValid, setValidity } = useValidityTracker((v: boolean) => { validityListener(v) });
 
     const getData = () => {
         var result = dataRef.current || {};
@@ -69,10 +72,6 @@ const useFormManager = (props: IFormOptions): IFormManager => {
         dataRef.current = d;
     }
 
-    const isValid = () => {
-        return true;
-    }
-
     const getFieldGroupManager: IFunction<string, IFieldGroupManager> = (fieldGroup: string) => {
         return fieldManagersRef.current[fieldGroup];
     }
@@ -82,7 +81,7 @@ const useFormManager = (props: IFormOptions): IFormManager => {
         fieldManagers[fm.getName()] = fm;
     }
 
-    return { getData, isValid, setData, registerFieldGroupManager, getFieldGroupManager };
+    return { getData, isValid, setFieldGroupValid: setValidity, setData, registerFieldGroupManager, getFieldGroupManager };
 }
 
 

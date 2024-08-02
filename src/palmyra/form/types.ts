@@ -6,7 +6,7 @@ import { PredicateResponse } from "@palmyralabs/ts-predicates";
 
 type FormMode = 'view' | 'new' | 'edit';
 
-type OPredicate = () => Boolean;
+type OPredicate = () => boolean;
 
 interface IFormOptions {
     children?: any,
@@ -33,7 +33,7 @@ interface IFieldGroupOptions {
 
 interface IFieldManager {
     getValue: Supplier<any>,
-    setValue: IConsumer<any>,
+    setValue: (v: any, skipValidation?: Boolean) => void,
     isValid: OPredicate,
     getError: Supplier<IFormFieldError>,
     refreshError: (force?: boolean) => void,
@@ -41,7 +41,8 @@ interface IFieldManager {
     setMutateOptions: Dispatch<SetStateAction<IMutateOptions>>
     getFieldProps: Supplier<any>,
     getValidator: Supplier<(v: any) => PredicateResponse>,
-    valueAccessor: IFunction<any, any>
+    valueAccessor: IFunction<any, any>,
+    valueWriter: (formData:any, value:any) => void
 }
 
 interface IFormFieldError {
@@ -51,15 +52,16 @@ interface IFormFieldError {
 
 interface IFormManager {
     getData: Supplier<any>,
-    isValid: OPredicate
+    isValid: OPredicate,
+    setFieldGroupValid: BiConsumer<string,boolean>
     getFieldGroupManager: IFunction<string, IFieldGroupManager>
     registerFieldGroupManager: IConsumer<IFieldGroupManager>
     setData: IConsumer<any>
 }
 
 interface IFieldCustomizer {
-    fieldAccessor?: (d: any) => any
-    fieldWriter?: (v: any, d: any) => void
+    fieldAccessor?: (formData: any) => any
+    fieldWriter?: (fieldValue: any, formData: any) => void
 }
 
 
@@ -71,8 +73,6 @@ interface IFieldGroupManager {
 
     getName: Supplier<string>
 
-    // form data functions
-    data: Supplier<any>
     setData: Dispatch<SetStateAction<any>>
 
     getFieldGroupData: Supplier<any>
