@@ -52,7 +52,7 @@ const useFormManager = (props: IFormOptions): IFormManager => {
     const validityListener = props.onValidChange || ((v) => { console.log(v) });
 
     const fieldManagersRef = useRef<Record<string, IFieldGroupManager>>({})
-    const { isValid, setValidity } = useValidityTracker((v: boolean) => { validityListener(v) });
+    const { isValid, setValidity } = useValidityTracker((v: boolean) => { validityListener(v) }, 200);
 
     const getData = () => {
         var result = dataRef.current || {};

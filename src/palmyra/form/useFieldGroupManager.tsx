@@ -36,7 +36,6 @@ const createFieldGroupManager = (p: IFieldGroupOptions, formManager: IFormManage
     const dataRef = useRef<any>(initialData);
 
     const data = dataRef.current;
-    const validRef = useRef<Record<string, Boolean>>({});
 
     const { isValid, setValidity } = useValidityTracker((v: boolean) => { formManager.setFieldGroupValid(getName(), v) });
 
@@ -74,7 +73,6 @@ const createFieldGroupManager = (p: IFieldGroupOptions, formManager: IFormManage
     const registerFieldManager = (fieldManager: IFieldManager, options: FieldOptions) => {
         fieldsRef.current[options.attribute] = { field: fieldManager, options }
         const fieldValid = fieldManager.isValid();
-
         setValidity(options.attribute, fieldValid);
     }
 
