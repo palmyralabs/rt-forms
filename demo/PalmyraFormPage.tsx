@@ -39,7 +39,7 @@ const PalmyraFormPage = () => {
         fieldRef.current.setDisabled(dis.current);
     }
 
-    const [valid, isValid]= useState<boolean>(false);
+    const [valid, isValid] = useState<boolean>(false);
 
     return <>
         <PalmyraForm formData={{
@@ -58,7 +58,10 @@ const PalmyraFormPage = () => {
 
             <FieldGroup name="group">
                 <MuiTextField variant="standard" attribute="firstName" ref={fieldRef}
-                    label="First Name" length={{ eq: 6 }}></MuiTextField>
+                    label="First Name" length={{
+                        min: 6, max: 10,
+                        errorMessage: { minimum: 'minimum 6 letters', maximum: 'maximum 10 letters' }
+                    }}></MuiTextField>
 
                 <MuiTextField variant="standard" attribute="lastName" ref={fieldRef}
                     label="Last Name" length={{ eq: 3 }}></MuiTextField>

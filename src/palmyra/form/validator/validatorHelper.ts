@@ -1,14 +1,10 @@
 import { getPredicate, IValidatorOptions, PredicateResponse } from "@palmyralabs/ts-predicates";
-import { FieldOptions } from "./typesFieldOptions";
+import { FieldOptions } from "../typesFieldOptions";
+import { getErrorMessage } from "./errorMessageHelper";
 
 
 const generatePredicate = (o: FieldOptions) => {
     return getPredicate(getPredicateOptions(o));
-}
-
-const getErrorMessage = (v: PredicateResponse, o: FieldOptions) => {
-
-    return v.reason;
 }
 
 const getPredicateOptions = (o: FieldOptions): IValidatorOptions => {
@@ -74,7 +70,7 @@ const assignNumber = (src: any, tgt: any, srcKey: string, tgtKey?: string) => {
     }
 }
 
-const validate = (v: any, validator: Function, field) => {
+const validate = (v: any, validator: Function, field: FieldOptions) => {
     const validity: PredicateResponse = validator(v);
     if (validity.valid) {
         return { status: false, message: '' };
@@ -84,4 +80,4 @@ const validate = (v: any, validator: Function, field) => {
     }
 }
 
-export { generatePredicate, getErrorMessage, validate }
+export { generatePredicate, validate }

@@ -21,7 +21,7 @@ interface ILengthValidation {
         min?: number,
         max?: number,
         eq?: number,
-        errorMessage?: string | {}
+        errorMessage?: string | { minimum?: string, maximum?: string, equal?: string }
     } | number
 }
 
@@ -29,7 +29,7 @@ interface IRangeValidation {
     range?: {
         start?: number,
         end?: number
-        errorMessage?: string | {}
+        errorMessage?: string | { start?: string, end?: string }
     }
 }
 

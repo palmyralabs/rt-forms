@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useCallback, useContext, useState } from "rea
 import { IFieldCustomizer, IFieldGroupManager, IFieldManager, IFormFieldError } from "./types"
 import { FieldGroupManagerContext } from "./formContext";
 import { FieldOptions, IMutateOptions } from "./typesFieldOptions";
-import { generatePredicate, validate } from "./validatorHelper";
+import { generatePredicate, validate } from "./";
 import { BiConsumer, getValueByKey, hasDot, setValueByKey, Supplier } from "@palmyralabs/ts-utils";
 
 interface FieldStatus {

@@ -1,16 +1,5 @@
+import { delayGenerator } from "@palmyralabs/ts-utils";
 import { useCallback, useRef } from "react";
-
-const delayGenerator = (ms: number) => {
-    if (ms && ms > 0) {
-        var timer: ReturnType<typeof setTimeout>;
-        return function (callback: Function, ...args: any[]) {
-            clearTimeout(timer);
-            timer = setTimeout(callback.bind(null, ...args), ms);
-        };
-    } else {
-        return (callback: Function, ...args: any[]) => callback.apply(null, args);
-    }
-}
 
 const useValidityTracker = (onValidityChange: (status: boolean) => void, propagationDelay?: number) => {
     const invalidEntries = useRef<Record<string, any>>({});

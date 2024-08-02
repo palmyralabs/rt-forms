@@ -47,6 +47,9 @@
     "**/*.css"
   ],
   "dependencies": {
+    
+  },
+  "peerDependencies": {
     "@palmyralabs/palmyra-wire": "^1.0.1",
     "@palmyralabs/ts-utils": "github:palmyralabs/ts-utils",
     "@palmyralabs/ts-predicates": "github:palmyralabs/ts-predicates"
