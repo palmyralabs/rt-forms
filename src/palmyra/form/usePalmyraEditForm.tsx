@@ -22,7 +22,7 @@ type IusePalmyraEditForm = (props: IPalmyraEditFormInput) => IPalmyraEditFormOut
 
 const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): IPalmyraEditFormOutput => {
     const storeFactory = props.storeFactory;
-    const [data, setData] = useState<any>(null);
+    const [data, setData] = useState<any>({});
     const formRef = useRef<any>(null);
     const idKey = props.idKey || 'id';
     const formListener = props.formListener || NoopFormListener;

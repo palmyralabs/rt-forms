@@ -17,11 +17,11 @@ type IusePalmyraViewForm = (props: IPalmyraViewFormInput) => IPalmyraViewFormOut
 
 const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): IPalmyraViewFormOutput => {
     const storeFactory = props.storeFactory;
-    const [data, setData] = useState<any>(null);
+    const [data, setData] = useState<any>({});
     const idKey = props.idKey || 'id';
 
     const getEndPoint = (endPoint: IEndPoint, idProperty: string): IEndPoint => {
-        if (typeof endPoint == 'string' && props.idKey != null) {
+        if (typeof endPoint == 'string') {
             return endPoint + '/{' + idProperty + '}';
         } else {
             return endPoint;

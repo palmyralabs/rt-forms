@@ -3,10 +3,12 @@ import dts from 'vite-plugin-dts'
 import { extname, relative, resolve } from 'path'
 import { fileURLToPath } from 'node:url'
 import { glob } from 'glob'
-
+// @ts-ignore
+import generalAssets from './plugins/general_assets.js'
 
 export default defineConfig({
   plugins: [  
+  generalAssets(),
   dts({ include: ['src'] })],
   server: {
     proxy: { "/api": "http://localhost:6060/" },
