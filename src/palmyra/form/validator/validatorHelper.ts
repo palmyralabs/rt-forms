@@ -36,9 +36,11 @@ const getPredicateOptions = (o: FieldOptions): IValidatorOptions => {
 
     if (o.regExp) {
         const regExp = o.regExp;
-        if (typeof regExp == 'string') {
+        if (typeof regExp == 'string' || typeof regExp['test'] == 'function') {
+            //@ts-ignore
             result.regExp = regExp;
-        } else {
+        } else if(regExp['regex']){
+            //@ts-ignore
             const regex = regExp.regex;
             if (regex)
                 result.regExp = regex;
