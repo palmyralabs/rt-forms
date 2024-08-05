@@ -50,10 +50,13 @@ const getPredicateOptions = (o: FieldOptions): IValidatorOptions => {
     if (o.validRule) {
         const validRule = o.validRule;
         if (typeof validRule == 'string') {
-            result.rules = validRule.split(',');
-        } else {
-            if (validRule.rule)
-                result.rules = validRule.rule.split(',');
+            result.rules = [validRule];
+        } 
+        else if(Array.isArray(validRule)){
+            result.rules = validRule.map((v) => v.rule);
+        }
+        else if(typeof validRule == "object") {
+                result.rules = [validRule.rule];
         }
     }
 

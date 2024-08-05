@@ -1,11 +1,7 @@
-import { PredicateResponse } from "@palmyralabs/ts-predicates"
+import { PredicateResponse, validationRule } from "@palmyralabs/ts-predicates"
 import { IPredicate } from "@palmyralabs/ts-utils"
 
 type InputType = string | number | Date;
-
-type validatorRules = "email" | "password" | 'string' | 'alphabets' | 'number' | 'mobilePhone' | 'port' |
-    'ip' | 'fqdn' | 'folder' | 'portrange' | 'password' | 'oneLowerCase' | 'oneUpperCase' | 'oneSpecialChar'
-    | 'float' | 'lowercase' | 'uppercase'
 
 
 interface IMutateOptions {
@@ -35,7 +31,9 @@ interface IRangeValidation {
 
 type IRegexValidation = string | { regex: string, errorMessage: string };
 
-type IRuleValidation = validatorRules | { rule: validatorRules, errorMessage: string }
+type IRuleValidation = validationRule
+    | { rule: validationRule, errorMessage?: string }
+    | [{ rule: validationRule, errorMessage?: string }]
 
 type IFunctionValidation = IPredicate<any> | ((v: any) => PredicateResponse) | { fn: IPredicate<any>, errorMessage: string };
 

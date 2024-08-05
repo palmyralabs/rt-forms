@@ -26,7 +26,7 @@ const useServerQuery = (props: IServerQueryInput) => {
   const [filter, setFilter] = props.filterTopic
     ? useKeyValue(props.filterTopic, defaultFilter)
     : useState<any>(defaultFilter);
-    
+
   const [sortOrder, setSortOrder] = useState({});
 
   const firstRun = useRef<Boolean>(props.initialFetch == false);
@@ -172,5 +172,36 @@ const useServerQuery = (props: IServerQueryInput) => {
 
 };
 
-export default useServerQuery;
+
+const usePageableServerQuery = (props: IServerQueryInput) => {
+  const query = useServerQuery(props);
+
+  const { getPageNo, gotoPage } = query;
+
+  const nextPage = (): boolean => {
+    const pageNo = getPageNo();
+    if (pageNo < getTotalPages()) {
+      gotoPage(getPageNo() + 1);
+      return true;
+    }
+    return false;
+  }
+
+  const getTotalPages = (): number => {
+    return Math.ceil(query.totalRecords / query.queryLimit.limit);
+  }
+
+  const prevPage = (): boolean => {
+    const pageNo = getPageNo();
+    if (pageNo > 0) {
+      gotoPage(pageNo - 1);
+      return true;
+    }
+    return false;
+  }
+
+  return { ...query, nextPage, prevPage, getTotalPages }
+}
+
+export { useServerQuery, usePageableServerQuery, };
 export type { IServerQueryInput };
