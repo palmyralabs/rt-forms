@@ -6,7 +6,7 @@ type InputType = string | number | Date;
 
 interface IMutateOptions {
     required?: boolean
-    readonly?: boolean
+    readOnly?: boolean
     visible?: boolean
     disabled?: boolean
     mutant?: boolean

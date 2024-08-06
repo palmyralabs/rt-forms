@@ -1,0 +1,14 @@
+{
+    "result": [{
+        "id": 1,
+        "name": "Chennai"
+    },
+    {
+        "id": 2,
+        "name": "Madurai"
+    },
+    {
+        "id": 3,
+        "name": "Tenkasi"
+    }]
+}

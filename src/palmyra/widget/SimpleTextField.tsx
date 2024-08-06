@@ -27,7 +27,7 @@ const SimpleTextField = forwardRef(function SimpleTextField(props: ITextFieldDef
         if (o.disabled)
             result.disabled = true;
 
-        if (o.readonly)
+        if (o.readOnly)
             result.readOnly = true;
 
         return result;
