@@ -89,7 +89,7 @@ const MuiServerLookup = forwardRef(function MuiServerLookup(props: IServerLookup
             store.query(params).then((d) => {
                 const result = d.result;
                 const idx = result.length > index ? index : 0;
-                fieldManager.setValue(result[idx], false);
+                fieldManager.setValue(result[idx], false, false);
             }).catch((e) => {
                 console.error(e);
             });

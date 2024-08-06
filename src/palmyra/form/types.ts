@@ -33,7 +33,7 @@ interface IFieldGroupOptions {
 
 interface IFieldManager {
     getValue: Supplier<any>,
-    setValue: (v: any, skipValidation?: Boolean) => void,
+    setValue: (v: any, skipValidation?: Boolean, propagate?:boolean) => void,
     isValid: OPredicate,
     getError: Supplier<IFormFieldError>,
     refreshError: (force?: boolean) => void,
@@ -52,6 +52,7 @@ interface IFormFieldError {
 
 interface IFormManager {
     getData: Supplier<any>,
+    getPropsData: Supplier<any>,
     isValid: OPredicate,
     setFieldGroupValid: BiConsumer<string,boolean>
     getFieldGroupManager: IFunction<string, IFieldGroupManager>

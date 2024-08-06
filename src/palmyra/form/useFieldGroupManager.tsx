@@ -24,7 +24,7 @@ const assignChildrenData = (fields: Record<string, { options: FieldOptions, fiel
     Object.keys(fields).every((key: string) => {
         const fieldManager = fields[key].field;
         const accessor = fieldManager.valueAccessor;
-        fieldManager.setValue(accessor(data), false);
+        fieldManager.setValue(accessor(data), false, false);
         return true;
     });
 }
@@ -32,7 +32,7 @@ const assignChildrenData = (fields: Record<string, { options: FieldOptions, fiel
 const createFieldGroupManager = (p: IFieldGroupOptions, formManager: IFormManager): IFieldGroupManager => {
 
     const fieldsRef = useRef<Record<string, { options: FieldOptions, field: IFieldManager }>>({});
-    const initialData = formManager.getData() || {};
+    const initialData = formManager.getPropsData() || {};
     const dataRef = useRef<any>(initialData);
 
     const data = dataRef.current;

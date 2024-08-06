@@ -4,7 +4,7 @@ import { MuiInputFieldOptions } from "./types";
 
 const generateOptions = (p: any, o: IMutateOptions, v?:any) => {
     var result: any = { ...p, ...o };
-    result.value = (undefined == v) ? '' : v;
+    result.value = v;
     return result;
 }
 

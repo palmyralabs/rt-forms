@@ -15,7 +15,7 @@ const useFieldManager = (key: string, options: FieldOptions, customizer?: IField
     const valueWriter = useCallback(() => getWriter(key, customizer), [key])();
     const validator = generatePredicate(options);
 
-    const [fieldState, setFieldState] = useState<FieldStatus>({ value: '' });
+    const [fieldState, setFieldState] = useState<FieldStatus>({ value: valueAccessor({}) });
     const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
     const [mutateOptions, setMutateOptions] = useState<IMutateOptions>({});
 
@@ -29,18 +29,22 @@ const useFieldManager = (key: string, options: FieldOptions, customizer?: IField
         return validator;
     }
 
-    const setValue = (v: Dispatch<SetStateAction<any>>, skipValidation?: Boolean) => {
+    const setValue = (v: Dispatch<SetStateAction<any>>, skipValidation = false, propagate = true) => {
         const d: any = (typeof v == 'function') ? v(value) : v;
         const error = validate(d, validator, options);
 
         if (d == value && error.status == error.status && error.message == error.message) {
             return;
         }
-        setFieldState({ value: d, error });
-        fieldGroupManager.setFieldData(key, v);
 
-        if (!skipValidation)
+        setFieldState({ value: d, error });
+
+        if (propagate)
+            fieldGroupManager.setFieldData(key, d);
+
+        if (!skipValidation) {
             fieldGroupManager.setFieldValidity(key, !error.status);
+        }
     }
 
     const refreshError = () => {
@@ -73,8 +77,14 @@ const useFieldManager = (key: string, options: FieldOptions, customizer?: IField
 }
 
 function getAccessor(attribute, customizer?: IFieldCustomizer) {
-    return customizer?.fieldAccessor ? customizer?.fieldAccessor :
-        hasDot(attribute) ? (d) => getValueByKey(attribute, d) : (d) => d[attribute]
+
+
+    return customizer?.fieldAccessor ? customizer.fieldAccessor :
+        hasDot(attribute) ?
+            (d: any) => {
+                const v = getValueByKey(attribute, d);
+                return v ? v : '';
+            } : (d: any) => { const v = d?.[attribute]; return v ? v : '' }
 }
 
 function getWriter(attribute, customizer?: IFieldCustomizer): BiConsumer<any, any> {

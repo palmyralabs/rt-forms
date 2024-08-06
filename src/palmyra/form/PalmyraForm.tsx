@@ -63,6 +63,10 @@ const useFormManager = (props: IFormOptions): IFormManager => {
         return result;
     }
 
+    const getPropsData = () => {
+        return dataRef.current;
+    }
+
     const setData = (d: any) => {
         const fieldManagers = fieldManagersRef.current;
         for (const key in fieldManagers) {
@@ -81,7 +85,10 @@ const useFormManager = (props: IFormOptions): IFormManager => {
         fieldManagers[fm.getName()] = fm;
     }
 
-    return { getData, isValid, setFieldGroupValid: setValidity, setData, registerFieldGroupManager, getFieldGroupManager };
+    return {
+        getData, getPropsData, isValid,
+        setFieldGroupValid: setValidity, setData, registerFieldGroupManager, getFieldGroupManager
+    };
 }
 
 

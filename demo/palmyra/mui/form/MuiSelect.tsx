@@ -57,11 +57,11 @@ const MuiSelect = forwardRef(function MuiSelect(props: SelectProps & ISelectDefi
 
     var inputProps = generateOptions(props, mutateOptions, getValue());
 
-    if (props.readonly) {
+    if (props.readOnly) {
         inputProps.inputProps = { readOnly: true };
     }
 
-    inputProps.onChange = (d: any) => { if (!props.readonly) setValue(d.target.value); }
+    inputProps.onChange = (d: any) => { if (!props.readOnly) setValue(d.target.value); }
 
     const fieldMargin: any = 0; //props?.fieldProps?.size == 'small' ? 1 : 0;
     return (<>{!mutateOptions.visible &&

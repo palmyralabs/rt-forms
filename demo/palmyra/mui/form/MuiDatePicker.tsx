@@ -6,15 +6,41 @@ import FieldDecorator from './FieldDecorator';
 import { IDatePickerDefinition } from './types';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from "dayjs";
+import { getValueAccessor, getValueSetter } from '@palmyralabs/ts-utils';
 
-const MuiDatePicker = forwardRef(function MuiDatePicker(props: DatePickerProps<any> & IDatePickerDefinition, ref: MutableRefObject<IDateField>) {
-    // const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
+const MuiDatePicker = forwardRef(function MuiDatePicker(props: DatePickerProps<any> & IDatePickerDefinition,
+    ref: MutableRefObject<IDateField>) {
+    const serverPattern = props.serverPattern || props.displayPattern || "YYYY-MM-DD";
+    const { attribute } = props;
+    const displayFormat: string = props.displayPattern || props.serverPattern || "YYYY-MM-DD";
 
-    const fieldManager = useFieldManager(props.attribute, props);
+    const valueAccessor = getValueAccessor(attribute);
+    const valueSetter = getValueSetter(attribute);
+
+    const fieldWriter = (v: any, data: any) => {
+        if (v && v.isValid && v.isValid()) {
+            valueSetter(data, v.format(serverPattern));
+        } else {
+            valueSetter(data, undefined);
+        }
+    }
+
+    const fieldAccessor = (formData: any) => {
+        if (!formData)
+            return dayjs(undefined);
+
+        const rawData = valueAccessor(formData);
+        return dayjs(rawData, serverPattern);
+    }
+
+    const fieldManager = useFieldManager(props.attribute, props, { fieldAccessor, fieldWriter });
+
+
+
     const { getError, getValue, setValue, mutateOptions, setMutateOptions } = fieldManager;
     const currentRef = ref ? ref : useRef<IDateField>(null);
     const error: IFormFieldError = getError();
-    const displayFormat: string = props.displayPattern || props.serverPattern || "YYYY-MM-DD";
+
 
     const inputRef: any = useRef(null);
     const variant = props.variant || 'standard';
@@ -53,13 +79,9 @@ const MuiDatePicker = forwardRef(function MuiDatePicker(props: DatePickerProps<a
         };
     }, [fieldManager]);
 
-    const toDayjs = () => {
-        return dayjs(getValue());
-    }
+    var options = generateOptions(props, mutateOptions, getValue());
 
-    var options = generateOptions(props, mutateOptions, toDayjs());
-
-    options.onChange = (d: any) => { if (!props.readOnly) setValue(d.toDate()); }
+    options.onChange = (d: any) => { if (!props.readOnly) setValue(d); }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
@@ -74,7 +96,7 @@ const MuiDatePicker = forwardRef(function MuiDatePicker(props: DatePickerProps<a
                             error: error.status,
                             helperText: error.message,
                             variant: variant,
-                            fullWidth: true,
+                            fullWidth: false,
                             inputRef
                         },
                     }}

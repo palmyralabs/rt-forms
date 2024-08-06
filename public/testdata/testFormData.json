@@ -3,7 +3,7 @@
         "id": 1,
         "text": "sample",
         "select": true,
-        "date": "2024-10-12",
+        "date": "2024/10/12",
         "dateRange": "2024-10-12...2024-12-20",
         "serverLookup": 1
     }

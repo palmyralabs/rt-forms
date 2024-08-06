@@ -51,7 +51,7 @@ const MuiTextField = forwardRef(function MuiTextField(props: TextFieldProps & IT
 
     var options = generateOptions(props, mutateOptions, getValue());
 
-    options.onChange = (d: any) => { if (!props.readonly) setValue(d.target.value); }
+    options.onChange = (d: any) => { if (!props.readOnly) setValue(d.target.value); }
 
 
     return (<>{!mutateOptions.visible &&

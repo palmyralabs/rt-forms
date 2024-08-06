@@ -1,6 +1,6 @@
 
 import { GetRequest, IEndPoint, PutRequest, StoreFactory } from "@palmyralabs/palmyra-wire";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef } from "react";
 import { IFormListener } from "./types";
 import { NoopFormListener } from "./Noops";
 
@@ -13,7 +13,7 @@ interface IPalmyraEditFormInput {
 }
 
 interface IPalmyraEditFormOutput {
-    data: FormData,
+    getData(): FormData,
     saveData: (data?: any) => Promise<any>,
     formRef: MutableRefObject<any>
 }
@@ -22,7 +22,6 @@ type IusePalmyraEditForm = (props: IPalmyraEditFormInput) => IPalmyraEditFormOut
 
 const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): IPalmyraEditFormOutput => {
     const storeFactory = props.storeFactory;
-    const [data, setData] = useState<any>({});
     const formRef = useRef<any>(null);
     const idKey = props.idKey || 'id';
     const formListener = props.formListener || NoopFormListener;
@@ -45,8 +44,13 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
                 [idProperty]: id
             }
         };
-        formStore.get(request).then(d => { setData(d) });
+        formStore.get(request).then(d => { formRef.current.setData(d) });
     }, [props.id])
+
+
+    const getData = () =>{
+        return formRef.current.getData();
+    }
 
     const saveData = (d?: any): Promise<any> => {
         if (d || formRef && formRef.current) {
@@ -65,7 +69,7 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
             };
 
             return formStore.put(processedData, request).then((d) => {
-                setData(d);
+                formRef.current.setData(d);
                 if (formListener.onSaveSuccess)
                     formListener.onSaveSuccess(d);
                 return Promise.resolve(d);
@@ -78,7 +82,7 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
             return Promise.reject('invalid data');
     }
 
-    return { data, saveData, formRef };
+    return { getData, saveData, formRef };
 }
 
 
