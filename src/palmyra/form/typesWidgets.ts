@@ -41,6 +41,11 @@ interface ISelectField extends IInputField, IOptionsField {
 
 }
 
+interface IServerLookupField extends IInputField {
+
+}
+
+
 interface IRadioGroupField extends IInputField, IOptionsField {
 
 }
@@ -59,5 +64,5 @@ interface ISliderField extends IInputField {
 
 export type {
     IInputField, ITextField, ICheckBoxField, IDateField, IDateTimeField, IRadioGroupField,
-    ISelectField, ITimeField, ISwitchField, ISliderField, IRatingField
+    ISelectField, ITimeField, ISwitchField, ISliderField, IRatingField, IServerLookupField
 }

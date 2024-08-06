@@ -7,6 +7,7 @@ import { PredicateResponse } from "@palmyralabs/ts-predicates";
 type FormMode = 'view' | 'new' | 'edit';
 
 type OPredicate = () => boolean;
+type numbers = number | number[];
 
 interface IFormOptions {
     children?: any,
@@ -33,7 +34,7 @@ interface IFieldGroupOptions {
 
 interface IFieldManager {
     getValue: Supplier<any>,
-    setValue: (v: any, skipValidation?: Boolean, propagate?:boolean) => void,
+    setValue: (v: any, skipValidation?: Boolean, propagate?: boolean) => void,
     isValid: OPredicate,
     getError: Supplier<IFormFieldError>,
     refreshError: (force?: boolean) => void,
@@ -42,7 +43,7 @@ interface IFieldManager {
     getFieldProps: Supplier<any>,
     getValidator: Supplier<(v: any) => PredicateResponse>,
     valueAccessor: IFunction<any, any>,
-    valueWriter: (formData:any, value:any) => void
+    valueWriter: (formData: any, value: any) => void
 }
 
 interface IFormFieldError {
@@ -54,7 +55,7 @@ interface IFormManager {
     getData: Supplier<any>,
     getPropsData: Supplier<any>,
     isValid: OPredicate,
-    setFieldGroupValid: BiConsumer<string,boolean>
+    setFieldGroupValid: BiConsumer<string, boolean>
     getFieldGroupManager: IFunction<string, IFieldGroupManager>
     registerFieldGroupManager: IConsumer<IFieldGroupManager>
     setData: IConsumer<any>
@@ -94,7 +95,7 @@ interface IFormListener {
     postProcessQueryData?: (data: FormData) => FormData
 }
 
-export type {
+export type { numbers,
     FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions,
     IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IFormListener
 }

@@ -1,7 +1,8 @@
 
 import { InputType } from "zlib";
-import { FieldOptions } from "../../../../src/palmyra";
+import { FieldOptions, IServerLookupOptions } from "../../../../src/palmyra";
 import { DefaultQueryParams, IEndPoint, IEndPointOptions, LookupStore } from "@palmyralabs/palmyra-wire";
+import { AutocompleteOwnerState, AutocompleteRenderOptionState } from "@mui/material";
 
 interface ILayoutOptions {
     customContainerClass?: string,
@@ -30,26 +31,16 @@ interface IDatePickerDefinition extends MuiInputFieldOptions, ILayoutOptions {
     variant?: 'standard' | 'outlined' | 'filled'
 }
 
-interface IFormFieldServerLookup {
-    idAttribute?: string,
-    displayAttribute?: string
-}
-
-interface IServerLookupDefinition extends MuiInputFieldOptions, ILayoutOptions {
+interface IServerLookupDefinition extends MuiInputFieldOptions, ILayoutOptions, IServerLookupOptions {
     displayAttribute?: string,
     defaultValue?: InputType | any,
-    idAttribute?: string,
     multiple?: boolean,
-    renderOption?: Function,
-    lookupOptions: IFormFieldServerLookup,
-    store?: LookupStore<any>,
-    storeOptions: {
-        endPoint: IEndPoint,
-        endPointOptions?: IEndPointOptions
-    }
-    fetchDefault?:number,
-    pageSize?: number | number[],
-    defaultParams?: DefaultQueryParams,
+    renderOption?: (
+        props: React.HTMLAttributes<HTMLLIElement> & { key: any },
+        option: any,
+        state: AutocompleteRenderOptionState,
+        ownerState: any,
+    ) => React.ReactNode    
 }
 
 interface IEventListeners {

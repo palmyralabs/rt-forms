@@ -1,5 +1,7 @@
+import { DefaultQueryParams, IEndPoint, IEndPointOptions } from "@palmyralabs/palmyra-wire";
 import { PredicateResponse, validationRule } from "@palmyralabs/ts-predicates"
 import { IPredicate } from "@palmyralabs/ts-utils"
+import { numbers } from "./types";
 
 type InputType = string | number | Date;
 
@@ -54,4 +56,22 @@ interface FieldOptions extends IMutateOptions, IFieldValidation {
 }
 
 
-export type { FieldOptions, IMutateOptions, IFieldValidation }
+interface IServerLookupOptions {
+    lookupOptions?: {
+        idAttribute: string,
+        labelAttribute: string
+    },
+    storeOptions?: {
+        endPoint: IEndPoint,
+        queryAttribute?: string,
+        labelAttribute?: string,
+        idAttribute?: string,
+        endPointOptions?: IEndPointOptions
+    },
+    fetchDefault?: number,
+    pageSize?: numbers,
+    defaultParams?: DefaultQueryParams,
+}
+
+
+export type { FieldOptions, IMutateOptions, IFieldValidation, IServerLookupOptions }

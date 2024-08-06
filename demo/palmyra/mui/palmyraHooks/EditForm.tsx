@@ -35,11 +35,11 @@ const EditForm = () => {
             <MuiTextField attribute="text" title="Text Field" required readOnly />
             <MuiSelect attribute="select" options={{ true: "True", false: "False" }} title="Select Field" readOnly />
             <MuiDatePicker
-            
-            attribute="date" title="Date Field" serverPattern="YYYY/DD/MM" displayPattern="DD-MMM-YYYY" required />
-            <MuiServerLookup attribute="serverLookup" store={storeFactory.getLookupStore({}, '/lookupData.json', 'id')}
-                lookupOptions={{ idAttribute: 'id', displayAttribute: "name" }}
-                storeOptions={{ endPoint: '/lookupData.json' }} required />
+
+                attribute="date" title="Date Field" serverPattern="YYYY/DD/MM" displayPattern="DD-MMM-YYYY" required />
+            <MuiServerLookup attribute="serverLookup"
+                lookupOptions={{ idAttribute: 'id', labelAttribute: "name" }}
+                storeOptions={{ endPoint: '/lookupData.json', idAttribute: 'sid', labelAttribute: "location" }} required />
         </PalmyraForm>
     </>
 }

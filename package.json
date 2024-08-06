@@ -48,12 +48,12 @@
   ],
   "dependencies": {
     "@mui/x-date-pickers": "^7.12.0",
+    "@palmyralabs/ts-utils": "^0.0.1",
     "vitest": "^2.0.5"
   },
   "peerDependencies": {
     "@palmyralabs/palmyra-wire": "^1.0.1",
-    "@palmyralabs/ts-predicates": "github:palmyralabs/ts-predicates",
-    "@palmyralabs/ts-utils": "github:palmyralabs/ts-utils"
+    "@palmyralabs/ts-predicates": "github:palmyralabs/ts-predicates"
   },
   "overrides": {
     "glob": "^11.0.0"

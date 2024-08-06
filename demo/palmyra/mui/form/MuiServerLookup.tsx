@@ -1,104 +1,123 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject, useState, useEffect } from 'react';
-import { Autocomplete, AutocompleteProps, CircularProgress, FormControl, FormHelperText, TextField } from '@mui/material';
-import FieldDecorator from './FieldDecorator';
-import { IFormFieldError, IMutateOptions, ISelectField, ITextField, useFieldManager } from '../../../../src/palmyra';
-import { generateOptions, getFieldLabel } from './util';
-import { IEventListeners, IServerLookupDefinition } from './types';
-import { LookupStore } from '@palmyralabs/palmyra-wire';
-import { useServerQuery, IServerQueryInput } from '../../../../src/palmyra/wire/ServerQueryManager';
-import { delayGenerator, getValueByKey, hasDot } from '@palmyralabs/ts-utils';
+import { forwardRef, MutableRefObject, useEffect, useRef, useState } from "react";
+import { IServerLookupDefinition } from "./types";
+import { IFormFieldError, IServerLookupField, useServerFieldManager } from "../../../../src/palmyra";
+import FieldDecorator from "./FieldDecorator";
+import { getFieldLabel } from "./util";
+import { Autocomplete, CircularProgress, FormControl, FormHelperText, TextField } from "@mui/material";
+import { delayGenerator, getValueAccessor, getValueSetter, setValueByKey } from "@palmyralabs/ts-utils";
 
 
 const delay100 = delayGenerator(100);
-const delay = delayGenerator(300);
 
-const MuiServerLookup = forwardRef(function MuiServerLookup(props: IServerLookupDefinition, ref: MutableRefObject<ISelectField>) {
-    const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions, setMutateOptions } = fieldManager;
-    const currentRef = ref ? ref : useRef<ITextField>(null);
-    const error: IFormFieldError = getError();
-
-    const inputRef: any = useRef(null);
-    // const variant = props.variant || 'standard';
-    const [lookupOptions, setLookupOptions] = useState<Array<any>>([]);
-
+const MuiServerLookup = forwardRef(function MuiServerLookup(props: IServerLookupDefinition,
+    ref: MutableRefObject<IServerLookupField>) {
     const total = useRef<number>(0);
+    const [options, setOptions] = useState<Array<any>>([]);
     const [searchText, setSearchText] = useState('');
     const [open, setOpen] = useState(false);
-    const data = fieldManager.getValue();
+    const { attribute } = props;
 
-    const loading = open && lookupOptions.length < (data ? 2 : 1);
-    const store: LookupStore<any> = props.store //|| fieldManager.store;
-    // const eventListeners: IEventListeners = fieldManager.eventListeners;
-    const serverLookupOptions = props.lookupOptions || {};
-    const idKey = serverLookupOptions.idAttribute || 'id';
-    const labelKey = serverLookupOptions.displayAttribute || 'name';
-    const searchKey = labelKey;
-    const defaultParams = props.defaultParams
+    const valueAccessor = getValueAccessor(attribute);
+    const valueSetter = getValueSetter(attribute);
 
-    const serverQueryOptions: IServerQueryInput = {
-        store, endPointOptions: props.storeOptions.endPointOptions, fetchAll: true,
-        pageSize: props.pageSize || 15, quickSearch: searchKey, initialFetch: false, defaultParams
-    };
+    const fieldWriter = (v: any, data: any) => {
+        if (v) {
+            const key = getOptionKey(v);
+            const value = getOptionValue(v);
 
-    const serverQuery = useServerQuery(serverQueryOptions);
+            if (props.displayAttribute) {
+                setValueByKey(props.displayAttribute, data, value);
+                valueSetter(data, key)
+            } else if (props.lookupOptions) {
+                const k = props.lookupOptions.idAttribute;
+                const v = props.lookupOptions.labelAttribute;
+                const r = { [k]: key, [v]: value };
+                valueSetter(data, r);
+            } else {
+                valueSetter(data, key)
+            }
+        } else {
+            valueSetter(data, undefined);
+            if (props.displayAttribute) {
+                setValueByKey(props.displayAttribute, data, undefined);
+            }
+        }
+    }
 
-    const { setQueryFilter, setEndPointOptions, setQuickSearch,
-        totalRecords, refreshData, getQueryRequest } = serverQuery;
+    const fieldAccessor = (formData: any) => {
+        const rawData = valueAccessor(formData);
+        const tgtKey = props.storeOptions?.idAttribute || props.lookupOptions?.idAttribute || "id";
+        const valueKey = props.storeOptions.labelAttribute || props.lookupOptions.labelAttribute || "name";
+
+        if (props.lookupOptions && typeof rawData == 'object') {
+            const k = props.lookupOptions.idAttribute;
+            const v = props.lookupOptions.labelAttribute;
+            if (rawData) {
+                const key: any = rawData[k];
+                const value: any = rawData[v];
+                const result = {};
+                setValueByKey(tgtKey, result, key);
+                setValueByKey(valueKey, result, value);
+                return result;
+            }
+            return {};
+        } else {
+            if (undefined != rawData) {
+                const result = {};
+                setValueByKey(tgtKey, result, rawData);
+                return result;
+            }
+            return {};
+        }
+        return rawData;
+    }
+
+
+    const inputRef: any = useRef(null);
+    const loading = open && options.length < 1;
+
+    const fieldManager = useServerFieldManager(props.attribute, props, { fieldAccessor, fieldWriter });
+    const { getError, getValue, setValue,
+        serverQuery, hasValueInOptions, getOptionValue, getOptionKey
+    } = fieldManager;
+
+    const data = getValue();
+
+    const currentRef = ref ? ref : useRef<IServerLookupField>(null);
+    const error: IFormFieldError = getError();
+
+
+    const { setQuickSearch, totalRecords, refreshData } = serverQuery;
 
     const serverResult = serverQuery.data;
 
-    const idAccessor = hasDot(idKey) ? (d: any) => (getValueByKey(idKey, d)) : (d: any) => (d?.[idKey]);
-    const labelAccessor = hasDot(labelKey) ? (d: any) => (getValueByKey(labelKey, d)) : (d: any) => (d?.[labelKey]);
+
 
     useEffect(() => {
-        var option: any = data != '' ? data : undefined;
-        if (option) {
-            setLookupOptions([option]);
+        if (data && typeof data == 'object') {
+            setOptions([data]);
         }
     }, [data]);
 
     useEffect(() => {
         const result = serverResult ? [...serverResult] : [];
-        const option = data != '' ? data : undefined;
-        const id = idAccessor(option);
-        const idV = labelAccessor(option);
+        // const option = undefined;
 
-        if (result && id && idV && !getMatch(result, id)) {
-            result.unshift(option);
-        }
-        setLookupOptions(result);
+
+        // if (result && id && idV && !getMatch(result, id)) {
+        //     result.unshift(option);
+        // }
+
+        setOptions(result);
 
         if (total.current < totalRecords)
             total.current = totalRecords;
 
     }, [serverResult, totalRecords])
 
-    useEffect(() => {
-        delay(refreshOptions);
-    }, [searchText]);
-
-    useEffect(() => {
-        delay100(refreshOptions);
-    }, [open]);
-
-    useEffect(() => {
-        if (undefined != props.fetchDefault && null != props.fetchDefault) {
-            const index = props.fetchDefault;
-            const params = getQueryRequest();
-            store.query(params).then((d) => {
-                const result = d.result;
-                const idx = result.length > index ? index : 0;
-                fieldManager.setValue(result[idx], false, false);
-            }).catch((e) => {
-                console.error(e);
-            });
-        }
-    }, [])
-
     function refreshOptions() {
         if (open) {
-            if (searchText.length > 0 && searchText != labelAccessor(data)) {
+            if (searchText.length > 0) { //&& searchText != labelAccessor(getValue())) {
                 setQuickSearch('*' + searchText + '*');
             } else {
                 if (serverResult) {
@@ -111,158 +130,62 @@ const MuiServerLookup = forwardRef(function MuiServerLookup(props: IServerLookup
         }
     }
 
-    // var callbacks = {
-    //     onBlur: eventListeners.onBlur,
-    //     onFocus: eventListeners.onFocus,
-    //     onChange: (d: any, value: any) => {
-    //         updateFieldValue(value);
-    //     },
-    //     onInputChange: (d: any, inputValue: any) => {
-    //         setSearchText(inputValue);
-    //         return true;
-    //     }
-    // }
+    useEffect(() => {
+        if (open)
+            delay100(refreshOptions);
+    }, [open]);
 
-    // const updateFieldValue = (value: any) => {
-    //     eventListeners.onValueChange(value);
-    // }
-
-    const getLabel = (option: any) => {
-        if (typeof option == 'object')
-            return labelAccessor(option) + '';
-        else {
-            console.log(option);
+    const callbacks = {
+        onChange: (d: any, value: any) => {
+            updateFieldValue(value);
+        },
+        onInputChange: (d: any, inputValue: any) => {
+            setSearchText(inputValue);
+            return true;
         }
-        return '';
     }
 
-    function getMatch(result: any, key: any): any {
-        return result.find((r: any) => {
-            if (idAccessor(r) == key) {
-                return r;
-            }
-        })
+    const updateFieldValue = (value: any) => {
+        setValue(value);
     }
 
-    useImperativeHandle(currentRef, () => {
-        return {
-            focus() {
-                if (inputRef)
-                    inputRef.current.focus();
-            },
-            isValid() {
-                return !error.status;
-            },
-            getValue,
-            clear() {
-                setValue('');
-            },
-            setValue(d: any, doValidate: boolean = false) {
-                setValue(d);
-            },
-            setDisabled(disabled: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, disabled }));
-            },
-            setVisible(visible: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, visible }));
-            },
-            setRequired(required: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, required }));
-            },
-            setReadOnly(readonly: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, readonly }));
-            },
-            setAttribute(options: IMutateOptions) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, ...options }));
-            },
-            setFilter(filter: any) {
-                setQueryFilter(filter)
-            },
-            resetFilter() {
-                setQueryFilter({});
-            },
-            setEndPointOptions(options: any) {
-                setEndPointOptions(options);
-            },
-            getCurrentData: () => {
-                return data;
-            },
-            refresh: () => {
-                refreshData();
-            },
-            addFilter(key: string, v: any) {
-                setQueryFilter((f) => {
-                    f[key] = v;
-                    return { ...f }
-                })
-            },
-            setDefaultFilter(d: any) {
-
-            },
-            setSortOptions(d) {
-
-            },
-            setOptions(d: any) {
-            },
-            getOptions() {
-            }
-        };
-    }, [fieldManager]);
-
-    var inputProps = generateOptions(props, mutateOptions, getValue());
-
-    if (props.readOnly) {
-        inputProps.inputProps = { readOnly: true };
-    }
-
-    const hasValues = (option: any, value: any) => {
-        if (option instanceof Array) {
-            return option.some((o) => idAccessor(o) == idAccessor(value));
-        }
-        else return idAccessor(option) == idAccessor(value)
-    }
-
-
-    return (<>{!mutateOptions.visible &&
-        <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
-            customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
-            <FormControl fullWidth error={error.status}>
-                <Autocomplete
-                    includeInputInList
-                    autoHighlight
-                    multiple={props.multiple}
-                    readOnly={props.readOnly}
-                    renderOption={props.renderOption}
-                    isOptionEqualToValue={hasValues}
-                    filterOptions={(x) => x}
-                    renderInput={(params) => <TextField {...params} inputRef={(i) => { inputRef.current = i; }}
-                        // variant={props.variant || 'standard'}label={props.label}
-                        // autoFocus={props.autoFocus} 
-                        required={props.required}
-                        InputProps={{
-                            ...params.InputProps,
-                            endAdornment: (
-                                <>
-                                    {loading ? <CircularProgress color="inherit" size={18} /> : null}
-                                    {params.InputProps.endAdornment}
-                                </>
-                            ),
-                        }}
-                    />}
-                    getOptionLabel={getLabel}
-                    {...inputProps}
-                    options={lookupOptions}
-                    open={open}
-                    onClose={() => { setOpen(false) }}
-                    onOpen={(e) => { setOpen(true); }}
-                // {...callbacks}
-                >
-                </Autocomplete>
-                <FormHelperText className='form-error-text'>{error.message}</FormHelperText>
-            </FormControl>
-        </FieldDecorator>}
-    </>
-    );
+    return <><FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
+        customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
+        <FormControl fullWidth error={error.status}>
+            <Autocomplete
+                includeInputInList
+                autoHighlight
+                multiple={props.multiple}
+                readOnly={props.readOnly}
+                renderOption={props.renderOption}
+                isOptionEqualToValue={hasValueInOptions}
+                filterOptions={(x) => x}
+                renderInput={(params) => <TextField {...params} inputRef={(i) => { inputRef.current = i; }}
+                    variant={'standard'} label={props.title}
+                    // autoFocus={props.autoFocus}
+                    required={props.required}
+                    InputProps={{
+                        ...params.InputProps,
+                        endAdornment: (
+                            <>
+                                {loading ? <CircularProgress color="inherit" size={18} /> : null}
+                                {params.InputProps.endAdornment}
+                            </>
+                        ),
+                    }}
+                />}
+                getOptionLabel={(o) => getOptionValue(o) + ''}
+                {...props}
+                value={data}
+                options={options}
+                open={open}
+                onClose={() => { setOpen(false) }}
+                onOpen={(e) => { setOpen(true); }}
+                {...callbacks}>
+            </Autocomplete>
+            <FormHelperText className='form-error-text'>{error.message}</FormHelperText>
+        </FormControl>
+    </FieldDecorator></>
 });
 
 export default MuiServerLookup;
