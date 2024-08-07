@@ -14,7 +14,6 @@ interface ICustomOptions {
     preProcessSearchText?: (d: string) => string
 }
 
-
 const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLookupOptions,
     customOptions?: ICustomOptions
 ) => {
@@ -56,7 +55,12 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
 
     const fieldManager = useFieldManager(key, o, customizer);
     const store: LookupStore<any> = getLookupStore(o);
-    const defaultParams = o.defaultParams
+    const defaultParams = o.defaultParams;
+
+    const getFieldProps = () => {
+        const { lookupOptions, storeOptions, displayAttribute, ...result } = fieldManager.getFieldProps();
+        return result;
+    }
 
     const serverQueryOptions: IServerQueryInput = {
         store, endPointOptions: o.storeOptions.endPointOptions, fetchAll: true,
@@ -91,7 +95,7 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
 
     }, [data, totalRecords])
 
-    const value  = fieldManager.getValue();
+    const value = fieldManager.getValue();
 
     useEffect(() => {
         if (value && typeof value == 'object') {
@@ -119,7 +123,7 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
     return {
         ...fieldManager, searchText, setSearchText, refreshOptions, options,
         hasValueInOptions, getOptionValue, getOptionByKey, getOptionKey,
-        store, searchKey: queryAttribute, defaultParams, serverQuery
+        store, searchKey: queryAttribute, defaultParams, serverQuery, getFieldProps
     }
 }
 

@@ -63,7 +63,10 @@ const useFieldManager = (key: string, options: FieldOptions, customizer?: IField
 
 
     const getFieldProps: Supplier<FieldOptions> = () => {
-        return { ...options, ...mutateOptions }
+        const { invalidMessage, missingMessage,
+            validator, regExp, validRule, validFn,
+            ...result } = options;
+        return { ...result, ...mutateOptions }
     }
 
     const isValid = () => {

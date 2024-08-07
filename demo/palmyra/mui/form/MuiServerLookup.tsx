@@ -18,7 +18,7 @@ const MuiServerLookup = forwardRef(function MuiServerLookup(props: IServerLookup
 
     const fieldManager = useServerLookupFieldManager(props.attribute, props);
     const { getError, getValue, setValue, hasValueInOptions, getOptionValue,
-        setSearchText, refreshOptions, options } = fieldManager;
+        setSearchText, refreshOptions, options, getFieldProps } = fieldManager;
 
     const loading = open && options.length < 1;
 
@@ -70,7 +70,7 @@ const MuiServerLookup = forwardRef(function MuiServerLookup(props: IServerLookup
                     }}
                 />}
                 getOptionLabel={(o) => getOptionValue(o) + ''}
-                {...props}
+                {...getFieldProps()}
                 value={value}
                 options={options}
                 open={open}
