@@ -57,6 +57,7 @@ interface FieldOptions extends IMutateOptions, IFieldValidation {
 
 
 interface IServerLookupOptions {
+    displayAttribute?: string
     lookupOptions?: {
         idAttribute: string,
         labelAttribute: string

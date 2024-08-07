@@ -1,7 +1,7 @@
 import { forwardRef, MutableRefObject,  useImperativeHandle, useRef } from "react";
 import { FieldGroupManagerContext} from "./formContext";
 import { IFieldManager, IFieldGroupManager, IFieldGroup} from "./types";
-import { IFieldGroupOptions, useFieldGroupManager } from "./useFieldGroupManager";
+import { IFieldGroupOptions, useFieldGroupManager } from "./useHelpers/useFieldGroupManager";
 
 interface IFieldGroupCOptions extends IFieldGroupOptions {
     children?: any

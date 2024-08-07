@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef } from "react";
-import { IFieldGroupManager, IFieldGroupOptions, IFieldManager, IFormManager } from "./types";
+import { IFieldGroupManager, IFieldGroupOptions, IFieldManager, IFormManager } from "../types";
 import { BiConsumer, getValueByKey, IFunction } from "@palmyralabs/ts-utils";
-import { FormManagerContext } from "./formContext";
-import { FieldOptions } from "./typesFieldOptions";
-import { useValidityTracker } from "./useValidityTracker";
+import { FormManagerContext } from "../formContext";
+import { FieldOptions } from "../typesFieldOptions";
+import { useValidityTracker } from "../useValidityTracker";
 
 
 const useFieldGroupManager = (p: IFieldGroupOptions): IFieldGroupManager => {

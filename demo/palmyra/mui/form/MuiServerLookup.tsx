@@ -1,134 +1,31 @@
 import { forwardRef, MutableRefObject, useEffect, useRef, useState } from "react";
 import { IServerLookupDefinition } from "./types";
-import { IFormFieldError, IServerLookupField, useServerFieldManager } from "../../../../src/palmyra";
+import { IFormFieldError, IServerLookupField, useServerLookupFieldManager } from "../../../../src/palmyra";
 import FieldDecorator from "./FieldDecorator";
 import { getFieldLabel } from "./util";
 import { Autocomplete, CircularProgress, FormControl, FormHelperText, TextField } from "@mui/material";
-import { delayGenerator, getValueAccessor, getValueSetter, setValueByKey } from "@palmyralabs/ts-utils";
+import { delayGenerator } from "@palmyralabs/ts-utils";
 
 
 const delay100 = delayGenerator(100);
 
 const MuiServerLookup = forwardRef(function MuiServerLookup(props: IServerLookupDefinition,
     ref: MutableRefObject<IServerLookupField>) {
-    const total = useRef<number>(0);
-    const [options, setOptions] = useState<Array<any>>([]);
-    const [searchText, setSearchText] = useState('');
+
     const [open, setOpen] = useState(false);
-    const { attribute } = props;
-
-    const valueAccessor = getValueAccessor(attribute);
-    const valueSetter = getValueSetter(attribute);
-
-    const fieldWriter = (v: any, data: any) => {
-        if (v) {
-            const key = getOptionKey(v);
-            const value = getOptionValue(v);
-
-            if (props.displayAttribute) {
-                setValueByKey(props.displayAttribute, data, value);
-                valueSetter(data, key)
-            } else if (props.lookupOptions) {
-                const k = props.lookupOptions.idAttribute;
-                const v = props.lookupOptions.labelAttribute;
-                const r = { [k]: key, [v]: value };
-                valueSetter(data, r);
-            } else {
-                valueSetter(data, key)
-            }
-        } else {
-            valueSetter(data, undefined);
-            if (props.displayAttribute) {
-                setValueByKey(props.displayAttribute, data, undefined);
-            }
-        }
-    }
-
-    const fieldAccessor = (formData: any) => {
-        const rawData = valueAccessor(formData);
-        const tgtKey = props.storeOptions?.idAttribute || props.lookupOptions?.idAttribute || "id";
-        const valueKey = props.storeOptions.labelAttribute || props.lookupOptions.labelAttribute || "name";
-
-        if (props.lookupOptions && typeof rawData == 'object') {
-            const k = props.lookupOptions.idAttribute;
-            const v = props.lookupOptions.labelAttribute;
-            if (rawData) {
-                const key: any = rawData[k];
-                const value: any = rawData[v];
-                const result = {};
-                setValueByKey(tgtKey, result, key);
-                setValueByKey(valueKey, result, value);
-                return result;
-            }
-            return {};
-        } else {
-            if (undefined != rawData) {
-                const result = {};
-                setValueByKey(tgtKey, result, rawData);
-                return result;
-            }
-            return {};
-        }
-        return rawData;
-    }
-
 
     const inputRef: any = useRef(null);
+
+    const fieldManager = useServerLookupFieldManager(props.attribute, props);
+    const { getError, getValue, setValue, hasValueInOptions, getOptionValue,
+        setSearchText, refreshOptions, options } = fieldManager;
+
     const loading = open && options.length < 1;
 
-    const fieldManager = useServerFieldManager(props.attribute, props, { fieldAccessor, fieldWriter });
-    const { getError, getValue, setValue,
-        serverQuery, hasValueInOptions, getOptionValue, getOptionKey
-    } = fieldManager;
-
-    const data = getValue();
-
-    const currentRef = ref ? ref : useRef<IServerLookupField>(null);
+    const value = getValue();
     const error: IFormFieldError = getError();
 
-
-    const { setQuickSearch, totalRecords, refreshData } = serverQuery;
-
-    const serverResult = serverQuery.data;
-
-
-
-    useEffect(() => {
-        if (data && typeof data == 'object') {
-            setOptions([data]);
-        }
-    }, [data]);
-
-    useEffect(() => {
-        const result = serverResult ? [...serverResult] : [];
-        // const option = undefined;
-
-
-        // if (result && id && idV && !getMatch(result, id)) {
-        //     result.unshift(option);
-        // }
-
-        setOptions(result);
-
-        if (total.current < totalRecords)
-            total.current = totalRecords;
-
-    }, [serverResult, totalRecords])
-
-    function refreshOptions() {
-        if (open) {
-            if (searchText.length > 0) { //&& searchText != labelAccessor(getValue())) {
-                setQuickSearch('*' + searchText + '*');
-            } else {
-                if (serverResult) {
-                    setQuickSearch(null);
-                }
-                else {
-                    refreshData();
-                }
-            }
-        }
-    }
+    const currentRef = ref ? ref : useRef<IServerLookupField>(null);
 
     useEffect(() => {
         if (open)
@@ -137,16 +34,14 @@ const MuiServerLookup = forwardRef(function MuiServerLookup(props: IServerLookup
 
     const callbacks = {
         onChange: (d: any, value: any) => {
-            updateFieldValue(value);
+            setValue(value);
         },
         onInputChange: (d: any, inputValue: any) => {
-            setSearchText(inputValue);
+            if (open) {
+                delay100(setSearchText, inputValue);
+            }
             return true;
         }
-    }
-
-    const updateFieldValue = (value: any) => {
-        setValue(value);
     }
 
     return <><FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass} colspan={props.colspan}
@@ -176,7 +71,7 @@ const MuiServerLookup = forwardRef(function MuiServerLookup(props: IServerLookup
                 />}
                 getOptionLabel={(o) => getOptionValue(o) + ''}
                 {...props}
-                value={data}
+                value={value}
                 options={options}
                 open={open}
                 onClose={() => { setOpen(false) }}

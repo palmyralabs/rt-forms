@@ -1,12 +1,9 @@
 import { Dispatch, SetStateAction, useCallback, useContext, useState } from "react"
-import { IFieldCustomizer, IFieldGroupManager, IFieldManager, IFormFieldError } from "./types"
-import { FieldGroupManagerContext, StoreFactoryContext } from "./formContext";
-import { FieldOptions, IMutateOptions, IServerLookupOptions } from "./typesFieldOptions";
-import { generatePredicate, validate } from "./";
-import { BiConsumer, getValueAccessor, getValueByKey, hasDot, setValueByKey, Supplier } from "@palmyralabs/ts-utils";
-import { LookupStore } from "@palmyralabs/palmyra-wire";
-import { mergeDeep } from "../utils";
-import { IServerQueryInput, useServerQuery } from "../wire/ServerQueryManager";
+import { IFieldCustomizer, IFieldGroupManager, IFieldManager, IFormFieldError } from "../types"
+import { FieldGroupManagerContext } from "../formContext";
+import { FieldOptions, IMutateOptions } from "../typesFieldOptions";
+import { generatePredicate, validate } from "..";
+import { BiConsumer, getValueByKey, hasDot, setValueByKey, Supplier } from "@palmyralabs/ts-utils";
 
 interface FieldStatus {
     value: string,
@@ -37,6 +34,7 @@ const useFieldManager = (key: string, options: FieldOptions, customizer?: IField
         const d: any = (typeof v == 'function') ? v(value) : v;
         const error = validate(d, validator, options);
 
+        console.log(d, error);
         if (d == value && error.status == error.status && error.message == error.message) {
             return;
         }
@@ -103,75 +101,4 @@ function getWriter(attribute, customizer?: IFieldCustomizer): BiConsumer<any, an
     }
 }
 
-const useServerFieldManager = (key: string,
-    options: FieldOptions & IServerLookupOptions,
-    customizer?: IFieldCustomizer) => {
-    const queryAttribute = options.storeOptions.queryAttribute || options.storeOptions.labelAttribute || "name";
-    const fieldManager = useFieldManager(key, options, customizer);
-    const store: LookupStore<any> = getLookupStore(options);
-    const defaultParams = options.defaultParams
-
-    const serverQueryOptions: IServerQueryInput = {
-        store, endPointOptions: options.storeOptions.endPointOptions, fetchAll: true,
-        pageSize: options.pageSize || 15, quickSearch: queryAttribute, initialFetch: false,
-        defaultParams
-    };
-
-    const serverQuery = useServerQuery(serverQueryOptions);
-
-    const idKey = options.storeOptions.idAttribute || options.lookupOptions?.idAttribute || 'id';
-    const labelKey = options.storeOptions.labelAttribute || options.lookupOptions?.labelAttribute || 'name';
-
-    const idAccessor = getValueAccessor(idKey);
-    const labelAccessor = getValueAccessor(labelKey);
-
-    const hasValueInOptions = (options: any, value: any) => {
-        if (options instanceof Array) {
-            return options.some((o) => idAccessor(o) == idAccessor(value));
-        }
-        else return idAccessor(options) == idAccessor(value)
-    }
-
-    const getOptionKey = (option: any) => {
-        if (typeof option == 'object')
-            return idAccessor(option);
-        else {
-            console.log(option);
-        }
-        return '';
-    }
-
-    const getOptionValue = (option: any) => {
-        if (typeof option == 'object')
-            return labelAccessor(option);
-        else {
-            console.log(option);
-        }
-        return '';
-    }
-
-    function getOptionByKey(options: any, id: any): any {
-        return options.find((r: any) => {
-            if (idAccessor(r) == id) {
-                return r;
-            }
-        })
-    }
-
-    return {
-        ...fieldManager,
-        hasValueInOptions, getOptionValue, getOptionByKey,
-        getOptionKey,
-        store, searchKey: queryAttribute, defaultParams, serverQuery
-    }
-}
-
-function getLookupStore(o: IServerLookupOptions): LookupStore<any> {
-    const storeFactory = useContext(StoreFactoryContext);
-    const queryAttribute = o.storeOptions.queryAttribute || "name";
-    var options: any = {};
-    mergeDeep(options, o.storeOptions);
-    return storeFactory.getLookupStore(options, o.storeOptions.endPoint, queryAttribute);
-}
-
-export { useFieldManager, useServerFieldManager };
+export { useFieldManager };
