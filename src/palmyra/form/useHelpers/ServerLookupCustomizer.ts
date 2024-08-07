@@ -17,6 +17,11 @@ const getLookupValueKey = (o: FieldOptions & IServerLookupOptions) => {
     return o.lookupOptions?.labelAttribute || o.storeOptions?.labelAttribute || 'id';
 }
 
+
+/**
+ * convert the selected Option to value in formData
+ */
+
 const generateFieldWriter = (o: FieldOptions & IServerLookupOptions,
     { getOptionKey, getOptionValue }
 ) => {
@@ -48,7 +53,10 @@ const generateFieldWriter = (o: FieldOptions & IServerLookupOptions,
     }
 }
 
-
+/**
+ * reads value data from formData and convert to Option format
+ * 
+ */
 const generateFieldAccessor = (o: FieldOptions & IServerLookupOptions) => {
 
     const { attribute, displayAttribute, lookupOptions } = o;
