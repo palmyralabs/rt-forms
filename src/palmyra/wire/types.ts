@@ -22,6 +22,7 @@ interface IPageQueryable extends IQueryable {
     getPageNo: () => number,
     getQueryRequest: () => QueryRequest,
     getCurrentFilter: () => any,
+    getTotalPages: () => number,
     getTotalRecords: () => number
 }
 

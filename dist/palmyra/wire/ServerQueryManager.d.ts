@@ -1,14 +1,15 @@
-import { DefaultQueryParams, AbstractQueryStore, IEndPointOptions } from '@palmyralabs/palmyra-wire';
+import { DefaultQueryParams, AbstractQueryStore, IEndPointOptions, IEndPoint } from '@palmyralabs/palmyra-wire';
 import { IPageQueryable } from './types';
 
 interface IServerQueryInput {
-    store: AbstractQueryStore<any>;
+    store?: AbstractQueryStore<any>;
+    endPoint?: IEndPoint;
+    endPointOptions?: IEndPointOptions;
+    fetchAll?: boolean;
+    defaultParams?: DefaultQueryParams;
     onDataChange?: (newData: any[], oldData?: any[]) => void;
     pageSize?: number | number[];
     quickSearch?: string;
-    endPointOptions?: IEndPointOptions;
-    defaultParams?: DefaultQueryParams;
-    fetchAll?: boolean;
     filterTopic?: string;
     initialFetch?: boolean;
 }

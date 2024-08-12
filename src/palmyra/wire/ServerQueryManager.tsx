@@ -1,22 +1,39 @@
-import { useEffect, useRef, useState } from 'react';
-import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEndPointOptions } from '@palmyralabs/palmyra-wire';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEndPointOptions, IEndPoint, GridStore } from '@palmyralabs/palmyra-wire';
 import { useKeyValue } from '../utils';
 import { IPageQueryable } from './types';
+import { StoreFactoryContext } from '../form';
 
 interface IServerQueryInput {
-  store: AbstractQueryStore<any>,
+  store?: AbstractQueryStore<any>,
+  endPoint?: IEndPoint,
+  endPointOptions?: IEndPointOptions,
+  fetchAll?: boolean,
+  defaultParams?: DefaultQueryParams,
   onDataChange?: (newData: any[], oldData?: any[]) => void,
   pageSize?: number | number[],
   quickSearch?: string,
-  endPointOptions?: IEndPointOptions,
-  defaultParams?: DefaultQueryParams,
-  fetchAll?: boolean,
   filterTopic?: string,
   initialFetch?: boolean
 }
 
+function getGridStore(o: IServerQueryInput): GridStore<any> {
+  if (o.endPoint) {
+    const storeFactory = useContext(StoreFactoryContext);
+    if (!storeFactory) {
+      throw new Error("@palmyralabs/rt-forms - StoreFactoryContext is not available");
+    }
+    return storeFactory.getGridStore(o.endPointOptions, o.endPoint);
+  } else {
+    throw new Error("Either store or endPoint must be provided");
+  }
+}
+
 const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
-  const { store, quickSearch, } = props;
+  const { quickSearch } = props;
+
+  const store = props.store || getGridStore(props);
+
   const fetchAll = props.fetchAll != false;
   const [endPointVars, setEndPointOptions] = useState(props.endPointOptions);
   const [totalRecords, setTotalRecords] = useState(null);
@@ -200,7 +217,7 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
 
   return {
     addFilter, resetFilter, setFilter, setQuickSearch,
-    setSortColumns, setEndPointOptions,
+    setSortColumns, setEndPointOptions, getTotalPages,
     refresh, setPageSize, getPageNo, getQueryLimit, setQueryLimit,
     gotoPage, nextPage, prevPage,
     getQueryRequest, setSortOptions: setSortColumns,
