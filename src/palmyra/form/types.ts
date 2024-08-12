@@ -61,11 +61,19 @@ interface IFormManager {
     setData: IConsumer<any>
 }
 
-interface IFieldCustomizer {
+interface IFieldCustomizer extends IFieldConverter, IFieldAccessor {
+
+}
+
+interface IFieldConverter {
+    format?: (d: any) => any,
+    parse?: (s: any) => any
+}
+
+interface IFieldAccessor {
     fieldAccessor?: (formData: any) => any
     fieldWriter?: (fieldValue: any, formData: any) => void
 }
-
 
 interface IFieldGroupManager {
     // field specific functions
@@ -95,7 +103,8 @@ interface IFormListener {
     postProcessQueryData?: (data: FormData) => FormData
 }
 
-export type { numbers,
+export type {
+    numbers, IFieldConverter, IFieldAccessor,
     FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions,
     IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IFormListener
 }

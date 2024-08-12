@@ -10,8 +10,17 @@ interface FieldStatus {
     error?: IFormFieldError
 }
 
+/**
+ * Functionalities covered in Field Manager
+ * 
+ * Default Reader and Writer from formData
+ * Predicate building for data validation
+ * Maintain field Value and validation/error status
+ * 
+ */
 
 const useFieldManager = (key: string, options: FieldOptions, customizer?: IFieldCustomizer): IFieldManager => {
+
     const valueAccessor = useCallback(() => getAccessor(key, customizer), [key])();
     const valueWriter = useCallback(() => getWriter(key, customizer), [key])();
     const validator = generatePredicate(options);
@@ -34,7 +43,6 @@ const useFieldManager = (key: string, options: FieldOptions, customizer?: IField
         const d: any = (typeof v == 'function') ? v(value) : v;
         const error = validate(d, validator, options);
 
-        console.log(d, error);
         if (d == value && error.status == error.status && error.message == error.message) {
             return;
         }
@@ -82,25 +90,44 @@ const useFieldManager = (key: string, options: FieldOptions, customizer?: IField
 }
 
 function getAccessor(attribute, customizer?: IFieldCustomizer) {
-
-
-    return customizer?.fieldAccessor ? customizer.fieldAccessor :
+    const accessor = customizer?.fieldAccessor ? customizer.fieldAccessor :
         hasDot(attribute) ?
             (d: any) => {
                 const v = getValueByKey(attribute, d);
                 return v ? v : '';
-            } : (d: any) => { const v = d?.[attribute]; return v ? v : '' }
+            } : (d: any) => { const v = d?.[attribute]; return v ? v : '' };
+
+    if (customizer?.parse) {
+        const parse = customizer.parse;
+        return (d: any) => parse(accessor(d));
+    }
+
+    return accessor;
 }
 
 function getWriter(attribute, customizer?: IFieldCustomizer): BiConsumer<any, any> {
-    if (customizer?.fieldWriter) {
-        return (formData: any, v: any) => customizer.fieldWriter(v, formData);
-    }
+    const format = customizer?.format;
 
-    if (hasDot(attribute)) {
-        return (formData: any, v: any) => setValueByKey(attribute, formData, v);
-    } else {
-        return (formData: any, v: any) => setValueByKey(attribute, formData, v);
+    if (format) {
+        if (customizer?.fieldWriter) {
+            return (formData: any, v: any) => customizer.fieldWriter(format(v), formData);
+        }
+
+        if (hasDot(attribute)) {
+            return (formData: any, v: any) => setValueByKey(attribute, formData, format(v));
+        } else {
+            return (formData: any, v: any) => setValueByKey(attribute, formData, format(v));
+        }
+    }else{
+        if (customizer?.fieldWriter) {
+            return (formData: any, v: any) => customizer.fieldWriter(v, formData);
+        }
+
+        if (hasDot(attribute)) {
+            return (formData: any, v: any) => setValueByKey(attribute, formData, v);
+        } else {
+            return (formData: any, v: any) => setValueByKey(attribute, formData, v);
+        }
     }
 }
 

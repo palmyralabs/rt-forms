@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react"
-import { IFieldCustomizer } from "../types"
+import { IFieldConverter, IFieldCustomizer } from "../types"
 import { StoreFactoryContext } from "../formContext";
 import { FieldOptions, IServerLookupOptions } from "../typesFieldOptions";
 import { useFieldManager } from "./";
@@ -10,21 +10,12 @@ import { IServerQueryInput, useServerQuery } from "../../";
 import { generateFieldAccessor, generateFieldWriter, getOptionIdKey, getOptionValueKey } from "./ServerLookupCustomizer";
 
 
-interface ICustomOptions {
+interface ICustomOptions extends IFieldConverter {
     preProcessSearchText?: (d: string) => string
 }
 
-const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLookupOptions,
-    customOptions?: ICustomOptions
-) => {
-    const queryAttribute = o.storeOptions.queryAttribute || o.storeOptions.labelAttribute || "name";
-    const total = useRef<number>(0);
-
-    const [searchText, setSearchText] = useState<string>('');
-    const [options, setOptions] = useState<Array<any>>([]);
-
-    const preProcessSearchText = customOptions?.preProcessSearchText || ((d) => '*' + d + '*');
-
+const getCustomizer = (o: FieldOptions & IServerLookupOptions,
+    customOptions?: ICustomOptions) => {
     const optionIdAccessor = getValueAccessor(getOptionIdKey(o));
     const optionLabelAccessor = getValueAccessor(getOptionValueKey(o));
 
@@ -49,23 +40,53 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
     const fieldAccessor = generateFieldAccessor(o);
     const fieldWriter = generateFieldWriter(o, { getOptionKey, getOptionValue });
 
-    const customizer: IFieldCustomizer = {
+    var customizer: IFieldCustomizer = {
         fieldAccessor, fieldWriter
     }
 
+    if (customOptions) {
+        if (customOptions.format)
+            customizer.format = customOptions.format;
+        if (customOptions.parse)
+            customizer.parse = customOptions.parse;
+    }
+
+    return { customizer, optionIdAccessor, getOptionKey, getOptionValue }
+}
+
+
+/**
+ * Maintains searchText and  lookup-datalist(options) 
+ * onChange of SearchText invoke serverQuery to fetch data
+ * DataConversion between options and formData
+ * The lookup (options) will be maintained as returned from the serverQuery. 
+ * 
+ */
+const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLookupOptions,
+    customOptions?: ICustomOptions) => {
+
+    const total = useRef<number>(0);
+    const [searchText, setSearchText] = useState<string>('');
+    const [options, setOptions] = useState<Array<any>>([]);
+
+    const preProcessSearchText = customOptions?.preProcessSearchText || ((d) => '*' + d + '*');
+
+    const { customizer, optionIdAccessor, getOptionKey, getOptionValue } = getCustomizer(o, customOptions);
+
     const fieldManager = useFieldManager(key, o, customizer);
     const store: LookupStore<any> = getLookupStore(o);
-    const defaultParams = o.defaultParams;
 
     const getFieldProps = () => {
         const { lookupOptions, storeOptions, displayAttribute, ...result } = fieldManager.getFieldProps();
         return result;
     }
 
+    const queryAttribute = o.storeOptions.queryAttribute || o.storeOptions.labelAttribute || "name";
+
     const serverQueryOptions: IServerQueryInput = {
         store, endPointOptions: o.storeOptions.endPointOptions, fetchAll: true,
         pageSize: o.pageSize || 15, quickSearch: queryAttribute, initialFetch: false,
-        defaultParams
+        defaultParams: o.defaultParams
     };
 
     const serverQuery = useServerQuery(serverQueryOptions);
@@ -125,8 +146,7 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
 
     return {
         ...fieldManager, searchText, setSearchText, refreshOptions, options,
-        hasValueInOptions, getOptionValue, getOptionByKey, getOptionKey,
-        store, searchKey: queryAttribute, defaultParams, serverQuery, getFieldProps
+        hasValueInOptions, getOptionValue, getOptionByKey, getOptionKey, getFieldProps
     }
 }
 
