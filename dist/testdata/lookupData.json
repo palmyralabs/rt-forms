@@ -1,0 +1,14 @@
+{
+    "result": [{
+        "sid": 1,
+        "location": "Chennai"
+    },
+    {
+        "sid": 2,
+        "location": "Madurai"
+    },
+    {
+        "sid": 3,
+        "location": "Tenkasi"
+    }]
+}

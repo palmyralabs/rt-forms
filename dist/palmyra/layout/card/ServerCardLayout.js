@@ -1,49 +1,19 @@
-import { jsx as o } from "react/jsx-runtime";
-import { forwardRef as P, useRef as p, useImperativeHandle as C } from "react";
-import g from "./CardLayout.js";
-import { useServerQuery as L } from "../../wire/ServerQueryManager.js";
-const K = P(function(r, s) {
-  const { Child: d, childProps: l } = r, u = s || p(null), {
-    setQueryFilter: t,
-    refreshData: c,
-    setSortColumns: m,
-    setEndPointOptions: y,
-    setQueryLimit: f,
-    getQueryLimit: h,
-    data: a
-  } = L(r), v = r.listKeyProvider || ((e, i) => i);
-  return C(u, () => ({
-    setFilter: (e) => {
-      t(e);
-    },
-    refresh: () => {
-      c();
-    },
-    resetFilter() {
-      t({});
-    },
-    setEndPointOptions: y,
-    addFilter: (e, i) => {
-      t((n) => (n[e] = i, { ...n }));
-    },
-    setQueryLimit: f,
-    getQueryLimit: h,
-    getCurrentData: () => a,
-    nextPage() {
-    },
-    prevPage() {
-    },
-    setSortOptions(e) {
-      m(e);
-    }
-  }), [t]), /* @__PURE__ */ o("div", { children: /* @__PURE__ */ o("div", { className: "card-page-container", children: /* @__PURE__ */ o(
-    g,
+import { jsx as t } from "react/jsx-runtime";
+import { forwardRef as s, useRef as l, useImperativeHandle as u } from "react";
+import m from "./CardLayout.js";
+import { useServerQuery as v } from "../../wire/ServerQueryManager.js";
+const K = s(function(r, i) {
+  const { Child: o, childProps: d } = r, a = i || l(null), e = v(r), c = r.listKeyProvider || ((f, n) => n);
+  return u(a, () => ({
+    ...e
+  }), [e]), /* @__PURE__ */ t("div", { children: /* @__PURE__ */ t("div", { className: "card-page-container", children: /* @__PURE__ */ t(
+    m,
     {
-      Child: d,
-      childKeyProvider: v,
+      Child: o,
+      childKeyProvider: c,
       preProcess: r.preProcess,
-      dataList: a,
-      childProps: l,
+      dataList: e.getCurrentData(),
+      childProps: d,
       EmptyChild: r.EmptyChild
     }
   ) }) });

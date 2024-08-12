@@ -1,4 +1,5 @@
-import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEndPointOptions } from '@palmyralabs/palmyra-wire';
+import { DefaultQueryParams, AbstractQueryStore, IEndPointOptions } from '@palmyralabs/palmyra-wire';
+import { IPageQueryable } from './types';
 
 interface IServerQueryInput {
     store: AbstractQueryStore<any>;
@@ -11,44 +12,6 @@ interface IServerQueryInput {
     filterTopic?: string;
     initialFetch?: boolean;
 }
-declare const useServerQuery: (props: IServerQueryInput) => {
-    setQueryFilter: (filter: any) => void;
-    setQuickSearch: (val: any) => void;
-    setSortColumns: (sortOrder: any) => void;
-    setEndPointOptions: import('react').Dispatch<import('react').SetStateAction<IEndPointOptions>>;
-    refreshData: () => void;
-    gotoPage: (pageNo: number) => void;
-    setPageSize: (pageSize: number) => void;
-    getPageNo: () => number;
-    getQueryLimit: () => IPagination;
-    setQueryLimit: import('react').Dispatch<import('react').SetStateAction<IPagination>>;
-    getQueryRequest: () => QueryRequest;
-    filter: any;
-    queryLimit: IPagination;
-    data: any;
-    totalRecords: any;
-    pageSizeOptions: number[];
-};
-declare const usePageableServerQuery: (props: IServerQueryInput) => {
-    nextPage: () => boolean;
-    prevPage: () => boolean;
-    getTotalPages: () => number;
-    setQueryFilter: (filter: any) => void;
-    setQuickSearch: (val: any) => void;
-    setSortColumns: (sortOrder: any) => void;
-    setEndPointOptions: import('react').Dispatch<import('react').SetStateAction<IEndPointOptions>>;
-    refreshData: () => void;
-    gotoPage: (pageNo: number) => void;
-    setPageSize: (pageSize: number) => void;
-    getPageNo: () => number;
-    getQueryLimit: () => IPagination;
-    setQueryLimit: import('react').Dispatch<import('react').SetStateAction<IPagination>>;
-    getQueryRequest: () => QueryRequest;
-    filter: any;
-    queryLimit: IPagination;
-    data: any;
-    totalRecords: any;
-    pageSizeOptions: number[];
-};
-export { useServerQuery, usePageableServerQuery, };
+declare const useServerQuery: (props: IServerQueryInput) => IPageQueryable;
+export { useServerQuery };
 export type { IServerQueryInput };

@@ -1,88 +1,91 @@
-import { useState as i, useRef as V, useEffect as _ } from "react";
-import { useKeyValue as w } from "../utils/pubsub/PubSubHelper.js";
-const G = (r) => {
-  var F, N;
-  const { store: s, quickSearch: l } = r, u = r.fetchAll != !1, [f, g] = i(r.endPointOptions), [Q, n] = i(null), d = ((F = r.defaultParams) == null ? void 0 : F.filter) || {}, T = ((N = r.defaultParams) == null ? void 0 : N.sort) || {}, [m, y] = r.filterTopic ? w(r.filterTopic, d) : i(d), [h, b] = i({}), v = V(r.initialFetch == !1), a = r.pageSize ? r.pageSize : 15;
-  var z = a instanceof Array ? a : [a], A = a instanceof Array ? a[0] : a;
-  const [c, P] = i({ limit: A, offset: 0, total: !0 }), [C, E] = i(null), L = () => Math.round(c.offset / c.limit), j = () => c, S = (e) => {
-    P((t) => ({ limit: t.limit, total: t.total, offset: e * t.limit }));
-  }, q = (e) => {
-    const t = e > 10 || e == -1 ? e : 15;
-    P((o) => {
-      const x = Math.floor(o.offset / t) * t;
-      return { limit: t, total: o.total, offset: x };
+import { useState as a, useRef as H, useEffect as I } from "react";
+import { useKeyValue as J } from "../utils/pubsub/PubSubHelper.js";
+const Y = (o) => {
+  var T, C;
+  const { store: y, quickSearch: N } = o, Q = o.fetchAll != !1, [P, E] = a(o.endPointOptions), [S, f] = a(null), g = ((T = o.defaultParams) == null ? void 0 : T.filter) || {}, b = ((C = o.defaultParams) == null ? void 0 : C.sort) || {}, [i, c] = o.filterTopic ? J(o.filterTopic, g) : a(g), [l, j] = a({}), O = H(o.initialFetch == !1), m = o.pageSize ? o.pageSize : 15;
+  var z = m instanceof Array ? m[0] : m;
+  const [s, d] = a({ limit: z, offset: 0, total: !0 }), [A, L] = a(null), u = () => Math.round(s.offset / s.limit), M = () => s, n = (t) => {
+    d((e) => ({ limit: e.limit, total: e.total, offset: t * e.limit }));
+  }, _ = (t) => {
+    const e = t > 10 || t == -1 ? t : 15;
+    d((r) => {
+      const B = Math.floor(r.offset / e) * e;
+      return { limit: e, total: r.total, offset: B };
     });
-  }, M = () => m ? Object.keys(m).length == 0 : !1, O = (e) => {
-    E((t) => (setTimeout(() => {
-      r.onDataChange && r.onDataChange(e, t);
-    }, 300), e));
+  }, x = () => i ? Object.keys(i).length == 0 : !1, h = (t) => {
+    L((e) => (setTimeout(() => {
+      o.onDataChange && o.onDataChange(t, e);
+    }, 300), t));
   };
-  _(() => {
-    if (v.current) {
-      v.current = !1;
+  I(() => {
+    if (O.current) {
+      O.current = !1;
       return;
     }
-    (u || !M()) && R();
-  }, [c, h, f]);
-  const k = () => ({
-    sortOrder: h && Object.keys(h).length > 0 ? h : T,
+    (Q || !x()) && R();
+  }, [s, l, P]);
+  const F = () => ({
+    sortOrder: l && Object.keys(l).length > 0 ? l : b,
     total: !0,
-    endPointVars: f,
-    ...c,
-    filter: { ...m, ...d }
+    endPointVars: P,
+    ...s,
+    filter: { ...i, ...g }
   }), R = () => {
-    const e = k();
-    if (s)
+    const t = F();
+    if (y)
       try {
-        s.query(e).then((t) => {
-          O(t.result), n(t.total);
-        }).catch((t) => {
-          var o = t.response ? t.response : t;
-          console.error("error while fetching", o), p();
+        y.query(t).then((e) => {
+          h(e.result), f(e.total);
+        }).catch((e) => {
+          var r = e.response ? e.response : e;
+          console.error("error while fetching", r), V();
         });
-      } catch (t) {
-        console.error(t), D();
+      } catch (e) {
+        console.error(e), k();
       }
     else
-      console.error("Store is not provided for the Grid"), D();
-  }, D = () => {
-    O([]), n(0);
-  }, p = () => {
-    O(void 0), n(null);
-  };
+      console.error("Store is not provided for the Grid"), k();
+  }, k = () => {
+    h([]), f(0);
+  }, V = () => {
+    h(void 0), f(null);
+  }, p = (t) => {
+    const e = N;
+    c(t ? (r) => (r[e] = t, { ...r }) : (r) => (delete r[e], { ...r })), n(0);
+  }, v = (t) => {
+    typeof t == "function" || t && Object.keys(t).length > 0 ? c(t) : c({}), n(0);
+  }, q = (t, e) => {
+    c((r) => (r[t] = e, { ...r })), n(0);
+  }, w = () => {
+    v({});
+  }, D = (t) => {
+    j(t);
+  }, G = () => u() < K() ? (n(u() + 1), !0) : !1, K = () => Math.ceil(S / (s.limit || 25));
   return {
-    setQueryFilter: (e) => {
-      typeof e == "function" || e && Object.keys(e).length > 0 ? y(e) : y({}), S(0);
+    addFilter: q,
+    resetFilter: w,
+    setFilter: v,
+    setQuickSearch: p,
+    setSortColumns: D,
+    setEndPointOptions: E,
+    refresh: R,
+    setPageSize: _,
+    getPageNo: u,
+    getQueryLimit: M,
+    setQueryLimit: d,
+    gotoPage: n,
+    nextPage: G,
+    prevPage: () => {
+      const t = u();
+      return t > 0 ? (n(t - 1), !0) : !1;
     },
-    setQuickSearch: (e) => {
-      const t = l;
-      y(e ? (o) => (o[t] = e, { ...o }) : (o) => (delete o[t], { ...o })), S(0);
-    },
-    setSortColumns: (e) => {
-      b(e);
-    },
-    setEndPointOptions: g,
-    refreshData: R,
-    gotoPage: S,
-    setPageSize: q,
-    getPageNo: L,
-    getQueryLimit: j,
-    setQueryLimit: P,
-    getQueryRequest: k,
-    filter: m,
-    queryLimit: c,
-    data: C,
-    totalRecords: Q,
-    pageSizeOptions: z
+    getQueryRequest: F,
+    setSortOptions: D,
+    getCurrentFilter: () => i,
+    getTotalRecords: () => S,
+    getCurrentData: () => A
   };
-}, U = (r) => {
-  const s = G(r), { getPageNo: l, gotoPage: u } = s, f = () => l() < g() ? (u(l() + 1), !0) : !1, g = () => Math.ceil(s.totalRecords / s.queryLimit.limit);
-  return { ...s, nextPage: f, prevPage: () => {
-    const n = l();
-    return n > 0 ? (u(n - 1), !0) : !1;
-  }, getTotalPages: g };
 };
 export {
-  U as usePageableServerQuery,
-  G as useServerQuery
+  Y as useServerQuery
 };

@@ -1,14 +1,13 @@
-import { jsxs as m, Fragment as B, jsx as O } from "react/jsx-runtime";
-import { useCallback as A, useState as C, useContext as D, forwardRef as G, useRef as b, useImperativeHandle as T } from "react";
+import { jsxs as B, Fragment as D, jsx as O } from "react/jsx-runtime";
+import { useCallback as A, useState as C, useContext as G, forwardRef as T, useRef as b, useImperativeHandle as m } from "react";
 import "../palmyra/form/PalmyraForm.js";
 import { FieldGroupManagerContext as q } from "../palmyra/form/formContext.js";
-import "@palmyralabs/ts-predicates";
+import { generatePredicate as w, validate as P } from "../palmyra/form/validator/validatorHelper.js";
 import "./NoopConverter.js";
 import "dayjs";
-import { generatePredicate as w, validate as P } from "../palmyra/form/validator/validatorHelper.js";
 import { o as R, e as y, i as F } from "./accessor.js";
 const H = (a, e, i) => {
-  const t = A(() => I(a, i), [a])(), r = A(() => J(a, i), [a])(), d = w(e), [f, p] = C({ value: t({}) }), o = D(q), [v, M] = C({}), u = f.value, x = f.error, S = {
+  const t = A(() => I(a, i), [a])(), r = A(() => J(a, i), [a])(), d = w(e), [f, p] = C({ value: t({}) }), o = G(q), [v, M] = C({}), u = f.value, x = f.error, S = {
     getValidator: () => d,
     getValue: () => u,
     setValue: (l, V = !1, W = !0) => {
@@ -61,7 +60,7 @@ function J(a, e) {
   const i = e == null ? void 0 : e.format;
   return i ? e != null && e.fieldWriter ? (t, r) => e.fieldWriter(i(r), t) : R(a) ? (t, r) => F(a, t, i(r)) : (t, r) => F(a, t, i(r)) : e != null && e.fieldWriter ? (t, r) => e.fieldWriter(r, t) : R(a) ? (t, r) => F(a, t, r) : (t, r) => F(a, t, r);
 }
-const te = G(function(e, i) {
+const ee = T(function(e, i) {
   const t = H(e.attribute, e), { getError: r, getValue: d, setValue: f, mutateOptions: p, setMutateOptions: o } = t, v = i || b(null), M = b(), u = r(), x = { ...e, ...p }, h = (s) => {
     var n = {
       name: s.attribute,
@@ -70,7 +69,7 @@ const te = G(function(e, i) {
     };
     return s.onBlur && (n.onblur = s.onBlur), s.onFocus && (n.onfocus = s.onFocus), s.disabled && (n.disabled = !0), s.readOnly && (n.readOnly = !0), n;
   };
-  return T(v, () => ({
+  return m(v, () => ({
     focus() {
       M.current.focus();
     },
@@ -101,7 +100,7 @@ const te = G(function(e, i) {
     setAttribute(s) {
       o((n) => ({ ...n, ...s }));
     }
-  }), [t, d]), /* @__PURE__ */ m(B, { children: [
+  }), [t, d]), /* @__PURE__ */ B(D, { children: [
     /* @__PURE__ */ O("div", { children: e.label }),
     " : ",
     /* @__PURE__ */ O(
@@ -115,6 +114,6 @@ const te = G(function(e, i) {
   ] });
 });
 export {
-  te as S,
+  ee as S,
   H as u
 };
