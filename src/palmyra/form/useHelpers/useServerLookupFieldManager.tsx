@@ -83,7 +83,10 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
         })
     }
 
-    const { setQuickSearch, refreshData, data, totalRecords } = serverQuery
+    const { setQuickSearch, refresh, getCurrentData, getTotalRecords } = serverQuery
+
+    const data = getCurrentData();
+    const totalRecords = getTotalRecords();
 
     useEffect(() => {
         const result = data ? [...data] : [];
@@ -115,7 +118,7 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
                 setQuickSearch(null);
             }
             else {
-                refreshData();
+                refresh();
             }
         }
     }

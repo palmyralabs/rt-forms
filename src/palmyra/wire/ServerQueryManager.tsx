@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEndPointOptions } from '@palmyralabs/palmyra-wire';
 import { useKeyValue } from '../utils';
+import { IPageQueryable } from './types';
 
 interface IServerQueryInput {
   store: AbstractQueryStore<any>,
@@ -14,7 +15,7 @@ interface IServerQueryInput {
   initialFetch?: boolean
 }
 
-const useServerQuery = (props: IServerQueryInput) => {
+const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
   const { store, quickSearch, } = props;
   const fetchAll = props.fetchAll != false;
   const [endPointVars, setEndPointOptions] = useState(props.endPointOptions);
@@ -23,7 +24,7 @@ const useServerQuery = (props: IServerQueryInput) => {
   const defaultFilter = props.defaultParams?.filter || {};
   const defaultSort = props.defaultParams?.sort || {};
 
-  const [filter, setFilter] = props.filterTopic
+  const [filter, _setFilter] = props.filterTopic
     ? useKeyValue(props.filterTopic, defaultFilter)
     : useState<any>(defaultFilter);
 
@@ -33,7 +34,6 @@ const useServerQuery = (props: IServerQueryInput) => {
 
   const pageSize = props.pageSize ? props.pageSize : 15;
 
-  var pageSizeOptions = pageSize instanceof Array ? pageSize : [pageSize];
   var defaultPageSize = pageSize instanceof Array ? pageSize[0] : pageSize;
 
   const [queryLimit, setQueryLimit] = useState<IPagination>({ limit: defaultPageSize, offset: 0, total: true });
@@ -87,7 +87,7 @@ const useServerQuery = (props: IServerQueryInput) => {
     }
 
     if (fetchAll || !isEmptyFilter())
-      refreshData();
+      refresh();
 
   }, [queryLimit, sortOrder, endPointVars])
 
@@ -102,7 +102,7 @@ const useServerQuery = (props: IServerQueryInput) => {
     return params;
   }
 
-  const refreshData = () => {
+  const refresh = () => {
     const params: QueryRequest = getQueryRequest();
 
     if (store) {
@@ -138,12 +138,12 @@ const useServerQuery = (props: IServerQueryInput) => {
   const setQuickSearch = (val: any) => {
     const key = quickSearch;
     if (val)
-      setFilter((f: any) => {
+      _setFilter((f: any) => {
         f[key] = val;
         return { ...f }
       });
     else {
-      setFilter((f: any) => {
+      _setFilter((f: any) => {
         delete f[key];
         return { ...f };
       });
@@ -151,32 +151,30 @@ const useServerQuery = (props: IServerQueryInput) => {
     gotoPage(0);
   };
 
-  const setQueryFilter = (filter) => {
+  const setFilter = (filter) => {
     if (typeof filter == 'function' || filter && Object.keys(filter).length > 0)
-      setFilter(filter);
+      _setFilter(filter);
     else {
-      setFilter({});
+      _setFilter({});
     }
     gotoPage(0);
   };
 
-  const setSortColumns = (sortOrder) => {
+  const addFilter = (key: string, v: any) => {
+    _setFilter((f: any) => {
+      f[key] = v;
+      return { ...f }
+    })
+    gotoPage(0);
+  }
+
+  const resetFilter = () => {
+    setFilter({});
+  }
+
+  const setSortColumns = (sortOrder: any) => {
     setSortOrder(sortOrder);
   }
-
-  return {
-    setQueryFilter, setQuickSearch, setSortColumns, setEndPointOptions,
-    refreshData, gotoPage, setPageSize, getPageNo, getQueryLimit, setQueryLimit,
-    getQueryRequest, filter, queryLimit, data, totalRecords, pageSizeOptions
-  }
-
-};
-
-
-const usePageableServerQuery = (props: IServerQueryInput) => {
-  const query = useServerQuery(props);
-
-  const { getPageNo, gotoPage } = query;
 
   const nextPage = (): boolean => {
     const pageNo = getPageNo();
@@ -188,7 +186,7 @@ const usePageableServerQuery = (props: IServerQueryInput) => {
   }
 
   const getTotalPages = (): number => {
-    return Math.ceil(query.totalRecords / query.queryLimit.limit);
+    return Math.ceil(totalRecords / (queryLimit.limit || 25));
   }
 
   const prevPage = (): boolean => {
@@ -200,8 +198,17 @@ const usePageableServerQuery = (props: IServerQueryInput) => {
     return false;
   }
 
-  return { ...query, nextPage, prevPage, getTotalPages }
-}
+  return {
+    addFilter, resetFilter, setFilter, setQuickSearch,
+    setSortColumns, setEndPointOptions,
+    refresh, setPageSize, getPageNo, getQueryLimit, setQueryLimit,
+    gotoPage, nextPage, prevPage,
+    getQueryRequest, setSortOptions: setSortColumns,
+    getCurrentFilter: () => filter, getTotalRecords: () => totalRecords,
+    getCurrentData: () => data
+  }
 
-export { useServerQuery, usePageableServerQuery, };
+};
+
+export { useServerQuery };
 export type { IServerQueryInput };
