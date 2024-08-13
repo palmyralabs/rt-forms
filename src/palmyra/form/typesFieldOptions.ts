@@ -5,7 +5,6 @@ import { numbers } from "./types";
 
 type InputType = string | number | Date;
 
-
 interface IMutateOptions {
     required?: boolean
     readOnly?: boolean
@@ -31,11 +30,12 @@ interface IRangeValidation {
     }
 }
 
-type IRegexValidation = string | { regex: string, errorMessage: string };
+type IRegexValidation = RegExp | string | { regex: RegExp | string, errorMessage?: string };
 
 type IRuleValidation = validationRule
-    | { rule: validationRule, errorMessage?: string }
-    | [{ rule: validationRule, errorMessage?: string }]
+    | { rule: validationRule| validationRule[], errorMessage?: string | string[] }
+    | [{ rule: validationRule | validationRule[], errorMessage?: string | string[]}]
+    | Partial<Record<validationRule, string>>
 
 type IFunctionValidation = IPredicate<any> | ((v: any) => PredicateResponse) | { fn: IPredicate<any>, errorMessage: string };
 
