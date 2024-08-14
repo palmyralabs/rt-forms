@@ -11,6 +11,7 @@ export default defineConfig({
   generalAssets(),
   dts({ include: ['src'] })],
   server: {
+    host: '0.0.0.0',
     proxy: { "/api": "http://localhost:6060/" },
     open: true,
     port: 4000
@@ -34,6 +35,7 @@ export default defineConfig({
         'd3',
         'dayjs',
         '@palmyralabs/palmyra-wire',
+        '@palmyralabs/ts-predicates',
         'jspdf',
         'react',
         'html2canvas',

@@ -33,7 +33,8 @@ const EditForm = () => {
 
         <PalmyraForm formData={{}} mode="edit" onValidChange={setValid} ref={formRef} storeFactory={storeFactory}>
             <MuiTextField attribute="text" title="Text Field" required readOnly />
-            <MuiSelect attribute="select" options={{ true: "True", false: "False" }} title="Select Field" readOnly />
+            <MuiSelect attribute="select.gender" 
+            options={{ m: "Male", f: "Female", t : "Transgender" }} title="Select Field" />
             <MuiDatePicker
 
                 attribute="date" title="Date Field" serverPattern="YYYY/DD/MM" displayPattern="DD-MMM-YYYY" required />

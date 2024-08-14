@@ -1,14 +1,14 @@
 import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectProps } from '@mui/material';
 import FieldDecorator from './FieldDecorator';
-import { IFormFieldError, IMutateOptions, ISelectField, ITextField, useFieldManager } from '../../../../src/palmyra';
+import { getFieldHandler, IFormFieldError, ISelectField, ITextField, useFieldManager } from '../../../../src/palmyra';
 import { generateOptions, getFieldLabel } from './util';
 import { ISelectDefinition } from './types';
 
 
 const MuiSelect = forwardRef(function MuiSelect(props: SelectProps & ISelectDefinition, ref: MutableRefObject<ISelectField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions, setMutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);
     const error: IFormFieldError = getError();
 
@@ -16,35 +16,12 @@ const MuiSelect = forwardRef(function MuiSelect(props: SelectProps & ISelectDefi
     const variant = props.variant || 'standard';
 
     useImperativeHandle(currentRef, () => {
+        const handler = getFieldHandler(fieldManager);
         return {
+            ...handler,
             focus() {
                 if (inputRef)
                     inputRef.current.focus();
-            },
-            isValid() {
-                return !error.status;
-            },
-            getValue,
-            clear() {
-                setValue('');
-            },
-            setValue(d: any, doValidate: boolean = false) {
-                setValue(d);
-            },
-            setDisabled(disabled: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, disabled }));
-            },
-            setVisible(visible: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, visible }));
-            },
-            setRequired(required: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, required }));
-            },
-            setReadOnly(readonly: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, readonly }));
-            },
-            setAttribute(options: IMutateOptions) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, ...options }));
             },
             setOptions(d: any) {
             },
