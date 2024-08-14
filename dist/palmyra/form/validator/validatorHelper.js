@@ -100,15 +100,15 @@ var f = {
 }, s = {
   "en-US": ".",
   ar: "٫"
-}, q = ["AU", "GB", "HK", "IN", "NZ", "ZA", "ZM"];
-for (var F, S = 0; S < q.length; S++)
-  F = "en-".concat(q[S]), f[F] = f["en-US"], s[F] = s["en-US"];
-var L = ["AE", "BH", "DZ", "EG", "IQ", "JO", "KW", "LB", "LY", "MA", "QM", "QA", "SA", "SD", "SY", "TN", "YE"];
-for (var E, R = 0; R < L.length; R++)
-  E = "ar-".concat(L[R]), f[E] = f.ar, s[E] = s.ar;
-var j = ["IR", "AF"];
-for (var C, Z = 0; Z < j.length; Z++)
-  C = "fa-".concat(j[Z]), s[C] = s.ar;
+}, j = ["AU", "GB", "HK", "IN", "NZ", "ZA", "ZM"];
+for (var F, S = 0; S < j.length; S++)
+  F = "en-".concat(j[S]), f[F] = f["en-US"], s[F] = s["en-US"];
+var q = ["AE", "BH", "DZ", "EG", "IQ", "JO", "KW", "LB", "LY", "MA", "QM", "QA", "SA", "SD", "SY", "TN", "YE"];
+for (var E, R = 0; R < q.length; R++)
+  E = "ar-".concat(q[R]), f[E] = f.ar, s[E] = s.ar;
+var L = ["IR", "AF"];
+for (var C, Z = 0; Z < L.length; Z++)
+  C = "fa-".concat(L[Z]), s[C] = s.ar;
 var B = ["BD", "IN"];
 for (var D, I = 0; I < B.length; I++)
   D = "bn-".concat(B[I]), f[D] = f.bn, s[D] = s["en-US"];
@@ -347,8 +347,8 @@ var Ot = {
   ignore_max_length: !1,
   host_blacklist: [],
   host_whitelist: []
-}, Nt = /^([^\x00-\x1F\x7F-\x9F\cX]+)</i, Ut = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i, kt = /^[a-z\d]+$/, Mt = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i, Tt = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A1-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i, qt = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i, Lt = 254;
-function jt(e) {
+}, Nt = /^([^\x00-\x1F\x7F-\x9F\cX]+)</i, Ut = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i, kt = /^[a-z\d]+$/, Mt = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i, Tt = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A1-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i, jt = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i, qt = 254;
+function Lt(e) {
   var t = e.replace(/^"(.+)"$/, "$1");
   if (!t.trim())
     return !1;
@@ -367,12 +367,12 @@ function Ct(e, t) {
     var n = e.match(Nt);
     if (n) {
       var r = n[1];
-      if (e = e.replace(r, "").replace(/(^<|>$)/g, ""), r.endsWith(" ") && (r = r.slice(0, -1)), !jt(r))
+      if (e = e.replace(r, "").replace(/(^<|>$)/g, ""), r.endsWith(" ") && (r = r.slice(0, -1)), !Lt(r))
         return !1;
     } else if (t.require_display_name)
       return !1;
   }
-  if (!t.ignore_max_length && e.length > Lt)
+  if (!t.ignore_max_length && e.length > qt)
     return !1;
   var a = e.split("@"), i = a.pop(), l = i.toLowerCase();
   if (t.host_blacklist.includes(l) || t.host_whitelist.length > 0 && !t.host_whitelist.includes(l))
@@ -412,7 +412,7 @@ function Ct(e, t) {
     }
   }
   if (o[0] === '"')
-    return o = o.slice(1, o.length - 1), t.allow_utf8_local_part ? qt.test(o) : Mt.test(o);
+    return o = o.slice(1, o.length - 1), t.allow_utf8_local_part ? jt.test(o) : Mt.test(o);
   for (var _ = t.allow_utf8_local_part ? Tt : Ut, b = o.split("."), m = 0; m < b.length; m++)
     if (!_.test(b[m]))
       return !1;
@@ -504,7 +504,9 @@ const Gt = {
   }
   if (e.validRule) {
     const n = e.validRule;
-    typeof n == "string" ? t.rules = [n] : Array.isArray(n) ? t.rules = n.map((r) => r.rule) : typeof n == "object" && (t.rules = [n.rule]);
+    typeof n == "string" ? t.rules = [n] : Array.isArray(n) ? t.rules = n.map((r) => r.rule) : typeof n == "object" && (n.rule ? t.rules = [n.rule] : Object.entries(n).map(([a, i]) => {
+      t.rules = [a];
+    }));
   }
   return t;
 }, J = (e) => !isNaN(e), w = (e, t, n, r) => {

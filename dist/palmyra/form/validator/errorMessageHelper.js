@@ -1,4 +1,4 @@
-import { e as t } from "../../../chunks/accessor.js";
+import { e as l } from "../../../chunks/accessor.js";
 import "../../../chunks/NoopConverter.js";
 import "dayjs";
 const o = {
@@ -7,20 +7,29 @@ const o = {
   "length.max": ["length.errorMessage.maximum", "length.errorMessage", "invalidMessage"],
   "range.start": ["range.errorMessage.start", "range.errorMessage", "invalidMessage"],
   "range.end": ["range.errorMessage.end", "length.errorMessage", "invalidMessage"],
+  rule: ["validRule.errorMessage", "invalidMessage"],
   regex: ["regExp.errorMessage", "invalidMessage"],
   required: ["missingMessage"]
-}, d = (s, e) => {
-  const n = s.reason;
+}, u = (r, e) => {
+  const n = r.reason;
   if (!n)
     return "";
-  const a = o[n];
-  for (const g in a) {
-    const i = a[g], r = t(i, e);
-    if (r && typeof r == "string")
-      return r;
+  const g = o[n];
+  for (const s in g) {
+    const i = g[s], a = l(i, e);
+    if (a && typeof a == "string")
+      return a;
   }
-  return e.invalidMessage ? e.invalidMessage : s.reason;
+  if (e.invalidMessage)
+    return e.invalidMessage;
+  if (e.validRule) {
+    let s = e.validRule.errorMessage;
+    return s || (Object.entries(e.validRule).map(([a, t]) => {
+      r.reason = t;
+    }), r.reason);
+  }
+  return r.reason;
 };
 export {
-  d as getErrorMessage
+  u as getErrorMessage
 };

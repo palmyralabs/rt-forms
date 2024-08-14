@@ -51,6 +51,7 @@ const getPredicateOptions = (o: FieldOptions): IValidatorOptions => {
         const validRule: any = o.validRule;
 
         if (typeof (validRule) == "string") {
+            //@ts-ignore
             result.rules = [validRule];
         }
         else if (Array.isArray(validRule)) {
@@ -60,6 +61,7 @@ const getPredicateOptions = (o: FieldOptions): IValidatorOptions => {
             if (!validRule.rule) {
                 let entries = Object.entries(validRule)
                 entries.map(([key, val]) => {
+                    //@ts-ignore
                     result.rules = [key]
                 })
             } else
