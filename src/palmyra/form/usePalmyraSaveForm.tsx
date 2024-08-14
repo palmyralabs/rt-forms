@@ -12,6 +12,7 @@ const usePalmyraSaveForm: IusePalmyraSaveForm = (props: IPalmyraSaveFormInput): 
     const storeFactory = props.storeFactory;
     const formRef = props.formRef || useRef<IForm>(null);
     const idKey = props.idKey || 'id';
+    const endPointVars = props.endPointOptions || {};
     const formListener: IFormListener = { ...NoopFormListener, ...props.formListener };
 
     const getEndPoint = (endPoint: IEndPoint, idProperty: string): IEndPoint => {
@@ -34,7 +35,8 @@ const usePalmyraSaveForm: IusePalmyraSaveForm = (props: IPalmyraSaveFormInput): 
             var request: GetRequest = {
                 options: {
                     [idProperty]: id
-                }
+                },
+                endPointVars
             };
             formStore.get(request).then(d => { setData(d) });
         }
@@ -52,6 +54,7 @@ const usePalmyraSaveForm: IusePalmyraSaveForm = (props: IPalmyraSaveFormInput): 
             const id = props.id;
             var request: PutRequest = id ? {
                 endPointVars: {
+                    ...endPointVars,
                     [idProperty]: id
                 }
             } : {};

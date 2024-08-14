@@ -1,19 +1,20 @@
-import { useState as f, useEffect as g } from "react";
+import { useState as g, useEffect as m } from "react";
 const D = (t) => {
-  const r = t.storeFactory, [n, a] = f({}), s = t.idKey || "id", i = (e, o) => typeof e == "string" ? e + "/{" + o + "}" : e;
-  return g(() => {
-    const e = t.id, o = s;
-    var c = i(t.endPoint, o);
-    const d = r.getFormStore({}, c, o);
-    var u = {
+  const n = t.storeFactory, [r, s] = g({}), a = t.idKey || "id", i = t.endPointOptions || {}, c = (e, o) => typeof e == "string" ? e + "/{" + o + "}" : e;
+  return m(() => {
+    const e = t.id, o = a;
+    var d = c(t.endPoint, o);
+    const u = n.getFormStore({}, d, o);
+    var y = {
       options: {
+        ...i,
         [o]: e
       }
     };
-    d.get(u).then((y) => {
-      a(y);
+    u.get(y).then((f) => {
+      s(f);
     });
-  }, [t.id]), { getData: () => n };
+  }, [t.id]), { getData: () => r };
 };
 export {
   D as usePalmyraViewForm

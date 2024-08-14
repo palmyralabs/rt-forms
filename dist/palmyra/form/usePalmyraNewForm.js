@@ -1,17 +1,17 @@
-import { useState as v, useRef as S } from "react";
-import { NoopFormListener as D } from "./Noops.js";
-const g = (e) => {
-  const c = e.storeFactory, [P, i] = v(e.initialData == null ? null : e.initialData), a = e.formRef || S(null), t = e.formListener || D, o = () => a.current.getData();
+import { useState as S, useRef as D } from "react";
+import { NoopFormListener as P } from "./Noops.js";
+const L = (e) => {
+  const i = e.storeFactory, [d, c] = S(e.initialData == null ? null : e.initialData), r = e.formRef || D(null), t = e.formListener || P, m = e.endPointOptions || {}, o = () => r.current.getData();
   return { getData: o, saveData: (n) => {
-    if (n || a && a.current) {
-      const u = e.idKey;
-      var m = e.endPoint;
-      const f = c.getFormStore({}, m, u), s = n || o(), l = t.preProcessSaveData ? t.preProcessSaveData(s) : s;
-      return f.post(l).then((r) => (i(r), t.onSaveSuccess && t.onSaveSuccess(r), Promise.resolve(r))).catch((r) => (t.onSaveFailure && t.onSaveFailure(r), Promise.reject(r)));
+    if (n || r && r.current) {
+      const f = e.idKey;
+      var u = e.endPoint;
+      const l = i.getFormStore({}, u, f), s = n || o(), v = t.preProcessSaveData ? t.preProcessSaveData(s) : s;
+      return l.post(v, { endPointVars: m }).then((a) => (c(a), t.onSaveSuccess && t.onSaveSuccess(a), Promise.resolve(a))).catch((a) => (t.onSaveFailure && t.onSaveFailure(a), Promise.reject(a)));
     } else
       return Promise.reject("invalid data");
-  }, formRef: a };
+  }, formRef: r };
 };
 export {
-  g as usePalmyraNewForm
+  L as usePalmyraNewForm
 };

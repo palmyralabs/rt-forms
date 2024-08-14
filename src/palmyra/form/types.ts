@@ -1,4 +1,4 @@
-import { IEndPoint, StoreFactory } from "@palmyralabs/palmyra-wire";
+import { IEndPoint, IEndPointOptions, StoreFactory } from "@palmyralabs/palmyra-wire";
 import { BiConsumer, IConsumer, IFunction, Supplier } from "@palmyralabs/ts-utils";
 import { FieldOptions, IMutateOptions } from "./typesFieldOptions";
 import { Dispatch, MutableRefObject, SetStateAction } from "react";
@@ -108,6 +108,7 @@ interface IPalmyraViewFormInput {
     storeFactory: StoreFactory<any>,
     id: string,
     endPoint: IEndPoint,
+    endPointOptions?: IEndPointOptions,
     idKey?: string
 }
 
@@ -133,11 +134,18 @@ interface IPalmyraSaveFormInput extends IPalmyraEditFormInput {
 }
 
 interface IPalmyraSaveFormOutput extends IPalmyraEditFormOutput {
+
 }
 
 
-interface IPalmyraNewFormInput extends IPalmyraEditFormInput {
+interface IPalmyraNewFormInput {
     initialData?: any
+    storeFactory: StoreFactory<any>,
+    endPoint: IEndPoint,
+    endPointOptions?: IEndPointOptions,
+    idKey?: string,
+    formRef?: MutableRefObject<any>
+    formListener?: IFormListener
 }
 
 interface IPalmyraNewFormOutput extends IPalmyraEditFormOutput {

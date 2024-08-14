@@ -10,6 +10,7 @@ const usePalmyraNewForm: IusePalmyraNewForm = (props: IPalmyraNewFormInput): IPa
     const [_data, setData] = useState<any>(props.initialData == undefined ? null : props.initialData);
     const formRef = props.formRef || useRef<any>(null);
     const formListener = props.formListener || NoopFormListener;
+    const endPointVars = props.endPointOptions || {};
 
     const getData = () => formRef.current.getData();
 
@@ -23,7 +24,7 @@ const usePalmyraNewForm: IusePalmyraNewForm = (props: IPalmyraNewFormInput): IPa
             const processedData = formListener.preProcessSaveData ?
                 formListener.preProcessSaveData(data) : data;
 
-            return formStore.post(processedData).then((d) => {
+            return formStore.post(processedData, {endPointVars}).then((d) => {
                 setData(d);
                 if (formListener.onSaveSuccess)
                     formListener.onSaveSuccess(d);

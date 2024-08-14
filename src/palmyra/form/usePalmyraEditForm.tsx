@@ -13,6 +13,7 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
     const formRef = props.formRef || useRef<any>(null);
     const idKey = props.idKey || 'id';
     const formListener = props.formListener || NoopFormListener;
+    const endPointVars = props.endPointOptions || {};
 
     const getEndPoint = (endPoint: IEndPoint, idProperty: string): IEndPoint => {
         if (typeof endPoint == 'string') {
@@ -29,6 +30,7 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
         const formStore = storeFactory.getFormStore({}, endPoint, idProperty);
         var request: GetRequest = {
             endPointVars: {
+                ...endPointVars,
                 [idProperty]: id
             }
         };
@@ -52,6 +54,7 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
 
             var request: PutRequest = {
                 endPointVars: {
+                    ...endPointVars,
                     [idProperty]: id
                 }
             };

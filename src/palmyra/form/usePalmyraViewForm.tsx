@@ -11,6 +11,7 @@ const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): 
     const storeFactory = props.storeFactory;
     const [data, setData] = useState<any>({});
     const idKey = props.idKey || 'id';
+    const endPointVars = props.endPointOptions || {};
 
     const getEndPoint = (endPoint: IEndPoint, idProperty: string): IEndPoint => {
         if (typeof endPoint == 'string') {
@@ -27,6 +28,7 @@ const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): 
         const formStore = storeFactory.getFormStore({}, endPoint, idProperty);
         var request: GetRequest = {
             options: {
+                ...endPointVars,
                 [idProperty]: id
             }
         };
