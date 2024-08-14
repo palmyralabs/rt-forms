@@ -1,30 +1,16 @@
 
-import { GetRequest, IEndPoint, PutRequest, StoreFactory } from "@palmyralabs/palmyra-wire";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { IFormListener } from "./types";
+import { GetRequest, IEndPoint, PutRequest } from "@palmyralabs/palmyra-wire";
+import { useEffect, useRef } from "react";
+import { IForm, IFormListener, IPalmyraSaveFormInput, IPalmyraSaveFormOutput } from "./types";
 import { NoopFormListener } from "./Noops";
 
 
-interface IPalmyraSaveFormInput {
-    storeFactory: StoreFactory<any>,
-    id: string,
-    endPoint: IEndPoint,
-    idKey?: string,
-    formListener?: IFormListener
-}
-
-interface IPalmyraSaveFormOutput {
-    data: FormData,
-    saveData: (data?: any) => Promise<any>,
-    formRef: MutableRefObject<any>
-}
 
 type IusePalmyraSaveForm = (props: IPalmyraSaveFormInput) => IPalmyraSaveFormOutput;
 
 const usePalmyraSaveForm: IusePalmyraSaveForm = (props: IPalmyraSaveFormInput): IPalmyraSaveFormOutput => {
     const storeFactory = props.storeFactory;
-    const [data, setData] = useState<any>(null);
-    const formRef = useRef<any>(null);
+    const formRef = props.formRef || useRef<IForm>(null);
     const idKey = props.idKey || 'id';
     const formListener: IFormListener = { ...NoopFormListener, ...props.formListener };
 
@@ -35,6 +21,9 @@ const usePalmyraSaveForm: IusePalmyraSaveForm = (props: IPalmyraSaveFormInput): 
             return endPoint;
         }
     }
+
+    const getData = () => formRef.current.getData();
+    const setData = (d: any) => formRef.current.setData(d);
 
     useEffect(() => {
         const id = props.id;
@@ -57,7 +46,7 @@ const usePalmyraSaveForm: IusePalmyraSaveForm = (props: IPalmyraSaveFormInput): 
             var endPoint = getEndPoint(props.endPoint, idProperty);
             const formStore = storeFactory.getFormStore({}, endPoint, idProperty);
 
-            const data = d || formRef.current.getData(idProperty);
+            const data = d || getData();
             const processedData = formListener.preProcessSaveData ?
                 formListener.preProcessSaveData(data) : data;
             const id = props.id;
@@ -81,9 +70,8 @@ const usePalmyraSaveForm: IusePalmyraSaveForm = (props: IPalmyraSaveFormInput): 
             return Promise.reject('invalid data');
     }
 
-    return { data, saveData, formRef };
+    return { getData, saveData, formRef };
 }
 
 
 export { usePalmyraSaveForm }
-export type { IPalmyraSaveFormInput, IPalmyraSaveFormOutput }

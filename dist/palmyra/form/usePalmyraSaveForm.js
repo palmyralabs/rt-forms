@@ -1,37 +1,37 @@
-import { useState as y, useRef as F, useEffect as D } from "react";
-import { NoopFormListener as g } from "./Noops.js";
-const j = (e) => {
-  const d = e.storeFactory, [S, f] = y(null), s = F(null), l = e.idKey || "id", o = { ...g, ...e.formListener }, m = (t, n) => typeof t == "string" && e.id ? t + "/{" + n + "}" : t;
+import { useRef as y, useEffect as D } from "react";
+import { NoopFormListener as F } from "./Noops.js";
+const L = (e) => {
+  const m = e.storeFactory, n = e.formRef || y(null), P = e.idKey || "id", o = { ...F, ...e.formListener }, u = (t, s) => typeof t == "string" && e.id ? t + "/{" + s + "}" : t, d = () => n.current.getData(), v = (t) => n.current.setData(t);
   return D(() => {
     const t = e.id;
     if (t) {
-      const r = l;
-      var n = m(e.endPoint, r);
-      const u = d.getFormStore({}, n, r);
-      var c = {
+      const r = P;
+      var s = u(e.endPoint, r);
+      const f = m.getFormStore({}, s, r);
+      var i = {
         options: {
           [r]: t
         }
       };
-      u.get(c).then((i) => {
-        f(i);
+      f.get(i).then((c) => {
+        v(c);
       });
     }
-  }, [e.id]), { data: S, saveData: (t) => {
-    if (t || s && s.current) {
+  }, [e.id]), { getData: d, saveData: (t) => {
+    if (t || n && n.current) {
       const r = e.idKey || "id";
-      var n = m(e.endPoint, r);
-      const u = d.getFormStore({}, n, r), i = t || s.current.getData(r), P = o.preProcessSaveData ? o.preProcessSaveData(i) : i, v = e.id;
-      var c = v ? {
+      var s = u(e.endPoint, r);
+      const f = m.getFormStore({}, s, r), c = t || d(), l = o.preProcessSaveData ? o.preProcessSaveData(c) : c, S = e.id;
+      var i = S ? {
         endPointVars: {
-          [r]: v
+          [r]: S
         }
       } : {};
-      return u.save(P, c).then((a) => (f(a), o.onSaveSuccess && o.onSaveSuccess(a), Promise.resolve(a))).catch((a) => (o.onSaveFailure && o.onSaveFailure(a), Promise.reject(a)));
+      return f.save(l, i).then((a) => (v(a), o.onSaveSuccess && o.onSaveSuccess(a), Promise.resolve(a))).catch((a) => (o.onSaveFailure && o.onSaveFailure(a), Promise.reject(a)));
     } else
       return Promise.reject("invalid data");
-  }, formRef: s };
+  }, formRef: n };
 };
 export {
-  j as usePalmyraSaveForm
+  L as usePalmyraSaveForm
 };

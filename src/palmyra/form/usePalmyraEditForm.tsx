@@ -1,28 +1,16 @@
 
-import { GetRequest, IEndPoint, PutRequest, StoreFactory } from "@palmyralabs/palmyra-wire";
-import { MutableRefObject, useEffect, useRef } from "react";
-import { IFormListener } from "./types";
+import { GetRequest, IEndPoint, PutRequest } from "@palmyralabs/palmyra-wire";
+import { useEffect, useRef } from "react";
+import { IPalmyraEditFormInput, IPalmyraEditFormOutput } from "./types";
 import { NoopFormListener } from "./Noops";
 
-interface IPalmyraEditFormInput {
-    storeFactory: StoreFactory<any>,
-    id: string,
-    endPoint: IEndPoint,
-    idKey?: string,
-    formListener?: IFormListener
-}
 
-interface IPalmyraEditFormOutput {
-    getData(): FormData,
-    saveData: (data?: any) => Promise<any>,
-    formRef: MutableRefObject<any>
-}
 
 type IusePalmyraEditForm = (props: IPalmyraEditFormInput) => IPalmyraEditFormOutput;
 
 const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): IPalmyraEditFormOutput => {
     const storeFactory = props.storeFactory;
-    const formRef = useRef<any>(null);
+    const formRef = props.formRef || useRef<any>(null);
     const idKey = props.idKey || 'id';
     const formListener = props.formListener || NoopFormListener;
 
@@ -48,7 +36,7 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
     }, [props.id])
 
 
-    const getData = () =>{
+    const getData = () => {
         return formRef.current.getData();
     }
 
@@ -87,4 +75,3 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
 
 
 export { usePalmyraEditForm }
-export type { IPalmyraEditFormInput, IPalmyraEditFormOutput }

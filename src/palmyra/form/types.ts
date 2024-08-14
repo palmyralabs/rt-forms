@@ -1,7 +1,7 @@
-import { StoreFactory } from "@palmyralabs/palmyra-wire";
+import { IEndPoint, StoreFactory } from "@palmyralabs/palmyra-wire";
 import { BiConsumer, IConsumer, IFunction, Supplier } from "@palmyralabs/ts-utils";
 import { FieldOptions, IMutateOptions } from "./typesFieldOptions";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
 import { PredicateResponse } from "@palmyralabs/ts-predicates";
 
 type FormMode = 'view' | 'new' | 'edit';
@@ -103,8 +103,51 @@ interface IFormListener {
     postProcessQueryData?: (data: FormData) => FormData
 }
 
+
+interface IPalmyraViewFormInput {
+    storeFactory: StoreFactory<any>,
+    id: string,
+    endPoint: IEndPoint,
+    idKey?: string
+}
+
+interface IPalmyraViewFormOutput {
+    getData(): FormData
+}
+
+
+interface IPalmyraEditFormInput extends IPalmyraViewFormInput {
+    formRef?: MutableRefObject<any>
+    formListener?: IFormListener
+}
+
+interface IPalmyraEditFormOutput extends IPalmyraViewFormOutput {
+    saveData: (data?: any) => Promise<any>,
+    formRef: MutableRefObject<any>
+}
+
+
+
+interface IPalmyraSaveFormInput extends IPalmyraEditFormInput {
+
+}
+
+interface IPalmyraSaveFormOutput extends IPalmyraEditFormOutput {
+}
+
+
+interface IPalmyraNewFormInput extends IPalmyraEditFormInput {
+    initialData?: any
+}
+
+interface IPalmyraNewFormOutput extends IPalmyraEditFormOutput {
+
+}
+
 export type {
     numbers, IFieldConverter, IFieldAccessor,
     FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions,
-    IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IFormListener
+    IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IFormListener,
+    IPalmyraNewFormInput, IPalmyraNewFormOutput, IPalmyraSaveFormInput, IPalmyraSaveFormOutput,
+    IPalmyraViewFormInput, IPalmyraViewFormOutput, IPalmyraEditFormInput, IPalmyraEditFormOutput
 }
