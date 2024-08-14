@@ -1,8 +1,8 @@
 import { MutableRefObject, forwardRef, useImperativeHandle, useRef } from 'react';
 import './CardLayout.css';
 
-import CardLayout from './CardLayout';
 import { IPageQueryable, IServerQueryInput, useServerQuery } from '../../wire';
+import { CardLayout } from './CardLayout';
 
 interface ServerCardLayoutInput extends IServerQueryInput {
     Child: React.FC,

@@ -10,7 +10,7 @@ const NewForm = () => {
     const storeFactory = new PalmyraStoreFactory({ baseUrl: '/testdata' })
     const [valid, setValid] = useState<any>();
 
-    const { data, saveData, formRef } = usePalmyraNewForm({
+    const { getData, saveData, formRef } = usePalmyraNewForm({
         endPoint: "/testFormData.json",
         storeFactory
     })
@@ -24,7 +24,7 @@ const NewForm = () => {
         <Button disabled={!valid}
             onClick={saveData}>Save</Button>
 
-        <PalmyraForm formData={data} mode="new" onValidChange={setValid} ref={formRef}>
+        <PalmyraForm formData={getData()} mode="new" onValidChange={setValid} ref={formRef}>
             <MuiTextField attribute="text" label="Text Field" />
             <MuiSelect attribute="select" options={{ true: "True", false: "False" }} label="Select Field" />
         </PalmyraForm>

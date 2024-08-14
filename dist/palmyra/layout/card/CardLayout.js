@@ -1,22 +1,22 @@
 import { jsx as t, jsxs as m } from "react/jsx-runtime";
 import { EmptyChildCard as y } from "./EmptyChildCard.js";
-const v = (d) => {
-  const { children: c, dataList: e, Child: l, childProps: s } = d, n = d.childKeyProvider || ((r, i) => i), o = d.preProcess || ((r) => r), h = d.EmptyChild ? d.EmptyChild : y;
-  return /* @__PURE__ */ t("div", { children: !e || e.length == 0 ? /* @__PURE__ */ t(h, {}) : /* @__PURE__ */ m("div", { className: "card-container", children: [
-    c,
-    /* @__PURE__ */ t("div", { className: "card-wrapper", children: e.map((r, i) => {
-      const a = o(r);
+const v = (r) => {
+  const { children: a, dataList: i, Child: l, childProps: n } = r, s = r.childKeyProvider || ((d, c) => c), o = r.preProcess || ((d) => d), h = r.EmptyChild ? r.EmptyChild : y;
+  return /* @__PURE__ */ t("div", { children: !i || i.length == 0 ? /* @__PURE__ */ t(h, {}) : /* @__PURE__ */ m("div", { className: "card-container", children: [
+    a,
+    /* @__PURE__ */ t("div", { className: "card-wrapper", children: i.map((d, c) => {
+      const e = o(d);
       return /* @__PURE__ */ t(
         l,
         {
-          ...s,
-          data: a
+          ...n,
+          data: e
         },
-        n(a, i)
+        s(e, c)
       );
     }) })
   ] }) });
 };
 export {
-  v as default
+  v as CardLayout
 };

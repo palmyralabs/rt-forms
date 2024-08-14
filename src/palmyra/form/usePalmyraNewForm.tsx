@@ -1,5 +1,5 @@
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { IPalmyraNewFormInput, IPalmyraNewFormOutput } from "./types";
 import { NoopFormListener } from "./Noops";
 
@@ -7,12 +7,21 @@ type IusePalmyraNewForm = (props: IPalmyraNewFormInput) => IPalmyraNewFormOutput
 
 const usePalmyraNewForm: IusePalmyraNewForm = (props: IPalmyraNewFormInput): IPalmyraNewFormOutput => {
     const storeFactory = props.storeFactory;
-    const [_data, setData] = useState<any>(props.initialData == undefined ? null : props.initialData);
     const formRef = props.formRef || useRef<any>(null);
     const formListener = props.formListener || NoopFormListener;
     const endPointVars = props.endPointOptions || {};
 
-    const getData = () => formRef.current.getData();
+    const getData = () => {
+        if (formRef.current)
+            return formRef.current.getData();
+        else
+            return props.initialData;
+    };
+
+    const setData = (d:any) => {
+        if (formRef.current)
+            formRef.current.setData(d);
+    }
 
     const saveData = (d?: any): Promise<any> => {
         if (d || (formRef && formRef.current)) {
@@ -24,7 +33,7 @@ const usePalmyraNewForm: IusePalmyraNewForm = (props: IPalmyraNewFormInput): IPa
             const processedData = formListener.preProcessSaveData ?
                 formListener.preProcessSaveData(data) : data;
 
-            return formStore.post(processedData, {endPointVars}).then((d) => {
+            return formStore.post(processedData, { endPointVars }).then((d) => {
                 setData(d);
                 if (formListener.onSaveSuccess)
                     formListener.onSaveSuccess(d);

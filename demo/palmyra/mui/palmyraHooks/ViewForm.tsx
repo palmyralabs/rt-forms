@@ -7,7 +7,7 @@ import MuiSelect from "../form/MuiSelect";
 const ViewForm = () => {
     const storeFactory = new PalmyraStoreFactory({ baseUrl: '/testdata' })
 
-    const { data } = usePalmyraViewForm({
+    const { getData } = usePalmyraViewForm({
         endPoint: "/testFormData.json",
         storeFactory,
         id: ''
@@ -15,7 +15,7 @@ const ViewForm = () => {
 
     return <>
         <h2>View</h2>
-        <PalmyraForm formData={data} mode="view" onValidChange={() => { }}>
+        <PalmyraForm formData={getData()} mode="view" onValidChange={() => { }}>
             <MuiTextField attribute="text" />
             <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
         </PalmyraForm>

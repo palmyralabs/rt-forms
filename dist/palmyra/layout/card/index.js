@@ -1,6 +1,6 @@
-import { S as e } from "../../../chunks/ServerCardLayout.js";
-import "react/jsx-runtime";
-import "./CardLayout.js";
+import { S as a } from "../../../chunks/ServerCardLayout.js";
+import { CardLayout as t } from "./CardLayout.js";
 export {
-  e as ServerCardLayout
+  t as CardLayout,
+  a as ServerCardLayout
 };

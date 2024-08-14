@@ -36,5 +36,5 @@ const CardLayout = (props: CardLayoutInput) => {
         </div>
     )
 }
-export default CardLayout;
+export { CardLayout};
 export type { CardLayoutInput }

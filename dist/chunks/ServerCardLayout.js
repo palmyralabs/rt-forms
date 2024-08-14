@@ -1,6 +1,6 @@
 import { jsx as E } from "react/jsx-runtime";
 import { useState as c, useRef as Q, useEffect as J, useContext as U, forwardRef as W, useImperativeHandle as X } from "react";
-import Y from "../palmyra/layout/card/CardLayout.js";
+import { CardLayout as Y } from "../palmyra/layout/card/CardLayout.js";
 import { useKeyValue as Z } from "../palmyra/utils/pubsub/PubSubHelper.js";
 import "../palmyra/form/PalmyraForm.js";
 import { StoreFactoryContext as $ } from "../palmyra/form/formContext.js";

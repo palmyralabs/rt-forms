@@ -10,5 +10,5 @@ interface CardLayoutInput {
     preProcess?: (data: any) => any;
 }
 declare const CardLayout: (props: CardLayoutInput) => import("react/jsx-runtime").JSX.Element;
-export default CardLayout;
+export { CardLayout };
 export type { CardLayoutInput };

@@ -23,7 +23,12 @@ const usePalmyraSaveForm: IusePalmyraSaveForm = (props: IPalmyraSaveFormInput): 
         }
     }
 
-    const getData = () => formRef.current.getData();
+    const getData = () => {
+        if (formRef.current)
+            return formRef.current.getData();
+        else
+            return {};
+    }
     const setData = (d: any) => formRef.current.setData(d);
 
     useEffect(() => {

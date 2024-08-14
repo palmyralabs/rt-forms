@@ -39,7 +39,10 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
 
 
     const getData = () => {
-        return formRef.current.getData();
+        if (formRef.current)
+            return formRef.current.getData();
+        else
+            return {};
     }
 
     const saveData = (d?: any): Promise<any> => {
