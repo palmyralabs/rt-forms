@@ -39,7 +39,7 @@ const getPredicateOptions = (o: FieldOptions): IValidatorOptions => {
         if (typeof regExp == 'string' || typeof regExp['test'] == 'function') {
             //@ts-ignore
             result.regExp = regExp;
-        } else if(regExp['regex']){
+        } else if (regExp['regex']) {
             //@ts-ignore
             const regex = regExp.regex;
             if (regex)
@@ -48,14 +48,21 @@ const getPredicateOptions = (o: FieldOptions): IValidatorOptions => {
     }
 
     if (o.validRule) {
-        const validRule = o.validRule;
-        if (typeof validRule == 'string') {
+        const validRule: any = o.validRule;
+
+        if (typeof (validRule) == "string") {
             result.rules = [validRule];
-        } 
-        else if(Array.isArray(validRule)){
+        }
+        else if (Array.isArray(validRule)) {
             result.rules = validRule.map((v) => v.rule);
         }
-        else if(typeof validRule == "object") {
+        else if (typeof validRule == "object") {
+            if (!validRule.rule) {
+                let entries = Object.entries(validRule)
+                entries.map(([key, val]) => {
+                    result.rules = [key]
+                })
+            } else
                 result.rules = [validRule.rule];
         }
     }
