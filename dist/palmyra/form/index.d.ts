@@ -9,3 +9,4 @@ export * from './useHelpers';
 export * from './EditForm';
 export * from './NewForm';
 export * from './ViewForm';
+export * from './utils/getFieldHandler';
