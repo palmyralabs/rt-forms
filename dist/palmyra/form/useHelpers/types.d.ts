@@ -18,6 +18,7 @@ interface IFormQueryEventHandler {
 }
 interface IPalmyraNewFormInput extends IuseFormOptions, IFormQueryEventHandler, IFormSaveEventHandler {
     initialData?: any;
+    refreshOnSaveResponse?: boolean;
 }
 interface IPalmyraViewFormInput extends IuseFormOptions, IFormQueryEventHandler {
     id: string;
@@ -25,6 +26,7 @@ interface IPalmyraViewFormInput extends IuseFormOptions, IFormQueryEventHandler 
 }
 interface IPalmyraEditFormInput extends IPalmyraViewFormInput, IFormSaveEventHandler {
     mode?: 'edit' | 'save';
+    refreshOnSaveResponse?: boolean;
 }
 interface IPalmyraSaveFormOutput extends IPalmyraEditFormOutput {
 }

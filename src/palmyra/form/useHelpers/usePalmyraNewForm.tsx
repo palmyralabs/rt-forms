@@ -33,7 +33,8 @@ const usePalmyraNewForm: IusePalmyraNewForm = (props: IPalmyraNewFormInput): IPa
             const processedData = preSave(data);
 
             return formStore.post(processedData, { endPointVars }).then((d) => {
-                setData(d);
+                if (props.refreshOnSaveResponse != false)
+                    setData(d);
                 onSaveSuccess(d);
                 return Promise.resolve(d);
             }).catch(e => {

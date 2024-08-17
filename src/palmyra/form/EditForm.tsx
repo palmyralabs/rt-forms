@@ -14,6 +14,10 @@ const EditForm = forwardRef(function EditForm(props: IEditFormOptions, ref: Muta
 
     useEffect(() => {
         fetchData();
+        if(formRef.current.isValid()){
+            if(props.onValidChange)
+                props.onValidChange(true);
+        }
     }, [formRef, props.id])
 
     useImperativeHandle(currentRef, () => getSaveFormHandle(saveData, formRef))

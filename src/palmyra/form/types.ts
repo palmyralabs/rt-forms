@@ -53,10 +53,10 @@ interface IFormFieldError {
 interface IFormManager {
     getData: Supplier<any>,
     getPropsData: Supplier<any>,
-    isValid: OPredicate,
-    setFieldGroupValid: BiConsumer<string, boolean>
+    reset: () => void,
+    isValid: OPredicate,    
     getFieldGroupManager: IFunction<string, IFieldGroupManager>
-    registerFieldGroupManager: IConsumer<IFieldGroupManager>
+    registerFieldGroupManager: IFunction<IFieldGroupOptions, IFieldGroupManager>
     setData: IConsumer<any>
 }
 

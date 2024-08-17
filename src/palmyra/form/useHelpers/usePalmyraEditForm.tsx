@@ -36,7 +36,7 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
         };
         formStore.get(request).then(d => {
             if (formRef.current)
-                formRef.current.setData(onQueryData(d))          
+                formRef.current.setData(onQueryData(d))
         });
     }
 
@@ -45,6 +45,11 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
             return formRef.current.getData();
         else
             return {};
+    }
+
+    const setData = (d: any) => {
+        if (formRef.current)
+            formRef.current.setData(d);
     }
 
     const saveData = (d?: any): Promise<any> => {
@@ -64,7 +69,8 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
             };
 
             return formStore[operation](processedData, request).then((d) => {
-                formRef.current.setData(d);
+                if (props.refreshOnSaveResponse != false)
+                    setData(d);
                 onSaveSuccess(d);
                 return Promise.resolve(d);
             }).catch(e => {

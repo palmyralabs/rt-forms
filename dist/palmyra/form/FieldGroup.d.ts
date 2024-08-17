@@ -1,5 +1,4 @@
-import { IFieldGroup } from './types';
-import { IFieldGroupOptions } from './useHelpers/useFieldGroupManager';
+import { IFieldGroup, IFieldGroupOptions } from './types';
 
 interface IFieldGroupCOptions extends IFieldGroupOptions {
     children?: any;
