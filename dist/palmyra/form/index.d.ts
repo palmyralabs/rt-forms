@@ -6,4 +6,6 @@ export * from '../widget/typesWidgetOptions';
 export * from './formContext';
 export * from './validator';
 export * from './useHelpers';
-export * from './utils/getFieldHandler';
+export * from './EditForm';
+export * from './NewForm';
+export * from './ViewForm';

@@ -1,18 +1,14 @@
-import { jsx as i } from "react/jsx-runtime";
-import { PalmyraForm as n } from "./PalmyraForm.js";
-import { forwardRef as f, useRef as c, useImperativeHandle as d } from "react";
-import { getSaveFormHandle as l } from "./formUtil.js";
+import "react/jsx-runtime";
+import "./PalmyraForm.js";
+import "react";
+import "./formUtil.js";
 import "./formContext.js";
 import "@palmyralabs/ts-predicates";
 import "../../chunks/NoopConverter.js";
 import "dayjs";
-import "../../chunks/ServerCardLayout.js";
+import { N as x } from "../../chunks/ServerCardLayout.js";
 import "../layout/card/CardLayout.js";
-import { usePalmyraNewForm as s } from "./useHelpers/usePalmyraNewForm.js";
-const N = f(function(r, t) {
-  const e = r.storeFactory, { saveData: m, formRef: o } = s(r), a = t || c();
-  return d(a, () => l(m, o)), /* @__PURE__ */ i(n, { onValidChange: r.onValidChange, ref: o, storeFactory: e, children: r.children });
-});
+import "./useHelpers/usePalmyraNewForm.js";
 export {
-  N as NewForm
+  x as NewForm
 };
