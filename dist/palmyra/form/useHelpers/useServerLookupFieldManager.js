@@ -6,7 +6,7 @@ import "dayjs";
 import { useFieldManager as R } from "./useFieldManager.js";
 import { mergeDeep as W } from "../../utils/ObjectUtils.js";
 import "../PalmyraForm.js";
-import "../../../chunks/SimplePredicates.js";
+import "@palmyralabs/ts-predicates";
 import { u as B } from "../../../chunks/ServerCardLayout.js";
 import "react/jsx-runtime";
 import "../../layout/card/CardLayout.js";

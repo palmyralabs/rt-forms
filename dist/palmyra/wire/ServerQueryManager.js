@@ -2,7 +2,7 @@ import "react";
 import "../utils/pubsub/PubSubHelper.js";
 import "../form/PalmyraForm.js";
 import "../form/formContext.js";
-import "../../chunks/SimplePredicates.js";
+import "@palmyralabs/ts-predicates";
 import "../../chunks/NoopConverter.js";
 import "dayjs";
 import { u as v } from "../../chunks/ServerCardLayout.js";

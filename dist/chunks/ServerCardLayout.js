@@ -4,7 +4,7 @@ import { CardLayout as Y } from "../palmyra/layout/card/CardLayout.js";
 import { useKeyValue as Z } from "../palmyra/utils/pubsub/PubSubHelper.js";
 import "../palmyra/form/PalmyraForm.js";
 import { StoreFactoryContext as $ } from "../palmyra/form/formContext.js";
-import "./SimplePredicates.js";
+import "@palmyralabs/ts-predicates";
 import "./NoopConverter.js";
 import "dayjs";
 function tt(r) {

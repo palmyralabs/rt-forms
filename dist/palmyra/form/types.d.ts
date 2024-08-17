@@ -9,7 +9,7 @@ type OPredicate = () => boolean;
 type numbers = number | number[];
 interface IFormOptions {
     children?: any;
-    formData: any;
+    formData?: any;
     onValidChange?: Function;
     mode: FormMode;
     storeFactory?: StoreFactory<any>;
