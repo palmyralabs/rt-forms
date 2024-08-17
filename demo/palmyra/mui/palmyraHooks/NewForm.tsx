@@ -1,5 +1,5 @@
 import { PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
-import { usePalmyraNewForm } from "../../../../src/palmyra/form/usePalmyraNewForm";
+import { usePalmyraNewForm } from "../../../../src/palmyra/form/useHelpers/usePalmyraNewForm";
 import { PalmyraForm } from "../../../../src/palmyra";
 import { useState } from "react";
 import { Button } from "@mui/material";

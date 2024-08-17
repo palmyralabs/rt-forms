@@ -1,49 +1,49 @@
-import { jsx as i, Fragment as F } from "react/jsx-runtime";
-import { forwardRef as D, useRef as s, useImperativeHandle as M } from "react";
-import { StoreFactoryContext as y, FormManagerContext as v } from "./formContext.js";
-import { FieldGroup as V } from "./FieldGroup.js";
-import { useValidityTracker as h } from "./useValidityTracker.js";
-const b = D(function(t, o) {
-  const r = o || s(null), c = s(), d = t.formData, u = t.onValidChange, g = t.mode, n = G(t);
-  return M(r, () => ({
+import { jsx as i, Fragment as m } from "react/jsx-runtime";
+import { forwardRef as F, useRef as s, useImperativeHandle as D } from "react";
+import { StoreFactoryContext as M, FormManagerContext as y } from "./formContext.js";
+import { FieldGroup as v } from "./FieldGroup.js";
+import { useValidityTracker as V } from "./useHelpers/useValidityTracker.js";
+const b = F(function(r, o) {
+  const t = o || s(null), c = s(), u = r.formData, d = r.onValidChange, n = h(r);
+  return D(t, () => ({
     getData() {
       return n.getData();
     },
     isValid() {
       return n.isValid();
     },
-    setData(m) {
-      n.setData(m);
+    setData(g) {
+      n.setData(g);
     }
-  }), [d, u, g]), /* @__PURE__ */ i(F, { children: /* @__PURE__ */ i(y.Provider, { value: t.storeFactory, children: /* @__PURE__ */ i(v.Provider, { value: n, children: /* @__PURE__ */ i(V, { name: "_default", ref: c, children: t.children }) }) }) });
-}), G = (l) => {
-  const t = s(l.formData || {}), o = l.onValidChange || ((e) => {
+  }), [u, d]), /* @__PURE__ */ i(m, { children: /* @__PURE__ */ i(M.Provider, { value: r.storeFactory, children: /* @__PURE__ */ i(y.Provider, { value: n, children: /* @__PURE__ */ i(v, { name: "_default", ref: c, children: r.children }) }) }) });
+}), h = (l) => {
+  const r = s(l.formData || {}), o = l.onValidChange || ((e) => {
     console.log(e);
-  }), r = s({}), { isValid: c, setValidity: d } = h((e) => {
+  }), t = s({}), { isValid: c, setValidity: u } = V((e) => {
     o(e);
   }, 200);
   return {
     getData: () => {
-      var e = t.current || {};
-      return Object.values(r.current).every((a) => (e = { ...e, ...a.getFieldGroupData() }, !0)), e;
+      var e = r.current || {};
+      return Object.values(t.current).every((a) => (e = { ...e, ...a.getFieldGroupData() }, !0)), e;
     },
-    getPropsData: () => t.current,
+    getPropsData: () => r.current,
     isValid: c,
-    setFieldGroupValid: d,
+    setFieldGroupValid: u,
     setData: (e) => {
-      const a = r.current;
+      const a = t.current;
       for (const f in a)
         a[f].setData(e);
-      t.current = e;
+      r.current = e;
     },
     registerFieldGroupManager: (e) => {
-      const a = r.current;
+      const a = t.current;
       a[e.getName()] = e;
     },
-    getFieldGroupManager: (e) => r.current[e]
+    getFieldGroupManager: (e) => t.current[e]
   };
 };
 export {
   b as PalmyraForm,
-  G as useFormManager
+  h as useFormManager
 };

@@ -1,5 +1,5 @@
 import { PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
-import { usePalmyraViewForm } from "../../../../src/palmyra/form/usePalmyraViewForm";
+import { usePalmyraViewForm } from "../../../../src/palmyra/form/useHelpers/usePalmyraViewForm";
 import { PalmyraForm } from "../../../../src/palmyra";
 import MuiTextField from "../form/MuiTextField";
 import MuiSelect from "../form/MuiSelect";

@@ -1,19 +1,18 @@
-import { IEndPoint, IEndPointOptions, StoreFactory } from '@palmyralabs/palmyra-wire';
+import { StoreFactory } from '@palmyralabs/palmyra-wire';
 import { BiConsumer, IConsumer, IFunction, Supplier } from '@palmyralabs/ts-utils';
 import { FieldOptions, IMutateOptions } from './typesFieldOptions';
-import { Dispatch, MutableRefObject, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { PredicateResponse } from '@palmyralabs/ts-predicates';
+import { IPalmyraEditFormInput, IPalmyraNewFormInput, IPalmyraSaveFormInput, IPalmyraViewFormInput } from './useHelpers/types';
 
-type FormMode = 'view' | 'new' | 'edit';
+type FormMode = 'view' | 'new' | 'edit' | 'save';
 type OPredicate = () => boolean;
 type numbers = number | number[];
 interface IFormOptions {
     children?: any;
     formData?: any;
     onValidChange?: Function;
-    mode: FormMode;
     storeFactory?: StoreFactory<any>;
-    formListener?: IFormListener;
 }
 interface IForm {
     getData: () => any;
@@ -71,43 +70,22 @@ interface IFieldGroupManager {
     setFieldValidity: BiConsumer<string, boolean>;
     isValid: OPredicate;
 }
-interface IFormListener {
-    onSaveSuccess?: (data: any) => void;
-    onSaveFailure?: (e: any) => void;
-    preProcessSaveData?: (data: FormData) => FormData;
-    postProcessQueryData?: (data: FormData) => FormData;
+interface IEditFormOptions extends IPalmyraEditFormInput {
+    children?: any;
+    onValidChange?: Function;
 }
-interface IPalmyraViewFormInput {
-    formRef?: MutableRefObject<any>;
-    storeFactory: StoreFactory<any>;
-    id: string;
-    endPoint: IEndPoint;
-    endPointOptions?: IEndPointOptions;
-    idKey?: string;
+interface ISaveFormOptions extends IPalmyraSaveFormInput {
+    children?: any;
+    onValidChange?: Function;
 }
-interface IPalmyraViewFormOutput {
-    getData(): FormData;
-    formRef: MutableRefObject<any>;
+interface INewFormOptions extends IPalmyraNewFormInput {
+    children?: any;
+    onValidChange?: Function;
 }
-interface IPalmyraEditFormInput extends IPalmyraViewFormInput {
-    formListener?: IFormListener;
+interface IViewFormOptions extends IPalmyraViewFormInput {
+    children?: any;
 }
-interface IPalmyraEditFormOutput extends IPalmyraViewFormOutput {
+interface ISaveForm extends IForm {
     saveData: (data?: any) => Promise<any>;
 }
-interface IPalmyraSaveFormInput extends IPalmyraEditFormInput {
-}
-interface IPalmyraSaveFormOutput extends IPalmyraEditFormOutput {
-}
-interface IPalmyraNewFormInput {
-    initialData?: any;
-    storeFactory: StoreFactory<any>;
-    endPoint: IEndPoint;
-    endPointOptions?: IEndPointOptions;
-    idKey?: string;
-    formRef?: MutableRefObject<any>;
-    formListener?: IFormListener;
-}
-interface IPalmyraNewFormOutput extends IPalmyraEditFormOutput {
-}
-export type { numbers, IFieldConverter, IFieldAccessor, FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions, IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IFormListener, IPalmyraNewFormInput, IPalmyraNewFormOutput, IPalmyraSaveFormInput, IPalmyraSaveFormOutput, IPalmyraViewFormInput, IPalmyraViewFormOutput, IPalmyraEditFormInput, IPalmyraEditFormOutput };
+export type { numbers, IFieldConverter, IFieldAccessor, FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions, IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IEditFormOptions, ISaveForm, ISaveFormOptions, INewFormOptions, IViewFormOptions };

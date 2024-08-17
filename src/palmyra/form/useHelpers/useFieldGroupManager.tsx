@@ -3,7 +3,7 @@ import { IFieldGroupManager, IFieldGroupOptions, IFieldManager, IFormManager } f
 import { BiConsumer, getValueByKey, IFunction } from "@palmyralabs/ts-utils";
 import { FormManagerContext } from "../formContext";
 import { FieldOptions } from "../typesFieldOptions";
-import { useValidityTracker } from "../useValidityTracker";
+import { useValidityTracker } from "./useValidityTracker";
 
 
 const useFieldGroupManager = (p: IFieldGroupOptions): IFieldGroupManager => {

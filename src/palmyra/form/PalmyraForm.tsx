@@ -4,7 +4,7 @@ import { IFieldManager, IForm, IFormOptions } from "./types";
 import { FormManagerContext, StoreFactoryContext } from "./formContext";
 import { FieldGroup } from "./FieldGroup";
 import { IFunction } from "@palmyralabs/ts-utils";
-import { useValidityTracker } from "./useValidityTracker";
+import { useValidityTracker } from "./useHelpers/useValidityTracker";
 
 
 const PalmyraForm = forwardRef(function PalmyraForm(props: IFormOptions, ref: MutableRefObject<IForm>) {
@@ -12,8 +12,7 @@ const PalmyraForm = forwardRef(function PalmyraForm(props: IFormOptions, ref: Mu
 
     const defaultFieldMangerRef = useRef<IFieldManager>();
     const data = props.formData;
-    const onValidityChange = props.onValidChange;
-    const mode = props.mode;
+    const onValidityChange = props.onValidChange;    
 
     const formManager = useFormManager(props);
 
@@ -29,7 +28,7 @@ const PalmyraForm = forwardRef(function PalmyraForm(props: IFormOptions, ref: Mu
                 formManager.setData(d)
             }
         };
-    }, [data, onValidityChange, mode]);
+    }, [data, onValidityChange]);
 
     return (<>
         <StoreFactoryContext.Provider value={props.storeFactory}>
