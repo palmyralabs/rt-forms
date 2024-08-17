@@ -105,6 +105,7 @@ interface IFormListener {
 
 
 interface IPalmyraViewFormInput {
+    formRef?: MutableRefObject<any>
     storeFactory: StoreFactory<any>,
     id: string,
     endPoint: IEndPoint,
@@ -113,18 +114,17 @@ interface IPalmyraViewFormInput {
 }
 
 interface IPalmyraViewFormOutput {
-    getData(): FormData
+    getData(): FormData,
+    formRef: MutableRefObject<any>
 }
 
 
-interface IPalmyraEditFormInput extends IPalmyraViewFormInput {
-    formRef?: MutableRefObject<any>
+interface IPalmyraEditFormInput extends IPalmyraViewFormInput {    
     formListener?: IFormListener
 }
 
 interface IPalmyraEditFormOutput extends IPalmyraViewFormOutput {
-    saveData: (data?: any) => Promise<any>,
-    formRef: MutableRefObject<any>
+    saveData: (data?: any) => Promise<any>
 }
 
 

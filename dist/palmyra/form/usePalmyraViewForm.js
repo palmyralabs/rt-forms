@@ -1,21 +1,21 @@
-import { useState as g, useEffect as m } from "react";
-const D = (t) => {
-  const n = t.storeFactory, [r, s] = g({}), a = t.idKey || "id", i = t.endPointOptions || {}, c = (e, o) => typeof e == "string" ? e + "/{" + o + "}" : e;
-  return m(() => {
-    const e = t.id, o = a;
-    var d = c(t.endPoint, o);
-    const u = n.getFormStore({}, d, o);
-    var y = {
+import { useRef as g, useState as P, useEffect as l } from "react";
+const R = (t) => {
+  const n = t.storeFactory, r = t.formRef || g(null), [s, a] = P({}), i = t.idKey || "id", c = t.endPointOptions || {}, d = (e, o) => typeof e == "string" ? e + "/{" + o + "}" : e;
+  return l(() => {
+    const e = t.id, o = i;
+    var f = d(t.endPoint, o);
+    const u = n.getFormStore({}, f, o);
+    var m = {
       options: {
-        ...i,
+        ...c,
         [o]: e
       }
     };
-    u.get(y).then((f) => {
-      s(f);
+    u.get(m).then((y) => {
+      a(y);
     });
-  }, [t.id]), { getData: () => r };
+  }, [t.id]), { getData: () => s, formRef: r };
 };
 export {
-  D as usePalmyraViewForm
+  R as usePalmyraViewForm
 };
