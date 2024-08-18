@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { IForm, ITextField, PalmyraForm, SimpleTextField } from "../src/palmyra"
+import { useRef, useState } from "react";
+import { IForm, ITextField, PalmyraForm } from "../src/palmyra"
 import { FieldGroup } from "../src/palmyra/form/FieldGroup";
 import MuiTextField from "./palmyra/mui/form/MuiTextField";
 import MuiSelect from "./palmyra/mui/form/MuiSelect";
@@ -44,7 +44,7 @@ const PalmyraFormPage = () => {
     return <>
         <PalmyraForm formData={{
             firstName: "raja", lastName: 'sri', address: { 'pincode': 6273, mode: 10 }
-        }} mode="new" onValidChange={isValid} ref={formRef}>
+        }} onValidChange={isValid} ref={formRef}>
 
             <MuiSelect attribute="address.mode" label="mode"
                 options={{ 10: "Ten", 20: "Twenty" }}

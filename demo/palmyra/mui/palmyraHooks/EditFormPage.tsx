@@ -5,7 +5,7 @@ import MuiTextField from "../form/MuiTextField";
 import MuiSelect from "../form/MuiSelect";
 import MuiDatePicker from "../form/MuiDatePicker";
 import MuiServerLookup from "../form/MuiServerLookup";
-import { EditForm } from "../../../../src/palmyra/form/EditForm";
+import { PalmyraEditForm } from "../../../../src/palmyra/form/PalmyraEditForm";
 import { ISaveForm } from "../../../../src/palmyra";
 import { FieldGroup } from "../../../../src/palmyra/form/FieldGroup";
 
@@ -34,7 +34,7 @@ const EditFormPage = () => {
         <Button disabled={!valid}
             onClick={logData}>Save</Button>
 
-        <EditForm onValidChange={setValid} storeFactory={storeFactory} endPoint={
+        <PalmyraEditForm onValidChange={setValid} storeFactory={storeFactory} endPoint={
             { get: 'testFormData.json', query: 'testFormData.json', put: 'testFormData.json' }
         } id="" key='sdf' ref={formRef}>
             <MuiTextField attribute="text" title="Text Field" required />
@@ -50,7 +50,7 @@ const EditFormPage = () => {
                     lookupOptions={{ idAttribute: 'id', labelAttribute: "name" }}
                     storeOptions={{ endPoint: '/lookupData.json', idAttribute: 'sid', labelAttribute: "location" }} />
             </FieldGroup>
-        </EditForm>
+        </PalmyraEditForm>
     </>
 }
 

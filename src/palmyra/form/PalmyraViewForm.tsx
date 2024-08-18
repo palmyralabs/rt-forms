@@ -3,7 +3,7 @@ import { IViewFormOptions } from "./types";
 import { usePalmyraViewForm } from "./useHelpers";
 import { PalmyraForm } from "./PalmyraForm";
 
-const ViewForm = (props: IViewFormOptions) => {
+const PalmyraViewForm = (props: IViewFormOptions) => {
     const storeFactory = props.storeFactory;
 
     const { formRef } = usePalmyraViewForm(props)
@@ -14,4 +14,4 @@ const ViewForm = (props: IViewFormOptions) => {
     );
 }
 
-export { ViewForm };
+export { PalmyraViewForm };

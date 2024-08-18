@@ -8,10 +8,10 @@ import "dayjs";
 import "../../chunks/ServerCardLayout.js";
 import "../layout/card/CardLayout.js";
 import { usePalmyraViewForm as e } from "./useHelpers/usePalmyraViewForm.js";
-const h = (r) => {
+const d = (r) => {
   const o = r.storeFactory, { formRef: m } = e(r);
   return /* @__PURE__ */ t(i, { ref: m, storeFactory: o, children: r.children });
 };
 export {
-  h as ViewForm
+  d as PalmyraViewForm
 };

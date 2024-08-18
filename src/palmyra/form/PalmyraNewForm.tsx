@@ -5,7 +5,7 @@ import { forwardRef, MutableRefObject, useImperativeHandle, useRef } from "react
 import { getSaveFormHandle } from "./formUtil";
 import { usePalmyraNewForm } from "./useHelpers";
 
-const NewForm = forwardRef(function EditForm(props: INewFormOptions, ref: MutableRefObject<ISaveForm>) {
+const PalmyraNewForm = forwardRef(function EditForm(props: INewFormOptions, ref: MutableRefObject<ISaveForm>) {
     const storeFactory = props.storeFactory;
 
     const { saveData, formRef } = usePalmyraNewForm(props)
@@ -19,4 +19,4 @@ const NewForm = forwardRef(function EditForm(props: INewFormOptions, ref: Mutabl
     );
 });
 
-export { NewForm };
+export { PalmyraNewForm };

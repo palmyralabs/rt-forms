@@ -1,5 +1,5 @@
 import { jsx as g } from "react/jsx-runtime";
-import { forwardRef as O, useRef as S, useEffect as K, useImperativeHandle as N, useState as m, useContext as $ } from "react";
+import { forwardRef as O, useRef as S, useEffect as K, useImperativeHandle as V, useState as m, useContext as $ } from "react";
 import { CardLayout as p } from "../palmyra/layout/card/CardLayout.js";
 import { useKeyValue as tt } from "../palmyra/utils/pubsub/PubSubHelper.js";
 import { PalmyraForm as M } from "../palmyra/form/PalmyraForm.js";
@@ -14,10 +14,10 @@ const Ct = O(function(r, s) {
   const l = r.storeFactory, { fetchData: i, saveData: c, formRef: n } = ot(r), u = s || S();
   return K(() => {
     i(), n.current.isValid() && r.onValidChange && r.onValidChange(!0);
-  }, [n, r.id]), N(u, () => z(c, n)), /* @__PURE__ */ g(M, { onValidChange: r.onValidChange, ref: n, storeFactory: l, children: r.children });
+  }, [n, r.id]), V(u, () => z(c, n)), /* @__PURE__ */ g(M, { onValidChange: r.onValidChange, ref: n, storeFactory: l, children: r.children });
 }), St = O(function(r, s) {
   const l = r.storeFactory, { saveData: i, formRef: c } = rt(r), n = s || S();
-  return N(n, () => z(i, c)), /* @__PURE__ */ g(M, { onValidChange: r.onValidChange, ref: c, storeFactory: l, children: r.children });
+  return V(n, () => z(i, c)), /* @__PURE__ */ g(M, { onValidChange: r.onValidChange, ref: c, storeFactory: l, children: r.children });
 });
 function nt(o) {
   if (o.endPoint) {
@@ -30,7 +30,7 @@ function nt(o) {
 }
 const at = (o) => {
   var T, j;
-  const { quickSearch: r } = o, s = o.store || nt(o), l = o.fetchAll != !1, [i, c] = m(o.endPointOptions), [n, u] = m(null), y = ((T = o.defaultParams) == null ? void 0 : T.filter) || {}, v = ((j = o.defaultParams) == null ? void 0 : j.sort) || {}, [P, h] = o.filterTopic ? tt(o.filterTopic, y) : m(y), [F, A] = m({}), V = S(o.initialFetch == !1), E = o.pageSize ? o.pageSize : 15;
+  const { quickSearch: r } = o, s = o.store || nt(o), l = o.fetchAll != !1, [i, c] = m(o.endPointOptions), [n, u] = m(null), y = ((T = o.defaultParams) == null ? void 0 : T.filter) || {}, v = ((j = o.defaultParams) == null ? void 0 : j.sort) || {}, [P, h] = o.filterTopic ? tt(o.filterTopic, y) : m(y), [F, A] = m({}), w = S(o.initialFetch == !1), E = o.pageSize ? o.pageSize : 15;
   var G = E instanceof Array ? E[0] : E;
   const [f, R] = m({ limit: G, offset: 0, total: !0 }), [_, H] = m(null), C = () => Math.round(f.offset / f.limit), q = () => f, d = (t) => {
     R((e) => ({ limit: e.limit, total: e.total, offset: t * e.limit }));
@@ -46,20 +46,20 @@ const at = (o) => {
     }, 300), t));
   };
   K(() => {
-    if (V.current) {
-      V.current = !1;
+    if (w.current) {
+      w.current = !1;
       return;
     }
     (l || !B()) && b();
   }, [f, F, i]);
-  const w = () => ({
+  const N = () => ({
     sortOrder: F && Object.keys(F).length > 0 ? F : v,
     total: !0,
     endPointVars: i,
     ...f,
     filter: { ...P, ...y }
   }), b = () => {
-    const t = w();
+    const t = N();
     if (s)
       try {
         s.query(t).then((e) => {
@@ -108,7 +108,7 @@ const at = (o) => {
       const t = C();
       return t > 0 ? (d(t - 1), !0) : !1;
     },
-    getQueryRequest: w,
+    getQueryRequest: N,
     setSortOptions: L,
     getCurrentFilter: () => P,
     getTotalRecords: () => n,
@@ -116,7 +116,7 @@ const at = (o) => {
   };
 }, vt = O(function(r, s) {
   const { Child: l, childProps: i } = r, c = s || S(null), n = at(r), u = r.listKeyProvider || ((y, v) => v);
-  return N(c, () => ({
+  return V(c, () => ({
     ...n
   }), [n]), /* @__PURE__ */ g("div", { children: /* @__PURE__ */ g("div", { className: "card-page-container", children: /* @__PURE__ */ g(
     p,
@@ -131,8 +131,8 @@ const at = (o) => {
   ) }) });
 });
 export {
-  Ct as E,
-  St as N,
+  Ct as P,
   vt as S,
+  St as a,
   at as u
 };

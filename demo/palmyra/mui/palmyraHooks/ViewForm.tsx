@@ -15,7 +15,7 @@ const ViewForm = () => {
 
     return <>
         <h2>View</h2>
-        <PalmyraForm formData={getData()} mode="view" onValidChange={() => { }}>
+        <PalmyraForm formData={getData()} onValidChange={() => { }}>
             <MuiTextField attribute="text" />
             <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
         </PalmyraForm>

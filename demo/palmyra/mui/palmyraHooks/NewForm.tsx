@@ -24,7 +24,7 @@ const NewForm = () => {
         <Button disabled={!valid}
             onClick={saveData}>Save</Button>
 
-        <PalmyraForm formData={getData()} mode="new" onValidChange={setValid} ref={formRef}>
+        <PalmyraForm formData={getData()} onValidChange={setValid} ref={formRef}>
             <MuiTextField attribute="text" label="Text Field" />
             <MuiSelect attribute="select" options={{ true: "True", false: "False" }} label="Select Field" />
         </PalmyraForm>

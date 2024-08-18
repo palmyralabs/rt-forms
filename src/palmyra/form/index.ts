@@ -9,8 +9,8 @@ export * from './formContext'
 export * from './validator'
 export * from './useHelpers'
 
-export * from './EditForm'
-export * from './NewForm'
-export * from './ViewForm'
+export * from './PalmyraEditForm'
+export * from './PalmyraNewForm'
+export * from './PalmyraViewForm'
 
 export * from './utils/getFieldHandler'
