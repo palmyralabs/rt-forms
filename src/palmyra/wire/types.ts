@@ -1,4 +1,4 @@
-import { IPagination, QueryRequest } from "@palmyralabs/palmyra-wire"
+import { ExportRequest, IPagination, QueryRequest } from "@palmyralabs/palmyra-wire"
 
 interface IQueryable {
     setQuickSearch: (v: any) => void
@@ -9,7 +9,8 @@ interface IQueryable {
     addFilter: (key: string, v: any) => void,
     setSortOptions: (d: any) => void
     getCurrentData: () => Array<any>,
-    setSortColumns: (sortOrder: any) => void
+    setSortColumns: (sortOrder: any) => void,
+    export: (request: ExportRequest) => void
 }
 
 interface IPageQueryable extends IQueryable {

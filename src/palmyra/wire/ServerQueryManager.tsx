@@ -1,11 +1,15 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEndPointOptions, IEndPoint, GridStore } from '@palmyralabs/palmyra-wire';
+import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEndPointOptions, IEndPoint, GridStore, ExportRequest } from '@palmyralabs/palmyra-wire';
 import { useKeyValue } from '../utils';
 import { IPageQueryable } from './types';
 import { StoreFactoryContext } from '../form';
 
+type ExportStore = {
+  export?(request: ExportRequest): void;
+}
+
 interface IServerQueryInput {
-  store?: AbstractQueryStore<any>,
+  store?: AbstractQueryStore<any> & ExportStore,
   endPoint?: IEndPoint,
   endPointOptions?: IEndPointOptions,
   fetchAll?: boolean,
@@ -215,11 +219,18 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
     return false;
   }
 
+  const exportResult = (request: ExportRequest) => {
+    if (store.export)
+      store.export(request);
+    else
+      console.warn('Store does not implement export method');
+  }
+
   return {
     addFilter, resetFilter, setFilter, setQuickSearch,
     setSortColumns, setEndPointOptions, getTotalPages,
     refresh, setPageSize, getPageNo, getQueryLimit, setQueryLimit,
-    gotoPage, nextPage, prevPage,
+    gotoPage, nextPage, prevPage, export: exportResult,
     getQueryRequest, setSortOptions: setSortColumns,
     getCurrentFilter: () => filter, getTotalRecords: () => totalRecords,
     getCurrentData: () => data

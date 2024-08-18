@@ -1,8 +1,11 @@
-import { DefaultQueryParams, AbstractQueryStore, IEndPointOptions, IEndPoint } from '@palmyralabs/palmyra-wire';
+import { DefaultQueryParams, AbstractQueryStore, IEndPointOptions, IEndPoint, ExportRequest } from '@palmyralabs/palmyra-wire';
 import { IPageQueryable } from './types';
 
+type ExportStore = {
+    export?(request: ExportRequest): void;
+};
 interface IServerQueryInput {
-    store?: AbstractQueryStore<any>;
+    store?: AbstractQueryStore<any> & ExportStore;
     endPoint?: IEndPoint;
     endPointOptions?: IEndPointOptions;
     fetchAll?: boolean;
