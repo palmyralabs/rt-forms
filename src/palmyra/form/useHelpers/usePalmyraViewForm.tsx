@@ -1,6 +1,6 @@
 
 import { GetRequest, IEndPoint } from "@palmyralabs/palmyra-wire";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { IPalmyraViewFormInput, IPalmyraViewFormOutput } from "./types";
 import { StoreFactoryContext } from "../formContext";
 
@@ -11,7 +11,7 @@ type IusePalmyraViewForm = (props: IPalmyraViewFormInput) => IPalmyraViewFormOut
 const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): IPalmyraViewFormOutput => {
     const storeFactory = props.storeFactory || useContext(StoreFactoryContext);
     const formRef = props.formRef || useRef<any>(null);
-    const [data, setData] = useState<any>({});
+    const dataRef = useRef<any>();
     const idKey = props.idKey || 'id';
     const endPointVars = props.endPointOptions || {};
     const onQueryData = props.onQueryData || ((d: any) => d);
@@ -35,10 +35,17 @@ const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): 
                 [idProperty]: id
             }
         };
-        formStore.get(request).then(d => { setData(onQueryData(d)) });
+        formStore.get(request).then(d => {
+            const data = onQueryData(d);
+            if (formRef.current)
+                formRef.current.setData(data)
+            dataRef.current = data
+        });
     }, [props.id])
 
-    const getData = () => data;
+    const getData = () => {
+        return dataRef.current;
+    }
 
     return { getData, formRef };
 }
