@@ -3,7 +3,7 @@ import { MutableRefObject } from "react"
 import { IForm } from "../types"
 
 interface IuseFormOptions {
-    storeFactory: StoreFactory<any>,
+    storeFactory?: StoreFactory<any>,
     endPoint: IEndPoint,
     endPointOptions?: IEndPointOptions,
     formRef?: MutableRefObject<any>

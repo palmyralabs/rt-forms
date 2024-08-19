@@ -1,24 +1,24 @@
-import { jsx as a, Fragment as f } from "react/jsx-runtime";
-import { forwardRef as u, useRef as o, useImperativeHandle as c, useEffect as g } from "react";
-import { StoreFactoryContext as s, FormManagerContext as h } from "./formContext.js";
-import { FieldGroup as F } from "./FieldGroup.js";
-import { useFormManager as V } from "./useHelpers/useFormManager.js";
-const P = u(function(e, t) {
-  const i = t || o(null), l = o(), n = e.formData, d = e.onValidChange, r = V(e);
-  return c(i, () => ({
+import { jsx as t, Fragment as u } from "react/jsx-runtime";
+import { forwardRef as s, useRef as o, useContext as g, useImperativeHandle as F, useEffect as h } from "react";
+import { StoreFactoryContext as i, FormManagerContext as C } from "./formContext.js";
+import { FieldGroup as V } from "./FieldGroup.js";
+import { useFormManager as y } from "./useHelpers/useFormManager.js";
+const j = s(function(e, a) {
+  const l = a || o(null), d = e.storeFactory || g(i), m = o(), n = e.formData, f = e.onValidChange, r = y(e);
+  return F(l, () => ({
     getData() {
       return r.getData();
     },
     isValid() {
       return r.isValid();
     },
-    setData(m) {
-      r.setData(m);
+    setData(c) {
+      r.setData(c);
     }
-  }), [n, d]), g(() => {
+  }), [n, f]), h(() => {
     r.isValid() && e.onValidChange && e.onValidChange(!0);
-  }, [n]), /* @__PURE__ */ a(f, { children: /* @__PURE__ */ a(s.Provider, { value: e.storeFactory, children: /* @__PURE__ */ a(h.Provider, { value: r, children: /* @__PURE__ */ a(F, { name: "_default", ref: l, children: e.children }) }) }) });
+  }, [n]), /* @__PURE__ */ t(u, { children: /* @__PURE__ */ t(i.Provider, { value: d, children: /* @__PURE__ */ t(C.Provider, { value: r, children: /* @__PURE__ */ t(V, { name: "_default", ref: m, children: e.children }) }) }) });
 });
 export {
-  P as PalmyraForm
+  j as PalmyraForm
 };
