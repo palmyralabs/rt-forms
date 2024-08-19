@@ -1,14 +1,15 @@
 
 import { GetRequest, IEndPoint } from "@palmyralabs/palmyra-wire";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { IPalmyraViewFormInput, IPalmyraViewFormOutput } from "./types";
+import { StoreFactoryContext } from "../formContext";
 
 
 
 type IusePalmyraViewForm = (props: IPalmyraViewFormInput) => IPalmyraViewFormOutput;
 
 const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): IPalmyraViewFormOutput => {
-    const storeFactory = props.storeFactory;
+    const storeFactory = props.storeFactory || useContext(StoreFactoryContext);
     const formRef = props.formRef || useRef<any>(null);
     const [data, setData] = useState<any>({});
     const idKey = props.idKey || 'id';

@@ -1,12 +1,13 @@
 
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { getHandlers } from "./utils";
 import { IPalmyraNewFormInput, IPalmyraNewFormOutput } from "./types";
+import { StoreFactoryContext } from "../formContext";
 
 type IusePalmyraNewForm = (props: IPalmyraNewFormInput) => IPalmyraNewFormOutput;
 
 const usePalmyraNewForm: IusePalmyraNewForm = (props: IPalmyraNewFormInput): IPalmyraNewFormOutput => {
-    const storeFactory = props.storeFactory;
+    const storeFactory = props.storeFactory || useContext(StoreFactoryContext);
     const formRef = props.formRef || useRef<any>(null);
     const endPointVars = props.endPointOptions || {};
     const { onSaveFailure, onSaveSuccess, preSave } = getHandlers(props);

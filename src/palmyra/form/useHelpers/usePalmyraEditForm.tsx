@@ -1,14 +1,15 @@
 
 import { GetRequest, IEndPoint, PutRequest } from "@palmyralabs/palmyra-wire";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { IPalmyraEditFormInput, IPalmyraEditFormOutput } from "./types";
 import { getHandlers } from "./utils";
+import { StoreFactoryContext } from "../formContext";
 
 type IusePalmyraEditForm = (props: IPalmyraEditFormInput) => IPalmyraEditFormOutput;
 
 
 const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): IPalmyraEditFormOutput => {
-    const storeFactory = props.storeFactory;
+    const storeFactory = props.storeFactory || useContext(StoreFactoryContext);
     const formRef = props.formRef || useRef<any>(null);
     const idKey = props.idKey || 'id';
     const operation = props.mode != 'save' ? 'put' : 'save';
