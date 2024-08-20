@@ -54,7 +54,8 @@
     "vitest": "^2.0.5"
   },
   "peerDependencies": {
-    "@palmyralabs/palmyra-wire": "^1.0.1",
+    "@palmyralabs/palmyra-wire": "^1.0.3",
+    "axios":"1.7.4",
     "@palmyralabs/ts-predicates": "github:palmyralabs/ts-predicates"
   },
   "overrides": {
