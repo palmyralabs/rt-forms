@@ -25,8 +25,17 @@ const useFieldManager = (key: string, options: FieldOptions, customizer?: IField
     const valueWriter = useCallback(() => getWriter(key, customizer), [key])();
     const validator = generatePredicate(options);
 
-    const [fieldState, setFieldState] = useState<FieldStatus>({ value: valueAccessor({}) });
+    var defaultValue = valueAccessor({});
+    var e = undefined;
     const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
+    if (!fieldGroupManager.hasField(options.attribute)) {
+        if ((defaultValue == '' || defaultValue == undefined) && options.defaultValue != undefined) {
+            defaultValue = customizer?.parse ? customizer.parse(options.defaultValue) : options.defaultValue;
+            e = validate(defaultValue, validator, options); 
+        }
+    }
+
+    const [fieldState, setFieldState] = useState<FieldStatus>({ value: defaultValue, error: e });
     const [mutateOptions, setMutateOptions] = useState<IMutateOptions>({});
 
     const value = fieldState.value;
@@ -73,6 +82,7 @@ const useFieldManager = (key: string, options: FieldOptions, customizer?: IField
     const getFieldProps: Supplier<FieldOptions> = () => {
         const { invalidMessage, missingMessage,
             validator, regExp, validRule, validFn,
+            defaultValue,
             ...result } = options;
         return { ...result, ...mutateOptions }
     }
@@ -118,7 +128,7 @@ function getWriter(attribute, customizer?: IFieldCustomizer): BiConsumer<any, an
         } else {
             return (formData: any, v: any) => setValueByKey(attribute, formData, format(v));
         }
-    }else{
+    } else {
         if (customizer?.fieldWriter) {
             return (formData: any, v: any) => customizer.fieldWriter(v, formData);
         }

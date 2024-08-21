@@ -54,7 +54,7 @@ interface IFormManager {
     getData: Supplier<any>,
     getPropsData: Supplier<any>,
     reset: () => void,
-    isValid: OPredicate,    
+    isValid: OPredicate,
     getFieldGroupManager: IFunction<string, IFieldGroupManager>
     registerFieldGroupManager: IFunction<IFieldGroupOptions, IFieldGroupManager>
     setData: IConsumer<any>
@@ -79,7 +79,7 @@ interface IFieldGroupManager {
     //registerField: (o: FieldOptions, accessor?: IFieldCustomizer) => IFieldManager
 
     registerFieldManager: (fieldManager: IFieldManager, options: FieldOptions) => void
-
+    hasField: (string: string) => boolean
     getName: Supplier<string>
 
     setData: Dispatch<SetStateAction<any>>

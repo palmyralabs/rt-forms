@@ -62,6 +62,7 @@ interface IFieldAccessor {
 }
 interface IFieldGroupManager {
     registerFieldManager: (fieldManager: IFieldManager, options: FieldOptions) => void;
+    hasField: (string: string) => boolean;
     getName: Supplier<string>;
     setData: Dispatch<SetStateAction<any>>;
     getFieldGroupData: Supplier<any>;
