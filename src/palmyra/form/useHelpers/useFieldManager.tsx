@@ -20,14 +20,16 @@ interface FieldStatus {
  */
 
 const useFieldManager = (key: string, options: FieldOptions, customizer?: IFieldCustomizer): IFieldManager => {
-
+    const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
+    if(!fieldGroupManager)
+        throw Error('useFieldManager must be called within the scope of <PalmyraForm>')
+    
     const valueAccessor = useCallback(() => getAccessor(key, customizer), [key])();
     const valueWriter = useCallback(() => getWriter(key, customizer), [key])();
     const validator = generatePredicate(options);
 
     var defaultValue = valueAccessor({});
     var e = undefined;
-    const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
     if (!fieldGroupManager.hasField(options.attribute)) {
         if ((defaultValue == '' || defaultValue == undefined) && options.defaultValue != undefined) {
             defaultValue = customizer?.parse ? customizer.parse(options.defaultValue) : options.defaultValue;
