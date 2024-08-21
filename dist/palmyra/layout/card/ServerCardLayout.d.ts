@@ -5,7 +5,7 @@ interface ServerCardLayoutInput extends IServerQueryInput {
     childProps?: any;
     listKeyProvider?: (data: any, index: number) => string | number;
     EmptyChild?: React.FC;
-    customButton?: React.ReactNode[];
+    Loading?: React.FC;
     preProcess?: (data: any) => any;
 }
 declare const ServerCardLayout: import('react').ForwardRefExoticComponent<ServerCardLayoutInput & import('react').RefAttributes<any>>;

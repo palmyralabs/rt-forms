@@ -1,22 +1,27 @@
-import { jsx as t, jsxs as m } from "react/jsx-runtime";
-import { EmptyChildCard as y } from "./EmptyChildCard.js";
-const v = (r) => {
-  const { children: a, dataList: i, Child: l, childProps: n } = r, s = r.childKeyProvider || ((d, c) => c), o = r.preProcess || ((d) => d), h = r.EmptyChild ? r.EmptyChild : y;
-  return /* @__PURE__ */ t("div", { children: !i || i.length == 0 ? /* @__PURE__ */ t(h, {}) : /* @__PURE__ */ m("div", { className: "card-container", children: [
-    a,
-    /* @__PURE__ */ t("div", { className: "card-wrapper", children: i.map((d, c) => {
-      const e = o(d);
-      return /* @__PURE__ */ t(
-        l,
+import { jsx as i, jsxs as m } from "react/jsx-runtime";
+import { NoopEmptyChildCard as C, EmptyChildCard as y } from "./EmptyChildCard.js";
+const P = (d) => {
+  const { children: e, dataList: t, Child: n, childProps: o } = d;
+  if (!t) {
+    const r = d.Loading || C;
+    return /* @__PURE__ */ i(r, {});
+  }
+  const s = d.childKeyProvider || ((r, a) => a), l = d.preProcess || ((r) => r), h = d.EmptyChild || y;
+  return /* @__PURE__ */ i("div", { children: t.length == 0 ? /* @__PURE__ */ i(h, {}) : /* @__PURE__ */ m("div", { className: "card-container", children: [
+    e,
+    /* @__PURE__ */ i("div", { className: "card-wrapper", children: t.map((r, a) => {
+      const c = l(r);
+      return /* @__PURE__ */ i(
+        n,
         {
-          ...n,
-          data: e
+          ...o,
+          data: c
         },
-        s(e, c)
+        s(c, a)
       );
     }) })
   ] }) });
 };
 export {
-  v as CardLayout
+  P as CardLayout
 };

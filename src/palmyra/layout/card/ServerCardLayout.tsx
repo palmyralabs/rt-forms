@@ -9,7 +9,7 @@ interface ServerCardLayoutInput extends IServerQueryInput {
     childProps?: any,
     listKeyProvider?: (data: any, index: number) => string | number,
     EmptyChild?: React.FC,
-    customButton?: React.ReactNode[],
+    Loading?: React.FC,
     preProcess?: (data: any) => any
 }
 
@@ -32,7 +32,8 @@ const ServerCardLayout = forwardRef(function MuiSelect(props: ServerCardLayoutIn
         <div>
             <div className="card-page-container" >
                 <CardLayout Child={Child} childKeyProvider={listKeyProvider} preProcess={props.preProcess}
-                    dataList={serverQuery.getCurrentData()} childProps={childProps} EmptyChild={props.EmptyChild}
+                    dataList={serverQuery.getCurrentData()} childProps={childProps} 
+                    EmptyChild={props.EmptyChild} Loading={props.Loading}
                 ></CardLayout>
             </div>
         </div>
