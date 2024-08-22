@@ -9,5 +9,5 @@ import { FieldOptions } from '../typesFieldOptions';
  * Maintain field Value and validation/error status
  *
  */
-declare const useFieldManager: (key: string, options: FieldOptions, customizer?: IFieldCustomizer) => IFieldManager;
+declare const useFieldManager: (key: string, fieldOptions: FieldOptions, customizer?: IFieldCustomizer) => IFieldManager;
 export { useFieldManager };

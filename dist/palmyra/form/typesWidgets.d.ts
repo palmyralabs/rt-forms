@@ -4,10 +4,11 @@ interface IInputField {
     focus: () => void;
     isValid: () => void;
     clear: () => void;
+    refreshError: () => void;
     getValue: () => any;
     setValue: (v: any, doValidate?: boolean) => void;
     setRequired: (required: boolean) => void;
-    setDisabled: (required: boolean) => void;
+    setDisabled: (disabled: boolean) => void;
     setReadOnly: (readonly: boolean) => void;
     setVisible: (visible: boolean) => void;
     setAttribute: (options: IMutateOptions) => void;

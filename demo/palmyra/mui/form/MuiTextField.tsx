@@ -11,7 +11,7 @@ const MuiTextField = forwardRef(function MuiTextField(props: TextFieldProps & IT
     // const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
 
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions, setMutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, setMutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);
     const error: IFormFieldError = getError();
 
@@ -26,6 +26,7 @@ const MuiTextField = forwardRef(function MuiTextField(props: TextFieldProps & IT
             isValid() {
                 return !error.status;
             },
+            refreshError,
             setValue,
             getValue,
             clear() {
@@ -53,9 +54,8 @@ const MuiTextField = forwardRef(function MuiTextField(props: TextFieldProps & IT
 
     options.onChange = (d: any) => { if (!props.readOnly) setValue(d.target.value); }
 
-
     return (<>{!mutateOptions.visible &&
-        <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
+        <FieldDecorator label={getFieldLabel(options)} customContainerClass={props.customContainerClass}
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <TextField 
                 variant={variant}

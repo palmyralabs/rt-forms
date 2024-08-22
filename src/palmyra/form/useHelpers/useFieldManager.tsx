@@ -19,11 +19,14 @@ interface FieldStatus {
  * 
  */
 
-const useFieldManager = (key: string, options: FieldOptions, customizer?: IFieldCustomizer): IFieldManager => {
+const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: IFieldCustomizer): IFieldManager => {
     const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
     if(!fieldGroupManager)
         throw Error('useFieldManager must be called within the scope of <PalmyraForm>')
     
+
+    const [mutateOptions, setMutateOptions] = useState<IMutateOptions>({});
+    const options = { ...fieldOptions, ...mutateOptions }
     const valueAccessor = useCallback(() => getAccessor(key, customizer), [key])();
     const valueWriter = useCallback(() => getWriter(key, customizer), [key])();
     const validator = generatePredicate(options);
@@ -38,7 +41,6 @@ const useFieldManager = (key: string, options: FieldOptions, customizer?: IField
     }
 
     const [fieldState, setFieldState] = useState<FieldStatus>({ value: defaultValue, error: e });
-    const [mutateOptions, setMutateOptions] = useState<IMutateOptions>({});
 
     const value = fieldState.value;
     const error = fieldState.error;
@@ -69,17 +71,15 @@ const useFieldManager = (key: string, options: FieldOptions, customizer?: IField
     }
 
     const refreshError = () => {
-        const error = validate(value, validator, options);
-
-        if (error.status == error.status && error.message == error.message) {
+        const e = validate(value, validator, options);
+        if (error && e.status == error.status && e.message == error.message) {
             return;
         }
         setFieldState((v) => {
-            return { ...v, error };
+            return { ...v, error: e };
         });
-        fieldGroupManager.setFieldValidity(key, !error.status);
+        fieldGroupManager.setFieldValidity(key, !e.status);
     }
-
 
     const getFieldProps: Supplier<FieldOptions> = () => {
         const { invalidMessage, missingMessage,
