@@ -1,31 +1,34 @@
-const n = (a) => {
-  const { getError: i, getValue: l, setValue: s, setMutateOptions: r } = a;
+const u = (s) => {
+  const { getError: i, getValue: l, setValue: o, setMutateOptions: t } = s;
   return {
     isValid() {
       return !i().status;
     },
-    setValue: s,
+    setValue: o,
     getValue: l,
     clear() {
-      s("");
+      o("");
+    },
+    refreshError() {
+      s.refreshError();
     },
     setVisible(e) {
-      r((t) => ({ ...t, visible: e }));
+      t((r) => ({ ...r, visible: e }));
     },
     setRequired(e) {
-      r((t) => ({ ...t, required: e }));
+      t((r) => ({ ...r, required: e }));
     },
     setReadOnly(e) {
-      r((t) => ({ ...t, readonly: e }));
+      t((r) => ({ ...r, readonly: e }));
     },
     setDisabled(e) {
-      r((t) => ({ ...t, disabled: e }));
+      t((r) => ({ ...r, disabled: e }));
     },
     setAttribute(e) {
-      r((t) => ({ ...t, ...e }));
+      t((r) => ({ ...r, ...e }));
     }
   };
 };
 export {
-  n as getFieldHandler
+  u as getFieldHandler
 };

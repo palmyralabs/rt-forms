@@ -13,6 +13,9 @@ const getFieldHandler = (fieldManager: IFieldManager) => {
         clear() {
             setValue('');
         },
+        refreshError() {
+            fieldManager.refreshError()
+        },
         setVisible(visible: boolean) {
             setMutateOptions((d: IMutateOptions) => ({ ...d, visible }));
         },

@@ -6,6 +6,7 @@ declare const getFieldHandler: (fieldManager: IFieldManager) => {
     setValue: (v: any, skipValidation?: Boolean, propagate?: boolean) => void;
     getValue: import('@palmyralabs/ts-utils').Supplier<any>;
     clear(): void;
+    refreshError(): void;
     setVisible(visible: boolean): void;
     setRequired(required: boolean): void;
     setReadOnly(readonly: boolean): void;

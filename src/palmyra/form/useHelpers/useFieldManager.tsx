@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useContext, useState } from "react"
+import { Dispatch, SetStateAction, useCallback, useContext, useEffect, useState } from "react"
 import { IFieldCustomizer, IFieldGroupManager, IFieldManager, IFormFieldError } from "../types"
 import { FieldGroupManagerContext } from "../formContext";
 import { FieldOptions, IMutateOptions } from "../typesFieldOptions";
@@ -21,12 +21,17 @@ interface FieldStatus {
 
 const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: IFieldCustomizer): IFieldManager => {
     const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
-    if(!fieldGroupManager)
+    if (!fieldGroupManager)
         throw Error('useFieldManager must be called within the scope of <PalmyraForm>')
-    
+
 
     const [mutateOptions, setMutateOptions] = useState<IMutateOptions>({});
     const options = { ...fieldOptions, ...mutateOptions }
+
+    useEffect(() => {
+        refreshError();
+    }, [mutateOptions])
+
     const valueAccessor = useCallback(() => getAccessor(key, customizer), [key])();
     const valueWriter = useCallback(() => getWriter(key, customizer), [key])();
     const validator = generatePredicate(options);
@@ -36,7 +41,7 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
     if (!fieldGroupManager.hasField(options.attribute)) {
         if ((defaultValue == '' || defaultValue == undefined) && options.defaultValue != undefined) {
             defaultValue = customizer?.parse ? customizer.parse(options.defaultValue) : options.defaultValue;
-            e = validate(defaultValue, validator, options); 
+            e = validate(defaultValue, validator, options);
         }
     }
 
