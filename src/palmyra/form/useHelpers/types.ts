@@ -28,7 +28,8 @@ interface IPalmyraNewFormInput extends IuseFormOptions,
 
 interface IPalmyraViewFormInput extends IuseFormOptions, IFormQueryEventHandler {
     id: string,
-    idKey?: string
+    idKey?: string,
+    fields?: string[]
 }
 
 

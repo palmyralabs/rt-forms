@@ -23,6 +23,7 @@ interface IPalmyraNewFormInput extends IuseFormOptions, IFormQueryEventHandler, 
 interface IPalmyraViewFormInput extends IuseFormOptions, IFormQueryEventHandler {
     id: string;
     idKey?: string;
+    fields?: string[];
 }
 interface IPalmyraEditFormInput extends IPalmyraViewFormInput, IFormSaveEventHandler {
     mode?: 'edit' | 'save';

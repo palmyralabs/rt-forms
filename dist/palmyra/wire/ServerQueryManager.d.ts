@@ -6,6 +6,7 @@ type ExportStore = {
 };
 interface IServerQueryInput {
     store?: AbstractQueryStore<any> & ExportStore;
+    fields?: string[];
     endPoint?: IEndPoint;
     endPointOptions?: IEndPointOptions;
     fetchAll?: boolean;
