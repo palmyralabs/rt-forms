@@ -1,4 +1,4 @@
-import { DefaultQueryParams, IEndPoint, IEndPointOptions } from "@palmyralabs/palmyra-wire";
+import { DefaultQueryParams, IEndPoint, StoreOptions } from "@palmyralabs/palmyra-wire";
 import { PredicateResponse, validationRule } from "@palmyralabs/ts-predicates"
 import { IPredicate } from "@palmyralabs/ts-utils"
 import { numbers } from "./types";
@@ -62,12 +62,12 @@ interface IServerLookupOptions {
         idAttribute: string,
         labelAttribute: string
     },
-    storeOptions?: {
+    queryOptions: {
         endPoint: IEndPoint,
         queryAttribute?: string,
         labelAttribute?: string,
         idAttribute?: string,
-        endPointOptions?: IEndPointOptions
+        storeOptions?: StoreOptions
     },
     fetchDefault?: number,
     pageSize?: numbers,

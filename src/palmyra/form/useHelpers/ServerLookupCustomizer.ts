@@ -2,19 +2,19 @@ import { getValueAccessor, getValueSetter, setValueByKey } from "@palmyralabs/ts
 import { FieldOptions, IServerLookupOptions } from "../typesFieldOptions";
 
 const getOptionIdKey = (o: FieldOptions & IServerLookupOptions) => {
-    return o.storeOptions?.idAttribute || o.lookupOptions?.idAttribute || 'id';
+    return o.queryOptions?.idAttribute || o.lookupOptions?.idAttribute || 'id';
 }
 
 const getOptionValueKey = (o: FieldOptions & IServerLookupOptions) => {
-    return o.storeOptions?.labelAttribute || o.lookupOptions?.labelAttribute || 'id';
+    return o.queryOptions?.labelAttribute || o.lookupOptions?.labelAttribute || 'id';
 }
 
 const getLookupIdKey = (o: FieldOptions & IServerLookupOptions) => {
-    return o.lookupOptions?.idAttribute || o.storeOptions?.idAttribute || 'id';
+    return o.lookupOptions?.idAttribute || o.queryOptions?.idAttribute || 'id';
 }
 
 const getLookupValueKey = (o: FieldOptions & IServerLookupOptions) => {
-    return o.lookupOptions?.labelAttribute || o.storeOptions?.labelAttribute || 'id';
+    return o.lookupOptions?.labelAttribute || o.queryOptions?.labelAttribute || 'id';
 }
 
 

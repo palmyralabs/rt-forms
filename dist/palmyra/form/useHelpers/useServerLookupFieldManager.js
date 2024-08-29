@@ -1,81 +1,83 @@
-import { useRef as j, useState as b, useEffect as S, useContext as D } from "react";
-import { StoreFactoryContext as M } from "../formContext.js";
-import { useFieldManager as R } from "./useFieldManager.js";
-import { K as P } from "../../../chunks/accessor.js";
+import { useRef as R, useState as P, useEffect as S, useContext as W } from "react";
+import { StoreFactoryContext as B } from "../formContext.js";
+import { useFieldManager as E } from "./useFieldManager.js";
+import { K as v } from "../../../chunks/accessor.js";
 import "../../../chunks/NoopConverter.js";
 import "dayjs";
-import { mergeDeep as W } from "../../utils/ObjectUtils.js";
+import { mergeDeep as w } from "../../utils/ObjectUtils.js";
 import "../PalmyraForm.js";
 import "@palmyralabs/ts-predicates";
-import { u as B } from "../../../chunks/ServerCardLayout.js";
+import { u as G } from "../../../chunks/ServerCardLayout.js";
 import "react/jsx-runtime";
 import "../../layout/card/CardLayout.js";
-import { getOptionIdKey as E, getOptionValueKey as w, generateFieldAccessor as G, generateFieldWriter as H } from "./ServerLookupCustomizer.js";
-const J = (t, e) => {
-  const o = P(E(t)), n = P(w(t)), i = (r) => typeof r == "object" ? o(r) : (console.log(r), ""), c = (r) => typeof r == "object" ? n(r) : (r != "" && console.log(r), ""), g = G(t), u = H(t, { getOptionKey: i, getOptionValue: c });
+import { getOptionIdKey as H, getOptionValueKey as J, generateFieldAccessor as N, generateFieldWriter as U } from "./ServerLookupCustomizer.js";
+const X = (t, e) => {
+  const s = v(H(t)), i = v(J(t)), r = (o) => typeof o == "object" ? s(o) : (console.log(o), ""), c = (o) => typeof o == "object" ? i(o) : (o != "" && console.log(o), ""), g = N(t), u = U(t, { getOptionKey: r, getOptionValue: c });
   var a = {
     fieldAccessor: g,
     fieldWriter: u
   };
-  return e && (e.format && (a.format = e.format), e.parse && (a.parse = e.parse)), { customizer: a, optionIdAccessor: o, getOptionKey: i, getOptionValue: c };
-}, ue = (t, e, o) => {
-  const n = j(0), [i, c] = b(""), [g, u] = b([]), a = (o == null ? void 0 : o.preProcessSearchText) || ((s) => "*" + s + "*"), { customizer: r, optionIdAccessor: d, getOptionKey: F, getOptionValue: v } = J(e, o), m = R(t, e, r), x = N(e), k = () => {
+  return e && (e.format && (a.format = e.format), e.parse && (a.parse = e.parse)), { customizer: a, optionIdAccessor: s, getOptionKey: r, getOptionValue: c };
+}, fe = (t, e, s) => {
+  var b, q, F;
+  const i = R(0), [r, c] = P(""), [g, u] = P([]), a = (s == null ? void 0 : s.preProcessSearchText) || ((n) => "*" + n + "*"), { customizer: o, optionIdAccessor: y, getOptionKey: x, getOptionValue: k } = X(e, s), m = E(t, e, o), K = Y(e), z = () => {
     const {
-      lookupOptions: s,
+      lookupOptions: n,
       storeOptions: f,
       displayAttribute: h,
-      fetchDefault: U,
-      defaultParams: X,
-      ...Q
+      fetchDefault: Z,
+      defaultParams: _,
+      ...M
     } = m.getFieldProps();
-    return Q;
-  }, K = e.storeOptions.queryAttribute || e.storeOptions.labelAttribute || "name", q = {
-    store: x,
-    endPointOptions: e.storeOptions.endPointOptions,
+    return M;
+  }, T = ((b = e.queryOptions) == null ? void 0 : b.queryAttribute) || ((q = e.queryOptions) == null ? void 0 : q.labelAttribute) || "name", V = {
+    store: K,
+    storeOptions: (F = e.queryOptions) == null ? void 0 : F.storeOptions,
     fetchAll: !0,
     pageSize: e.pageSize || 15,
-    quickSearch: K,
+    quickSearch: T,
     initialFetch: !1,
     defaultParams: e.defaultParams
-  }, z = B(q), T = (s, f) => d(s) == d(f);
-  function V(s, f) {
-    return s.find((h) => {
-      if (d(h) == f)
+  }, C = G(V), I = (n, f) => y(n) == y(f);
+  function L(n, f) {
+    return n.find((h) => {
+      if (y(h) == f)
         return h;
     });
   }
-  const { setQuickSearch: A, refresh: C, getCurrentData: I, getTotalRecords: L } = z, l = I(), y = L();
+  const { setQuickSearch: A, refresh: Q, getCurrentData: j, getTotalRecords: D } = C, l = j(), d = D();
   S(() => {
-    const s = l ? [...l] : [];
-    u(s), n.current < y && (n.current = y);
-  }, [l, y]);
+    const n = l ? [...l] : [];
+    u(n), i.current < d && (i.current = d);
+  }, [l, d]);
   const p = m.getValue();
   S(() => {
     p && typeof p == "object" && u([p]);
   }, [p]), S(() => {
     O();
-  }, [i]);
+  }, [r]);
   function O() {
-    i.length > 0 ? A(a(i)) : l ? A(null) : C();
+    r.length > 0 ? A(a(r)) : l ? A(null) : Q();
   }
   return {
     ...m,
-    searchText: i,
+    searchText: r,
     setSearchText: c,
     refreshOptions: O,
     options: g,
-    hasValueInOptions: T,
-    getOptionValue: v,
-    getOptionByKey: V,
-    getOptionKey: F,
-    getFieldProps: k
+    hasValueInOptions: I,
+    getOptionValue: k,
+    getOptionByKey: L,
+    getOptionKey: x,
+    getFieldProps: z
   };
 };
-function N(t) {
-  const e = D(M), o = t.storeOptions.queryAttribute || "name";
-  var n = {};
-  return W(n, t.storeOptions), e.getLookupStore(n, t.storeOptions.endPoint, o);
+function Y(t) {
+  var r;
+  const e = W(B), s = ((r = t.queryOptions) == null ? void 0 : r.queryAttribute) || "name";
+  var i = {};
+  return w(i, t.queryOptions), e.getLookupStore(i, t.queryOptions.endPoint, s);
 }
 export {
-  ue as useServerLookupFieldManager
+  fe as useServerLookupFieldManager
 };

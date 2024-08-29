@@ -11,6 +11,7 @@ interface IQueryable {
     getCurrentData: () => Array<any>,
     setSortColumns: (sortOrder: any) => void,
     export: (request: ExportRequest) => void
+    isLoading: boolean
 }
 
 interface IPageQueryable extends IQueryable {

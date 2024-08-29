@@ -1,4 +1,4 @@
-import { DefaultQueryParams, AbstractQueryStore, IEndPointOptions, IEndPoint, ExportRequest } from '@palmyralabs/palmyra-wire';
+import { DefaultQueryParams, AbstractQueryStore, IEndPoint, ExportRequest, StoreOptions } from '@palmyralabs/palmyra-wire';
 import { IPageQueryable } from './types';
 
 type ExportStore = {
@@ -8,7 +8,7 @@ interface IServerQueryInput {
     store?: AbstractQueryStore<any> & ExportStore;
     fields?: string[];
     endPoint?: IEndPoint;
-    endPointOptions?: IEndPointOptions;
+    storeOptions?: StoreOptions;
     fetchAll?: boolean;
     defaultParams?: DefaultQueryParams;
     onDataChange?: (newData: any[], oldData?: any[]) => void;

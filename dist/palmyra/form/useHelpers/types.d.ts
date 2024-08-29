@@ -1,9 +1,12 @@
-import { IEndPoint, IEndPointOptions, StoreFactory } from '@palmyralabs/palmyra-wire';
+import { IEndPoint, IEndPointOptions, StoreFactory, StoreOptions } from '@palmyralabs/palmyra-wire';
 import { MutableRefObject } from 'react';
 import { IForm } from '../types';
 
-interface IuseFormOptions {
-    storeFactory?: StoreFactory<any>;
+interface IStoreProps<T extends StoreOptions> {
+    storeFactory?: StoreFactory<any, T>;
+    storeOptions?: T;
+}
+interface IuseFormOptions<T extends StoreOptions> extends IStoreProps<T> {
     endPoint: IEndPoint;
     endPointOptions?: IEndPointOptions;
     formRef?: MutableRefObject<any>;
@@ -16,11 +19,11 @@ interface IFormSaveEventHandler {
 interface IFormQueryEventHandler {
     onQueryData?: (data: any) => any;
 }
-interface IPalmyraNewFormInput extends IuseFormOptions, IFormQueryEventHandler, IFormSaveEventHandler {
+interface IPalmyraNewFormInput extends IuseFormOptions<StoreOptions>, IFormQueryEventHandler, IFormSaveEventHandler {
     initialData?: any;
     refreshOnSaveResponse?: boolean;
 }
-interface IPalmyraViewFormInput extends IuseFormOptions, IFormQueryEventHandler {
+interface IPalmyraViewFormInput extends IuseFormOptions<StoreOptions>, IFormQueryEventHandler {
     id: string;
     idKey?: string;
     fields?: string[];
@@ -44,4 +47,4 @@ interface IPalmyraSaveFormInput extends IPalmyraEditFormInput {
 interface IPalmyraNewFormOutput extends IPalmyraViewFormOutput {
     saveData: (data?: any) => Promise<any>;
 }
-export type { IFormSaveEventHandler, IPalmyraNewFormInput, IPalmyraNewFormOutput, IPalmyraSaveFormInput, IPalmyraSaveFormOutput, IPalmyraViewFormInput, IPalmyraViewFormOutput, IPalmyraEditFormInput, IPalmyraEditFormOutput };
+export type { IFormSaveEventHandler, IStoreProps, IPalmyraNewFormInput, IPalmyraNewFormOutput, IPalmyraSaveFormInput, IPalmyraSaveFormOutput, IPalmyraViewFormInput, IPalmyraViewFormOutput, IPalmyraEditFormInput, IPalmyraEditFormOutput };

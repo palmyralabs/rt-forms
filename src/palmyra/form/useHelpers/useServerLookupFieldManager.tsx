@@ -82,10 +82,10 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
         return result;
     }
 
-    const queryAttribute = o.storeOptions.queryAttribute || o.storeOptions.labelAttribute || "name";
+    const queryAttribute = o.queryOptions?.queryAttribute || o.queryOptions?.labelAttribute || "name";
 
     const serverQueryOptions: IServerQueryInput = {
-        store, endPointOptions: o.storeOptions.endPointOptions, fetchAll: true,
+        store, storeOptions: o.queryOptions?.storeOptions, fetchAll: true,
         pageSize: o.pageSize || 15, quickSearch: queryAttribute, initialFetch: false,
         defaultParams: o.defaultParams
     };
@@ -153,10 +153,10 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
 
 function getLookupStore(o: IServerLookupOptions): LookupStore<any> {
     const storeFactory = useContext(StoreFactoryContext);
-    const queryAttribute = o.storeOptions.queryAttribute || "name";
+    const queryAttribute = o.queryOptions?.queryAttribute || "name";
     var options: any = {};
-    mergeDeep(options, o.storeOptions);
-    return storeFactory.getLookupStore(options, o.storeOptions.endPoint, queryAttribute);
+    mergeDeep(options, o.queryOptions);
+    return storeFactory.getLookupStore(options, o.queryOptions.endPoint, queryAttribute);
 }
 
 export { useServerLookupFieldManager };

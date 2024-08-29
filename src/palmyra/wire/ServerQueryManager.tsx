@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEndPointOptions, IEndPoint, GridStore, ExportRequest } from '@palmyralabs/palmyra-wire';
+import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEndPoint, GridStore, ExportRequest, StoreOptions } from '@palmyralabs/palmyra-wire';
 import { useKeyValue } from '../utils';
 import { IPageQueryable } from './types';
 import { StoreFactoryContext } from '../form';
@@ -10,9 +10,9 @@ type ExportStore = {
 
 interface IServerQueryInput {
   store?: AbstractQueryStore<any> & ExportStore,
-  fields?:string[]
+  fields?: string[]
   endPoint?: IEndPoint,
-  endPointOptions?: IEndPointOptions,
+  storeOptions?: StoreOptions,
   fetchAll?: boolean,
   defaultParams?: DefaultQueryParams,
   onDataChange?: (newData: any[], oldData?: any[]) => void,
@@ -28,46 +28,37 @@ function getGridStore(o: IServerQueryInput): GridStore<any> {
     if (!storeFactory) {
       throw new Error("@palmyralabs/rt-forms - StoreFactoryContext is not available");
     }
-    return storeFactory.getGridStore(o.endPointOptions, o.endPoint);
+    return storeFactory.getGridStore(o.storeOptions, o.endPoint);
   } else {
     throw new Error("Either store or endPoint must be provided");
   }
+}
+
+interface Result {
+  total: number | null | undefined,
+  data: any,
+  isLoading: boolean
 }
 
 const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
   const { quickSearch } = props;
 
   const store = props.store || getGridStore(props);
-
   const fetchAll = props.fetchAll != false;
-  const [endPointVars, setEndPointOptions] = useState(props.endPointOptions);
-  const [totalRecords, setTotalRecords] = useState(null);
-
   const defaultFilter = props.defaultParams?.filter || {};
   const defaultSort = props.defaultParams?.sort || {};
 
-  const [filter, _setFilter] = props.filterTopic
-    ? useKeyValue(props.filterTopic, defaultFilter)
+  const [filter, _setFilter] = props.filterTopic ? useKeyValue(props.filterTopic, defaultFilter)
     : useState<any>(defaultFilter);
 
-  const [sortOrder, setSortOrder] = useState({});
-
   const firstRun = useRef<Boolean>(props.initialFetch == false);
-
   const pageSize = props.pageSize ? props.pageSize : 15;
-
   var defaultPageSize = pageSize instanceof Array ? pageSize[0] : pageSize;
 
+  const [endPointVars, setEndPointOptions] = useState(props.storeOptions?.endPointOptions);
+  const [sortOrder, setSortOrder] = useState({});
   const [queryLimit, setQueryLimit] = useState<IPagination>({ limit: defaultPageSize, offset: 0, total: true });
-  const [data, setData] = useState(null);
-
-  const getPageNo = () => {
-    return Math.round(queryLimit.offset / queryLimit.limit);
-  }
-
-  const getQueryLimit = () => {
-    return queryLimit;
-  }
+  const [serverResult, setServerResult] = useState<Result>({ total: null, isLoading: false, data: null });
 
   const gotoPage = (pageNo: number) => {
     setQueryLimit((q) => {
@@ -77,7 +68,6 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
 
   const setPageSize = (pageSize: number) => {
     const limit: number = (pageSize > 10 || pageSize == -1) ? pageSize : 15;
-
     setQueryLimit((q) => {
       const offset: number = Math.floor(q.offset / limit) * limit;
       return { limit, total: q.total, offset: offset }
@@ -91,14 +81,26 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
     return false;
   }
 
-  const setResult = (result: any) => {
-    setData((old: any) => {
+  const setResult = (result: any, total: any) => {
+    setServerResult((old: Result) => {
       setTimeout(() => {
         if (props.onDataChange) {
-          props.onDataChange(result, old);
+          props.onDataChange(result, old.data);
         }
-      }, 300)
-      return result;
+      }, 100)
+      return { data: result, total: total, isLoading: false };
+    })
+  }
+
+  const setEmptyData = () => setResult([], 0);
+  const setNoData = () => setResult(undefined, null);
+  const resetFilter = () => setFilter({})
+  const getPageNo = () => Math.round(queryLimit.offset / queryLimit.limit);
+  const getQueryLimit = () => queryLimit;
+
+  const setLoading = () => {
+    setServerResult((d: Result) => {
+      return { ...d, isLoading: true }
     })
   }
 
@@ -107,20 +109,16 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
       firstRun.current = false;
       return;
     }
-
     if (fetchAll || !isEmptyFilter())
       refresh();
-
   }, [queryLimit, sortOrder, endPointVars])
 
   const getQueryRequest = (): QueryRequest => {
     const _sort = sortOrder && Object.keys(sortOrder).length > 0 ? sortOrder : defaultSort;
-
     const params: QueryRequest = {
       sortOrder: _sort, total: true, endPointVars,
       ...queryLimit, filter: { ...filter, ...defaultFilter }
     };
-
     return params;
   }
 
@@ -129,9 +127,9 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
 
     if (store) {
       try {
+        setLoading();
         store.query(params).then((d) => {
-          setResult(d.result);
-          setTotalRecords(d.total);
+          setResult(d.result, d.total);
         }).catch((e) => {
           var r = e.response ? e.response : e;
           console.error("error while fetching", r);
@@ -145,16 +143,6 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
       console.error("Store is not provided for the Grid");
       setEmptyData();
     }
-  }
-
-  const setEmptyData = () => {
-    setResult([]);
-    setTotalRecords(0);
-  }
-
-  const setNoData = () => {
-    setResult(undefined);
-    setTotalRecords(null);
   }
 
   const setQuickSearch = (val: any) => {
@@ -190,10 +178,6 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
     gotoPage(0);
   }
 
-  const resetFilter = () => {
-    setFilter({});
-  }
-
   const setSortColumns = (sortOrder: any) => {
     setSortOrder(sortOrder);
   }
@@ -208,7 +192,7 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
   }
 
   const getTotalPages = (): number => {
-    return Math.ceil(totalRecords / (queryLimit.limit || 25));
+    return Math.ceil(serverResult?.total / (queryLimit.limit || 25));
   }
 
   const prevPage = (): boolean => {
@@ -233,10 +217,9 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
     refresh, setPageSize, getPageNo, getQueryLimit, setQueryLimit,
     gotoPage, nextPage, prevPage, export: exportResult,
     getQueryRequest, setSortOptions: setSortColumns,
-    getCurrentFilter: () => filter, getTotalRecords: () => totalRecords,
-    getCurrentData: () => data
+    getCurrentFilter: () => filter, getTotalRecords: () => serverResult?.total,
+    getCurrentData: () => serverResult?.data, isLoading: serverResult.isLoading
   }
-
 };
 
 export { useServerQuery };

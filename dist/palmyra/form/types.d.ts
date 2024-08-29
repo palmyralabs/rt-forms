@@ -1,18 +1,17 @@
-import { StoreFactory } from '@palmyralabs/palmyra-wire';
+import { StoreOptions } from '@palmyralabs/palmyra-wire';
 import { BiConsumer, IConsumer, IFunction, Supplier } from '@palmyralabs/ts-utils';
 import { FieldOptions, IMutateOptions } from './typesFieldOptions';
 import { Dispatch, SetStateAction } from 'react';
 import { PredicateResponse } from '@palmyralabs/ts-predicates';
-import { IPalmyraEditFormInput, IPalmyraNewFormInput, IPalmyraSaveFormInput, IPalmyraViewFormInput } from './useHelpers/types';
+import { IPalmyraEditFormInput, IPalmyraNewFormInput, IPalmyraSaveFormInput, IPalmyraViewFormInput, IStoreProps } from './useHelpers/types';
 
 type FormMode = 'view' | 'new' | 'edit' | 'save';
 type OPredicate = () => boolean;
 type numbers = number | number[];
-interface IFormOptions {
+interface IFormOptions extends IStoreProps<StoreOptions & any> {
     children?: any;
     formData?: any;
     onValidChange?: Function;
-    storeFactory?: StoreFactory<any>;
 }
 interface IForm {
     getData: () => any;
