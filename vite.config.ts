@@ -3,12 +3,14 @@ import dts from 'vite-plugin-dts'
 import { extname, relative, resolve } from 'path'
 import { fileURLToPath } from 'node:url'
 import { glob } from 'glob'
+import { libInjectCss } from 'vite-plugin-lib-inject-css'
 // @ts-ignore
 import generalAssets from './plugins/general_assets.js'
 
 export default defineConfig({
   plugins: [  
   generalAssets(),
+  libInjectCss(),
   dts({ include: ['src'] })],
   server: {
     host: '0.0.0.0',
