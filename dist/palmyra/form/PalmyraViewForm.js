@@ -6,12 +6,14 @@ import "@palmyralabs/ts-predicates";
 import "../../chunks/NoopConverter.js";
 import "dayjs";
 import "../../chunks/ServerCardLayout.js";
+import '../../assets/FieldContainer.css';import '../../assets/FieldGroupContainer.css';/* empty css                               */
+/* empty css                          */
 import "../layout/card/CardLayout.js";
 import { usePalmyraViewForm as e } from "./useHelpers/usePalmyraViewForm.js";
-const d = (r) => {
+const u = (r) => {
   const o = r.storeFactory, { formRef: m } = e(r);
   return /* @__PURE__ */ t(i, { ref: m, storeFactory: o, children: r.children });
 };
 export {
-  d as PalmyraViewForm
+  u as PalmyraViewForm
 };

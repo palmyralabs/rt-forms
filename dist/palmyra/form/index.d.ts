@@ -10,3 +10,5 @@ export * from './PalmyraEditForm';
 export * from './PalmyraNewForm';
 export * from './PalmyraViewForm';
 export * from './utils/getFieldHandler';
+export * from './FieldDecorator';
+export * from './FieldGroupContainer';

@@ -1,6 +1,6 @@
 import { jsx as i, jsxs as m } from "react/jsx-runtime";
 import { NoopEmptyChildCard as C, EmptyChildCard as y } from "./EmptyChildCard.js";
-const P = (d) => {
+import '../../../assets/CardLayout.css';const P = (d) => {
   const { children: e, dataList: t, Child: n, childProps: o } = d;
   if (!t) {
     const r = d.Loading || C;
