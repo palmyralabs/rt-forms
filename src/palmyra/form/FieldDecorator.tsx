@@ -39,7 +39,7 @@ const FieldDecorator = (props: IFieldDecoratorInput) => {
     }
     else {
         var fieldClass = ContainerClass;
-        fieldClass += ' ' + ( props.customFieldClass ? 'py-form-field-data ' + props.customFieldClass : 'py-form-field-data');
+        fieldClass += ' ' + (props.customFieldClass ? 'py-form-field-data ' + props.customFieldClass : 'py-form-field-data');
         if (props.colspan) {
             fieldClass += ' ' + getColSpanClass(props.colspan);
         }
@@ -52,4 +52,4 @@ const FieldDecorator = (props: IFieldDecoratorInput) => {
 
 }
 
-export default FieldDecorator;
+export { FieldDecorator };

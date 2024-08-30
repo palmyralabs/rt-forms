@@ -9,4 +9,4 @@ type IFieldDecoratorInput = {
     index?: number;
 };
 declare const FieldDecorator: (props: IFieldDecoratorInput) => import("react/jsx-runtime").JSX.Element;
-export default FieldDecorator;
+export { FieldDecorator };
