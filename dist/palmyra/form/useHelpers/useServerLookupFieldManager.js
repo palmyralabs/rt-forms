@@ -1,4 +1,4 @@
-import { useRef as R, useState as P, useEffect as S, useContext as W } from "react";
+import { useRef as R, useState as P, useEffect as O, useContext as W } from "react";
 import { StoreFactoryContext as B } from "../formContext.js";
 import { useFieldManager as E } from "./useFieldManager.js";
 import { K as v } from "../../../chunks/accessor.js";
@@ -12,27 +12,30 @@ import "react/jsx-runtime";
 import '../../../assets/FieldContainer.css';import '../../../assets/FieldGroupContainer.css';/* empty css                                  */
 /* empty css                             */
 import "../../layout/card/CardLayout.js";
+import "@tanstack/react-table";
+import "../../grid/base/utils/ColumnConverter.js";
 import { getOptionIdKey as H, getOptionValueKey as J, generateFieldAccessor as N, generateFieldWriter as U } from "./ServerLookupCustomizer.js";
 const X = (t, e) => {
-  const s = v(H(t)), i = v(J(t)), r = (o) => typeof o == "object" ? s(o) : (console.log(o), ""), c = (o) => typeof o == "object" ? i(o) : (o != "" && console.log(o), ""), g = N(t), u = U(t, { getOptionKey: r, getOptionValue: c });
+  const s = v(H(t)), i = v(J(t)), r = (o) => typeof o == "object" ? s(o) : (console.log(o), ""), c = (o) => typeof o == "object" ? i(o) : (o != "" && console.log(o), ""), m = N(t), u = U(t, { getOptionKey: r, getOptionValue: c });
   var a = {
-    fieldAccessor: g,
+    fieldAccessor: m,
     fieldWriter: u
   };
   return e && (e.format && (a.format = e.format), e.parse && (a.parse = e.parse)), { customizer: a, optionIdAccessor: s, getOptionKey: r, getOptionValue: c };
-}, me = (t, e, s) => {
-  var b, q, F;
-  const i = R(0), [r, c] = P(""), [g, u] = P([]), a = (s == null ? void 0 : s.preProcessSearchText) || ((n) => "*" + n + "*"), { customizer: o, optionIdAccessor: m, getOptionKey: x, getOptionValue: k } = X(e, s), y = E(t, e, o), K = Y(e), z = () => {
+}, he = (t, e, s) => {
+  var A, b, F;
+  const i = R(0), [r, c] = P(""), [m, u] = P([]), a = (s == null ? void 0 : s.preProcessSearchText) || ((n) => "*" + n + "*"), { customizer: o, optionIdAccessor: g, getOptionKey: x, getOptionValue: k } = X(e, s), y = E(t, e, o), K = Y(e), z = () => {
     const {
       lookupOptions: n,
       storeOptions: f,
-      displayAttribute: h,
-      fetchDefault: Z,
-      defaultParams: _,
+      queryOptions: h,
+      displayAttribute: Z,
+      fetchDefault: _,
+      defaultParams: $,
       ...M
     } = y.getFieldProps();
     return M;
-  }, T = ((b = e.queryOptions) == null ? void 0 : b.queryAttribute) || ((q = e.queryOptions) == null ? void 0 : q.labelAttribute) || "name", V = {
+  }, T = ((A = e.queryOptions) == null ? void 0 : A.queryAttribute) || ((b = e.queryOptions) == null ? void 0 : b.labelAttribute) || "name", V = {
     store: K,
     storeOptions: (F = e.queryOptions) == null ? void 0 : F.storeOptions,
     fetchAll: !0,
@@ -40,33 +43,33 @@ const X = (t, e) => {
     quickSearch: T,
     initialFetch: !1,
     defaultParams: e.defaultParams
-  }, C = G(V), I = (n, f) => m(n) == m(f);
+  }, C = G(V), I = (n, f) => g(n) == g(f);
   function L(n, f) {
     return n.find((h) => {
-      if (m(h) == f)
+      if (g(h) == f)
         return h;
     });
   }
-  const { setQuickSearch: A, refresh: Q, getCurrentData: j, getTotalRecords: D } = C, p = j(), d = D();
-  S(() => {
+  const { setQuickSearch: S, refresh: Q, getCurrentData: j, getTotalRecords: D } = C, p = j(), d = D();
+  O(() => {
     const n = p ? [...p] : [];
     u(n), i.current < d && (i.current = d);
   }, [p, d]);
   const l = y.getValue();
-  S(() => {
+  O(() => {
     l && typeof l == "object" && u([l]);
-  }, [l]), S(() => {
-    O();
+  }, [l]), O(() => {
+    q();
   }, [r]);
-  function O() {
-    r.length > 0 ? A(a(r)) : p ? A(null) : Q();
+  function q() {
+    r.length > 0 ? S(a(r)) : p ? S(null) : Q();
   }
   return {
     ...y,
     searchText: r,
     setSearchText: c,
-    refreshOptions: O,
-    options: g,
+    refreshOptions: q,
+    options: m,
     hasValueInOptions: I,
     getOptionValue: k,
     getOptionByKey: L,
@@ -81,5 +84,5 @@ function Y(t) {
   return w(i, t.queryOptions), e.getLookupStore(i, t.queryOptions.endPoint, s);
 }
 export {
-  me as useServerLookupFieldManager
+  he as useServerLookupFieldManager
 };

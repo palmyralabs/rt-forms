@@ -9,11 +9,13 @@ import "../../chunks/ServerCardLayout.js";
 import '../../assets/FieldContainer.css';import '../../assets/FieldGroupContainer.css';/* empty css                               */
 /* empty css                          */
 import "../layout/card/CardLayout.js";
+import "@tanstack/react-table";
+import "../grid/base/utils/ColumnConverter.js";
 import { usePalmyraViewForm as e } from "./useHelpers/usePalmyraViewForm.js";
-const u = (r) => {
+const x = (r) => {
   const o = r.storeFactory, { formRef: m } = e(r);
   return /* @__PURE__ */ t(i, { ref: m, storeFactory: o, children: r.children });
 };
 export {
-  u as PalmyraViewForm
+  x as PalmyraViewForm
 };

@@ -100,10 +100,10 @@ var B = { exports: {} };
           M && (i = m[2]), c = this.$locale(), !y && i && (c = r.Ls[i]), this.$d = function(b, x, w) {
             try {
               if (["x", "X"].indexOf(x) > -1) return new Date((x === "X" ? 1e3 : 1) * b);
-              var f = J(x)(b), $ = f.year, A = f.month, K = f.day, N = f.hours, Q = f.minutes, R = f.seconds, W = f.milliseconds, q = f.zone, Z = /* @__PURE__ */ new Date(), H = K || ($ || A ? 1 : Z.getDate()), z = $ || Z.getFullYear(), F = 0;
+              var f = J(x)(b), $ = f.year, A = f.month, K = f.day, N = f.hours, Q = f.minutes, R = f.seconds, W = f.milliseconds, q = f.zone, Z = /* @__PURE__ */ new Date(), H = K || ($ || A ? 1 : Z.getDate()), j = $ || Z.getFullYear(), F = 0;
               $ && !A || (F = A > 0 ? A - 1 : Z.getMonth());
-              var C = N || 0, E = Q || 0, _ = R || 0, j = W || 0;
-              return q ? new Date(Date.UTC(z, F, H, C, E, _, j + 60 * q.offset * 1e3)) : w ? new Date(Date.UTC(z, F, H, C, E, _, j)) : new Date(z, F, H, C, E, _, j);
+              var z = N || 0, C = Q || 0, E = R || 0, _ = W || 0;
+              return q ? new Date(Date.UTC(j, F, H, z, C, E, _ + 60 * q.offset * 1e3)) : w ? new Date(Date.UTC(j, F, H, z, C, E, _)) : new Date(j, F, H, z, C, E, _);
             } catch {
               return /* @__PURE__ */ new Date("");
             }

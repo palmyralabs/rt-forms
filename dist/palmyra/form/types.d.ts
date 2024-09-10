@@ -39,6 +39,7 @@ interface IFieldManager {
 interface IFormFieldError {
     status: boolean;
     message: string;
+    hasFocus?: boolean;
 }
 interface IFormManager {
     getData: Supplier<any>;

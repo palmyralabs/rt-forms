@@ -77,7 +77,7 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
     const store: LookupStore<any> = getLookupStore(o);
 
     const getFieldProps = () => {
-        const { lookupOptions, storeOptions, displayAttribute, fetchDefault,
+        const { lookupOptions, storeOptions, queryOptions, displayAttribute, fetchDefault,
             defaultParams, ...result } = fieldManager.getFieldProps();
         return result;
     }
