@@ -6,4 +6,4 @@ const EmptyChild = () => {
   )
 }
 
-export default EmptyChild;
+export { EmptyChild };

@@ -11,6 +11,6 @@ declare const useBaseGridManager: (o: BaseTableOptions) => {
         columns: import('@tanstack/react-table').ColumnDef<unknown, any>[];
         getCoreRowModel: (table: import('@tanstack/react-table').Table<unknown>) => () => import('@tanstack/react-table').RowModel<unknown>;
     };
-    EmptyChild: import('react').FC<{}> | (() => import("react/jsx-runtime").JSX.Element);
+    EmptyChildren: import('react').FC<{}> | (() => import("react/jsx-runtime").JSX.Element);
 };
 export { useBaseGridManager };
