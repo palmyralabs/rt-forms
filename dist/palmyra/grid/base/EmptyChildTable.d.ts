@@ -1,2 +1,2 @@
-declare const EmptyChild: () => import("react/jsx-runtime").JSX.Element;
-export { EmptyChild };
+declare const EmptyChildTable: () => import("react/jsx-runtime").JSX.Element;
+export { EmptyChildTable };

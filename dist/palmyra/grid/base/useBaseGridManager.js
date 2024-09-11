@@ -1,7 +1,7 @@
 import { useState as g, useEffect as f } from "react";
-import { EmptyChild as w } from "./EmptyChildTable.js";
+import { EmptyChildTable as w } from "./EmptyChildTable.js";
 import { getCoreRowModel as P } from "@tanstack/react-table";
-const R = (t) => {
+const E = (t) => {
   const { columnDefs: s, rowData: l, customizer: o } = t, i = t.onColumnSort || (() => {
   }), C = t.EmptyChild || w, p = t.onRowClick || (() => {
   }), m = (o == null ? void 0 : o.preProcessData) || ((n) => n), c = o != null && o.getTableOptions ? o.getTableOptions() : {}, [e, u] = g({});
@@ -26,5 +26,5 @@ const R = (t) => {
   }, onRowClick: p, options: d, EmptyChildren: C };
 };
 export {
-  R as useBaseGridManager
+  E as useBaseGridManager
 };

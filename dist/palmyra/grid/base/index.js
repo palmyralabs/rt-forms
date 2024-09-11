@@ -1,4 +1,4 @@
-import { EmptyChild as e } from "./EmptyChildTable.js";
+import { EmptyChildTable as e } from "./EmptyChildTable.js";
 import { useGridColumnCustomizer as t } from "./GridColumnCustomizer.js";
 import { NoopGridCustomizer as f } from "./NoopGridCustomizer.js";
 import { useBaseGridManager as u } from "./useBaseGridManager.js";
@@ -7,7 +7,7 @@ import { formatBIT as i, formatColumn as n, getFormatFn as C } from "./utils/Cel
 import { generateColumns as g } from "./utils/ColumnConverter.js";
 import { formatValue as y, getDisplayValue as z } from "./utils/DataFetchUtil.js";
 export {
-  e as EmptyChild,
+  e as EmptyChildTable,
   f as NoopGridCustomizer,
   i as formatBIT,
   n as formatColumn,

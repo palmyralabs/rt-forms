@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { EmptyChild } from './EmptyChildTable';
+import { EmptyChildTable } from './EmptyChildTable';
 import { getCoreRowModel } from "@tanstack/react-table";
 import { BaseTableOptions } from "../typesInternal";
 
@@ -8,7 +8,7 @@ const useBaseGridManager = (o: BaseTableOptions) => {
     const { columnDefs, rowData, customizer } = o;
 
     const onColumnSort = o.onColumnSort || (() => undefined);
-    const EmptyChildren = o.EmptyChild || EmptyChild;
+    const EmptyChildren = o.EmptyChild || EmptyChildTable;
     const onRowClick = o.onRowClick || (() => undefined);
 
     const preProcessData = customizer?.preProcessData || ((d: any) => d);
