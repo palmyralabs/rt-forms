@@ -9,9 +9,9 @@ import "../PalmyraForm.js";
 import "@palmyralabs/ts-predicates";
 import { u as G } from "../../../chunks/ServerCardLayout.js";
 import "react/jsx-runtime";
-import '../../../assets/FieldContainer.css';import '../../../assets/FieldGroupContainer.css';/* empty css                                  */
+import '../../../assets/CardLayout.css';import '../../../assets/FieldContainer.css';import '../../../assets/FieldGroupContainer.css';/* empty css                                  */
 /* empty css                             */
-import "../../layout/card/CardLayout.js";
+/* empty css                         */
 import "@tanstack/react-table";
 import "../../grid/base/utils/ColumnConverter.js";
 import { getOptionIdKey as H, getOptionValueKey as J, generateFieldAccessor as N, generateFieldWriter as U } from "./ServerLookupCustomizer.js";

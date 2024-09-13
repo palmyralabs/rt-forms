@@ -6,9 +6,9 @@ import "@palmyralabs/ts-predicates";
 import "../../chunks/NoopConverter.js";
 import "dayjs";
 import { P as F } from "../../chunks/ServerCardLayout.js";
-import '../../assets/FieldContainer.css';import '../../assets/FieldGroupContainer.css';/* empty css                               */
+import '../../assets/CardLayout.css';import '../../assets/FieldContainer.css';import '../../assets/FieldGroupContainer.css';/* empty css                               */
 /* empty css                          */
-import "../layout/card/CardLayout.js";
+/* empty css                      */
 import "@tanstack/react-table";
 import "../grid/base/utils/ColumnConverter.js";
 import "./useHelpers/usePalmyraEditForm.js";

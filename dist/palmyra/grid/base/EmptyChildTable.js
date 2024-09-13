@@ -1,5 +1,6 @@
-import { jsx as e } from "react/jsx-runtime";
-const i = () => /* @__PURE__ */ e("div", { children: /* @__PURE__ */ e("div", { className: "empty-child-table-container", children: "No Data Available" }) });
+import { jsx as i } from "react/jsx-runtime";
+import '../../../assets/CardLayout.css';/* empty css                         */
+const e = () => /* @__PURE__ */ i("div", { children: /* @__PURE__ */ i("div", { className: "empty-child-card-container", children: "No Data Available" }) });
 export {
-  i as EmptyChildTable
+  e as EmptyChildTable
 };

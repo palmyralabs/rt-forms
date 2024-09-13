@@ -5,12 +5,12 @@ import { generatePredicate as I, validate as V } from "../validator/validatorHel
 import { o as c, e as J, i as v } from "../../../chunks/accessor.js";
 import "../../../chunks/NoopConverter.js";
 import "dayjs";
-import "../../../chunks/ServerCardLayout.js";
+import '../../../assets/FieldContainer.css';import '../../../assets/FieldGroupContainer.css';import '../../../assets/CardLayout.css';/* empty css                               */
 import "react/jsx-runtime";
-import "../../layout/card/CardLayout.js";
+/* empty css                         */
 import "@tanstack/react-table";
 import "../../grid/base/utils/ColumnConverter.js";
-import '../../../assets/FieldContainer.css';import '../../../assets/FieldGroupContainer.css';/* empty css                                  */
+/* empty css                                  */
 /* empty css                             */
 const se = (a, t, s) => {
   const e = q(H);

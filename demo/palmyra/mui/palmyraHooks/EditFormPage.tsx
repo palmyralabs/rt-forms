@@ -48,7 +48,7 @@ const EditFormPage = () => {
                     attribute="date" title="Date Field" serverPattern="YYYY/DD/MM" displayPattern="DD-MMM-YYYY" />
                 <MuiServerLookup attribute="serverLookup"
                     lookupOptions={{ idAttribute: 'id', labelAttribute: "name" }}
-                    storeOptions={{ endPoint: '/lookupData.json', idAttribute: 'sid', labelAttribute: "location" }} />
+                    queryOptions={{ endPoint: '/lookupData.json', idAttribute: 'sid', labelAttribute: "location" }} />
             </FieldGroup>
         </PalmyraEditForm>
     </>
