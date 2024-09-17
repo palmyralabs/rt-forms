@@ -47,7 +47,8 @@ interface IFieldManager {
 interface IFormFieldError {
     status: boolean,
     message: string,
-    hasFocus?: boolean
+    hasFocus?: boolean,
+    showError?: boolean
 }
 
 interface IFormManager {

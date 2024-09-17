@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useContext, useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useCallback, useContext, useState } from "react"
 import { IFieldCustomizer, IFieldGroupManager, IFieldManager, IFormFieldError } from "../types"
 import { FieldGroupManagerContext } from "../formContext";
 import { FieldOptions, IMutateOptions } from "../typesFieldOptions";
@@ -28,10 +28,6 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
     const [mutateOptions, setMutateOptions] = useState<IMutateOptions>({});
     const options = { ...fieldOptions, ...mutateOptions }
 
-    useEffect(() => {
-        refreshError();
-    }, [mutateOptions])
-
     const valueAccessor = useCallback(() => getAccessor(key, customizer), [key])();
     const valueWriter = useCallback(() => getWriter(key, customizer), [key])();
     const validator = generatePredicate(options);
@@ -51,35 +47,38 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
     const error = fieldState.error;
 
     const getValue = () => value;
-    const getError = () => error || { status: false, message: '' };
+    const getError = () => {
+        if (undefined != error && error.showError)
+            return error;
+        return { status: false, message: '' }
+    };
 
     const getValidator = () => {
         return validator;
     }
 
-    const setValue = (v: Dispatch<SetStateAction<any>>, skipValidation = false, propagate = true) => {
+    const setValue = (v: Dispatch<SetStateAction<any>>, propagate = true, showError = true) => {
         const d: any = (typeof v == 'function') ? v(value) : v;
-        const error = validate(d, validator, options);
+        const newError = validate(d, validator, options);
 
-        if (d == value && error.status == error.status && error.message == error.message) {
+        if (d == value && error && newError.status == error.status && newError.message == error.message) {
             return;
         }
 
-        setFieldState({ value: d, error });
+        fieldGroupManager.setFieldValidity(key, !newError.status);
+        newError.showError = showError;
+        setFieldState({ value: d, error: newError });
 
         if (propagate)
             fieldGroupManager.setFieldData(key, d);
-
-        if (!skipValidation) {
-            fieldGroupManager.setFieldValidity(key, !error.status);
-        }
     }
 
     const refreshError = () => {
         const e = validate(value, validator, options);
-        if (error && e.status == error.status && e.message == error.message) {
+        if (error && error.showError && e.status == error.status && e.message == error.message) {
             return;
         }
+        e.showError = true;
         setFieldState((v) => {
             return { ...v, error: e };
         });
@@ -95,6 +94,10 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
     }
 
     const isValid = () => {
+        if (undefined == fieldState.error) {
+            const e = validate(value, validator, options);
+            return !e.status;
+        }
         return !fieldState.error?.status
     }
 
