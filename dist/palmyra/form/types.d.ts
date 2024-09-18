@@ -40,6 +40,7 @@ interface IFormFieldError {
     status: boolean;
     message: string;
     hasFocus?: boolean;
+    showError?: boolean;
 }
 interface IFormManager {
     getData: Supplier<any>;

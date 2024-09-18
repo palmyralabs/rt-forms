@@ -1,6 +1,7 @@
 import { getPredicate, IValidatorOptions, PredicateResponse } from "@palmyralabs/ts-predicates";
 import { FieldOptions } from "../typesFieldOptions";
 import { getErrorMessage } from "./errorMessageHelper";
+import { IFormFieldError } from "../types";
 
 
 const generatePredicate = (o: FieldOptions) => {
@@ -84,7 +85,7 @@ const assignNumber = (src: any, tgt: any, srcKey: string, tgtKey?: string) => {
     }
 }
 
-const validate = (v: any, validator: Function, field: FieldOptions) => {
+const validate = (v: any, validator: Function, field: FieldOptions) : IFormFieldError => {
     const validity: PredicateResponse = validator(v);
     if (validity.valid) {
         return { status: false, message: '' };

@@ -53,16 +53,17 @@ const MuiTextField = forwardRef(function MuiTextField(props: TextFieldProps & IT
     var options = fieldManager.getFieldProps();
 
     options.onChange = (d: any) => { if (!props.readOnly) setValue(d.target.value); }
+    options.onBlur = () => { fieldManager.refreshError() }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(options)} customContainerClass={props.customContainerClass}
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
-            <TextField 
+            <TextField
                 variant={variant}
                 fullWidth={true}
                 inputRef={inputRef}
                 {...options}
-                value = {getValue()}
+                value={getValue()}
                 error={error.status}
                 helperText={error.message}
             />
