@@ -77,7 +77,7 @@ const B = (o) => {
 }, G = (o, c) => {
   Object.keys(o).every((l) => {
     const d = o[l].field, u = d.valueAccessor;
-    return d.setValue(u(c), !1, !1), !0;
+    return d.setValue(u(c, !0), !1, !1), !0;
   });
 };
 export {

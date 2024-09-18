@@ -29,7 +29,7 @@ declare const useServerLookupFieldManager: (key: string, o: FieldOptions & IServ
     mutateOptions: import('../typesFieldOptions').IMutateOptions;
     setMutateOptions: import('react').Dispatch<import('react').SetStateAction<import('../typesFieldOptions').IMutateOptions>>;
     getValidator: import('@palmyralabs/ts-utils').Supplier<(v: any) => import('@palmyralabs/ts-predicates').PredicateResponse>;
-    valueAccessor: import('@palmyralabs/ts-utils').IFunction<any, any>;
+    valueAccessor: (d: any, returnDefault?: boolean) => any;
     valueWriter: (formData: any, value: any) => void;
 };
 export { useServerLookupFieldManager };

@@ -106,17 +106,22 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
     return fieldManager;
 }
 
-function getAccessor(attribute, customizer?: IFieldCustomizer) {
+function getAccessor(attribute, defaultValue = null, customizer?: IFieldCustomizer) {
+    const defValue = defaultValue || '';
+
     const accessor = customizer?.fieldAccessor ? customizer.fieldAccessor :
         hasDot(attribute) ?
-            (d: any) => {
+            (d: any, returnDefault?: boolean) => {
                 const v = getValueByKey(attribute, d);
-                return v ? v : '';
-            } : (d: any) => { const v = d?.[attribute]; return v ? v : '' };
+                return v ? v : returnDefault ? defValue : '';
+            } : (d: any, returnDefault?: boolean) => {
+                const v = d?.[attribute];
+                return v ? v : returnDefault ? defValue : '';
+            };
 
     if (customizer?.parse) {
         const parse = customizer.parse;
-        return (d: any) => parse(accessor(d));
+        return (d: any, returnDefault?: boolean) => parse(accessor(d, returnDefault));
     }
 
     return accessor;

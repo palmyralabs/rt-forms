@@ -33,7 +33,7 @@ interface IFieldManager {
     setMutateOptions: Dispatch<SetStateAction<IMutateOptions>>;
     getFieldProps: Supplier<any>;
     getValidator: Supplier<(v: any) => PredicateResponse>;
-    valueAccessor: IFunction<any, any>;
+    valueAccessor: (d: any, returnDefault?: boolean) => any;
     valueWriter: (formData: any, value: any) => void;
 }
 interface IFormFieldError {
