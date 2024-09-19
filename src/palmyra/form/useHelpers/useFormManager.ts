@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { IFieldGroupManager, IFieldGroupOptions, IFieldManager, IFormManager, IFormOptions } from "../types";
 import { useValidityTracker } from "./useValidityTracker";
 import { BiConsumer, getValueByKey, IFunction } from "@palmyralabs/ts-utils";
@@ -53,12 +53,6 @@ const useFormManager = (props: IFormOptions): IFormManager => {
 
         const fieldsRef = useRef<Record<string, { options: FieldOptions, field: IFieldManager }>>({});
         const validTracker = useValidityTracker((v: boolean) => { setValidity(getName(), v) });
-
-        const data = getData();
-
-        useEffect(() => {
-            assignChildrenData(fieldsRef.current, data);
-        }, [data]);
 
         const getFieldData: IFunction<string, any> = (key: string) => {
             return getValueByKey(key, dataRef.current);

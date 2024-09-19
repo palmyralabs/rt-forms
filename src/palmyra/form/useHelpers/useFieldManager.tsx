@@ -34,12 +34,12 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
 
     var defaultValue = valueAccessor({});
     var e = undefined;
-    if (!fieldGroupManager.hasField(options.attribute)) {
-        if ((defaultValue == '' || defaultValue == undefined) && options.defaultValue != undefined) {
-            defaultValue = customizer?.parse ? customizer.parse(options.defaultValue) : options.defaultValue;
-            e = validate(defaultValue, validator, options);
-        }
+    // if (!fieldGroupManager.hasField(options.attribute)) {
+    if ((defaultValue == '' || defaultValue == undefined) && options.defaultValue != undefined) {
+        defaultValue = customizer?.parse ? customizer.parse(options.defaultValue) : options.defaultValue;
+        e = validate(defaultValue, validator, options);
     }
+    // }
 
     const [fieldState, setFieldState] = useState<FieldStatus>({ value: defaultValue, error: e });
 
@@ -59,6 +59,7 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
 
     const setValue = (v: Dispatch<SetStateAction<any>>, propagate = true, showError = true) => {
         const d: any = (typeof v == 'function') ? v(value) : v;
+        console.log(d);
         const newError = validate(d, validator, options);
 
         if (d == value && error && newError.status == error.status && newError.message == error.message) {
@@ -109,22 +110,21 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
     return fieldManager;
 }
 
-function getAccessor(attribute, defaultValue = null, customizer?: IFieldCustomizer) {
-    const defValue = defaultValue || '';
+function getAccessor(attribute, customizer?: IFieldCustomizer) {
 
     const accessor = customizer?.fieldAccessor ? customizer.fieldAccessor :
         hasDot(attribute) ?
-            (d: any, returnDefault?: boolean) => {
+            (d: any) => {
                 const v = getValueByKey(attribute, d);
-                return v ? v : returnDefault ? defValue : '';
-            } : (d: any, returnDefault?: boolean) => {
+                return v ? v : '';
+            } : (d: any) => {
                 const v = d?.[attribute];
-                return v ? v : returnDefault ? defValue : '';
+                return v ? v : '';
             };
 
     if (customizer?.parse) {
         const parse = customizer.parse;
-        return (d: any, returnDefault?: boolean) => parse(accessor(d, returnDefault));
+        return (d: any) => parse(accessor(d));
     }
 
     return accessor;
