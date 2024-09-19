@@ -7,6 +7,7 @@ interface CardLayoutInput {
     EmptyChild?: React.FC;
     Loading?: React.FC;
     childProps: any;
+    title?: string;
     childKeyProvider: (data: any, index: number) => string | number;
     preProcess?: (data: any) => any;
 }

@@ -10,11 +10,11 @@ const o = {
   rule: ["validRule.errorMessage", "invalidMessage"],
   regex: ["regExp.errorMessage", "invalidMessage"],
   required: ["missingMessage"]
-}, u = (r, e) => {
-  const n = r.reason;
-  if (!n)
+}, u = (n, e) => {
+  const r = n.reason;
+  if (!r)
     return "";
-  const g = o[n];
+  const g = o[r];
   for (const s in g) {
     const i = g[s], a = l(i, e);
     if (a && typeof a == "string")
@@ -25,10 +25,10 @@ const o = {
   if (e.validRule) {
     let s = e.validRule.errorMessage;
     return s || (Object.entries(e.validRule).map(([a, t]) => {
-      r.reason = t;
-    }), r.reason);
+      n.reason = t;
+    }), r);
   }
-  return r.reason;
+  return r;
 };
 export {
   u as getErrorMessage

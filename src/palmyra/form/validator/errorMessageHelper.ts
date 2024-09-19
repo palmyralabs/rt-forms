@@ -13,7 +13,6 @@ const keyMapping: Record<string, string[]> = {
     "required": ["missingMessage"]
 }
 
-
 const getErrorMessage = (v: PredicateResponse, o: FieldOptions): string => {
     const reason = v.reason;
     if (!reason)
@@ -44,11 +43,11 @@ const getErrorMessage = (v: PredicateResponse, o: FieldOptions): string => {
             entries.map(([key, val]) => {
                 v.reason = val;
             })
-            return v.reason;
+            return reason;
         }
     }
 
-    return v.reason;
+    return reason;
 }
 
 export { getErrorMessage }

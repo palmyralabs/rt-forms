@@ -39,17 +39,17 @@ const at = (o) => {
   var A = g instanceof Array ? g[0] : g;
   const [O, G] = h((j = o.storeOptions) == null ? void 0 : j.endPointOptions), [P, _] = h({}), [f, v] = h({ limit: A, offset: 0, total: !0 }), [s, w] = h({ total: null, isLoading: !1, data: null }), m = (t) => {
     v((r) => ({ limit: r.limit, total: r.total, offset: t * r.limit }));
-  }, p = (t) => {
+  }, H = (t) => {
     const r = t > 10 || t == -1 ? t : 15;
     v((a) => {
       const Y = Math.floor(a.offset / r) * r;
       return { limit: r, total: a.total, offset: Y };
     });
-  }, H = () => n ? Object.keys(n).length == 0 : !1, L = (t, r) => {
+  }, q = () => n ? Object.keys(n).length == 0 : !1, L = (t, r) => {
     w((a) => (setTimeout(() => {
       o.onDataChange && o.onDataChange(t, a.data);
     }, 100), { data: t, total: r, isLoading: !1 }));
-  }, D = () => L([], 0), q = () => L(void 0, null), I = () => N({}), F = () => Math.round(f.offset / f.limit), B = () => f, J = () => {
+  }, D = () => L([], 0), I = () => L(void 0, null), p = () => N({}), F = () => Math.round(f.offset / f.limit), B = () => f, J = () => {
     w((t) => ({ ...t, isLoading: !0 }));
   };
   K(() => {
@@ -57,7 +57,7 @@ const at = (o) => {
       C.current = !1;
       return;
     }
-    (d || !H()) && V();
+    (d || !q()) && V();
   }, [f, P, O]);
   const R = () => ({
     sortOrder: P && Object.keys(P).length > 0 ? P : u,
@@ -73,7 +73,7 @@ const at = (o) => {
           L(r.result, r.total);
         }).catch((r) => {
           var a = r.response ? r.response : r;
-          console.error("error while fetching", a), q();
+          console.error("error while fetching", a), I();
         });
       } catch (r) {
         console.error(r), D();
@@ -92,14 +92,14 @@ const at = (o) => {
   }, X = () => F() < k() ? (m(F() + 1), !0) : !1, k = () => Math.ceil((s == null ? void 0 : s.total) / (f.limit || 25));
   return {
     addFilter: W,
-    resetFilter: I,
+    resetFilter: p,
     setFilter: N,
     setQuickSearch: U,
     setSortColumns: b,
     setEndPointOptions: G,
     getTotalPages: k,
     refresh: V,
-    setPageSize: p,
+    setPageSize: H,
     getPageNo: F,
     getQueryLimit: B,
     setQueryLimit: v,
@@ -132,7 +132,8 @@ const at = (o) => {
       dataList: n.getCurrentData(),
       childProps: c,
       EmptyChild: e.EmptyChild,
-      Loading: e.Loading
+      Loading: e.Loading,
+      title: e.title
     }
   ) }) });
 });

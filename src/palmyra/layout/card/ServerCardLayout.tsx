@@ -1,6 +1,5 @@
 import { MutableRefObject, forwardRef, useImperativeHandle, useRef } from 'react';
 import './CardLayout.css';
-
 import { IPageQueryable, IServerQueryInput, useServerQuery } from '../../wire';
 import { CardLayout } from './CardLayout';
 
@@ -10,6 +9,7 @@ interface ServerCardLayoutInput extends IServerQueryInput {
     listKeyProvider?: (data: any, index: number) => string | number,
     EmptyChild?: React.FC,
     Loading?: React.FC,
+    title?: string,
     preProcess?: (data: any) => any
 }
 
@@ -18,7 +18,6 @@ const ServerCardLayout = forwardRef(function MuiSelect(props: ServerCardLayoutIn
     const currentRef: MutableRefObject<IPageQueryable> = ref ? ref : useRef(null);
 
     const serverQuery = useServerQuery(props);
-
 
     const listKeyProvider = props.listKeyProvider || ((data, index) => index);
 
@@ -33,7 +32,7 @@ const ServerCardLayout = forwardRef(function MuiSelect(props: ServerCardLayoutIn
             <div className="card-page-container" >
                 <CardLayout Child={Child} childKeyProvider={listKeyProvider} preProcess={props.preProcess}
                     dataList={serverQuery.getCurrentData()} childProps={childProps} 
-                    EmptyChild={props.EmptyChild} Loading={props.Loading}
+                    EmptyChild={props.EmptyChild} Loading={props.Loading} title={props.title}
                 ></CardLayout>
             </div>
         </div>
