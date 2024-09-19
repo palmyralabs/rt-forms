@@ -82,7 +82,7 @@ const generateFieldAccessor = (o: FieldOptions & IServerLookupOptions) => {
                 const value = displayAccessor(formData);
                 return formatValue(id, value)
             } else
-                return ''
+                return null;
         }
     } else if (lookupOptions) {
         const lookupIdKey = getLookupIdKey(o);
@@ -98,7 +98,7 @@ const generateFieldAccessor = (o: FieldOptions & IServerLookupOptions) => {
                 const value = valueKeyAccessor(data);
                 return formatValue(key, value);
             } else
-                return ''
+                return null;
         }
     } else {
         return (formData: any) => {

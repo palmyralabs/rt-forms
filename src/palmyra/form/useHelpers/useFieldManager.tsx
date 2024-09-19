@@ -34,12 +34,11 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
 
     var defaultValue = valueAccessor({});
     var e = undefined;
-    // if (!fieldGroupManager.hasField(options.attribute)) {
-    if ((defaultValue == '' || defaultValue == undefined) && options.defaultValue != undefined) {
+
+    if (options.defaultValue != undefined) {
         defaultValue = customizer?.parse ? customizer.parse(options.defaultValue) : options.defaultValue;
         e = validate(defaultValue, validator, options);
-    }
-    // }
+    }    
 
     const [fieldState, setFieldState] = useState<FieldStatus>({ value: defaultValue, error: e });
 

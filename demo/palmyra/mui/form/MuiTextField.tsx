@@ -1,17 +1,14 @@
 import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
 import { TextField, TextFieldProps } from '@mui/material';
 
-import { IFormFieldError, IMutateOptions, ITextField, useFieldManager } from '../../../../src/palmyra';
-import { generateOptions, getFieldLabel } from './util';
+import { getFieldLabel } from './util'
 import FieldDecorator from './FieldDecorator';
 import { ITextFieldDefinition } from './types';
+import { getFieldHandler, IFormFieldError, ITextField, useFieldManager } from '../../../../src/palmyra';
 
-
-const MuiTextField = forwardRef(function MuiTextField(props: TextFieldProps & ITextFieldDefinition, ref: MutableRefObject<ITextField>) {
-    // const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
-
+const MuiTextField = forwardRef(function MuiTextField(props: ITextFieldDefinition & TextFieldProps, ref: MutableRefObject<ITextField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions, setMutateOptions, refreshError } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);
     const error: IFormFieldError = getError();
 
@@ -19,46 +16,31 @@ const MuiTextField = forwardRef(function MuiTextField(props: TextFieldProps & IT
     const variant = props.variant || 'standard';
 
     useImperativeHandle(currentRef, () => {
+        const handler = getFieldHandler(fieldManager)
         return {
+            ...handler,
             focus() {
                 inputRef.current.focus();
-            },
-            isValid() {
-                return !error.status;
-            },
-            refreshError,
-            setValue,
-            getValue,
-            clear() {
-                setValue('');
-            },
-            setVisible(visible: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, visible }));
-            },
-            setRequired(required: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, required }));
-            },
-            setReadOnly(readonly: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, readonly }));
-            },
-            setDisabled(disabled: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, disabled }));
-            },
-            setAttribute(options: IMutateOptions) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, ...options }));
             }
         };
     }, [fieldManager]);
 
+
     var options = fieldManager.getFieldProps();
 
-    options.onChange = (d: any) => { if (!props.readOnly) setValue(d.target.value); }
-    options.onBlur = () => { fieldManager.refreshError() }
+    options.onChange = (event: any) => {
+        if (!props.readOnly) {
+            setValue(event.target.value);
+            if (props.onChange)
+                props.onChange(event);
+        }
+    }
 
     return (<>{!mutateOptions.visible &&
-        <FieldDecorator label={getFieldLabel(options)} customContainerClass={props.customContainerClass}
+        <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <TextField
+                label={props.label}
                 variant={variant}
                 fullWidth={true}
                 inputRef={inputRef}

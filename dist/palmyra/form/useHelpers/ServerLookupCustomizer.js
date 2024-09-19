@@ -14,44 +14,44 @@ const I = (t) => {
   var e, o;
   return ((e = t.lookupOptions) == null ? void 0 : e.labelAttribute) || ((o = t.queryOptions) == null ? void 0 : o.labelAttribute) || "id";
 }, F = (t, { getOptionKey: e, getOptionValue: o }) => {
-  const { attribute: b, displayAttribute: d, lookupOptions: p } = t, l = k(b);
+  const { attribute: b, displayAttribute: d, lookupOptions: p } = t, c = k(b);
   return d ? (s, u) => {
     const i = e(s), r = o(s);
-    v(d, u, r), l(u, i);
+    v(d, u, r), c(u, i);
   } : p ? (s, u) => {
-    const i = e(s), r = o(s), c = p.idAttribute, n = p.labelAttribute, a = { [c]: i, [n]: r };
-    l(u, a);
+    const i = e(s), r = o(s), l = p.idAttribute, n = p.labelAttribute, a = { [l]: i, [n]: r };
+    c(u, a);
   } : (s, u) => {
     const i = e(s);
-    l(u, i);
+    c(u, i);
   };
 }, L = (t) => {
-  const { attribute: e, displayAttribute: o, lookupOptions: b } = t, d = I(t), p = V(t), l = y(e), s = k(d), u = k(p), i = (r, c) => {
+  const { attribute: e, displayAttribute: o, lookupOptions: b } = t, d = I(t), p = V(t), c = y(e), s = k(d), u = k(p), i = (r, l) => {
     var n = {};
-    return s(n, r), u(n, c), n;
+    return s(n, r), u(n, l), n;
   };
   if (o) {
     const r = y(o);
-    return (c) => {
-      const n = l(c);
+    return (l) => {
+      const n = c(l);
       if (n) {
-        const a = r(c);
+        const a = r(l);
         return i(n, a);
       } else
-        return "";
+        return null;
     };
   } else if (b) {
-    const r = m(t), c = q(t), n = y(r), a = y(c);
+    const r = m(t), l = q(t), n = y(r), a = y(l);
     return (K) => {
-      const A = l(K);
+      const A = c(K);
       if (A) {
         const O = n(A), f = a(A);
         return i(O, f);
       } else
-        return "";
+        return null;
     };
   } else
-    return (r) => l(r);
+    return (r) => c(r);
 };
 export {
   L as generateFieldAccessor,

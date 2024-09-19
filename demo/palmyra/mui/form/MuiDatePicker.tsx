@@ -1,13 +1,13 @@
 import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
-import { DatePicker, DatePickerProps, LocalizationProvider } from '@mui/x-date-pickers';
-import { IDateField, IFormFieldError, IMutateOptions, useFieldManager } from '../../../../src/palmyra';
-import { generateOptions, getFieldLabel } from './util';
+import { DatePicker, DatePickerProps, LocalizationProvider, PickerChangeHandlerContext } from '@mui/x-date-pickers';
+import { getFieldLabel } from './util';
 import FieldDecorator from './FieldDecorator';
 import { IDatePickerDefinition } from './types';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from "dayjs";
+import { getFieldHandler, IDateField, IFormFieldError, useFieldManager } from '../../../../src/palmyra';
 
-const MuiDatePicker = forwardRef(function MuiDatePicker(props: DatePickerProps<any> & IDatePickerDefinition,
+const MuiDatePicker = forwardRef(function MuiDatePicker(props: IDatePickerDefinition & DatePickerProps<any>,
     ref: MutableRefObject<IDateField>) {
     const serverPattern = props.serverPattern || props.displayPattern || "YYYY-MM-DD";
     const displayFormat: string = props.displayPattern || props.serverPattern || "YYYY-MM-DD";
@@ -24,40 +24,18 @@ const MuiDatePicker = forwardRef(function MuiDatePicker(props: DatePickerProps<a
 
     const fieldManager = useFieldManager(props.attribute, props, { format, parse });
 
-    const { getError, getValue, setValue, mutateOptions, setMutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions } = fieldManager;
     const currentRef = ref ? ref : useRef<IDateField>(null);
     const error: IFormFieldError = getError();
 
     const inputRef: any = useRef(null);
-    const variant = props.variant || 'standard';
 
     useImperativeHandle(currentRef, () => {
+        const handler = getFieldHandler(fieldManager)
         return {
+            ...handler,
             focus() {
                 inputRef.current.focus();
-            },
-            isValid() {
-                return !error.status;
-            },
-            setValue,
-            getValue,
-            clear() {
-                setValue('');
-            },
-            setVisible(visible: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, visible }));
-            },
-            setRequired(required: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, required }));
-            },
-            setReadOnly(readonly: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, readonly }));
-            },
-            setDisabled(disabled: boolean) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, disabled }));
-            },
-            setAttribute(options: IMutateOptions) {
-                setMutateOptions((d: IMutateOptions) => ({ ...d, ...options }));
             },
             setCurrent() {
 
@@ -65,27 +43,37 @@ const MuiDatePicker = forwardRef(function MuiDatePicker(props: DatePickerProps<a
         };
     }, [fieldManager]);
 
-    var options = generateOptions(props, mutateOptions, getValue());
+    var options = fieldManager.getFieldProps();
+    if (options.defaultValue) {
+        options.defaultValue = parse(options.defaultValue);
+    }
 
-    options.onChange = (d: any) => { if (!props.readOnly) setValue(d); }
+    options.onChange = (d: any, context: PickerChangeHandlerContext<any>) => {
+        if (!props.readOnly) {
+            setValue(d);
+            if (props.onChange)
+                props.onChange(d, context);
+        }
+    }
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} customContainerClass={props.customContainerClass}
             colspan={props.colspan} customFieldClass={props.customFieldClass} customLabelClass={props.customLabelClass}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker {...options}
-                    readOnly={props.readOnly}
-                    disableFuture={props.disableFuture}
+                <DatePicker
+                    defaultValue={dayjs(props.defaultValue)}
                     format={displayFormat}
+                    label={props.label}
                     slotProps={{
                         textField: {
                             error: error.status,
                             helperText: error.message,
-                            variant: variant,
-                            fullWidth: false,
+                            variant: props.variant || 'standard',                            
                             inputRef
                         },
                     }}
+                    {...options}
+                    value={getValue()}
                 />
             </LocalizationProvider>
         </FieldDecorator>}
