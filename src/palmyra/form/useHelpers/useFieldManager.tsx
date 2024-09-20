@@ -58,7 +58,6 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
 
     const setValue = (v: Dispatch<SetStateAction<any>>, propagate = true, showError = true) => {
         const d: any = (typeof v == 'function') ? v(value) : v;
-        console.log(d);
         const newError = validate(d, validator, options);
 
         if (d == value && error && newError.status == error.status && newError.message == error.message) {
@@ -115,10 +114,10 @@ function getAccessor(attribute, customizer?: IFieldCustomizer) {
         hasDot(attribute) ?
             (d: any) => {
                 const v = getValueByKey(attribute, d);
-                return undefined == v ? v : '';
+                return undefined != v ? v : '';
             } : (d: any) => {
                 const v = d?.[attribute];
-                return undefined == v ? v : '';
+                return undefined != v ? v : '';
             };
 
     if (customizer?.parse) {
