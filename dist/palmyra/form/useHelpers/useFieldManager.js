@@ -16,54 +16,54 @@ const ar = (a, t, s) => {
   const r = G(O);
   if (!r)
     throw Error("useFieldManager must be called within the scope of <PalmyraForm>");
-  const [e, P] = x({}), o = { ...t, ...e }, E = A(() => j(a, s), [a])(), C = A(() => q(a, s), [a])(), d = D(o);
+  const [e, P] = x({}), n = { ...t, ...e }, E = A(() => j(a, s), [a])(), C = A(() => q(a, s), [a])(), f = D(n);
   var c = E({}), h = void 0;
-  o.defaultValue != null && (c = s != null && s.parse ? s.parse(o.defaultValue) : o.defaultValue, h = v(c, d, o));
+  n.defaultValue != null && (c = s != null && s.parse ? s.parse(n.defaultValue) : n.defaultValue, h = v(c, f, n));
   const [u, M] = x({ value: c, error: h }), p = u.value, l = u.error, w = {
-    getValidator: () => d,
+    getValidator: () => f,
     getValue: () => p,
-    setValue: (n, g = !0, W = !0) => {
-      const i = typeof n == "function" ? n(p) : n;
+    setValue: (o, g = !0, W = !0) => {
+      const i = typeof o == "function" ? o(p) : o;
       console.log(i);
-      const f = v(i, d, o);
-      i == p && l && f.status == l.status && f.message == l.message || (r.setFieldValidity(a, !f.status), f.showError = W, M({ value: i, error: f }), g && r.setFieldData(a, i));
+      const d = v(i, f, n);
+      i == p && l && d.status == l.status && d.message == l.message || (r.setFieldValidity(a, !d.status), d.showError = W, M({ value: i, error: d }), g && r.setFieldData(a, i));
     },
     valueAccessor: E,
     valueWriter: C,
     isValid: () => {
-      var n;
-      return u.error == null ? !v(p, d, o).status : !((n = u.error) != null && n.status);
+      var o;
+      return u.error == null ? !v(p, f, n).status : !((o = u.error) != null && o.status);
     },
     getError: () => l != null && l.showError ? l : { status: !1, message: "" },
     refreshError: () => {
-      const n = v(p, d, o);
-      l && l.showError && n.status == l.status && n.message == l.message || (n.showError = !0, M((g) => ({ ...g, error: n })), r.setFieldValidity(a, !n.status));
+      const o = v(p, f, n);
+      l && l.showError && o.status == l.status && o.message == l.message || (o.showError = !0, M((g) => ({ ...g, error: o })), r.setFieldValidity(a, !o.status));
     },
     mutateOptions: e,
     setMutateOptions: P,
     getFieldProps: () => {
       const {
-        invalidMessage: n,
+        invalidMessage: o,
         missingMessage: g,
         validator: W,
         regExp: i,
-        validRule: f,
+        validRule: d,
         validFn: Q,
         defaultValue: T,
         ...S
-      } = o;
+      } = n;
       return { ...S, ...e };
     }
   };
-  return r.registerFieldManager(w, o), w;
+  return r.registerFieldManager(w, n), w;
 };
 function j(a, t) {
   const s = t != null && t.fieldAccessor ? t.fieldAccessor : F(a) ? (r) => {
     const e = R(a, r);
-    return e || "";
+    return e == null ? e : "";
   } : (r) => {
     const e = r == null ? void 0 : r[a];
-    return e || "";
+    return e == null ? e : "";
   };
   if (t != null && t.parse) {
     const r = t.parse;
