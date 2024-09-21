@@ -39,10 +39,17 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
             customizer, validator, valueAccessor, valueFormatter);
 
     const [fieldState, setFieldState] = useState<FieldStatus>(defState);
+
+    useEffect(() => {
+        if (init.current == 'done') {
+            refreshError();
+        }
+    }, [mutateOptions]);
+
     useEffect(() => {
         init.current = 'done';
         return () => { init.current = null }
-    }, [key])
+    }, []);
 
     const value = fieldState.value;
     const error = fieldState.error;
@@ -60,8 +67,11 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
 
     const setValue = (v: Dispatch<SetStateAction<any>>, propagate = true, showError = true) => {
         const d: any = (typeof v == 'function') ? v(value) : v;
-        const newError = validate(d, validator, options);
 
+        if (propagate && d != value)
+            fieldGroupManager.setFieldData(key, d);
+
+        const newError = validate(d, validator, options);
         if (d == value && error && newError.status == error.status && newError.message == error.message) {
             return;
         }
@@ -69,9 +79,6 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
         fieldGroupManager.setFieldValidity(key, !newError.status);
         newError.showError = showError;
         setFieldState({ value: d, error: newError });
-
-        if (propagate)
-            fieldGroupManager.setFieldData(key, d);
     }
 
     const refreshError = () => {
@@ -181,7 +188,7 @@ const getDefaultState = (fieldGroupManager, rawValueAccessor, options,
         defaultValue = valueFormatter(providedValue);
     }
     e = validate(defaultValue, validator, options);
-    if(e.status)
+    if (e.status)
         e.showError = providedValue != undefined || options.defaultValue != undefined;
 
     return { value: defaultValue, error: e };
