@@ -18,36 +18,57 @@ const getErrorMessage = (v: PredicateResponse, o: FieldOptions): string => {
     if (!reason)
         return '';
 
+    switch (reason) {
+        case 'rule':
+            return getRuleErrorMessage(v.reason, o);
+        case 'regex':
+            return getRegexErrorMessage(v, o);
+        default:
+            break;
+    }
+
+    const ruleError = getRuleErrorMessage(v.reason, o);
+    if (ruleError) return ruleError;
+
+    const errorMessage = getMessageByMapping(reason, o);
+    if (errorMessage)
+        return errorMessage;
+
+    if (o.invalidMessage)
+        return o.invalidMessage;
+
+    return reason;
+}
+
+const getMessageByMapping = (reason: string, o: FieldOptions) => {
     const mappings: string[] = keyMapping[reason];
 
     for (const idx in mappings) {
         const key = mappings[idx];
         const v: any = getValueByKey(key, o);
-
         if (v && typeof v == 'string')
             return v;
     }
+}
 
-    if (o.invalidMessage)
-        return o.invalidMessage;
-
-    if (o.validRule) {
-        
+const getRuleErrorMessage = (reason: string, o: FieldOptions): string => {
+    const ruleType = typeof o.validRule;
+    if (Array.isArray(o.validRule)) {
+        const match = o.validRule.find((r) => r.rule == reason);
+        if (match && match.errorMessage)
+            return match.errorMessage;
+    } else if (ruleType == 'object') {
         //@ts-ignore
-        let errorMessage: any = o.validRule.errorMessage
-        if (errorMessage) {
+        let { rule, errorMessage } = o.validRule;
+        if (errorMessage && (reason == 'rule' || reason == rule)) {
             return errorMessage;
         }
-        else {
-            let entries = Object.entries(o.validRule)
-            entries.map(([key, val]) => {
-                v.reason = val;
-            })
-            return reason;
-        }
     }
+    return getMessageByMapping(reason, o);
+}
 
-    return reason;
+const getRegexErrorMessage = (v: PredicateResponse, o: FieldOptions): string => {
+    return getMessageByMapping(v.reason, o);
 }
 
 export { getErrorMessage }

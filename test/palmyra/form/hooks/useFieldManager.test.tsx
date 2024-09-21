@@ -5,8 +5,7 @@ test('useFieldManager', () => {
 
 
     const wrapper = ({ children }) => {
-        return <PalmyraForm formData={{ email: 'helloworld@gmail.com' }}
-            mode="new">{children} </PalmyraForm>
+        return <PalmyraForm formData={{ email: 'helloworld@gmail.com' }}>{children} </PalmyraForm>
     }
 
     const options: FieldOptions = {

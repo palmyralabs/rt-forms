@@ -13,7 +13,8 @@ const PalmyraNewForm = forwardRef(function EditForm(props: INewFormOptions, ref:
 
     useImperativeHandle(currentRef, () => getSaveFormHandle(saveData, formRef))
 
-    return (<PalmyraForm onValidChange={props.onValidChange} ref={formRef} storeFactory={storeFactory}>
+    return (<PalmyraForm onValidChange={props.onValidChange}
+        formData={props.initialData} ref={formRef} storeFactory={storeFactory}>
         {props.children}
     </PalmyraForm>
     );
