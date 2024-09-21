@@ -27,7 +27,7 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
 
     const [mutateOptions, setMutateOptions] = useState<IMutateOptions>({});
     const options = { ...fieldOptions, ...mutateOptions };
-    
+
     const rawValueAccessor = getRawValueAccessor(key);
     const valueFormatter = getValueFormatter(customizer);
     const valueAccessor = (d: any) => valueFormatter(rawValueAccessor(d));
@@ -169,18 +169,21 @@ function getWriter(attribute, customizer?: IFieldCustomizer): BiConsumer<any, an
 const getDefaultState = (fieldGroupManager, rawValueAccessor, options,
     customizer, validator, valueAccessor, valueFormatter) => {
     var defaultValue = null;
-    var e = undefined;
+    var e: IFormFieldError = undefined;
     const providedValue = fieldGroupManager.getFieldRawData(rawValueAccessor);
     if (providedValue == undefined) {
         if (options.defaultValue != undefined) {
             defaultValue = customizer?.parse ? customizer.parse(options.defaultValue) : options.defaultValue;
-            e = validate(providedValue, validator, options);
         } else {
             defaultValue = valueAccessor({});
         }
     } else {
         defaultValue = valueFormatter(providedValue);
     }
+    e = validate(defaultValue, validator, options);
+    if(e.status)
+        e.showError = providedValue != undefined || options.defaultValue != undefined;
+
     return { value: defaultValue, error: e };
 }
 

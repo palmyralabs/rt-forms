@@ -86,26 +86,7 @@ const useFormManager = (props: IFormOptions): IFormManager => {
         }
 
         const registerFieldManager = (fieldManager: IFieldManager, options: FieldOptions) => {
-            console.log(fieldManager.getValue());
-            // if (!fieldsRef.current[options.attribute]) {
-            //     fieldsRef.current[options.attribute] = { field: fieldManager, options }
-
-            //     var v = fieldManager.valueAccessor(dirtyDataRef.current);
-
-            //     if (v == undefined || v == '') {
-            //         v = fieldManager.valueAccessor(dataRef.current)
-            //     }
-
-            //     if (v != undefined && v != '') {
-            //         fieldManager.setValue(v);
-            //     } else if (options.defaultValue != null) {
-            //         const parsedDefaultValue = fieldManager.getValue();
-            //         console.log('setting default', parsedDefaultValue)
-            //         setFieldData(options.attribute, parsedDefaultValue);
-            //     }
-            // } else
             fieldsRef.current[options.attribute] = { field: fieldManager, options }
-
             const fieldValid = fieldManager.isValid();
             setValidity(options.attribute, fieldValid);
         }

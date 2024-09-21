@@ -1,27 +1,27 @@
 import { useRef as f } from "react";
-import { useValidityTracker as m } from "./useValidityTracker.js";
+import { useValidityTracker as M } from "./useValidityTracker.js";
 import { e as b } from "../../../chunks/accessor.js";
 import "../../../chunks/NoopConverter.js";
 import "dayjs";
 const z = (c) => {
   const s = f(c.formData || {}), l = f({}), d = c.onValidChange || ((t) => {
     console.log(t);
-  }), i = f({}), { isValid: M, setValidity: D } = m((t) => {
+  }), i = f({}), { isValid: m, setValidity: D } = M((t) => {
     d(t);
-  }, 200), F = () => ({ ...s.current, ...l.current }), V = () => s.current, v = () => {
+  }, 200), F = () => ({ ...s.current, ...l.current }), v = () => s.current, y = () => {
     const t = F(), r = i.current;
     for (const n in r)
       r[n].setData(t);
-  }, y = (t) => {
+  }, G = (t) => {
     const r = i.current;
     for (const n in r)
       r[n].setData(t);
     s.current = t;
-  }, G = (t) => i.current[t], R = (t) => {
+  }, V = (t) => i.current[t], R = (t) => {
     const r = i.current, n = k(t);
     return r[t.name] = n, n;
   }, k = (t) => {
-    const r = f({}), n = m((e) => {
+    const r = f({}), n = M((e) => {
       D(p(), e);
     }), g = (e) => b(e, s.current), p = () => t.name;
     return {
@@ -38,7 +38,7 @@ const z = (c) => {
         }), e;
       },
       registerFieldManager: (e, a) => {
-        console.log(e.getValue()), r.current[a.attribute] = { field: e, options: a };
+        r.current[a.attribute] = { field: e, options: a };
         const o = e.isValid();
         D(a.attribute, o);
       },
@@ -59,12 +59,12 @@ const z = (c) => {
   };
   return {
     getData: F,
-    getPropsData: V,
-    isValid: M,
-    reset: v,
-    setData: y,
+    getPropsData: v,
+    isValid: m,
+    reset: y,
+    setData: G,
     registerFieldGroupManager: R,
-    getFieldGroupManager: G
+    getFieldGroupManager: V
   };
 }, h = (c, s) => {
   Object.keys(c).every((l) => {

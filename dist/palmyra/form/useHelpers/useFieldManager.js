@@ -12,15 +12,15 @@ import "@tanstack/react-table";
 import "../../grid/base/utils/ColumnConverter.js";
 /* empty css                                  */
 /* empty css                             */
-const de = (r, t, n) => {
+const de = (r, t, s) => {
   const e = D(), a = G(q);
   if (!a)
     throw Error("useFieldManager must be called within the scope of <PalmyraForm>");
-  const [u, w] = x({}), o = { ...t, ...u }, i = I(r), d = J(n), M = (s) => d(i(s)), P = O(() => K(r, n), [r])(), g = B(o), R = e.current == "done" ? { value: "", e: void 0 } : L(
+  const [u, w] = x({}), o = { ...t, ...u }, i = I(r), d = J(s), M = (n) => d(i(n)), P = O(() => K(r, s), [r])(), g = B(o), R = e.current == "done" ? { value: "", e: void 0 } : L(
     a,
     i,
     o,
-    n,
+    s,
     g,
     M,
     d
@@ -31,27 +31,27 @@ const de = (r, t, n) => {
   const p = V.value, l = V.error, W = {
     getValidator: () => g,
     getValue: () => p,
-    setValue: (s, c = !0, S = !0) => {
-      const v = typeof s == "function" ? s(p) : s, f = E(v, g, o);
+    setValue: (n, c = !0, S = !0) => {
+      const v = typeof n == "function" ? n(p) : n, f = E(v, g, o);
       v == p && l && f.status == l.status && f.message == l.message || (a.setFieldValidity(r, !f.status), f.showError = S, A({ value: v, error: f }), c && a.setFieldData(r, v));
     },
     valueAccessor: M,
     valueWriter: P,
     rawValueAccessor: i,
     isValid: () => {
-      var s;
-      return V.error == null ? !E(p, g, o).status : !((s = V.error) != null && s.status);
+      var n;
+      return V.error == null ? !E(p, g, o).status : !((n = V.error) != null && n.status);
     },
     getError: () => l != null && l.showError ? l : { status: !1, message: "" },
     refreshError: () => {
-      const s = E(p, g, o);
-      l && l.showError && s.status == l.status && s.message == l.message || (s.showError = !0, A((c) => ({ ...c, error: s })), a.setFieldValidity(r, !s.status));
+      const n = E(p, g, o);
+      l && l.showError && n.status == l.status && n.message == l.message || (n.showError = !0, A((c) => ({ ...c, error: n })), a.setFieldValidity(r, !n.status));
     },
     mutateOptions: u,
     setMutateOptions: w,
     getFieldProps: () => {
       const {
-        invalidMessage: s,
+        invalidMessage: n,
         missingMessage: c,
         validator: S,
         regExp: v,
@@ -71,18 +71,18 @@ function I(r, t) {
 function J(r) {
   if (r != null && r.parse) {
     const t = r.parse;
-    return (n) => t(n);
+    return (s) => t(s);
   }
   return (t) => t ?? "";
 }
 function K(r, t) {
-  const n = t == null ? void 0 : t.format;
-  return n ? t != null && t.fieldWriter ? (e, a) => t.fieldWriter(n(a), e) : h(r) ? (e, a) => F(r, e, n(a)) : (e, a) => F(r, e, n(a)) : t != null && t.fieldWriter ? (e, a) => t.fieldWriter(a, e) : h(r) ? (e, a) => F(r, e, a) : (e, a) => F(r, e, a);
+  const s = t == null ? void 0 : t.format;
+  return s ? t != null && t.fieldWriter ? (e, a) => t.fieldWriter(s(a), e) : h(r) ? (e, a) => F(r, e, s(a)) : (e, a) => F(r, e, s(a)) : t != null && t.fieldWriter ? (e, a) => t.fieldWriter(a, e) : h(r) ? (e, a) => F(r, e, a) : (e, a) => F(r, e, a);
 }
-const L = (r, t, n, e, a, u, w) => {
+const L = (r, t, s, e, a, u, w) => {
   var o = null, i = void 0;
   const d = r.getFieldRawData(t);
-  return d == null ? n.defaultValue != null ? (o = e != null && e.parse ? e.parse(n.defaultValue) : n.defaultValue, i = E(d, a, n)) : o = u({}) : o = w(d), { value: o, error: i };
+  return d == null ? s.defaultValue != null ? o = e != null && e.parse ? e.parse(s.defaultValue) : s.defaultValue : o = u({}) : o = w(d), i = E(o, a, s), i.status && (i.showError = d != null || s.defaultValue != null), { value: o, error: i };
 };
 export {
   de as useFieldManager
