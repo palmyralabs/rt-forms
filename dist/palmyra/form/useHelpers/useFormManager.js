@@ -1,79 +1,75 @@
 import { useRef as f } from "react";
-import { useValidityTracker as v } from "./useValidityTracker.js";
-import { e as j } from "../../../chunks/accessor.js";
+import { useValidityTracker as m } from "./useValidityTracker.js";
+import { e as b } from "../../../chunks/accessor.js";
 import "../../../chunks/NoopConverter.js";
 import "dayjs";
-const z = (o) => {
-  const c = f(o.formData || {}), l = f({}), d = o.onValidChange || ((t) => {
+const z = (c) => {
+  const s = f(c.formData || {}), l = f({}), d = c.onValidChange || ((t) => {
     console.log(t);
-  }), u = f({}), { isValid: G, setValidity: D } = v((t) => {
+  }), i = f({}), { isValid: M, setValidity: D } = m((t) => {
     d(t);
-  }, 200), V = () => ({ ...c.current, ...l.current }), M = () => c.current, p = () => {
-    const t = V(), r = u.current;
+  }, 200), F = () => ({ ...s.current, ...l.current }), V = () => s.current, v = () => {
+    const t = F(), r = i.current;
     for (const n in r)
       r[n].setData(t);
-  }, b = (t) => {
-    const r = u.current;
+  }, y = (t) => {
+    const r = i.current;
     for (const n in r)
       r[n].setData(t);
-    c.current = t;
-  }, k = (t) => u.current[t], R = (t) => {
-    const r = u.current, n = h(t);
+    s.current = t;
+  }, G = (t) => i.current[t], R = (t) => {
+    const r = i.current, n = k(t);
     return r[t.name] = n, n;
-  }, h = (t) => {
-    const r = f({}), n = v((e) => {
-      D(m(), e);
-    }), g = (e) => j(e, c.current), m = () => t.name, A = () => {
-      var e = {};
-      const a = r.current;
-      return Object.keys(a).every((s) => {
-        const i = a[s].field;
-        return i.valueWriter(e, i.getValue()), !0;
-      }), e;
-    }, y = (e, a) => {
-      var i;
-      const s = (i = r.current[e]) == null ? void 0 : i.field;
-      s && s.valueWriter(l.current, a);
-    };
+  }, k = (t) => {
+    const r = f({}), n = m((e) => {
+      D(p(), e);
+    }), g = (e) => b(e, s.current), p = () => t.name;
     return {
       setData: (e) => {
-        c.current = e, C(r.current, e);
+        s.current = e, h(r.current, e);
       },
-      getName: m,
-      getFieldGroupData: A,
+      getName: p,
+      getFieldGroupData: () => {
+        var e = {};
+        const a = r.current;
+        return Object.keys(a).every((o) => {
+          const u = a[o].field;
+          return u.valueWriter(e, u.getValue()), !0;
+        }), e;
+      },
       registerFieldManager: (e, a) => {
-        if (r.current[a.attribute])
-          r.current[a.attribute] = { field: e, options: a };
-        else if (r.current[a.attribute] = { field: e, options: a }, a.defaultValue != null) {
-          var s = e.valueAccessor(l.current);
-          if ((s == null || s == "") && e.valueAccessor(c.current), s == null || s == "") {
-            const F = e.getValue();
-            console.log("setting default", F), y(a.attribute, F);
-          }
-        }
-        const i = e.isValid();
-        D(a.attribute, i);
+        console.log(e.getValue()), r.current[a.attribute] = { field: e, options: a };
+        const o = e.isValid();
+        D(a.attribute, o);
       },
       hasField: (e) => r.current[e] != null,
+      getFieldRawData: (e) => {
+        var a = e(l.current);
+        return a ?? e(s.current);
+      },
       getFieldData: g,
-      setFieldData: y,
+      setFieldData: (e, a) => {
+        var u;
+        const o = (u = r.current[e]) == null ? void 0 : u.field;
+        o && o.valueWriter(l.current, a);
+      },
       setFieldValidity: n.setValidity,
       isValid: n.isValid
     };
   };
   return {
-    getData: V,
-    getPropsData: M,
-    isValid: G,
-    reset: p,
-    setData: b,
+    getData: F,
+    getPropsData: V,
+    isValid: M,
+    reset: v,
+    setData: y,
     registerFieldGroupManager: R,
-    getFieldGroupManager: k
+    getFieldGroupManager: G
   };
-}, C = (o, c) => {
-  Object.keys(o).every((l) => {
-    const d = o[l].field, u = d.valueAccessor;
-    return d.setValue(u(c, !0), !1, !1), !0;
+}, h = (c, s) => {
+  Object.keys(c).every((l) => {
+    const d = c[l].field, i = d.valueAccessor;
+    return d.setValue(i(s), !1, !1), !0;
   });
 };
 export {

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useContext, useState } from "react"
+import { Dispatch, SetStateAction, useCallback, useContext, useEffect, useRef, useState } from "react"
 import { IFieldCustomizer, IFieldGroupManager, IFieldManager, IFormFieldError } from "../types"
 import { FieldGroupManagerContext } from "../formContext";
 import { FieldOptions, IMutateOptions } from "../typesFieldOptions";
@@ -20,27 +20,29 @@ interface FieldStatus {
  */
 
 const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: IFieldCustomizer): IFieldManager => {
+    const init = useRef<string>();
     const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
     if (!fieldGroupManager)
         throw Error('useFieldManager must be called within the scope of <PalmyraForm>')
 
-
     const [mutateOptions, setMutateOptions] = useState<IMutateOptions>({});
-    const options = { ...fieldOptions, ...mutateOptions }
-
-    const valueAccessor = useCallback(() => getAccessor(key, customizer), [key])();
+    const options = { ...fieldOptions, ...mutateOptions };
+    
+    const rawValueAccessor = getRawValueAccessor(key);
+    const valueFormatter = getValueFormatter(customizer);
+    const valueAccessor = (d: any) => valueFormatter(rawValueAccessor(d));
     const valueWriter = useCallback(() => getWriter(key, customizer), [key])();
     const validator = generatePredicate(options);
 
-    var defaultValue = valueAccessor({});
-    var e = undefined;
+    const defState = (init.current == 'done') ? { value: '', e: undefined } :
+        getDefaultState(fieldGroupManager, rawValueAccessor, options,
+            customizer, validator, valueAccessor, valueFormatter);
 
-    if (options.defaultValue != undefined) {
-        defaultValue = customizer?.parse ? customizer.parse(options.defaultValue) : options.defaultValue;
-        e = validate(defaultValue, validator, options);
-    }
-
-    const [fieldState, setFieldState] = useState<FieldStatus>({ value: defaultValue, error: e });
+    const [fieldState, setFieldState] = useState<FieldStatus>(defState);
+    useEffect(() => {
+        init.current = 'done';
+        return () => { init.current = null }
+    }, [key])
 
     const value = fieldState.value;
     const error = fieldState.error;
@@ -101,31 +103,40 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
     }
 
     const fieldManager: IFieldManager = {
-        getValidator, getValue, setValue, valueAccessor, valueWriter,
+        getValidator, getValue, setValue, valueAccessor, valueWriter, rawValueAccessor,
         isValid, getError, refreshError, mutateOptions, setMutateOptions, getFieldProps
     }
+
     fieldGroupManager.registerFieldManager(fieldManager, options);
     return fieldManager;
 }
 
-function getAccessor(attribute, customizer?: IFieldCustomizer) {
+export { useFieldManager };
 
-    const accessor = customizer?.fieldAccessor ? customizer.fieldAccessor :
+
+
+
+function getRawValueAccessor(attribute: string, customizer?: IFieldCustomizer) {
+
+    const rawAccessor = customizer?.fieldAccessor ? customizer.fieldAccessor :
         hasDot(attribute) ?
             (d: any) => {
-                const v = getValueByKey(attribute, d);
-                return undefined != v ? v : '';
+                return getValueByKey(attribute, d);
             } : (d: any) => {
-                const v = d?.[attribute];
-                return undefined != v ? v : '';
+                return d?.[attribute];
             };
 
+    return rawAccessor;
+}
+
+function getValueFormatter(customizer?: IFieldCustomizer) {
     if (customizer?.parse) {
         const parse = customizer.parse;
-        return (d: any) => parse(accessor(d));
+        return (rawValue: any) => parse(rawValue);
     }
-
-    return accessor;
+    return (rawValue: any) => {
+        return rawValue != undefined ? rawValue : '';
+    }
 }
 
 function getWriter(attribute, customizer?: IFieldCustomizer): BiConsumer<any, any> {
@@ -154,4 +165,22 @@ function getWriter(attribute, customizer?: IFieldCustomizer): BiConsumer<any, an
     }
 }
 
-export { useFieldManager };
+
+const getDefaultState = (fieldGroupManager, rawValueAccessor, options,
+    customizer, validator, valueAccessor, valueFormatter) => {
+    var defaultValue = null;
+    var e = undefined;
+    const providedValue = fieldGroupManager.getFieldRawData(rawValueAccessor);
+    if (providedValue == undefined) {
+        if (options.defaultValue != undefined) {
+            defaultValue = customizer?.parse ? customizer.parse(options.defaultValue) : options.defaultValue;
+            e = validate(providedValue, validator, options);
+        } else {
+            defaultValue = valueAccessor({});
+        }
+    } else {
+        defaultValue = valueFormatter(providedValue);
+    }
+    return { value: defaultValue, error: e };
+}
+

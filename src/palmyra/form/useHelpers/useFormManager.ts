@@ -86,22 +86,25 @@ const useFormManager = (props: IFormOptions): IFormManager => {
         }
 
         const registerFieldManager = (fieldManager: IFieldManager, options: FieldOptions) => {
-            if (!fieldsRef.current[options.attribute]) {
-                fieldsRef.current[options.attribute] = { field: fieldManager, options }
-                if (options.defaultValue != null) {
-                
-                    var v = fieldManager.valueAccessor(dirtyDataRef.current);
-                    if (v == undefined || v == '') {
-                        fieldManager.valueAccessor(dataRef.current)
-                    }
-                    if (v == undefined || v == '') {
-                        const parsedDefaultValue = fieldManager.getValue();
-                        console.log('setting default', parsedDefaultValue)
-                        setFieldData(options.attribute, parsedDefaultValue);
-                    }
-                }
-            } else
-                fieldsRef.current[options.attribute] = { field: fieldManager, options }
+            console.log(fieldManager.getValue());
+            // if (!fieldsRef.current[options.attribute]) {
+            //     fieldsRef.current[options.attribute] = { field: fieldManager, options }
+
+            //     var v = fieldManager.valueAccessor(dirtyDataRef.current);
+
+            //     if (v == undefined || v == '') {
+            //         v = fieldManager.valueAccessor(dataRef.current)
+            //     }
+
+            //     if (v != undefined && v != '') {
+            //         fieldManager.setValue(v);
+            //     } else if (options.defaultValue != null) {
+            //         const parsedDefaultValue = fieldManager.getValue();
+            //         console.log('setting default', parsedDefaultValue)
+            //         setFieldData(options.attribute, parsedDefaultValue);
+            //     }
+            // } else
+            fieldsRef.current[options.attribute] = { field: fieldManager, options }
 
             const fieldValid = fieldManager.isValid();
             setValidity(options.attribute, fieldValid);
@@ -112,8 +115,13 @@ const useFormManager = (props: IFormOptions): IFormManager => {
             assignChildrenData(fieldsRef.current, data);
         }
 
+        const getFieldRawData = (accessor: (d: any) => any) => {
+            var v = accessor(dirtyDataRef.current);
+            return (undefined == v) ? accessor(dataRef.current) : v;
+        }
+
         const fieldGroupManager: IFieldGroupManager = {
-            setData, getName, getFieldGroupData, registerFieldManager,hasField,
+            setData, getName, getFieldGroupData, registerFieldManager, hasField, getFieldRawData,
             getFieldData, setFieldData, setFieldValidity: validTracker.setValidity, isValid: validTracker.isValid
         }
 
@@ -132,7 +140,7 @@ const assignChildrenData = (fields: Record<string, { options: FieldOptions, fiel
     Object.keys(fields).every((key: string) => {
         const fieldManager = fields[key].field;
         const accessor = fieldManager.valueAccessor;
-        fieldManager.setValue(accessor(data, true), false, false);
+        fieldManager.setValue(accessor(data), false, false);
         return true;
     });
 }

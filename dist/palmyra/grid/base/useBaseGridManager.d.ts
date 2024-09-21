@@ -8,8 +8,8 @@ declare const useBaseGridManager: (o: BaseTableOptions) => {
         manualSorting: boolean;
         manualFiltering: boolean;
         manualPagination: boolean;
-        columns: import('@tanstack/table-core').ColumnDef<unknown, any>[];
-        getCoreRowModel: (table: import('@tanstack/table-core').Table<unknown>) => () => import('@tanstack/table-core').RowModel<unknown>;
+        columns: import('@tanstack/react-table').ColumnDef<unknown, any>[];
+        getCoreRowModel: (table: import('@tanstack/react-table').Table<unknown>) => () => import('@tanstack/react-table').RowModel<unknown>;
     };
     EmptyChildren: import('react').FC<{}> | (() => import("react/jsx-runtime").JSX.Element);
 };

@@ -10,26 +10,40 @@ const o = {
   rule: ["validRule.errorMessage", "invalidMessage"],
   regex: ["regExp.errorMessage", "invalidMessage"],
   required: ["missingMessage"]
-}, u = (n, e) => {
-  const r = n.reason;
-  if (!r)
+}, m = (r, e) => {
+  const a = r.reason;
+  if (!a)
     return "";
-  const g = o[r];
-  for (const s in g) {
-    const i = g[s], a = l(i, e);
-    if (a && typeof a == "string")
-      return a;
+  switch (a) {
+    case "rule":
+      return i(r.reason, e);
+    case "regex":
+      return M(r, e);
   }
-  if (e.invalidMessage)
-    return e.invalidMessage;
-  if (e.validRule) {
-    let s = e.validRule.errorMessage;
-    return s || (Object.entries(e.validRule).map(([a, t]) => {
-      n.reason = t;
-    }), r);
+  const s = i(r.reason, e);
+  if (s) return s;
+  const n = t(a, e);
+  return n || (e.invalidMessage ? e.invalidMessage : a);
+}, t = (r, e) => {
+  const a = o[r];
+  for (const s in a) {
+    const n = a[s], g = l(n, e);
+    if (g && typeof g == "string")
+      return g;
   }
-  return r;
-};
+}, i = (r, e) => {
+  const a = typeof e.validRule;
+  if (Array.isArray(e.validRule)) {
+    const s = e.validRule.find((n) => n.rule == r);
+    if (s && s.errorMessage)
+      return s.errorMessage;
+  } else if (a == "object") {
+    let { rule: s, errorMessage: n } = e.validRule;
+    if (n && (r == "rule" || r == s))
+      return n;
+  }
+  return t(r, e);
+}, M = (r, e) => t(r.reason, e);
 export {
-  u as getErrorMessage
+  m as getErrorMessage
 };

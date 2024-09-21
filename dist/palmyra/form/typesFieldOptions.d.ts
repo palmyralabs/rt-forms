@@ -38,11 +38,11 @@ type IRegexValidation = RegExp | string | {
     errorMessage?: string;
 };
 type IRuleValidation = validationRule | {
-    rule: validationRule | validationRule[];
-    errorMessage?: string | string[];
+    rule: validationRule;
+    errorMessage?: string;
 } | [{
-    rule: validationRule | validationRule[];
-    errorMessage?: string | string[];
+    rule: validationRule;
+    errorMessage?: string;
 }] | Partial<Record<validationRule, string>>;
 type IFunctionValidation = IPredicate<any> | ((v: any) => PredicateResponse) | {
     fn: IPredicate<any>;

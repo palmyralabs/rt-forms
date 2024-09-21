@@ -40,7 +40,8 @@ interface IFieldManager {
     setMutateOptions: Dispatch<SetStateAction<IMutateOptions>>
     getFieldProps: Supplier<any>,
     getValidator: Supplier<(v: any) => PredicateResponse>,
-    valueAccessor: (d: any, returnDefault?: boolean) => any,
+    rawValueAccessor: (d: any) => any,
+    valueAccessor: (d: any) => any,
     valueWriter: (formData: any, value: any) => void
 }
 
@@ -89,6 +90,7 @@ interface IFieldGroupManager {
 
     getFieldData: IFunction<string, any>
     setFieldData: BiConsumer<string, any>
+    getFieldRawData: (accessor: (d: any) => any) => any
 
     setFieldValidity: BiConsumer<string, boolean>
 

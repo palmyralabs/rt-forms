@@ -24,12 +24,13 @@ declare const useServerLookupFieldManager: (key: string, o: FieldOptions & IServ
     getValue: import('@palmyralabs/ts-utils').Supplier<any>;
     setValue: (v: any, skipValidation?: Boolean, propagate?: boolean) => void;
     isValid: () => boolean;
-    getError: import('@palmyralabs/ts-utils').Supplier<import('..').IFormFieldError>;
+    getError: import('@palmyralabs/ts-utils').Supplier<import('../types').IFormFieldError>;
     refreshError: (force?: boolean) => void;
-    mutateOptions: import('..').IMutateOptions;
-    setMutateOptions: import('react').Dispatch<import('react').SetStateAction<import('..').IMutateOptions>>;
+    mutateOptions: import('../typesFieldOptions').IMutateOptions;
+    setMutateOptions: import('react').Dispatch<import('react').SetStateAction<import('../typesFieldOptions').IMutateOptions>>;
     getValidator: import('@palmyralabs/ts-utils').Supplier<(v: any) => import('@palmyralabs/ts-predicates').PredicateResponse>;
-    valueAccessor: (d: any, returnDefault?: boolean) => any;
+    rawValueAccessor: (d: any) => any;
+    valueAccessor: (d: any) => any;
     valueWriter: (formData: any, value: any) => void;
 };
 export { useServerLookupFieldManager };
