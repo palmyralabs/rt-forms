@@ -1,14 +1,17 @@
-import { DateTimeConverter as t } from "./DateConverter.js";
-import { DateRangeConverter as r } from "./DateRangeConverter.js";
+import { DateTimeConverter as r } from "./DateConverter.js";
+import { DateRangeConverter as t } from "./DateRangeConverter.js";
 import { noopConverter as n } from "./NoopConverter.js";
-const i = (e, a) => {
+import a from "dayjs";
+var o = require("dayjs/plugin/customParseFormat");
+a.extend(o);
+const d = (e, m) => {
   switch (e.type) {
     case "date":
-      return new t(e, "YYYY-MM-DD");
-    case "datetime":
-      return new t(e, "YYYY-MM-DDTHH:mm:ss");
-    case "dateRange":
       return new r(e, "YYYY-MM-DD");
+    case "datetime":
+      return new r(e, "YYYY-MM-DDTHH:mm:ss");
+    case "dateRange":
+      return new t(e, "YYYY-MM-DD");
     case "sliderRange":
       return new SliderRangeConverter(e);
     default:
@@ -16,5 +19,5 @@ const i = (e, a) => {
   }
 };
 export {
-  i as getFormatConverter
+  d as getFormatConverter
 };

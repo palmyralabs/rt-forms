@@ -14,6 +14,7 @@ import '../../../assets/CardLayout.css';import '../../../assets/FieldContainer.c
 /* empty css                         */
 import "@tanstack/react-table";
 import "../../grid/base/utils/ColumnConverter.js";
+import "../../grid/utils/FormatterFactory.js";
 import { getOptionIdKey as H, getOptionValueKey as J, generateFieldAccessor as N, generateFieldWriter as U } from "./ServerLookupCustomizer.js";
 const X = (t, e) => {
   const s = v(H(t)), i = v(J(t)), r = (o) => typeof o == "object" ? s(o) : (console.log(o), ""), c = (o) => typeof o == "object" ? i(o) : (o != "" && console.log(o), ""), m = N(t), u = U(t, { getOptionKey: r, getOptionValue: c });
@@ -22,7 +23,7 @@ const X = (t, e) => {
     fieldWriter: u
   };
   return e && (e.format && (a.format = e.format), e.parse && (a.parse = e.parse)), { customizer: a, optionIdAccessor: s, getOptionKey: r, getOptionValue: c };
-}, he = (t, e, s) => {
+}, Oe = (t, e, s) => {
   var A, b, F;
   const i = R(0), [r, c] = P(""), [m, u] = P([]), a = (s == null ? void 0 : s.preProcessSearchText) || ((n) => "*" + n + "*"), { customizer: o, optionIdAccessor: g, getOptionKey: x, getOptionValue: k } = X(e, s), y = E(t, e, o), K = Y(e), z = () => {
     const {
@@ -84,5 +85,5 @@ function Y(t) {
   return w(i, t.queryOptions), e.getLookupStore(i, t.queryOptions.endPoint, s);
 }
 export {
-  he as useServerLookupFieldManager
+  Oe as useServerLookupFieldManager
 };

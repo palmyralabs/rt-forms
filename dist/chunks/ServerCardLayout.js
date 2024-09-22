@@ -10,17 +10,18 @@ import "dayjs";
 import { CardLayout as et } from "../palmyra/layout/card/CardLayout.js";
 import "@tanstack/react-table";
 import "../palmyra/grid/base/utils/ColumnConverter.js";
+import "../palmyra/grid/utils/FormatterFactory.js";
 import { getSaveFormHandle as z } from "../palmyra/form/formUtil.js";
 /* empty css                    */
 /* empty css               */
 import { usePalmyraNewForm as rt } from "../palmyra/form/useHelpers/usePalmyraNewForm.js";
 import { usePalmyraEditForm as ot } from "../palmyra/form/useHelpers/usePalmyraEditForm.js";
-const Dt = E(function(e, i) {
+const Ot = E(function(e, i) {
   const d = e.storeFactory, { fetchData: c, saveData: u, formRef: n } = ot(e), l = i || S();
   return K(() => {
     c(), n.current.isValid() && e.onValidChange && e.onValidChange(!0);
   }, [n, e.id]), x(l, () => z(u, n)), /* @__PURE__ */ y(M, { onValidChange: e.onValidChange, ref: n, storeFactory: d, children: e.children });
-}), Ot = E(function(e, i) {
+}), wt = E(function(e, i) {
   const d = e.storeFactory, { saveData: c, formRef: u } = rt(e), n = i || S();
   return x(n, () => z(c, u)), /* @__PURE__ */ y(
     M,
@@ -128,7 +129,7 @@ const at = (o) => {
     getCurrentData: () => s == null ? void 0 : s.data,
     isLoading: s.isLoading
   };
-}, wt = E(function(e, i) {
+}, Rt = E(function(e, i) {
   const { Child: d, childProps: c } = e, u = i || S(null), n = at(e), l = e.listKeyProvider || ((C, g) => g);
   return x(u, () => ({
     ...n
@@ -147,8 +148,8 @@ const at = (o) => {
   ) }) });
 });
 export {
-  Dt as P,
-  wt as S,
-  Ot as a,
+  Ot as P,
+  Rt as S,
+  wt as a,
   at as u
 };

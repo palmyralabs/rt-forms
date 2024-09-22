@@ -1,4 +1,4 @@
-import { IPattern, Converter } from '../base/types';
+import { Converter, IPattern } from '../base';
 
 declare class DateTimeConverter implements Converter<any, Date> {
     serverPattern: string;

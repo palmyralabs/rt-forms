@@ -11,11 +11,12 @@ import '../../assets/CardLayout.css';import '../../assets/FieldContainer.css';im
 /* empty css                      */
 import "@tanstack/react-table";
 import "../grid/base/utils/ColumnConverter.js";
-import { usePalmyraViewForm as e } from "./useHelpers/usePalmyraViewForm.js";
-const x = (r) => {
-  const o = r.storeFactory, { formRef: m } = e(r);
+import "../grid/utils/FormatterFactory.js";
+import { usePalmyraViewForm as p } from "./useHelpers/usePalmyraViewForm.js";
+const V = (r) => {
+  const o = r.storeFactory, { formRef: m } = p(r);
   return /* @__PURE__ */ t(i, { ref: m, storeFactory: o, children: r.children });
 };
 export {
-  x as PalmyraViewForm
+  V as PalmyraViewForm
 };

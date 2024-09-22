@@ -1,4 +1,4 @@
-export * from './base/index'
+export * from './base'
 export * from './typesInternal'
 export * from './useFieldGenerator'
-export * from './utils/index'
+export * from './utils'

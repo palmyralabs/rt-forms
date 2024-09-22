@@ -3,6 +3,10 @@ import { ColumnFieldOptions, Converter, FieldType } from "../base/types";
 import { DateTimeConverter } from "./DateConverter";
 import { DateRangeConverter } from "./DateRangeConverter";
 import { noopConverter } from "./NoopConverter";
+import dayjs from 'dayjs'
+
+var customParseFormat = require("dayjs/plugin/customParseFormat");
+dayjs.extend(customParseFormat);
 
 const getFormatConverter = (props: ColumnFieldOptions, formDataRef?: MutableRefObject<any>): Converter<any, any> => {
 

@@ -2,15 +2,15 @@ var s = Object.defineProperty;
 var i = (e, r, t) => r in e ? s(e, r, { enumerable: !0, configurable: !0, writable: !0, value: t }) : e[r] = t;
 var n = (e, r, t) => i(e, typeof r != "symbol" ? r + "" : r, t);
 import a from "dayjs";
-class f {
+class P {
   constructor(r, t) {
     n(this, "serverPattern");
     n(this, "displayPattern");
     n(this, "getDefaultValue", (r) => r || "");
-    this.serverPattern = r.serverPattern || r.displayPattern || t, this.displayPattern = r.displayPattern;
+    this.serverPattern = r.serverPattern || r.displayPattern || t, this.displayPattern = r.displayPattern || t;
   }
   format(r) {
-    return r && a(r).format(this.serverPattern);
+    return r && a(r, this.serverPattern).format(this.displayPattern);
   }
   parse(r) {
     if (r) {
@@ -27,5 +27,5 @@ class f {
   }
 }
 export {
-  f as DateTimeConverter
+  P as DateTimeConverter
 };

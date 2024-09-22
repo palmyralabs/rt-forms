@@ -32,13 +32,11 @@ interface ColumnFieldOptions extends FieldOptions, IPattern, IRange {
 }
 interface Converter<TEXT, DATA> {
     /**
-     * Format and Parse functions will be used in  form data entry
+     * Format and Parse functions will be used in  grid data entry
      */
     format: (data: DATA) => TEXT;
     parse: (text: TEXT) => DATA;
     convert: (text: TEXT) => TEXT;
-    getDefaultValue: (d: any) => any;
-    hasMultiUpdate?: () => boolean;
 }
 interface ColumnDefinition extends ColumnFieldOptions {
     attribute: string;

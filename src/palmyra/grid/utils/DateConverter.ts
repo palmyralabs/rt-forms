@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { IPattern, Converter } from "../base/types";
+import { Converter, IPattern } from "../base";
 
 class DateTimeConverter implements Converter<any, Date> {
     serverPattern: string;
@@ -7,13 +7,13 @@ class DateTimeConverter implements Converter<any, Date> {
 
     constructor(props: IPattern, defaultFormat: string) {
         this.serverPattern = props.serverPattern || props.displayPattern || defaultFormat;
-        this.displayPattern = props.displayPattern;
+        this.displayPattern = props.displayPattern || defaultFormat;
     }
 
     format(data: Date): any {
         if (data) {
-            return dayjs(data)
-                .format(this.serverPattern)
+            return dayjs(data, this.serverPattern)
+                .format(this.displayPattern)
         }
         return data;
     };
@@ -21,13 +21,11 @@ class DateTimeConverter implements Converter<any, Date> {
     parse(text: any): Date {
         if (text) {
             if (text instanceof Date)
-                return text;
-    
+                return text;    
             const timestamp = Number(text);
             if (!isNaN(timestamp) && timestamp.toString() === text.toString()) {
                 return new Date(timestamp);
             }
-
             return dayjs(text, this.serverPattern)
                 .toDate()
         }
