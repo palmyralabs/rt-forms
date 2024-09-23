@@ -20,7 +20,8 @@
     "compile": "tsc --p ./demo.tsconfig.json && tsc --p ./build.tsconfig.json",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
-    "test": "tsc --p ./test.tsconfig.json && vitest --root test/"
+    "test": "tsc --p ./test.tsconfig.json && vitest --root test/",
+    "testScript" : "vitest --root test/"
   },
   "devDependencies": {
     "@emotion/styled": "^11.11.5",
