@@ -16,18 +16,18 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "build": "tsc --p ./build.tsconfig.json && vite --config vite.config.js build",
+    "build": "vitest --root test/ && tsc --p ./build.tsconfig.json && vite --config vite.config.js build",
     "compile": "tsc --p ./demo.tsconfig.json && tsc --p ./build.tsconfig.json",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
     "test": "tsc --p ./test.tsconfig.json && vitest --root test/",
-    "testScript" : "vitest --root test/"
+    "testScript": "vitest --root test/"
   },
   "devDependencies": {
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
-    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^22.0.0",
