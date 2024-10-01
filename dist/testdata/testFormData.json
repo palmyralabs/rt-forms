@@ -2,6 +2,8 @@
     "result": {
         "id": 1,
         "text": "sample",
+        "number": 12,
+        "email": "sample@gmail.com",
         "select": {
             "gender": "m"
         },

@@ -22,7 +22,7 @@ describe("DateFormat", () => {
     test('invalid date', () => {
         const converter = DateFormat({ serverPattern: "YYYY-MM-DD", displayPattern: "DD/MMM/YYYY" });
         const inputDate = '2023-02-30';
-        const expected = '02/Mar/2023';
+        const expected = 'Invalid Date';
         const actual = converter(inputDate);
         expect(actual).toBe(expected);
     });
@@ -38,7 +38,7 @@ describe("DateFormat", () => {
     test('invalid month', () => {
         const converter = DateFormat({ serverPattern: "YYYY-MM-DD", displayPattern: "DD.MM.YYYY" });
         const inputDate = '2023-17-29';
-        const expected = '29.05.2024';
+        const expected = 'Invalid Date';
         const actual = converter(inputDate);
         expect(actual).toBe(expected);
     });

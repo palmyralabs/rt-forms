@@ -13,9 +13,9 @@ const DateFormat = (options: IDateFormatOptions) => {
     const displayPattern = options.displayPattern || "YYYY-MM-DD"
 
     const parse = (value, serverPattern): Date => {
-        const date = dayjs(value, serverPattern)
-        return date.toDate();
-    }
+        const date = dayjs(value, serverPattern, true);
+        return date.isValid() ? date.toDate() : null;
+    };
 
     const format = (date, displayPattern) => {
         return dayjs(date).format(displayPattern)

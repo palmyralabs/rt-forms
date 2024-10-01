@@ -2,10 +2,14 @@
     "result": {
         "id": 1,
         "text": "sample",
+        "number": 12,
+        "email": "sample@gmail.com",
         "select": {
             "gender": "m"
         },
+        "selects": 0,
         "date": "2024/10/12",
+        "dateTime": "2024-10-12 12:12:12",
         "dateRange": "2024-10-12...2024-12-20",
         "serverLookup": {
             "id": 2,
