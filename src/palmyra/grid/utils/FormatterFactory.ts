@@ -1,3 +1,4 @@
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { MutableRefObject } from "react";
 import { ColumnFieldOptions, Converter, FieldType } from "../base/types";
 import { DateTimeConverter } from "./DateConverter";
@@ -5,7 +6,6 @@ import { DateRangeConverter } from "./DateRangeConverter";
 import { noopConverter } from "./NoopConverter";
 import dayjs from 'dayjs'
 
-var customParseFormat = require("dayjs/plugin/customParseFormat");
 dayjs.extend(customParseFormat);
 
 const getFormatConverter = (props: ColumnFieldOptions, formDataRef?: MutableRefObject<any>): Converter<any, any> => {
@@ -18,7 +18,7 @@ const getFormatConverter = (props: ColumnFieldOptions, formDataRef?: MutableRefO
         case 'datetime':
             return new DateTimeConverter(props, 'YYYY-MM-DDTHH:mm:ss');
         case 'dateRange':
-            return new DateRangeConverter(props, 'YYYY-MM-DD');        
+            return new DateRangeConverter(props, 'YYYY-MM-DD');
         case 'sliderRange':
             //@ts-ignore
             return new SliderRangeConverter(props);
