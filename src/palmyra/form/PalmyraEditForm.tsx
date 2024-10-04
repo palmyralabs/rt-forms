@@ -8,21 +8,22 @@ import { getSaveFormHandle } from "./formUtil";
 const PalmyraEditForm = forwardRef(function EditForm(props: IEditFormOptions, ref: MutableRefObject<ISaveForm>) {
     const storeFactory = props.storeFactory;
 
-    const { fetchData, saveData, formRef } = usePalmyraEditForm(props)
+    const { fetchData, saveData, formRef, refresh } = usePalmyraEditForm(props)
 
     const currentRef = ref || useRef<ISaveForm>();
 
     useEffect(() => {
         fetchData();
-        if(formRef.current.isValid()){
-            if(props.onValidChange)
+        if (formRef.current.isValid()) {
+            if (props.onValidChange)
                 props.onValidChange(true);
         }
+        refresh()
     }, [formRef, props.id])
 
     useImperativeHandle(currentRef, () => getSaveFormHandle(saveData, formRef))
 
-    return (<PalmyraForm onValidChange={props.onValidChange} ref={formRef} storeFactory={storeFactory}>
+    return (<PalmyraForm onValidChange={props.onValidChange} ref={formRef} storeFactory={storeFactory} >
         {props.children}
     </PalmyraForm>
     );

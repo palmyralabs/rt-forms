@@ -1,7 +1,7 @@
-import { jsx as t } from "react/jsx-runtime";
-import "react";
+import { jsx as i } from "react/jsx-runtime";
+import { useEffect as e } from "react";
 import "./formContext.js";
-import { PalmyraForm as i } from "./PalmyraForm.js";
+import { PalmyraForm as f } from "./PalmyraForm.js";
 import "@palmyralabs/ts-predicates";
 import "../../chunks/NoopConverter.js";
 import "dayjs";
@@ -13,10 +13,12 @@ import "@tanstack/react-table";
 import "../grid/base/utils/ColumnConverter.js";
 import "../grid/utils/FormatterFactory.js";
 import { usePalmyraViewForm as p } from "./useHelpers/usePalmyraViewForm.js";
-const V = (r) => {
-  const o = r.storeFactory, { formRef: m } = p(r);
-  return /* @__PURE__ */ t(i, { ref: m, storeFactory: o, children: r.children });
+const E = (r) => {
+  const o = r.storeFactory, { formRef: m, refresh: t } = p(r);
+  return e(() => {
+    t();
+  }, [r.endPoint]), /* @__PURE__ */ i(f, { ref: m, storeFactory: o, children: r.children });
 };
 export {
-  V as PalmyraViewForm
+  E as PalmyraViewForm
 };
