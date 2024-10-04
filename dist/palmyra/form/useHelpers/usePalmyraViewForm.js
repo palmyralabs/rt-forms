@@ -1,21 +1,23 @@
-import { useContext as F, useRef as c, useEffect as P } from "react";
-import { StoreFactoryContext as l } from "../formContext.js";
+import { useContext as P, useRef as s, useEffect as l } from "react";
+import { StoreFactoryContext as R } from "../formContext.js";
 const v = (t) => {
-  const s = t.storeFactory || F(l), n = t.formRef || c(null), o = c(), i = t.idKey || "id", u = t.endPointOptions || {}, f = t.onQueryData || ((e) => e), d = (e, r) => typeof e == "string" ? e + "/{" + r + "}" : e;
-  return P(() => {
-    const e = t.id, r = i;
-    var m = d(t.endPoint, r);
-    const y = s.getFormStore({}, m, r);
-    var g = {
+  const i = t.storeFactory || P(R), n = t.formRef || s(null), o = s(), f = t.idKey || "id", u = t.endPointOptions || {}, d = t.onQueryData || ((e) => e), m = (e, r) => typeof e == "string" ? e + "/{" + r + "}" : e, c = () => {
+    const e = t.id, r = f;
+    var y = m(t.endPoint, r);
+    const g = i.getFormStore({}, y, r);
+    var D = {
       options: {
         ...u,
         [r]: e
       }
     };
-    y.get(g).then((D) => {
-      const a = f(D);
+    g.get(D).then((F) => {
+      const a = d(F);
       n.current && n.current.setData(a), o.current = a;
     });
+  };
+  return l(() => {
+    c(), t.refresh() && c();
   }, [t.id]), { getData: () => o.current, formRef: n };
 };
 export {

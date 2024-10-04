@@ -27,6 +27,7 @@ interface IPalmyraViewFormInput extends IuseFormOptions<StoreOptions>, IFormQuer
     id: string;
     idKey?: string;
     fields?: string[];
+    refresh?: any;
 }
 interface IPalmyraEditFormInput extends IPalmyraViewFormInput, IFormSaveEventHandler {
     mode?: 'edit' | 'save';

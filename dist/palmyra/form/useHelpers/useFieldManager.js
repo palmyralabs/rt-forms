@@ -33,9 +33,9 @@ const fe = (t, r, n) => {
   }), []);
   const u = V.value, l = V.error, G = () => u, O = () => l != null && l.showError ? l : { status: !1, message: "" }, j = () => c, m = (s, v = !0, x = !0) => {
     const p = typeof s == "function" ? s(u) : s;
-    v && p != u && a.setFieldData(t, p);
+    v && p !== u && a.setFieldData(t, p);
     const g = w(p, c, o);
-    p == u && l && g.status == l.status && g.message == l.message || (a.setFieldValidity(t, !g.status), g.showError = x, A({ value: p, error: g }));
+    p === u && l && g.status == l.status && g.message == l.message || (a.setFieldValidity(t, !g.status), g.showError = x, A({ value: p, error: g }));
   }, W = () => {
     const s = w(u, c, o);
     l && l.showError && s.status == l.status && s.message == l.message || (s.showError = !0, A((v) => ({ ...v, error: s })), a.setFieldValidity(t, !s.status));

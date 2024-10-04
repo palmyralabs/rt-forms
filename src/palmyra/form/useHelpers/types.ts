@@ -34,6 +34,7 @@ interface IPalmyraViewFormInput extends IuseFormOptions<StoreOptions>, IFormQuer
     id: string,
     idKey?: string,
     fields?: string[]
+    refresh?: any
 }
 
 
