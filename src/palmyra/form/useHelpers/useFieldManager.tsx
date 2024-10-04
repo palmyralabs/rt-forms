@@ -68,11 +68,11 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
     const setValue = (v: Dispatch<SetStateAction<any>>, propagate = true, showError = true) => {
         const d: any = (typeof v == 'function') ? v(value) : v;
 
-        if (propagate && d != value)
+        if (propagate && d !== value)
             fieldGroupManager.setFieldData(key, d);
 
         const newError = validate(d, validator, options);
-        if (d == value && error && newError.status == error.status && newError.message == error.message) {
+        if (d === value && error && newError.status == error.status && newError.message == error.message) {
             return;
         }
 
