@@ -24,7 +24,7 @@ const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): 
         }
     }
 
-    useEffect(() => {
+    const fetchData = () => {
         const id = props.id;
         const idProperty = idKey;
         var endPoint = getEndPoint(props.endPoint, idProperty);
@@ -41,13 +41,21 @@ const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): 
                 formRef.current.setData(data)
             dataRef.current = data
         });
+    }
+
+    const refresh = () => {
+        fetchData();
+    }
+
+    useEffect(() => {
+        fetchData();
     }, [props.id])
 
     const getData = () => {
         return dataRef.current;
     }
 
-    return { getData, formRef };
+    return { getData, formRef, refresh };
 }
 
 

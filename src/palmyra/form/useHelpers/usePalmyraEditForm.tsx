@@ -82,7 +82,11 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
             return Promise.reject('invalid data');
     }
 
-    return { getData, saveData, fetchData, formRef };
+    const refresh = () => {
+        fetchData()
+    }
+
+    return { getData, saveData, fetchData, formRef, refresh };
 }
 
 

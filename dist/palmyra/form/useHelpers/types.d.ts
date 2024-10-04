@@ -34,17 +34,22 @@ interface IPalmyraEditFormInput extends IPalmyraViewFormInput, IFormSaveEventHan
 }
 interface IPalmyraSaveFormOutput extends IPalmyraEditFormOutput {
 }
-interface IPalmyraViewFormOutput {
-    getData(): any;
+interface IFormRefresh {
+    refresh?: () => void;
+}
+interface IPalmyraFormOutput {
+    getData: () => any;
     formRef: MutableRefObject<IForm>;
 }
-interface IPalmyraEditFormOutput extends IPalmyraViewFormOutput {
+interface IPalmyraViewFormOutput extends IFormRefresh, IPalmyraFormOutput {
+}
+interface IPalmyraEditFormOutput extends IPalmyraFormOutput, IFormRefresh {
     saveData: (data?: any) => Promise<any>;
     fetchData: () => void;
 }
 interface IPalmyraSaveFormInput extends IPalmyraEditFormInput {
 }
-interface IPalmyraNewFormOutput extends IPalmyraViewFormOutput {
+interface IPalmyraNewFormOutput extends IPalmyraFormOutput, IFormRefresh {
     saveData: (data?: any) => Promise<any>;
 }
 export type { IFormSaveEventHandler, IStoreProps, IPalmyraNewFormInput, IPalmyraNewFormOutput, IPalmyraSaveFormInput, IPalmyraSaveFormOutput, IPalmyraViewFormInput, IPalmyraViewFormOutput, IPalmyraEditFormInput, IPalmyraEditFormOutput };
