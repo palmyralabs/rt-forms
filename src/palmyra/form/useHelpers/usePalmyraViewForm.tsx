@@ -4,6 +4,8 @@ import { useContext, useEffect, useRef } from "react";
 import { IPalmyraViewFormInput, IPalmyraViewFormOutput } from "./types";
 import { StoreFactoryContext } from "../formContext";
 
+
+
 type IusePalmyraViewForm = (props: IPalmyraViewFormInput) => IPalmyraViewFormOutput;
 
 const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): IPalmyraViewFormOutput => {
@@ -22,7 +24,7 @@ const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): 
         }
     }
 
-    const fetch = () => {
+    useEffect(() => {
         const id = props.id;
         const idProperty = idKey;
         var endPoint = getEndPoint(props.endPoint, idProperty);
@@ -39,13 +41,6 @@ const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): 
                 formRef.current.setData(data)
             dataRef.current = data
         });
-    }
-
-    useEffect(() => {
-        fetch()
-        if (props.refresh()) {
-            fetch();
-        }
     }, [props.id])
 
     const getData = () => {
