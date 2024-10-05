@@ -91,6 +91,7 @@ interface IViewFormOptions extends IPalmyraViewFormInput {
 }
 interface ISaveForm extends IForm {
     saveData: (data?: any) => Promise<any>;
+    refresh: () => void;
 }
 interface IViewForm extends IForm {
     refresh: () => void;

@@ -15,7 +15,7 @@ const PalmyraViewForm = forwardRef(function EditForm(props: IViewFormOptions, re
         refresh()
     }, [props.endPoint])
 
-    useImperativeHandle(currentRef, () => getSaveFormHandle(refresh, formRef))
+    useImperativeHandle(currentRef, () => getSaveFormHandle({}, formRef, refresh))
 
     return (<PalmyraForm ref={formRef} storeFactory={storeFactory}>
         {props.children}
