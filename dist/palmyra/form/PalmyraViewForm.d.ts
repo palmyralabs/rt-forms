@@ -1,4 +1,4 @@
-import { IViewFormOptions } from './types';
+import { IViewForm, IViewFormOptions } from './types';
 
-declare const PalmyraViewForm: (props: IViewFormOptions) => import("react/jsx-runtime").JSX.Element;
+declare const PalmyraViewForm: import('react').ForwardRefExoticComponent<IViewFormOptions & import('react').RefAttributes<IViewForm>>;
 export { PalmyraViewForm };

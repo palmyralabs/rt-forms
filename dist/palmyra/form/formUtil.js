@@ -1,12 +1,13 @@
-const n = (t, r) => ({
+const u = (t, r, e) => ({
   saveData: t,
+  refresh: e,
   getData() {
     if (r.current)
       return r.current.getData();
   },
-  setData(e) {
+  setData(n) {
     if (r.current)
-      return r.current.setData(e);
+      return r.current.setData(n);
     throw new Error("formRef.current is null");
   },
   isValid() {
@@ -16,5 +17,5 @@ const n = (t, r) => ({
   }
 });
 export {
-  n as getSaveFormHandle
+  u as getSaveFormHandle
 };

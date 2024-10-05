@@ -1,9 +1,10 @@
 import { MutableRefObject } from "react";
-import { IForm, ISaveForm } from "./types";
+import { IForm } from "./types";
 
-const getSaveFormHandle = (saveData: any, formRef: MutableRefObject<IForm>): ISaveForm => {
+const getSaveFormHandle = (saveData: any, formRef: MutableRefObject<IForm>, refresh?: any) => {
     return {
         saveData,
+        refresh,
         getData() {
             if (formRef.current)
                 return formRef.current.getData();

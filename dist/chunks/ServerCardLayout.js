@@ -1,8 +1,8 @@
-import { jsx as P } from "react/jsx-runtime";
-import { forwardRef as E, useRef as C, useEffect as K, useImperativeHandle as x, useState as y, useContext as $ } from "react";
+import { jsx as h } from "react/jsx-runtime";
+import { forwardRef as v, useRef as F, useEffect as w, useImperativeHandle as E, useState as P, useContext as $ } from "react";
 import '../assets/FieldContainer.css';import '../assets/FieldGroupContainer.css';import '../assets/CardLayout.css';/* empty css           */
 import { useKeyValue as p } from "../palmyra/utils/pubsub/PubSubHelper.js";
-import { PalmyraForm as M } from "../palmyra/form/PalmyraForm.js";
+import { PalmyraForm as D } from "../palmyra/form/PalmyraForm.js";
 import { StoreFactoryContext as tt } from "../palmyra/form/formContext.js";
 import "@palmyralabs/ts-predicates";
 import "./NoopConverter.js";
@@ -11,145 +11,152 @@ import { CardLayout as et } from "../palmyra/layout/card/CardLayout.js";
 import "@tanstack/react-table";
 import "../palmyra/grid/base/utils/ColumnConverter.js";
 import "../palmyra/grid/utils/FormatterFactory.js";
-import { getSaveFormHandle as z } from "../palmyra/form/formUtil.js";
+import { getSaveFormHandle as O } from "../palmyra/form/formUtil.js";
 /* empty css                    */
 /* empty css               */
-import { usePalmyraNewForm as rt } from "../palmyra/form/useHelpers/usePalmyraNewForm.js";
-import { usePalmyraEditForm as ot } from "../palmyra/form/useHelpers/usePalmyraEditForm.js";
-const Ot = E(function(e, i) {
-  const d = e.storeFactory, { fetchData: c, saveData: u, formRef: n, refresh: l } = ot(e), g = i || C();
-  return K(() => {
-    c(), n.current.isValid() && e.onValidChange && e.onValidChange(!0), l();
-  }, [n, e.id]), x(g, () => z(u, n)), /* @__PURE__ */ P(M, { onValidChange: e.onValidChange, ref: n, storeFactory: d, children: e.children });
-}), wt = E(function(e, i) {
-  const d = e.storeFactory, { saveData: c, formRef: u } = rt(e), n = i || C();
-  return x(n, () => z(c, u)), /* @__PURE__ */ P(
-    M,
+import { usePalmyraViewForm as rt } from "../palmyra/form/useHelpers/usePalmyraViewForm.js";
+import { usePalmyraNewForm as ot } from "../palmyra/form/useHelpers/usePalmyraNewForm.js";
+import { usePalmyraEditForm as nt } from "../palmyra/form/useHelpers/usePalmyraEditForm.js";
+const Rt = v(function(t, i) {
+  const f = t.storeFactory, { fetchData: s, saveData: c, formRef: n, refresh: u } = nt(t), g = i || F();
+  return w(() => {
+    s(), n.current.isValid() && t.onValidChange && t.onValidChange(!0), u();
+  }, [n, t.id]), E(g, () => O(c, n)), /* @__PURE__ */ h(D, { onValidChange: t.onValidChange, ref: n, storeFactory: f, children: t.children });
+}), Vt = v(function(t, i) {
+  const f = t.storeFactory, { saveData: s, formRef: c } = ot(t), n = i || F();
+  return E(n, () => O(s, c)), /* @__PURE__ */ h(
+    D,
     {
-      onValidChange: e.onValidChange,
-      formData: e.initialData,
-      ref: u,
-      storeFactory: d,
-      children: e.children
+      onValidChange: t.onValidChange,
+      formData: t.initialData,
+      ref: c,
+      storeFactory: f,
+      children: t.children
     }
   );
+}), Nt = v(function(t, i) {
+  const f = t.storeFactory, { formRef: s, refresh: c } = rt(t), n = i || F();
+  return w(() => {
+    c();
+  }, [t.endPoint]), E(n, () => O(c, s)), /* @__PURE__ */ h(D, { ref: s, storeFactory: f, children: t.children });
 });
-function nt(o) {
+function at(o) {
   if (o.endPoint) {
-    const e = $(tt);
-    if (!e)
+    const t = $(tt);
+    if (!t)
       throw new Error("@palmyralabs/rt-forms - StoreFactoryContext is not available");
-    return e.getGridStore(o.storeOptions, o.endPoint);
+    return t.getGridStore(o.storeOptions, o.endPoint);
   } else
     throw new Error("Either store or endPoint must be provided");
 }
-const at = (o) => {
-  var Q, T, j;
-  const { quickSearch: e } = o, i = o.store || nt(o), d = o.fetchAll != !1, c = ((Q = o.defaultParams) == null ? void 0 : Q.filter) || {}, u = ((T = o.defaultParams) == null ? void 0 : T.sort) || {}, [n, l] = o.filterTopic ? p(o.filterTopic, c) : y(c), g = C(o.initialFetch == !1), h = o.pageSize ? o.pageSize : 15;
-  var A = h instanceof Array ? h[0] : h;
-  const [D, G] = y((j = o.storeOptions) == null ? void 0 : j.endPointOptions), [F, _] = y({}), [f, v] = y({ limit: A, offset: 0, total: !0 }), [s, O] = y({ total: null, isLoading: !1, data: null }), m = (t) => {
-    v((r) => ({ limit: r.limit, total: r.total, offset: t * r.limit }));
-  }, H = (t) => {
-    const r = t > 10 || t == -1 ? t : 15;
-    v((a) => {
+const it = (o) => {
+  var K, M, z;
+  const { quickSearch: t } = o, i = o.store || at(o), f = o.fetchAll != !1, s = ((K = o.defaultParams) == null ? void 0 : K.filter) || {}, c = ((M = o.defaultParams) == null ? void 0 : M.sort) || {}, [n, u] = o.filterTopic ? p(o.filterTopic, s) : P(s), g = F(o.initialFetch == !1), y = o.pageSize ? o.pageSize : 15;
+  var A = y instanceof Array ? y[0] : y;
+  const [R, G] = P((z = o.storeOptions) == null ? void 0 : z.endPointOptions), [S, _] = P({}), [d, L] = P({ limit: A, offset: 0, total: !0 }), [l, V] = P({ total: null, isLoading: !1, data: null }), m = (e) => {
+    L((r) => ({ limit: r.limit, total: r.total, offset: e * r.limit }));
+  }, H = (e) => {
+    const r = e > 10 || e == -1 ? e : 15;
+    L((a) => {
       const Z = Math.floor(a.offset / r) * r;
       return { limit: r, total: a.total, offset: Z };
     });
-  }, q = () => n ? Object.keys(n).length == 0 : !1, L = (t, r) => {
-    O((a) => (setTimeout(() => {
-      o.onDataChange && o.onDataChange(t, a.data);
-    }, 100), { data: t, total: r, isLoading: !1 }));
-  }, w = () => L([], 0), I = () => L(void 0, null), B = () => N({}), S = () => Math.round(f.offset / f.limit), J = () => f, U = () => {
-    O((t) => ({ ...t, isLoading: !0 }));
+  }, q = () => n ? Object.keys(n).length == 0 : !1, x = (e, r) => {
+    V((a) => (setTimeout(() => {
+      o.onDataChange && o.onDataChange(e, a.data);
+    }, 100), { data: e, total: r, isLoading: !1 }));
+  }, N = () => x([], 0), I = () => x(void 0, null), B = () => Q({}), C = () => Math.round(d.offset / d.limit), J = () => d, U = () => {
+    V((e) => ({ ...e, isLoading: !0 }));
   };
-  K(() => {
+  w(() => {
     if (g.current) {
       g.current = !1;
       return;
     }
-    (d || !q()) && V();
-  }, [f, F, D]);
-  const R = () => ({
-    sortOrder: F && Object.keys(F).length > 0 ? F : u,
+    (f || !q()) && k();
+  }, [d, S, R]);
+  const b = () => ({
+    sortOrder: S && Object.keys(S).length > 0 ? S : c,
     total: !0,
-    endPointVars: D,
-    ...f,
-    filter: { ...n, ...c }
-  }), V = () => {
-    const t = R();
+    endPointVars: R,
+    ...d,
+    filter: { ...n, ...s }
+  }), k = () => {
+    const e = b();
     if (i)
       try {
-        U(), i.query(t).then((r) => {
-          L(r.result, r.total);
+        U(), i.query(e).then((r) => {
+          x(r.result, r.total);
         }).catch((r) => {
           var a = r.response ? r.response : r;
           console.error("error while fetching", a), I();
         });
       } catch (r) {
-        console.error(r), w();
+        console.error(r), N();
       }
     else
-      console.error("Store is not provided for the Grid"), w();
-  }, W = (t) => {
-    const r = e;
-    l(t ? (a) => (a[r] = t, { ...a }) : (a) => (delete a[r], { ...a })), m(0);
-  }, N = (t) => {
-    typeof t == "function" || t && Object.keys(t).length > 0 ? l(t) : l({}), m(0);
-  }, X = (t, r) => {
-    l((a) => (a[t] = r, { ...a })), m(0);
-  }, b = (t) => {
-    _(t);
-  }, Y = () => S() < k() ? (m(S() + 1), !0) : !1, k = () => Math.ceil((s == null ? void 0 : s.total) / (f.limit || 25));
+      console.error("Store is not provided for the Grid"), N();
+  }, W = (e) => {
+    const r = t;
+    u(e ? (a) => (a[r] = e, { ...a }) : (a) => (delete a[r], { ...a })), m(0);
+  }, Q = (e) => {
+    typeof e == "function" || e && Object.keys(e).length > 0 ? u(e) : u({}), m(0);
+  }, X = (e, r) => {
+    u((a) => (a[e] = r, { ...a })), m(0);
+  }, T = (e) => {
+    _(e);
+  }, Y = () => C() < j() ? (m(C() + 1), !0) : !1, j = () => Math.ceil((l == null ? void 0 : l.total) / (d.limit || 25));
   return {
     addFilter: X,
     resetFilter: B,
-    setFilter: N,
+    setFilter: Q,
     setQuickSearch: W,
-    setSortColumns: b,
+    setSortColumns: T,
     setEndPointOptions: G,
-    getTotalPages: k,
-    refresh: V,
+    getTotalPages: j,
+    refresh: k,
     setPageSize: H,
-    getPageNo: S,
+    getPageNo: C,
     getQueryLimit: J,
-    setQueryLimit: v,
+    setQueryLimit: L,
     gotoPage: m,
     nextPage: Y,
     prevPage: () => {
-      const t = S();
-      return t > 0 ? (m(t - 1), !0) : !1;
+      const e = C();
+      return e > 0 ? (m(e - 1), !0) : !1;
     },
-    export: (t) => {
-      i.export ? i.export(t) : console.warn("Store does not implement export method");
+    export: (e) => {
+      i.export ? i.export(e) : console.warn("Store does not implement export method");
     },
-    getQueryRequest: R,
-    setSortOptions: b,
+    getQueryRequest: b,
+    setSortOptions: T,
     getCurrentFilter: () => n,
-    getTotalRecords: () => s == null ? void 0 : s.total,
-    getCurrentData: () => s == null ? void 0 : s.data,
-    isLoading: s.isLoading
+    getTotalRecords: () => l == null ? void 0 : l.total,
+    getCurrentData: () => l == null ? void 0 : l.data,
+    isLoading: l.isLoading
   };
-}, Rt = E(function(e, i) {
-  const { Child: d, childProps: c } = e, u = i || C(null), n = at(e), l = e.listKeyProvider || ((g, h) => h);
-  return x(u, () => ({
+}, bt = v(function(t, i) {
+  const { Child: f, childProps: s } = t, c = i || F(null), n = it(t), u = t.listKeyProvider || ((g, y) => y);
+  return E(c, () => ({
     ...n
-  }), [n]), /* @__PURE__ */ P("div", { children: /* @__PURE__ */ P("div", { className: "card-page-container", children: /* @__PURE__ */ P(
+  }), [n]), /* @__PURE__ */ h("div", { children: /* @__PURE__ */ h("div", { className: "card-page-container", children: /* @__PURE__ */ h(
     et,
     {
-      Child: d,
-      childKeyProvider: l,
-      preProcess: e.preProcess,
+      Child: f,
+      childKeyProvider: u,
+      preProcess: t.preProcess,
       dataList: n.getCurrentData(),
-      childProps: c,
-      EmptyChild: e.EmptyChild,
-      Loading: e.Loading,
-      title: e.title
+      childProps: s,
+      EmptyChild: t.EmptyChild,
+      Loading: t.Loading,
+      title: t.title
     }
   ) }) });
 });
 export {
-  Ot as P,
-  Rt as S,
-  wt as a,
-  at as u
+  Rt as P,
+  bt as S,
+  Vt as a,
+  Nt as b,
+  it as u
 };

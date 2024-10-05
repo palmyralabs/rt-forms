@@ -92,4 +92,7 @@ interface IViewFormOptions extends IPalmyraViewFormInput {
 interface ISaveForm extends IForm {
     saveData: (data?: any) => Promise<any>;
 }
-export type { numbers, IFieldConverter, IFieldAccessor, FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions, IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IEditFormOptions, ISaveForm, ISaveFormOptions, INewFormOptions, IViewFormOptions };
+interface IViewForm extends IForm {
+    refresh: () => void;
+}
+export type { numbers, IFieldConverter, IFieldAccessor, FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions, IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IViewForm, IEditFormOptions, ISaveForm, ISaveFormOptions, INewFormOptions, IViewFormOptions };

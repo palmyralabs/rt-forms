@@ -120,9 +120,13 @@ interface ISaveForm extends IForm {
     saveData: (data?: any) => Promise<any>
 }
 
+interface IViewForm extends IForm {
+    refresh: () => void
+}
+
 export type {
     numbers, IFieldConverter, IFieldAccessor,
     FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions,
-    IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager,
+    IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IViewForm,
     IEditFormOptions, ISaveForm, ISaveFormOptions, INewFormOptions, IViewFormOptions
 }
