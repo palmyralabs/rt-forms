@@ -4,7 +4,10 @@ import { IForm } from "./types";
 const getSaveFormHandle = (saveData: any, formRef: MutableRefObject<IForm>, refresh?: any) => {
     return {
         saveData,
-        refresh,
+        refresh(){
+            if (formRef.current)
+                return formRef.current.getData();
+        },
         getData() {
             if (formRef.current)
                 return formRef.current.getData();

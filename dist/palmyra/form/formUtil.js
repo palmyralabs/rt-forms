@@ -1,13 +1,16 @@
-const u = (t, r, e) => ({
+const u = (t, r, n) => ({
   saveData: t,
-  refresh: e,
+  refresh() {
+    if (r.current)
+      return r.current.getData();
+  },
   getData() {
     if (r.current)
       return r.current.getData();
   },
-  setData(n) {
+  setData(e) {
     if (r.current)
-      return r.current.setData(n);
+      return r.current.setData(e);
     throw new Error("formRef.current is null");
   },
   isValid() {
