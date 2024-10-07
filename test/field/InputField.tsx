@@ -5,7 +5,7 @@ import { TextFieldProps } from '@mui/material';
 
 const InputField = forwardRef(function InputField(props: ITextFieldDefinition & TextFieldProps, ref: MutableRefObject<ITextField>) {
     const fieldManager = useFieldManager(props.attribute, props);
-    const { getError, getValue, setValue, mutateOptions } = fieldManager;
+    const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);
     const error: IFormFieldError = getError();
 
@@ -30,17 +30,20 @@ const InputField = forwardRef(function InputField(props: ITextFieldDefinition & 
                 props.onChange(event);
         }
     }
+    options.onBlur = refreshError;
 
-    console.log("inputField", getValue())
+    // console.log(props.defaultValue, getValue())
 
     return (<>{!mutateOptions.visible &&
         <FieldDecorator label={getFieldLabel(props)} colspan={props.colspan} >
             <input
                 type='text'
+                defaultValue={props.defaultValue}
                 label={props.label}
                 {...options}
                 value={getValue()}
-                // error={error.status}
+            // error={error.status}
+            // helperText={error.message}
             />
             <div>{error.message}</div>
         </FieldDecorator>}

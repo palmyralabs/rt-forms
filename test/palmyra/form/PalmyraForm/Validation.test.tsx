@@ -141,7 +141,7 @@ describe("Palmyra Form", () => {
         expect(fieldRef.current.isValid()).toBeFalsy();
     });
 
-    test("input field - length - success", () => {
+    test("input field - range - success", () => {
         const { fieldRef } = initProps();
         const Wrapper = () => {
             return (

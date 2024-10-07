@@ -12,7 +12,7 @@ describe("Palmyra Form", () => {
         return { getById, formRef, fieldRef }
     }
 
-    test("input field - data", () => {
+    test("input field - fieldref - data", () => {
         const { fieldRef } = initProps();
         const Wrapper = () => {
             return (
@@ -20,13 +20,23 @@ describe("Palmyra Form", () => {
                     <InputField attribute="email" ref={fieldRef} />
                 </PalmyraForm>)
         }
-
         render(<Wrapper />);
-
         expect(fieldRef.current.getValue()).toBe('sample@gmail.com');
     });
 
-    test("input field - onchange", () => {
+    test("input field - formref - data", () => {
+        const { formRef } = initProps();
+        const Wrapper = () => {
+            return (
+                <PalmyraForm formData={{ email: 'sample@gmail.com' }} ref={formRef} >
+                    <InputField attribute="email" />
+                </PalmyraForm>)
+        }
+        render(<Wrapper />);
+        expect(formRef.current.getData().email).toBe('sample@gmail.com');
+    });
+
+    test("input field - fieldref - onchange", () => {
         const { fieldRef } = initProps();
         const Wrapper = () => {
             return (
@@ -34,16 +44,52 @@ describe("Palmyra Form", () => {
                     <InputField attribute="email" ref={fieldRef} title="Email" />
                 </PalmyraForm>)
         }
-
         render(<Wrapper />);
 
         expect(fieldRef.current.getValue()).toBe('sample@gmail.com');
         const emailInput = screen.getByTitle('Email');
-
         fireEvent.change(emailInput, { target: { value: 'example@gmail.com' } });
-
         expect(fieldRef.current.getValue()).toBe('example@gmail.com');
     });
 
+    test("input field - formref - onchange", () => {
+        const { formRef } = initProps();
+        const Wrapper = () => {
+            return (
+                <PalmyraForm formData={{ email: 'sample@gmail.com' }} ref={formRef}>
+                    <InputField attribute="email" title="Email" />
+                </PalmyraForm>)
+        }
+        render(<Wrapper />);
 
+        expect(formRef.current.getData().email).toBe('sample@gmail.com');
+        const emailInput = screen.getByTitle('Email');
+        fireEvent.change(emailInput, { target: { value: 'example@gmail.com' } });
+        expect(formRef.current.getData().email).toBe('example@gmail.com');
+    });
+
+    test("input field - fieldref - default data", () => {
+        const { fieldRef } = initProps();
+        const Wrapper = () => {
+            return (
+                <PalmyraForm formData={{}} >
+                    <InputField attribute="email" ref={fieldRef} defaultValue={"sample@gmail.com"} />
+                </PalmyraForm>)
+        }
+        render(<Wrapper />);
+        expect(fieldRef.current.getValue()).toBe('sample@gmail.com');
+    });
+
+    test("input field - formref - default data", () => {
+        const { formRef } = initProps();
+        const Wrapper = () => {
+            return (
+                <PalmyraForm formData={{}} ref={formRef}>
+                    <InputField attribute="email" defaultValue={"sample@gmail.com"} />
+                </PalmyraForm>)
+        }
+
+        render(<Wrapper />);
+        expect(formRef.current.getData().email).toBe('sample@gmail.com');
+    });
 })
