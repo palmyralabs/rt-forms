@@ -63,8 +63,7 @@ describe("Palmyra Form", () => {
         expect(formRef.current.getData().email).toBe('sample@gmail.com');
         expect(formRef.current.getData().age).toBe(18);
         act(() => {
-            formRef.current.setData({ email: 'example@gmail.com' });
-            formRef.current.setData({ age: 20 });
+            formRef.current.setData({ email: 'example@gmail.com', age: 20 });
         })
         expect(formRef.current.getData().email).toBe('example@gmail.com');
         expect(formRef.current.getData().age).toBe(20);

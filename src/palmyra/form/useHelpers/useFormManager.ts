@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { IFieldGroupManager, IFieldGroupOptions, IFieldManager, IFormManager, IFormOptions } from "../types";
 import { useValidityTracker } from "./useValidityTracker";
-import { BiConsumer, getValueByKey, IFunction } from "@palmyralabs/ts-utils";
+import { BiConsumer, IFunction } from "@palmyralabs/ts-utils";
 import { FieldOptions } from "../typesFieldOptions";
 
 const useFormManager = (props: IFormOptions): IFormManager => {
@@ -54,10 +54,6 @@ const useFormManager = (props: IFormOptions): IFormManager => {
         const fieldsRef = useRef<Record<string, { options: FieldOptions, field: IFieldManager }>>({});
         const validTracker = useValidityTracker((v: boolean) => { setValidity(getName(), v) });
 
-        const getFieldData: IFunction<string, any> = (key: string) => {
-            return getValueByKey(key, dataRef.current);
-        }
-
         const getName = () => {
             return p.name;
         }
@@ -103,7 +99,7 @@ const useFormManager = (props: IFormOptions): IFormManager => {
 
         const fieldGroupManager: IFieldGroupManager = {
             setData, getName, getFieldGroupData, registerFieldManager, hasField, getFieldRawData,
-            getFieldData, setFieldData, setFieldValidity: validTracker.setValidity, isValid: validTracker.isValid
+            setFieldData, setFieldValidity: validTracker.setValidity, isValid: validTracker.isValid
         }
 
         return fieldGroupManager;

@@ -68,7 +68,6 @@ interface IFieldGroupManager {
     getName: Supplier<string>;
     setData: Dispatch<SetStateAction<any>>;
     getFieldGroupData: Supplier<any>;
-    getFieldData: IFunction<string, any>;
     setFieldData: BiConsumer<string, any>;
     getFieldRawData: (accessor: (d: any) => any) => any;
     setFieldValidity: BiConsumer<string, boolean>;

@@ -77,18 +77,12 @@ interface IFieldAccessor {
 }
 
 interface IFieldGroupManager {
-    // field specific functions
-    //registerField: (o: FieldOptions, accessor?: IFieldCustomizer) => IFieldManager
-
     registerFieldManager: (fieldManager: IFieldManager, options: FieldOptions) => void
     hasField: (string: string) => boolean
     getName: Supplier<string>
-
     setData: Dispatch<SetStateAction<any>>
-
     getFieldGroupData: Supplier<any>
 
-    getFieldData: IFunction<string, any>
     setFieldData: BiConsumer<string, any>
     getFieldRawData: (accessor: (d: any) => any) => any
 

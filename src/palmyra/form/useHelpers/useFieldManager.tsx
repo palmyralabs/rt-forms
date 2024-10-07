@@ -1,9 +1,10 @@
-import { Dispatch, SetStateAction, useCallback, useContext, useEffect, useRef, useState } from "react"
+import { Dispatch, SetStateAction, useCallback, useContext, useEffect, useState } from "react"
 import { IFieldCustomizer, IFieldGroupManager, IFieldManager, IFormFieldError } from "../types"
 import { FieldGroupManagerContext } from "../formContext";
 import { FieldOptions, IMutateOptions } from "../typesFieldOptions";
 import { generatePredicate, validate } from "..";
 import { BiConsumer, getValueByKey, hasDot, setValueByKey, Supplier } from "@palmyralabs/ts-utils";
+
 
 interface FieldStatus {
     value: string,
@@ -20,7 +21,7 @@ interface FieldStatus {
  */
 
 const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: IFieldCustomizer): IFieldManager => {
-    const init = useRef<string>();
+    // const init = useRef<string>();
     const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
     if (!fieldGroupManager)
         throw Error('useFieldManager must be called within the scope of <PalmyraForm>')
@@ -34,22 +35,22 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
     const valueWriter = useCallback(() => getWriter(key, customizer), [key])();
     const validator = generatePredicate(options);
 
-    const defState = (init.current == 'done') ? { value: '', e: undefined } :
-        getDefaultState(fieldGroupManager, rawValueAccessor, options,
-            customizer, validator, valueAccessor, valueFormatter);
+    const providedValue = fieldGroupManager.getFieldRawData(rawValueAccessor);
+
+    const defState = getDefaultState(providedValue, options,
+        customizer, validator, valueAccessor, valueFormatter);
 
     const [fieldState, setFieldState] = useState<FieldStatus>(defState);
 
     useEffect(() => {
-        if (init.current == 'done') {
+        if (providedValue != undefined)
             refreshError();
-        }
     }, [mutateOptions]);
 
-    useEffect(() => {
-        init.current = 'done';
-        return () => { init.current = null }
-    }, []);
+    // useEffect(() => {
+    //     init.current = 'done';
+    //     return () => { init.current = null }
+    // }, []);
 
     const value = fieldState.value;
     const error = fieldState.error;
@@ -72,10 +73,10 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
             fieldGroupManager.setFieldData(key, d);
 
         const newError = validate(d, validator, options);
+
         if (d === value && error && newError.status == error.status && newError.message == error.message) {
             return;
         }
-
         fieldGroupManager.setFieldValidity(key, !newError.status);
         newError.showError = showError;
         setFieldState({ value: d, error: newError });
@@ -90,8 +91,14 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
         setFieldState((v) => {
             return { ...v, error: e };
         });
-        fieldGroupManager.setFieldValidity(key, !e.status);
+
     }
+
+    useEffect(() => {
+        const { error, value } = fieldState;
+        fieldGroupManager.setFieldData(key, value);
+        fieldGroupManager.setFieldValidity(key, !error.status);
+    }, [fieldState])
 
     const getFieldProps: Supplier<FieldOptions> = () => {
         const { invalidMessage, missingMessage,
@@ -115,6 +122,13 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
     }
 
     fieldGroupManager.registerFieldManager(fieldManager, options);
+    if (undefined == providedValue) {
+        if (fieldOptions.defaultValue) {
+            fieldGroupManager.setFieldData(key, fieldState.value);
+        }
+    }
+    if (fieldState.error?.status)
+        fieldGroupManager.setFieldValidity(key, fieldState.error?.status)
     return fieldManager;
 }
 
@@ -173,11 +187,10 @@ function getWriter(attribute, customizer?: IFieldCustomizer): BiConsumer<any, an
 }
 
 
-const getDefaultState = (fieldGroupManager, rawValueAccessor, options,
+const getDefaultState = (providedValue, options,
     customizer, validator, valueAccessor, valueFormatter) => {
     var defaultValue = null;
     var e: IFormFieldError = undefined;
-    const providedValue = fieldGroupManager.getFieldRawData(rawValueAccessor);
     if (providedValue == undefined) {
         if (options.defaultValue != undefined) {
             defaultValue = customizer?.parse ? customizer.parse(options.defaultValue) : options.defaultValue;
@@ -193,4 +206,3 @@ const getDefaultState = (fieldGroupManager, rawValueAccessor, options,
 
     return { value: defaultValue, error: e };
 }
-
