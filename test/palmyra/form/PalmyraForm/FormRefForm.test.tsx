@@ -85,8 +85,7 @@ describe("Palmyra Form", () => {
         expect(formRef.current.getData().email).toBe('sample@gmail');
         expect(formRef.current.getData().age).toBe('adas');
 
-        expect(formRef.current.isValid().email).toBeFalsy();
-        expect(formRef.current.isValid().age).toBeFalsy();
+        expect(formRef.current.isValid()).toBeFalsy();
 
         const errorMessage = screen.getByText(/Invalid Email/i);
         expect(errorMessage).toBeInTheDocument();
@@ -109,9 +108,8 @@ describe("Palmyra Form", () => {
 
         render(<Wrapper />);
         expect(formRef.current.getData().email).toBe('sample@gmail');
-        expect(formRef.current.isValid().email).toBeFalsy();
         expect(formRef.current.getData().pNumber).toBe('Asd');
-        expect(formRef.current.isValid().pNumber).toBeFalsy();
+        expect(formRef.current.isValid()).toBeFalsy();
 
         const emailErrorMessage = screen.getByText(/Invalid Email/i);
         expect(emailErrorMessage).toBeInTheDocument();
@@ -125,9 +123,8 @@ describe("Palmyra Form", () => {
         fireEvent.change(numberInput, { target: { value: 90876 } });
 
         expect(formRef.current.getData().email).toBe('example@gmail.com');
-        expect(formRef.current.isValid().email).toBeTruthy();
         expect(formRef.current.getData().pNumber).toBe("90876"); // Expected Number but returns string
-        expect(formRef.current.isValid().pNumber).toBeTruthy();
+        expect(formRef.current.isValid()).toBeTruthy();
     });
 
     test("input field - formref - required - failure", () => {
@@ -150,8 +147,7 @@ describe("Palmyra Form", () => {
 
         expect(emailErrorMessage).toBeTruthy();
         expect(numberErrorMessage).toBeTruthy();
-        expect(formRef.current.isValid().email).toBeFalsy();
-        expect(formRef.current.isValid().pNumber).toBeFalsy();
+        expect(formRef.current.isValid()).toBeFalsy();
     });
 
     test("input field - formref - default data", () => {
