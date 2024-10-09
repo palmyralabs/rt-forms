@@ -21,8 +21,6 @@ describe('useServerLookupFieldManager', () => {
 
     const storeFactory = new PalmyraStoreFactory({ baseUrl: '/api/palmyra' })
 
-
-
     test('get data', () => {
         const wrapper = ({ children }) => {
             return <PalmyraForm formData={{ lookup: 1 }} storeFactory={storeFactory}>{children} </PalmyraForm>
@@ -51,8 +49,6 @@ describe('useServerLookupFieldManager', () => {
         const { result } = renderHook(() => useServerLookupFieldManager('lookup', options), { wrapper })
         const fieldManager: IFieldManager = result.current;
 
-        console.log(fieldManager.getValue());
-
         expect(result.current.getError().status).toBeFalsy();
         expect(result.current.getError().message).toBe('');
         expect(fieldManager.getValue()).toEqual({ id: 1 });
@@ -72,13 +68,13 @@ describe('useServerLookupFieldManager', () => {
         const { result } = renderHook(() => useServerLookupFieldManager('lookup', options), { wrapper })
         const fieldManager: IFieldManager = result.current;
 
-        console.log(fieldManager.getValue());
-
         expect(result.current.getError().status).toBeFalsy();
         expect(result.current.getError().message).toBe('');
         expect(fieldManager.getValue()).toEqual({ id: 1, name: "Tenkasi" });
         expect(result.current.isValid()).toBeTruthy();
     });
+
+
 
     // test('set data', () => {
     //     const wrapper = ({ children }) => {
@@ -147,4 +143,5 @@ describe('useServerLookupFieldManager', () => {
         expect(fieldManager.getValue()).toEqual(1);
         expect(result.current.isValid()).toBeTruthy();
     });
+    
 })
