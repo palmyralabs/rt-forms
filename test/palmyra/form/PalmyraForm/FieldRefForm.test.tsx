@@ -70,10 +70,12 @@ describe("Palmyra Form", () => {
         expect(numberFieldRef.current.isValid()).toBeFalsy();
 
         const errorMessage = screen.getByText(/Invalid Email/i);
-        expect(errorMessage).toBeInTheDocument();
-
         const numberErrorMessage = screen.getByText(/Number only/i);
-        expect(numberErrorMessage).toBeInTheDocument();
+
+        expect(errorMessage).toBeTruthy();
+        // expect(errorMessage).toBe('Invalid Email');
+        expect(numberErrorMessage).toBeTruthy();
+        // expect(numberErrorMessage).toBe('Number only');
     });
 
     test("input field - fieldref - rule - success", () => {
@@ -95,9 +97,9 @@ describe("Palmyra Form", () => {
         expect(numberFieldRef.current.isValid()).toBeFalsy();
 
         const emailErrorMessage = screen.getByText(/Invalid Email/i);
-        expect(emailErrorMessage).toBeInTheDocument();
+        expect(emailErrorMessage).toBeTruthy();
         const numberErrorMessage = screen.getByText(/Numbers Only/i);
-        expect(numberErrorMessage).toBeInTheDocument();
+        expect(numberErrorMessage).toBeTruthy();
 
         const emailInput = screen.getByTitle('Email');
         fireEvent.change(emailInput, { target: { value: 'example@gmail.com' } });
@@ -190,7 +192,7 @@ describe("Palmyra Form", () => {
 
         const button = screen.getByRole('button', { name: /submit/i });
         fireEvent.click(button);
-        expect(button).toBeDisabled();
+        expect(button).toHaveProperty('disabled', true); 
     });
 
 
@@ -215,7 +217,7 @@ describe("Palmyra Form", () => {
 
         const button = screen.getByRole('button', { name: /submit/i });
         fireEvent.click(button);
-        expect(button).toBeDisabled();
+        expect(button).toHaveProperty('disabled', true); 
 
         // expect(fieldRef.current.getError()).toBe('required');
 

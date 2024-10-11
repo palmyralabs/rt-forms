@@ -30,7 +30,8 @@ describe("Palmyra Form", () => {
         expect(fieldRef.current.isValid()).toBeFalsy();
 
         const errorMessage = screen.getByText(/Invalid Email/i);
-        expect(errorMessage).toBeInTheDocument();
+        expect(errorMessage).toBeTruthy();
+        // expect(errorMessage).toBe(<div>Invalid Email</div>);
     });
 
     test("input field - rule - success", () => {
@@ -48,7 +49,7 @@ describe("Palmyra Form", () => {
         expect(fieldRef.current.getValue()).toBe('sample@gmail');
         expect(fieldRef.current.isValid()).toBeFalsy();
         const errorMessage = screen.getByText(/Invalid Email/i);
-        expect(errorMessage).toBeInTheDocument();
+        expect(errorMessage).toBeTruthy();
         const emailInput = screen.getByTitle('Email');
         fireEvent.change(emailInput, { target: { value: 'example@gmail.com' } });
         expect(fieldRef.current.getValue()).toBe('example@gmail.com');
@@ -68,7 +69,7 @@ describe("Palmyra Form", () => {
 
         expect(fieldRef.current.getValue()).toBe('');
         const errorMessage = screen.getByText(/Required/i);
-        expect(errorMessage).toBeInTheDocument();
+        // expect(errorMessage).toBe('Required');
         expect(errorMessage).toBeTruthy();
         expect(fieldRef.current.isValid()).toBeFalsy();
     });
@@ -102,7 +103,7 @@ describe("Palmyra Form", () => {
 
         expect(fieldRef.current.getValue()).toBe('example@gmail.com');
         const errorMessage = screen.getByText(/Length is 15/i);
-        expect(errorMessage).toBeInTheDocument();
+        // expect(errorMessage).toBe(<div>Length is 15</div>);
         expect(errorMessage).toBeTruthy();
         expect(fieldRef.current.isValid()).toBeFalsy();
     });
@@ -129,15 +130,14 @@ describe("Palmyra Form", () => {
             return (
                 <PalmyraForm formData={{ age: 123 }} >
                     <InputField attribute="age" ref={fieldRef} title="Age"
-                        range={{ end: 15, errorMessage: "Range 15" }} />
-                </PalmyraForm>)
+                        range={{ end: 15, errorMessage: { end: "Range 15" } }} />
+                </PalmyraForm>) // range error msg 
         }
         render(<Wrapper />);
 
         expect(fieldRef.current.getValue()).toBe(123);
-        // const errorMessage = screen.getByText(/Range 15/i);
-        // expect(errorMessage).toBeInTheDocument();
-        // expect(errorMessage).toBeTruthy();
+        const errorMessage = screen.getByText(/Range 15/i);
+        expect(errorMessage).toBeTruthy();
         expect(fieldRef.current.isValid()).toBeFalsy();
     });
 
