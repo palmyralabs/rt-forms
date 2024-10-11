@@ -1,37 +1,24 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import { useServerLookupFieldManager, PalmyraForm } from "../../../../../src/palmyra";
 import { IServerLookupDefinition } from "../../../../../demo/palmyra/mui/form/types";
 import { PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
-import { beforeAll, describe, test, vi } from 'vitest';
+import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest';
+import { mswServer } from "../mswHelper";
 
 
 describe('useServerLookupFieldManager', () => {
-    const data = [
-        { id: 1, name: "Name" },
-        { id: 2, name: "Date" },
-        { id: 3, name: "Location" }
-    ]
-
-    beforeAll(() => {
-        vi.resetAllMocks();
-    });
+    beforeAll(() => { mswServer.listen(); });
+    afterEach(() => mswServer.resetHandlers())
+    afterAll(() => mswServer.close())
 
     test('get data', async () => {
-        const storeFactory = new PalmyraStoreFactory({ baseUrl: '/api/palmyra' })
-        const lookupStore: any = {
-            query() {
-                return Promise.resolve({ result: data, total: data.length })
-            }
-        };
-
-        vi.spyOn(storeFactory, "getLookupStore").mockReturnValue(lookupStore)
-
+        const storeFactory = new PalmyraStoreFactory({ baseUrl: '/api/palmyra' });
         const wrapper = ({ children }) => {
-            return <PalmyraForm formData={{}} storeFactory={storeFactory}>{children} </PalmyraForm>
+            return <PalmyraForm formData={{ lookup: 1 }} storeFactory={storeFactory}>{children} </PalmyraForm>
         }
 
         const options: IServerLookupDefinition = {
-            queryOptions: { endPoint: 'masterdata' },
+            queryOptions: { endPoint: '/masterdata' },
             attribute: 'lookup'
         }
 
@@ -41,7 +28,14 @@ describe('useServerLookupFieldManager', () => {
             result.current.refreshOptions();
         })
 
+        await waitFor(async () => {
+            expect(result.current.options).not.toBeNull();
+        }, { timeout: 500 })
+
         console.log(result.current.options);
+        console.log(result.current.getValue());
+
+        console.log(result.current.isValid());
 
         // expect(result.current.options).toStrictEqual([{ id: 1, name: "Name" }]);
         // expect(result.current.isValid()).toBeTruthy();
