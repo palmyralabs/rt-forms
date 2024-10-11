@@ -7,7 +7,7 @@ const keyMapping: Record<string, string[]> = {
     "length.min": ["length.errorMessage.minimum", "length.errorMessage", "invalidMessage"],
     "length.max": ["length.errorMessage.maximum", "length.errorMessage", "invalidMessage"],
     "range.start": ["range.errorMessage.start", "range.errorMessage", "invalidMessage"],
-    "range.end": ["range.errorMessage.end", "length.errorMessage", "invalidMessage"],
+    "range.end": ["range.errorMessage.end", "range.errorMessage", "invalidMessage"],
     "rule": ["validRule.errorMessage", "invalidMessage"],
     "regex": ["regExp.errorMessage", "invalidMessage"],
     "required": ["missingMessage"]
