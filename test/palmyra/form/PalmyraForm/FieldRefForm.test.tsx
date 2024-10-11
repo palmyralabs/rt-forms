@@ -2,8 +2,8 @@ import { fireEvent, queryByAttribute, render, renderHook, screen } from "@testin
 import { act, useRef } from "react";
 import { IForm, IInputField, PalmyraForm } from "../../../../src/palmyra";
 import InputField from "../../../field/InputField";
-import '@testing-library/jest-dom';
 import { Button } from "@mui/material";
+import { describe, expect, test } from 'vitest';
 
 describe("Palmyra Form", () => {
 
