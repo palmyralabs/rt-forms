@@ -1,19 +1,31 @@
 import { getValueAccessor, getValueSetter, setValueByKey } from "@palmyralabs/ts-utils";
 import { FieldOptions, IServerLookupOptions } from "../typesFieldOptions";
 
-const getOptionIdKey = (o: FieldOptions & IServerLookupOptions) => {
+interface LookupOptions {
+    displayAttribute?: string,
+    idAttribute?: string,
+    labelAttribute?: string
+}
+
+type options = {
+    lookupOptions: LookupOptions;
+}
+
+type ModdedServerLookupOptions = Omit<IServerLookupOptions, 'lookupOptions'> & options
+
+const getOptionIdKey = (o: FieldOptions & ModdedServerLookupOptions) => {
     return o.queryOptions?.idAttribute || o.lookupOptions?.idAttribute || 'id';
 }
 
-const getOptionValueKey = (o: FieldOptions & IServerLookupOptions) => {
+const getOptionValueKey = (o: FieldOptions & ModdedServerLookupOptions) => {
     return o.queryOptions?.labelAttribute || o.lookupOptions?.labelAttribute || 'id';
 }
 
-const getLookupIdKey = (o: FieldOptions & IServerLookupOptions) => {
+const getLookupIdKey = (o: FieldOptions & ModdedServerLookupOptions) => {
     return o.lookupOptions?.idAttribute || o.queryOptions?.idAttribute || 'id';
 }
 
-const getLookupValueKey = (o: FieldOptions & IServerLookupOptions) => {
+const getLookupValueKey = (o: FieldOptions & ModdedServerLookupOptions) => {
     return o.lookupOptions?.labelAttribute || o.queryOptions?.labelAttribute || 'id';
 }
 
@@ -22,21 +34,21 @@ const getLookupValueKey = (o: FieldOptions & IServerLookupOptions) => {
  * convert the selected Option to value in formData
  */
 
-const generateFieldWriter = (o: FieldOptions & IServerLookupOptions,
+const generateFieldWriter = (o: FieldOptions & ModdedServerLookupOptions,
     { getOptionKey, getOptionValue }
 ) => {
-    const { attribute, displayAttribute, lookupOptions } = o;
+    const { attribute, lookupOptions } = o;
 
     const valueSetter = getValueSetter(attribute);
 
-    if (displayAttribute) {
+    if (lookupOptions?.displayAttribute) {
         return (v: any, data: any) => {
             const key = getOptionKey(v);
             const value = getOptionValue(v);
-            setValueByKey(displayAttribute, data, value);
+            setValueByKey(lookupOptions.displayAttribute, data, value);
             valueSetter(data, key)
         }
-    } else if (lookupOptions) {
+    } else if (lookupOptions?.idAttribute) {
         return (v: any, data: any) => {
             const key = getOptionKey(v);
             const value = getOptionValue(v);
@@ -46,10 +58,7 @@ const generateFieldWriter = (o: FieldOptions & IServerLookupOptions,
             valueSetter(data, r);
         }
     } else {
-        return (v: any, data: any) => {
-            const key = getOptionKey(v);
-            valueSetter(data, key)
-        }
+        throw new Error('lookupOptions must be provided in the field options')
     }
 }
 
@@ -59,7 +68,8 @@ const generateFieldWriter = (o: FieldOptions & IServerLookupOptions,
  */
 const generateFieldAccessor = (o: FieldOptions & IServerLookupOptions) => {
 
-    const { attribute, displayAttribute, lookupOptions } = o;
+    const { attribute } = o;
+    const lookupOptions:LookupOptions = o.lookupOptions;
     const optionIdKey = getOptionIdKey(o);
     const optionValueKey = getOptionValueKey(o);
 
@@ -74,8 +84,8 @@ const generateFieldAccessor = (o: FieldOptions & IServerLookupOptions) => {
         return result;
     }
 
-    if (displayAttribute) {
-        const displayAccessor = getValueAccessor(displayAttribute);
+    if (lookupOptions?.displayAttribute) {
+        const displayAccessor = getValueAccessor(lookupOptions.displayAttribute);
         return (formData: any) => {
             const id = valueAccessor(formData);
             if (id) {
@@ -84,7 +94,7 @@ const generateFieldAccessor = (o: FieldOptions & IServerLookupOptions) => {
             } else
                 return null;
         }
-    } else if (lookupOptions) {
+    } else if (lookupOptions?.idAttribute) {
         const lookupIdKey = getLookupIdKey(o);
         const lookupValueKey = getLookupValueKey(o);
 
@@ -101,9 +111,7 @@ const generateFieldAccessor = (o: FieldOptions & IServerLookupOptions) => {
                 return null;
         }
     } else {
-        return (formData: any) => {
-            return valueAccessor(formData);
-        }
+        throw new Error('lookupOptions must be provided in the field options')
     }
 }
 

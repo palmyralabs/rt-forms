@@ -1,10 +1,9 @@
 import { renderHook } from "@testing-library/react";
 import { IFieldManager, useServerLookupFieldManager, PalmyraForm } from "../../../../../src/palmyra";
-import { vi } from "vitest";
+import { beforeAll, describe, expect, test, vi } from "vitest";
 import orgAxios from "axios";
 import { IServerLookupDefinition } from "../../../../../demo/palmyra/mui/form/types";
 import { PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
-// import { act } from "react";
 vi.mock('axios');
 
 describe('useServerLookupFieldManager', () => {
@@ -27,7 +26,10 @@ describe('useServerLookupFieldManager', () => {
         }
         const options: IServerLookupDefinition = {
             queryOptions: { endPoint: '/masterdata' },
-            attribute: 'lookup'
+            attribute: 'lookup',
+            lookupOptions: {
+                idAttribute: 'id', labelAttribute: 'sdf'
+            }
         }
         const { result } = renderHook(() => useServerLookupFieldManager('lookup', options), { wrapper })
         const fieldManager: IFieldManager = result.current;
@@ -44,7 +46,10 @@ describe('useServerLookupFieldManager', () => {
 
         const options: IServerLookupDefinition = {
             queryOptions: { endPoint: '/masterdata' },
-            attribute: 'lookup'
+            attribute: 'lookup',
+            lookupOptions: {
+                idAttribute: 'id', labelAttribute: 'sdf'
+            }
         }
         const { result } = renderHook(() => useServerLookupFieldManager('lookup', options), { wrapper })
         const fieldManager: IFieldManager = result.current;

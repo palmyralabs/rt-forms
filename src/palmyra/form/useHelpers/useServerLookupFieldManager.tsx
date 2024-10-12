@@ -23,7 +23,7 @@ const getCustomizer = (o: FieldOptions & IServerLookupOptions,
         if (typeof option == 'object')
             return optionIdAccessor(option);
         else {
-            console.log(option);
+            console.error('getOptionKey', option);
         }
         return '';
     }
@@ -32,7 +32,7 @@ const getCustomizer = (o: FieldOptions & IServerLookupOptions,
         if (typeof option == 'object')
             return optionLabelAccessor(option);
         else if (option != '') {
-            console.log(option);
+            console.error('getOptionValue', option);
         }
         return '';
     }

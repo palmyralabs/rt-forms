@@ -14,12 +14,15 @@ describe('useServerLookupFieldManager', () => {
     test('get data', async () => {
         const storeFactory = new PalmyraStoreFactory({ baseUrl: '/api/palmyra' });
         const wrapper = ({ children }) => {
-            return <PalmyraForm formData={{ lookup: 1 }} storeFactory={storeFactory}>{children} </PalmyraForm>
+            return <PalmyraForm formData={{ lookup: { id: 1, label: 'hello' } }} storeFactory={storeFactory}>{children} </PalmyraForm>
         }
 
         const options: IServerLookupDefinition = {
             queryOptions: { endPoint: '/masterdata' },
-            attribute: 'lookup'
+            attribute: 'lookup',
+            lookupOptions: {
+                idAttribute: 'id', labelAttribute: 'sdf'
+            }
         }
 
         const { result } = renderHook(() => useServerLookupFieldManager('lookup', options), { wrapper });
@@ -33,7 +36,13 @@ describe('useServerLookupFieldManager', () => {
         }, { timeout: 500 })
 
         console.log(result.current.options);
-        console.log(result.current.getValue());
+        console.log('value 1', result.current.getValue());
+
+        act(() => {
+            result.current.setValue(2);
+        })
+
+        console.log('value 2', result.current.getValue());
 
         console.log(result.current.isValid());
 

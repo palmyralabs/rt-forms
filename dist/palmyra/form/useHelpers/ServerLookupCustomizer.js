@@ -1,63 +1,64 @@
-import { x as k, i as v, K as y } from "../../../chunks/accessor.js";
+import { x as A, i as k, K as p } from "../../../chunks/accessor.js";
 import "../../../chunks/NoopConverter.js";
 import "dayjs";
-const I = (t) => {
-  var e, o;
-  return ((e = t.queryOptions) == null ? void 0 : e.idAttribute) || ((o = t.lookupOptions) == null ? void 0 : o.idAttribute) || "id";
-}, V = (t) => {
-  var e, o;
-  return ((e = t.queryOptions) == null ? void 0 : e.labelAttribute) || ((o = t.lookupOptions) == null ? void 0 : o.labelAttribute) || "id";
-}, m = (t) => {
-  var e, o;
-  return ((e = t.lookupOptions) == null ? void 0 : e.idAttribute) || ((o = t.queryOptions) == null ? void 0 : o.idAttribute) || "id";
-}, q = (t) => {
-  var e, o;
-  return ((e = t.lookupOptions) == null ? void 0 : e.labelAttribute) || ((o = t.queryOptions) == null ? void 0 : o.labelAttribute) || "id";
-}, F = (t, { getOptionKey: e, getOptionValue: o }) => {
-  const { attribute: b, displayAttribute: d, lookupOptions: p } = t, c = k(b);
-  return d ? (s, u) => {
-    const i = e(s), r = o(s);
-    v(d, u, r), c(u, i);
-  } : p ? (s, u) => {
-    const i = e(s), r = o(s), l = p.idAttribute, n = p.labelAttribute, a = { [l]: i, [n]: r };
-    c(u, a);
-  } : (s, u) => {
-    const i = e(s);
-    c(u, i);
+const m = (e) => {
+  var r, t;
+  return ((r = e.queryOptions) == null ? void 0 : r.idAttribute) || ((t = e.lookupOptions) == null ? void 0 : t.idAttribute) || "id";
+}, I = (e) => {
+  var r, t;
+  return ((r = e.queryOptions) == null ? void 0 : r.labelAttribute) || ((t = e.lookupOptions) == null ? void 0 : t.labelAttribute) || "id";
+}, O = (e) => {
+  var r, t;
+  return ((r = e.lookupOptions) == null ? void 0 : r.idAttribute) || ((t = e.queryOptions) == null ? void 0 : t.idAttribute) || "id";
+}, V = (e) => {
+  var r, t;
+  return ((r = e.lookupOptions) == null ? void 0 : r.labelAttribute) || ((t = e.queryOptions) == null ? void 0 : t.labelAttribute) || "id";
+}, w = (e, { getOptionKey: r, getOptionValue: t }) => {
+  const { attribute: b, lookupOptions: i } = e, d = A(b);
+  if (i != null && i.displayAttribute)
+    return (u, l) => {
+      const c = r(u), n = t(u);
+      k(i.displayAttribute, l, n), d(l, c);
+    };
+  if (i != null && i.idAttribute)
+    return (u, l) => {
+      const c = r(u), n = t(u), s = i.idAttribute, o = i.labelAttribute, a = { [s]: c, [o]: n };
+      d(l, a);
+    };
+  throw new Error("lookupOptions must be provided in the field options");
+}, S = (e) => {
+  const { attribute: r } = e, t = e.lookupOptions, b = m(e), i = I(e), d = p(r), u = A(b), l = A(i), c = (n, s) => {
+    var o = {};
+    return u(o, n), l(o, s), o;
   };
-}, L = (t) => {
-  const { attribute: e, displayAttribute: o, lookupOptions: b } = t, d = I(t), p = V(t), c = y(e), s = k(d), u = k(p), i = (r, l) => {
-    var n = {};
-    return s(n, r), u(n, l), n;
-  };
-  if (o) {
-    const r = y(o);
-    return (l) => {
-      const n = c(l);
-      if (n) {
-        const a = r(l);
-        return i(n, a);
+  if (t != null && t.displayAttribute) {
+    const n = p(t.displayAttribute);
+    return (s) => {
+      const o = d(s);
+      if (o) {
+        const a = n(s);
+        return c(o, a);
       } else
         return null;
     };
-  } else if (b) {
-    const r = m(t), l = q(t), n = y(r), a = y(l);
+  } else if (t != null && t.idAttribute) {
+    const n = O(e), s = V(e), o = p(n), a = p(s);
     return (K) => {
-      const A = c(K);
-      if (A) {
-        const O = n(A), f = a(A);
-        return i(O, f);
+      const y = d(K);
+      if (y) {
+        const f = o(y), v = a(y);
+        return c(f, v);
       } else
         return null;
     };
   } else
-    return (r) => c(r);
+    throw new Error("lookupOptions must be provided in the field options");
 };
 export {
-  L as generateFieldAccessor,
-  F as generateFieldWriter,
-  m as getLookupIdKey,
-  q as getLookupValueKey,
-  I as getOptionIdKey,
-  V as getOptionValueKey
+  S as generateFieldAccessor,
+  w as generateFieldWriter,
+  O as getLookupIdKey,
+  V as getLookupValueKey,
+  m as getOptionIdKey,
+  I as getOptionValueKey
 };

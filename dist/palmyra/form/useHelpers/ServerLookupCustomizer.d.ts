@@ -1,13 +1,22 @@
 import { FieldOptions, IServerLookupOptions } from '../typesFieldOptions';
 
-declare const getOptionIdKey: (o: FieldOptions & IServerLookupOptions) => string;
-declare const getOptionValueKey: (o: FieldOptions & IServerLookupOptions) => string;
-declare const getLookupIdKey: (o: FieldOptions & IServerLookupOptions) => string;
-declare const getLookupValueKey: (o: FieldOptions & IServerLookupOptions) => string;
+interface LookupOptions {
+    displayAttribute?: string;
+    idAttribute?: string;
+    labelAttribute?: string;
+}
+type options = {
+    lookupOptions: LookupOptions;
+};
+type ModdedServerLookupOptions = Omit<IServerLookupOptions, 'lookupOptions'> & options;
+declare const getOptionIdKey: (o: FieldOptions & ModdedServerLookupOptions) => string;
+declare const getOptionValueKey: (o: FieldOptions & ModdedServerLookupOptions) => string;
+declare const getLookupIdKey: (o: FieldOptions & ModdedServerLookupOptions) => string;
+declare const getLookupValueKey: (o: FieldOptions & ModdedServerLookupOptions) => string;
 /**
  * convert the selected Option to value in formData
  */
-declare const generateFieldWriter: (o: FieldOptions & IServerLookupOptions, { getOptionKey, getOptionValue }: {
+declare const generateFieldWriter: (o: FieldOptions & ModdedServerLookupOptions, { getOptionKey, getOptionValue }: {
     getOptionKey: any;
     getOptionValue: any;
 }) => (v: any, data: any) => void;
@@ -15,5 +24,5 @@ declare const generateFieldWriter: (o: FieldOptions & IServerLookupOptions, { ge
  * reads value data from formData and convert to Option format
  *
  */
-declare const generateFieldAccessor: (o: FieldOptions & IServerLookupOptions) => (formData: any) => any;
+declare const generateFieldAccessor: (o: FieldOptions & IServerLookupOptions) => (formData: any) => {};
 export { generateFieldWriter, generateFieldAccessor, getOptionIdKey, getOptionValueKey, getLookupIdKey, getLookupValueKey };

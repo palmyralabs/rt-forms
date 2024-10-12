@@ -55,13 +55,22 @@ interface FieldOptions extends IMutateOptions, IFieldValidation {
     validator?: (value: any) => PredicateResponse
 }
 
+interface FlatLookup {
+    displayAttribute: string,
+    idAttribute?: never,
+    labelAttribute?: never
+}
+
+interface ObjectLookup {
+    idAttribute: string,
+    labelAttribute: string,
+    displayAttribute?: never
+}
+
+type LookupOptions = FlatLookup | ObjectLookup;
 
 interface IServerLookupOptions {
-    displayAttribute?: string
-    lookupOptions?: {
-        idAttribute: string,
-        labelAttribute: string
-    },
+    lookupOptions: LookupOptions,
     queryOptions: {
         endPoint: IEndPoint,
         queryAttribute?: string,
