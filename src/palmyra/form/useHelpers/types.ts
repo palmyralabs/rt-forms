@@ -10,7 +10,7 @@ interface IStoreProps<T extends StoreOptions> {
 interface IuseFormOptions<T extends StoreOptions> extends IStoreProps<T> {
     endPoint: IEndPoint,
     endPointOptions?: IEndPointOptions,
-    formRef?: MutableRefObject<any>
+    formRef?: MutableRefObject<IForm>
 }
 
 interface IFormSaveEventHandler {
