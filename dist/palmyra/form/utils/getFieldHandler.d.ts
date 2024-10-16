@@ -9,7 +9,7 @@ declare const getFieldHandler: (fieldManager: IFieldManager) => {
     refreshError(): void;
     setVisible(visible: boolean): void;
     setRequired(required: boolean): void;
-    setReadOnly(readonly: boolean): void;
+    setReadOnly(readOnly: boolean): void;
     setDisabled(disabled: boolean): void;
     setAttribute(options: IMutateOptions): void;
 };

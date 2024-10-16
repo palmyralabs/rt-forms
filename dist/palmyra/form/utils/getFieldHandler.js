@@ -19,7 +19,7 @@ const u = (s) => {
       t((r) => ({ ...r, required: e }));
     },
     setReadOnly(e) {
-      t((r) => ({ ...r, readonly: e }));
+      t((r) => ({ ...r, readOnly: e }));
     },
     setDisabled(e) {
       t((r) => ({ ...r, disabled: e }));

@@ -9,7 +9,7 @@ interface IInputField {
     setValue: (v: any, doValidate?: boolean) => void;
     setRequired: (required: boolean) => void;
     setDisabled: (disabled: boolean) => void;
-    setReadOnly: (readonly: boolean) => void;
+    setReadOnly: (readOnly: boolean) => void;
     setVisible: (visible: boolean) => void;
     setAttribute: (options: IMutateOptions) => void;
 }

@@ -22,8 +22,8 @@ const getFieldHandler = (fieldManager: IFieldManager) => {
         setRequired(required: boolean) {
             setMutateOptions((d: IMutateOptions) => ({ ...d, required }));
         },
-        setReadOnly(readonly: boolean) {
-            setMutateOptions((d: IMutateOptions) => ({ ...d, readonly }));
+        setReadOnly(readOnly: boolean) {
+            setMutateOptions((d: IMutateOptions) => ({ ...d, readOnly }));
         },
         setDisabled(disabled: boolean) {
             setMutateOptions((d: IMutateOptions) => ({ ...d, disabled }));
