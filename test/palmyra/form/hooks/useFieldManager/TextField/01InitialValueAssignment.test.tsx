@@ -1,6 +1,7 @@
 import { renderHook } from "@testing-library/react";
-import { FieldOptions, IFieldManager, useFieldManager, PalmyraForm } from "../../../../../../src/palmyra";
+import { FieldOptions, IFieldManager, useFieldManager, PalmyraForm, IForm } from "../../../../../../src/palmyra";
 import { describe, expect, test } from "vitest";
+import { useRef } from "react";
 
 describe('PalmyraForm/useFieldManager- Form Initialization / Value Assignments', () => {
 
@@ -65,7 +66,7 @@ describe('PalmyraForm/useFieldManager- Form Initialization / Value Assignments',
         expect(fieldManager.getValue()).toBe('hello@gmail.com');
     });
 
-    test("TODO - from formData, and defaultValue set", () => {
+    test("from formData, and defaultValue set", () => {
         /**
         formData - {<attribute>:'value'}
         defaultValue - 'defValue'
@@ -74,5 +75,20 @@ describe('PalmyraForm/useFieldManager- Form Initialization / Value Assignments',
         expect - formData toBe {<attribute>:'value'}
         expect - field, form - isValid truthy
          */
+
+        const formRefRender = renderHook(() => useRef<IForm>());
+        const formRef = formRefRender.result.current;
+
+        const wrapper = ({ children }) => {
+            return <PalmyraForm formData={{ email: 'hello@gmail.com' }} ref={formRef}>{children} </PalmyraForm>
+        }
+        const options: FieldOptions = {
+            attribute: 'email', defaultValue: 'hello@gmail.com'
+        }
+        const { result } = renderHook(() => useFieldManager('email', options), { wrapper })
+        const fieldManager: IFieldManager = result.current;
+        expect(fieldManager.getValue()).toBe('hello@gmail.com');
+        expect(fieldManager.isValid()).toBeTruthy();
+        expect(formRef?.current?.isValid()).toBeTruthy();
     });
 })
