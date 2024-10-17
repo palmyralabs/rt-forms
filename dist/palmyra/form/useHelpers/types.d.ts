@@ -45,7 +45,7 @@ interface IPalmyraViewFormOutput extends IFormRefresh, IPalmyraFormOutput {
 }
 interface IPalmyraEditFormOutput extends IPalmyraFormOutput, IFormRefresh {
     saveData: (data?: any) => Promise<any>;
-    fetchData: () => void;
+    fetchData: () => Promise<any>;
 }
 interface IPalmyraSaveFormInput extends IPalmyraEditFormInput {
 }

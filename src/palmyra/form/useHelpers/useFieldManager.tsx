@@ -69,8 +69,7 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
     const setValue = (v: Dispatch<SetStateAction<any>>, propagate = true, showError = true) => {
         const d: any = (typeof v == 'function') ? v(value) : v;
 
-        if (propagate && d !== value)
-            fieldGroupManager.setFieldData(key, d);
+
 
         const newError = validate(d, validator, options);
 
@@ -79,7 +78,13 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
         }
         fieldGroupManager.setFieldValidity(key, !newError.status);
         newError.showError = showError;
-        setFieldState({ value: d, error: newError });
+        if (fieldOptions?.readOnly) {
+            setFieldState((d) => { return { ...d, error: newError } });
+        } else {
+            setFieldState({ value: d, error: newError });
+            if (propagate && d !== value)
+                fieldGroupManager.setFieldData(key, d);
+        }
     }
 
     const refreshError = () => {

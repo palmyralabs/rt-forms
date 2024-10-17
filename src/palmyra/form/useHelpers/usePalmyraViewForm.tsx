@@ -14,7 +14,6 @@ const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): 
     const dataRef = useRef<any>();
     const idKey = props.idKey || 'id';
     const endPointVars = props.endPointOptions || {};
-    const onQueryData = props.onQueryData || ((d: any) => d);
 
     const getEndPoint = (endPoint: IEndPoint, idProperty: string): IEndPoint => {
         if (typeof endPoint == 'string') {
@@ -35,11 +34,13 @@ const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): 
                 [idProperty]: id
             }
         };
-        formStore.get(request).then(d => {
-            const data = onQueryData(d);
+        return formStore.get(request).then(d => {
+            const onQueryData = props.onQueryData;
+            const result = onQueryData ? onQueryData(d) : d;
             if (formRef.current)
-                formRef.current.setData(data)
-            dataRef.current = data
+                formRef.current.setData(result)
+            dataRef.current = result
+            return Promise.resolve(result);
         });
     }
 

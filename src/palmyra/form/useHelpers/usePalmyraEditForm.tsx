@@ -14,8 +14,7 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
     const idKey = props.idKey || 'id';
     const operation = props.mode != 'save' ? 'put' : 'save';
     const endPointVars = props.endPointOptions || {};
-    const { onSaveFailure, onSaveSuccess, preSave } = getHandlers(props);
-    const onQueryData = props.onQueryData || ((d: any) => d);
+    const { onSaveFailure, onSaveSuccess, preSave } = getHandlers(props);     
     const getEndPoint = (endPoint: IEndPoint, idProperty: string): IEndPoint => {
         if (typeof endPoint == 'string') {
             return endPoint + '/{' + idProperty + '}';
@@ -24,7 +23,7 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
         }
     }
 
-    const fetchData = () => {
+    const fetchData = (): Promise<any> => {
         const id = props.id;
         const idProperty = idKey;
         var endPoint = getEndPoint(props.endPoint, idProperty);
@@ -35,9 +34,12 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
                 [idProperty]: id
             }
         };
-        formStore.get(request).then(d => {
+        return formStore.get(request).then(d => {
+            const onQueryData = props.onQueryData;
+            const result = onQueryData ? onQueryData(d) : d;
             if (formRef.current)
-                formRef.current.setData(onQueryData(d))
+                formRef.current.setData(result)
+            return Promise.resolve(result);
         });
     }
 
@@ -82,11 +84,7 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
             return Promise.reject('invalid data');
     }
 
-    const refresh = () => {
-        fetchData()
-    }
-
-    return { getData, saveData, fetchData, formRef, refresh };
+    return { getData, saveData, fetchData, formRef };
 }
 
 

@@ -1,8 +1,8 @@
-import { useContext as I, useState as C, useCallback as J, useEffect as R } from "react";
-import { FieldGroupManagerContext as K } from "../formContext.js";
+import { useContext as K, useState as R, useCallback as L, useEffect as G } from "react";
+import { FieldGroupManagerContext as N } from "../formContext.js";
 import "../PalmyraForm.js";
-import { generatePredicate as L, validate as F } from "../validator/validatorHelper.js";
-import { o as E, e as N, i as c } from "../../../chunks/accessor.js";
+import { generatePredicate as Q, validate as F } from "../validator/validatorHelper.js";
+import { o as h, e as T, i as p } from "../../../chunks/accessor.js";
 import "../../../chunks/NoopConverter.js";
 import "dayjs";
 import '../../../assets/FieldContainer.css';import '../../../assets/FieldGroupContainer.css';import '../../../assets/CardLayout.css';/* empty css                               */
@@ -13,84 +13,82 @@ import "../../grid/base/utils/ColumnConverter.js";
 import "../../grid/utils/FormatterFactory.js";
 /* empty css                                  */
 /* empty css                             */
-const ue = (r, e, s) => {
+const ur = (e, r, s) => {
   var S, x;
-  const t = I(K);
+  const t = K(N);
   if (!t)
     throw Error("useFieldManager must be called within the scope of <PalmyraForm>");
-  const [a, V] = C({}), l = { ...e, ...a }, f = Q(r), h = T(s), M = (o) => h(f(o)), G = J(() => U(r, s), [r])(), p = L(l), w = t.getFieldRawData(f), O = X(
+  const [a, V] = R({}), o = { ...r, ...a }, f = U(e), M = X(s), A = (l) => M(f(l)), j = L(() => Y(e, s), [e])(), c = Q(o), w = t.getFieldRawData(f), m = Z(
     w,
-    l,
+    o,
     s,
-    p,
-    M,
-    h
-  ), [i, A] = C(O);
-  R(() => {
+    c,
+    A,
+    M
+  ), [i, E] = R(m);
+  G(() => {
     w != null && W();
   }, [a]);
-  const u = i.value, n = i.error, j = () => u, m = () => n != null && n.showError ? n : { status: !1, message: "" }, q = () => p, B = (o, d = !0, P = !0) => {
-    const g = typeof o == "function" ? o(u) : o;
-    d && g !== u && t.setFieldData(r, g);
-    const v = F(g, p, l);
-    g === u && n && v.status == n.status && v.message == n.message || (t.setFieldValidity(r, !v.status), v.showError = P, A({ value: g, error: v }));
+  const g = i.value, n = i.error, q = () => g, B = () => n != null && n.showError ? n : { status: !1, message: "" }, H = () => c, I = (l, d = !0, P = !0) => {
+    const v = typeof l == "function" ? l(g) : l, u = F(v, c, o);
+    v === g && n && u.status == n.status && u.message == n.message || (t.setFieldValidity(e, !u.status), u.showError = P, r != null && r.readOnly ? E((C) => ({ ...C, error: u })) : (E({ value: v, error: u }), d && v !== g && t.setFieldData(e, v)));
   }, W = () => {
-    const o = F(u, p, l);
-    n && n.showError && o.status == n.status && o.message == n.message || (o.showError = !0, A((d) => ({ ...d, error: o })));
+    const l = F(g, c, o);
+    n && n.showError && l.status == n.status && l.message == n.message || (l.showError = !0, E((d) => ({ ...d, error: l })));
   };
-  R(() => {
-    const { error: o, value: d } = i;
-    t.setFieldData(r, d), t.setFieldValidity(r, !o.status);
+  G(() => {
+    const { error: l, value: d } = i;
+    t.setFieldData(e, d), t.setFieldValidity(e, !l.status);
   }, [i]);
   const D = {
-    getValidator: q,
-    getValue: j,
-    setValue: B,
-    valueAccessor: M,
-    valueWriter: G,
+    getValidator: H,
+    getValue: q,
+    setValue: I,
+    valueAccessor: A,
+    valueWriter: j,
     rawValueAccessor: f,
     isValid: () => {
-      var o;
-      return i.error == null ? !F(u, p, l).status : !((o = i.error) != null && o.status);
+      var l;
+      return i.error == null ? !F(g, c, o).status : !((l = i.error) != null && l.status);
     },
-    getError: m,
+    getError: B,
     refreshError: W,
     mutateOptions: a,
     setMutateOptions: V,
     getFieldProps: () => {
       const {
-        invalidMessage: o,
+        invalidMessage: l,
         missingMessage: d,
         validator: P,
-        regExp: g,
-        validRule: v,
-        validFn: _,
-        defaultValue: $,
-        ...H
-      } = l;
-      return { ...H, ...a };
+        regExp: v,
+        validRule: u,
+        validFn: C,
+        defaultValue: y,
+        ...J
+      } = o;
+      return { ...J, ...a };
     }
   };
-  return t.registerFieldManager(D, l), w == null && e.defaultValue && t.setFieldData(r, i.value), (S = i.error) != null && S.status && t.setFieldValidity(r, (x = i.error) == null ? void 0 : x.status), D;
+  return t.registerFieldManager(D, o), w == null && r.defaultValue && t.setFieldData(e, i.value), (S = i.error) != null && S.status && t.setFieldValidity(e, (x = i.error) == null ? void 0 : x.status), D;
 };
-function Q(r, e) {
-  return e != null && e.fieldAccessor ? e.fieldAccessor : E(r) ? (t) => N(r, t) : (t) => t == null ? void 0 : t[r];
+function U(e, r) {
+  return r != null && r.fieldAccessor ? r.fieldAccessor : h(e) ? (t) => T(e, t) : (t) => t == null ? void 0 : t[e];
 }
-function T(r) {
-  if (r != null && r.parse) {
-    const e = r.parse;
-    return (s) => e(s);
+function X(e) {
+  if (e != null && e.parse) {
+    const r = e.parse;
+    return (s) => r(s);
   }
-  return (e) => e ?? "";
+  return (r) => r ?? "";
 }
-function U(r, e) {
-  const s = e == null ? void 0 : e.format;
-  return s ? e != null && e.fieldWriter ? (t, a) => e.fieldWriter(s(a), t) : E(r) ? (t, a) => c(r, t, s(a)) : (t, a) => c(r, t, s(a)) : e != null && e.fieldWriter ? (t, a) => e.fieldWriter(a, t) : E(r) ? (t, a) => c(r, t, a) : (t, a) => c(r, t, a);
+function Y(e, r) {
+  const s = r == null ? void 0 : r.format;
+  return s ? r != null && r.fieldWriter ? (t, a) => r.fieldWriter(s(a), t) : h(e) ? (t, a) => p(e, t, s(a)) : (t, a) => p(e, t, s(a)) : r != null && r.fieldWriter ? (t, a) => r.fieldWriter(a, t) : h(e) ? (t, a) => p(e, t, a) : (t, a) => p(e, t, a);
 }
-const X = (r, e, s, t, a, V) => {
-  var l = null, f = void 0;
-  return r == null ? e.defaultValue != null ? l = s != null && s.parse ? s.parse(e.defaultValue) : e.defaultValue : l = a({}) : l = V(r), f = F(l, t, e), f.status && (f.showError = r != null || e.defaultValue != null), { value: l, error: f };
+const Z = (e, r, s, t, a, V) => {
+  var o = null, f = void 0;
+  return e == null ? r.defaultValue != null ? o = s != null && s.parse ? s.parse(r.defaultValue) : r.defaultValue : o = a({}) : o = V(e), f = F(o, t, r), f.status && (f.showError = e != null || r.defaultValue != null), { value: o, error: f };
 };
 export {
-  ue as useFieldManager
+  ur as useFieldManager
 };
