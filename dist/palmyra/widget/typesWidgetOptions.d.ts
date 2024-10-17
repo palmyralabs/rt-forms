@@ -1,5 +1,4 @@
 import { FieldOptions } from '../form/typesFieldOptions';
-
 interface IAbstractField extends FieldOptions, IDecoration {
     autoFocus?: boolean;
     onChange?: (key: string, value: any, valid?: boolean) => void;

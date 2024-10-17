@@ -1,6 +1,5 @@
 import { IFieldConverter } from '../types';
 import { FieldOptions, IServerLookupOptions } from '../typesFieldOptions';
-
 interface ICustomOptions extends IFieldConverter {
     preProcessSearchText?: (d: string) => string;
 }

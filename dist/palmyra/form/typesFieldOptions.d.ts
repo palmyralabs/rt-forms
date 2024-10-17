@@ -2,7 +2,6 @@ import { DefaultQueryParams, IEndPoint, StoreOptions } from '@palmyralabs/palmyr
 import { PredicateResponse, validationRule } from '@palmyralabs/ts-predicates';
 import { IPredicate } from '@palmyralabs/ts-utils';
 import { numbers } from './types';
-
 type InputType = string | number | Date;
 interface IMutateOptions {
     required?: boolean;

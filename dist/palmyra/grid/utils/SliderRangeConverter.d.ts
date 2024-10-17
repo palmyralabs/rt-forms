@@ -1,5 +1,4 @@
 import { ColumnFieldOptions, Converter, IRange } from '../base/types';
-
 type ISliderRange = [number, number];
 declare class SliderRangeConverter implements Converter<any, ISliderRange> {
     min: number;

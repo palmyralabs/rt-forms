@@ -1,6 +1,5 @@
 import { DefaultQueryParams, AbstractQueryStore, IEndPoint, ExportRequest, StoreOptions } from '@palmyralabs/palmyra-wire';
 import { IPageQueryable } from './types';
-
 type ExportStore = {
     export?(request: ExportRequest): void;
 };

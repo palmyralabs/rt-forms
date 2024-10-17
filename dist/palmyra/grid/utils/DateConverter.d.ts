@@ -1,5 +1,4 @@
 import { Converter, IPattern } from '../base';
-
 declare class DateTimeConverter implements Converter<any, Date> {
     serverPattern: string;
     displayPattern: string;

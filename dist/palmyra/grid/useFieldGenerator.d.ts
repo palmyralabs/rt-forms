@@ -1,5 +1,4 @@
 import { ColumnFieldOptions } from './base/types';
-
 interface FieldRequest {
     fieldDef: ColumnFieldOptions;
     title?: string;

@@ -1,6 +1,5 @@
 import { IFieldCustomizer, IFieldManager } from '../types';
 import { FieldOptions } from '../typesFieldOptions';
-
 /**
  * Functionalities covered in Field Manager
  *

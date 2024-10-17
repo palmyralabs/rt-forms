@@ -1,6 +1,5 @@
 import { MutableRefObject } from 'react';
 import { IForm } from './types';
-
 declare const getSaveFormHandle: (saveData: any, formRef: MutableRefObject<IForm>, refresh?: any) => {
     saveData: any;
     refresh: any;

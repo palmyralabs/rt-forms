@@ -1,5 +1,4 @@
 import { IMutateOptions } from './typesFieldOptions';
-
 interface IInputField {
     focus: () => void;
     isValid: () => void;

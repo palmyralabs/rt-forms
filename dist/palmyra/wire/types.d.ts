@@ -1,5 +1,4 @@
 import { ExportRequest, IPagination, QueryRequest } from '@palmyralabs/palmyra-wire';
-
 interface IQueryable {
     setQuickSearch: (v: any) => void;
     setFilter: (d: any) => void;

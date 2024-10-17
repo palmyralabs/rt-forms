@@ -1,5 +1,4 @@
 import { IFieldGroup, IFieldGroupOptions } from './types';
-
 interface IFieldGroupCOptions extends IFieldGroupOptions {
     children?: any;
 }

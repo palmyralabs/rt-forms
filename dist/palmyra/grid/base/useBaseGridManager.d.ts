@@ -1,5 +1,4 @@
 import { BaseTableOptions } from '../typesInternal';
-
 declare const useBaseGridManager: (o: BaseTableOptions) => {
     onColumnSort: (column: any, sortOrder: any) => void;
     onRowClick: Function;

@@ -1,7 +1,6 @@
 import { IEndPoint, IEndPointOptions, StoreFactory, StoreOptions } from '@palmyralabs/palmyra-wire';
 import { MutableRefObject } from 'react';
 import { IForm } from '../types';
-
 interface IStoreProps<T extends StoreOptions> {
     storeFactory?: StoreFactory<any, T>;
     storeOptions?: T;

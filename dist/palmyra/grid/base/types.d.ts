@@ -2,7 +2,6 @@ import { CellContext, ColumnDef, OnChangeFn, Row, RowData, RowModel, RowSelectio
 import { MutableRefObject, ReactNode } from 'react';
 import { IPageQueryable, IServerQueryInput, FieldOptions } from '@palmyralabs/rt-forms';
 import { IEndPoint } from '@palmyralabs/palmyra-wire';
-
 type IReactTanstackTable = import('@tanstack/table-core').Table<RowData>;
 type IExportOptions = PartialRecord<'csv' | 'excel' | 'pdf' | 'docx', string>;
 interface ApiDataTableOptions extends Omit<IServerQueryInput, 'store'>, IGridPlugin {

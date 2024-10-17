@@ -1,5 +1,4 @@
 import { FieldOptions, IServerLookupOptions } from '../typesFieldOptions';
-
 interface LookupOptions {
     displayAttribute?: string;
     idAttribute?: string;

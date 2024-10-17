@@ -1,6 +1,5 @@
 import { IRange } from '@palmyralabs/ts-utils';
 import { ColumnFieldOptions, Converter, IPattern } from '../base/types';
-
 declare class DateRangeConverter implements Converter<any, IRange<Date>> {
     serverPattern: string;
     constructor(props: IPattern, defaultFormat: string);

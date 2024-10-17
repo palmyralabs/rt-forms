@@ -1,6 +1,5 @@
 import { IFieldManager } from '../types';
 import { IMutateOptions } from '../typesFieldOptions';
-
 declare const getFieldHandler: (fieldManager: IFieldManager) => {
     isValid(): boolean;
     setValue: (v: any, skipValidation?: Boolean, propagate?: boolean) => void;

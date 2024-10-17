@@ -1,5 +1,4 @@
 import { IServerQueryInput } from '../../wire';
-
 interface ServerCardLayoutInput extends IServerQueryInput {
     Child: React.FC;
     childProps?: any;

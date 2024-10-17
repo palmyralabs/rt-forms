@@ -4,7 +4,6 @@ import { FieldOptions, IMutateOptions } from './typesFieldOptions';
 import { Dispatch, SetStateAction } from 'react';
 import { PredicateResponse } from '@palmyralabs/ts-predicates';
 import { IPalmyraEditFormInput, IPalmyraNewFormInput, IPalmyraSaveFormInput, IPalmyraViewFormInput, IStoreProps } from './useHelpers/types';
-
 type FormMode = 'view' | 'new' | 'edit' | 'save';
 type OPredicate = () => boolean;
 type numbers = number | number[];

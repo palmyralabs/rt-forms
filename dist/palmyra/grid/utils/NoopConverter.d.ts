@@ -1,5 +1,4 @@
 import { ColumnFieldOptions, Converter } from '../base/types';
-
 declare class NoopConverter implements Converter<any, any> {
     getFieldData: (data: any, props: ColumnFieldOptions) => string | number | Date;
     getRawdata: (data: any, props: ColumnFieldOptions) => string | number | Date;
