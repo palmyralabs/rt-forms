@@ -1,23 +1,15 @@
 import { renderHook } from "@testing-library/react";
 import { IFieldManager, useServerLookupFieldManager, PalmyraForm } from "../../../../../src/palmyra";
-import { beforeAll, describe, expect, test, vi } from "vitest";
-import orgAxios from "axios";
+import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import { IServerLookupDefinition } from "../../../../../demo/palmyra/mui/form/types";
 import { PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
-vi.mock('axios');
+import { mswServer } from "../mswHelper";
+
 
 describe('useServerLookupFieldManager', () => {
-
-    let axios = vi.mocked(orgAxios, true)
-
-    beforeAll(() => {
-        vi.resetAllMocks();
-        axios = vi.mocked(orgAxios, true)
-    });
-
-    const rootData = [{ id: 1, name: 'Tenkasi' }];
-    axios.get.mockResolvedValue({ data: { result: rootData } });
-
+    beforeAll(() => { mswServer.listen(); });
+    afterEach(() => mswServer.resetHandlers())
+    afterAll(() => mswServer.close())    
     const storeFactory = new PalmyraStoreFactory({ baseUrl: '/api/palmyra' })
 
     test('get data', () => {

@@ -38,7 +38,6 @@ const InputField = forwardRef(function InputField(props: ITextFieldDefinition & 
         <FieldDecorator label={getFieldLabel(props)} colspan={props.colspan} >
             <input
                 type='text'
-                defaultValue={props.defaultValue}
                 label={props.label}
                 {...options}
                 value={getValue()}
