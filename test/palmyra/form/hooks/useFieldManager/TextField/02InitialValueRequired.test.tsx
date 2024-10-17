@@ -29,8 +29,6 @@ describe('PalmyraForm/useFieldManager- Form Initialization - required', () => {
         const fieldManager: IFieldManager = result.current;
         const formData = formRef?.current?.getData();
 
-        console.log(formData?.email)
-
         expect(fieldManager.getValue()).toBe('');
         expect(formData).toStrictEqual({ email: '' });
         expect(fieldManager.isValid()).toBeFalsy();

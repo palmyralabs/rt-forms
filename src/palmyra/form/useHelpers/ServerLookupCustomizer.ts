@@ -50,12 +50,16 @@ const generateFieldWriter = (o: FieldOptions & ModdedServerLookupOptions,
         }
     } else if (lookupOptions?.idAttribute) {
         return (v: any, data: any) => {
-            const key = getOptionKey(v);
-            const value = getOptionValue(v);
-            const idKey = lookupOptions.idAttribute;
-            const valueKey = lookupOptions.labelAttribute;
-            const r = { [idKey]: key, [valueKey]: value };
-            valueSetter(data, r);
+            if (typeof v != 'object') {
+                valueSetter(data, '');
+            } else {
+                const key = getOptionKey(v);
+                const value = getOptionValue(v);
+                const idKey = lookupOptions.idAttribute;
+                const valueKey = lookupOptions.labelAttribute;
+                const r = { [idKey]: key, [valueKey]: value };
+                valueSetter(data, r);
+            }
         }
     } else {
         throw new Error('lookupOptions must be provided in the field options')
@@ -69,7 +73,7 @@ const generateFieldWriter = (o: FieldOptions & ModdedServerLookupOptions,
 const generateFieldAccessor = (o: FieldOptions & IServerLookupOptions) => {
 
     const { attribute } = o;
-    const lookupOptions:LookupOptions = o.lookupOptions;
+    const lookupOptions: LookupOptions = o.lookupOptions;
     const optionIdKey = getOptionIdKey(o);
     const optionValueKey = getOptionValueKey(o);
 

@@ -1,4 +1,4 @@
-import { x as A, i as k, K as p } from "../../../chunks/accessor.js";
+import { x as A, i as v, K as b } from "../../../chunks/accessor.js";
 import "../../../chunks/NoopConverter.js";
 import "dayjs";
 const m = (e) => {
@@ -14,40 +14,44 @@ const m = (e) => {
   var r, t;
   return ((r = e.lookupOptions) == null ? void 0 : r.labelAttribute) || ((t = e.queryOptions) == null ? void 0 : t.labelAttribute) || "id";
 }, w = (e, { getOptionKey: r, getOptionValue: t }) => {
-  const { attribute: b, lookupOptions: i } = e, d = A(b);
-  if (i != null && i.displayAttribute)
-    return (u, l) => {
-      const c = r(u), n = t(u);
-      k(i.displayAttribute, l, n), d(l, c);
+  const { attribute: a, lookupOptions: o } = e, c = A(a);
+  if (o != null && o.displayAttribute)
+    return (s, l) => {
+      const d = r(s), n = t(s);
+      v(o.displayAttribute, l, n), c(l, d);
     };
-  if (i != null && i.idAttribute)
-    return (u, l) => {
-      const c = r(u), n = t(u), s = i.idAttribute, o = i.labelAttribute, a = { [s]: c, [o]: n };
-      d(l, a);
+  if (o != null && o.idAttribute)
+    return (s, l) => {
+      if (typeof s != "object")
+        c(l, "");
+      else {
+        const d = r(s), n = t(s), u = o.idAttribute, i = o.labelAttribute, p = { [u]: d, [i]: n };
+        c(l, p);
+      }
     };
   throw new Error("lookupOptions must be provided in the field options");
 }, S = (e) => {
-  const { attribute: r } = e, t = e.lookupOptions, b = m(e), i = I(e), d = p(r), u = A(b), l = A(i), c = (n, s) => {
-    var o = {};
-    return u(o, n), l(o, s), o;
+  const { attribute: r } = e, t = e.lookupOptions, a = m(e), o = I(e), c = b(r), s = A(a), l = A(o), d = (n, u) => {
+    var i = {};
+    return s(i, n), l(i, u), i;
   };
   if (t != null && t.displayAttribute) {
-    const n = p(t.displayAttribute);
-    return (s) => {
-      const o = d(s);
-      if (o) {
-        const a = n(s);
-        return c(o, a);
+    const n = b(t.displayAttribute);
+    return (u) => {
+      const i = c(u);
+      if (i) {
+        const p = n(u);
+        return d(i, p);
       } else
         return null;
     };
   } else if (t != null && t.idAttribute) {
-    const n = O(e), s = V(e), o = p(n), a = p(s);
+    const n = O(e), u = V(e), i = b(n), p = b(u);
     return (K) => {
-      const y = d(K);
+      const y = c(K);
       if (y) {
-        const f = o(y), v = a(y);
-        return c(f, v);
+        const f = i(y), k = p(y);
+        return d(f, k);
       } else
         return null;
     };

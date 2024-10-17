@@ -12,21 +12,23 @@ describe('useServerLookupFieldManager', () => {
     afterEach(() => mswServer.resetHandlers())
     afterAll(() => mswServer.close())
 
-    test('get data', async () => {
+    test('fetch server data', async () => {
         const storeFactory = new PalmyraStoreFactory({ baseUrl: '/api/palmyra' });
         const wrapper = ({ children }) => {
-            return <PalmyraForm formData={{ lookup: { id: 1, label: 'hello' } }} storeFactory={storeFactory}>{children} </PalmyraForm>
+            return <PalmyraForm formData={{ }} storeFactory={storeFactory}>{children} </PalmyraForm>
         }
 
         const options: IServerLookupDefinition = {
             queryOptions: { endPoint: '/masterdata' },
             attribute: 'lookup',
             lookupOptions: {
-                idAttribute: 'id', labelAttribute: 'sdf'
+                idAttribute: 'id', labelAttribute: 'name'
             }
         }
 
         const { result } = renderHook(() => useServerLookupFieldManager('lookup', options), { wrapper });
+
+        expect(result.current.options).toEqual([]);
 
         act(() => {
             result.current.refreshOptions();
@@ -35,21 +37,7 @@ describe('useServerLookupFieldManager', () => {
         await waitFor(async () => {
             expect(result.current.options).not.toBeNull();
         }, { timeout: 500 })
-
-        console.log(result.current.options);
-        console.log('value 1', result.current.getValue());
-
-        act(() => {
-            result.current.setValue(2);
-        })
-
-        console.log('value 2', result.current.getValue());
-
-        console.log(result.current.isValid());
-
-        // expect(result.current.options).toStrictEqual([{ id: 1, name: "Name" }]);
-        // expect(result.current.isValid()).toBeTruthy();
-        // expect(result.current.getValue()).toStrictEqual({ id: 1, name: "Name" });
+      
     });
 
     test('set data', async () => {
@@ -63,7 +51,7 @@ describe('useServerLookupFieldManager', () => {
             queryOptions: { endPoint: '/masterdata' },
             attribute: 'lookup',
             lookupOptions: {
-                idAttribute: 'id', labelAttribute: 'sdf'
+                idAttribute: 'id', labelAttribute: 'name'
             }
         }
         const { result } = renderHook(() => useServerLookupFieldManager('lookup', options), { wrapper });
@@ -78,8 +66,6 @@ describe('useServerLookupFieldManager', () => {
         act(() => {
             result.current.setValue('');
         })
-
-        console.log(formRef.current.getData().lookup)
 
         expect(result.current.getValue()).toBe('');
         expect(formRef.current.getData().lookup).toBe('');
