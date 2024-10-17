@@ -4,13 +4,14 @@ import { useContext, useRef } from "react";
 import { IPalmyraEditFormInput, IPalmyraEditFormOutput } from "./types";
 import { getHandlers } from "./utils";
 import { StoreFactoryContext } from "../formContext";
+import { IForm } from "../types";
 
 type IusePalmyraEditForm = (props: IPalmyraEditFormInput) => IPalmyraEditFormOutput;
 
 
 const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): IPalmyraEditFormOutput => {
     const storeFactory = props.storeFactory || useContext(StoreFactoryContext);
-    const formRef = props.formRef || useRef<any>(null);
+    const formRef = props.formRef || useRef<IForm>(null);
     const idKey = props.idKey || 'id';
     const operation = props.mode != 'save' ? 'put' : 'save';
     const endPointVars = props.endPointOptions || {};
@@ -61,7 +62,7 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
             var endPoint = getEndPoint(props.endPoint, idProperty);
             const formStore = storeFactory.getFormStore({}, endPoint, idProperty);
             const id = props.id;
-            const data = d || formRef.current.getData(idProperty);
+            const data = d || formRef.current.getData();
             const processedData = preSave(data);
 
             var request: PutRequest = {
