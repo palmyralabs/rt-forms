@@ -1,40 +1,42 @@
 import { useContext as R, useRef as x } from "react";
 import { getHandlers as K } from "./utils.js";
 import { StoreFactoryContext as V } from "../formContext.js";
-const Q = (t) => {
-  const f = t.storeFactory || R(V), e = t.formRef || x(null), l = t.idKey || "id", P = t.mode != "save" ? "put" : "save", m = t.endPointOptions || {}, { onSaveFailure: y, onSaveSuccess: D, preSave: S } = K(t), v = (r, n) => typeof r == "string" ? r + "/{" + n + "}" : r, g = () => {
-    const r = t.id, n = l;
-    var u = v(t.endPoint, n);
-    const a = f.getFormStore({}, u, n);
-    var d = {
+const q = (e) => {
+  const d = e.storeFactory || R(V), t = e.formRef || x(null), P = e.idKey || "id", y = e.mode != "save" ? "put" : "save", m = e.endPointOptions || {}, { onSaveFailure: D, onSaveSuccess: S, preSave: g } = K(e), v = (r, n) => typeof r == "string" ? r + "/{" + n + "}" : r, l = () => {
+    const r = e.id, n = P;
+    var u = v(e.endPoint, n);
+    const a = d.getFormStore({}, u, n);
+    var f = {
       endPointVars: {
         ...m,
         [n]: r
       }
     };
-    return a.get(d).then((s) => {
-      const c = t.onQueryData, i = c ? c(s) : s;
-      return e.current && e.current.setData(i), Promise.resolve(i);
+    return a.get(f).then((s) => {
+      const c = e.onQueryData, i = c ? c(s) : s;
+      return t.current && t.current.setData(i), Promise.resolve(i);
     });
-  }, F = () => e.current ? e.current.getData() : {}, h = (r) => {
-    e.current && e.current.setData(r);
+  }, h = () => t.current ? t.current.getData() : {}, F = (r) => {
+    t.current && t.current.setData(r);
   };
-  return { getData: F, saveData: (r) => {
-    if (r || e && e.current) {
-      const a = t.idKey || "id";
-      var n = v(t.endPoint, a);
-      const d = f.getFormStore({}, n, a), s = t.id, c = r || e.current.getData(), i = S(c);
+  return { getData: h, saveData: (r) => {
+    if (r || t && t.current) {
+      const a = e.idKey || "id";
+      var n = v(e.endPoint, a);
+      const f = d.getFormStore({}, n, a), s = e.id, c = r || t.current.getData(), i = g(c);
       var u = {
         endPointVars: {
           ...m,
           [a]: s
         }
       };
-      return d[P](i, u).then((o) => (t.refreshOnSaveResponse != !1 && h(o), D(o), Promise.resolve(o))).catch((o) => (y(o), Promise.reject(o)));
+      return f[y](i, u).then((o) => (e.refreshOnSaveResponse != !1 && F(o), S(o), Promise.resolve(o))).catch((o) => (D(o), Promise.reject(o)));
     } else
       return Promise.reject("invalid data");
-  }, fetchData: g, formRef: e };
+  }, fetchData: l, formRef: t, refresh: () => {
+    l();
+  } };
 };
 export {
-  Q as usePalmyraEditForm
+  q as usePalmyraEditForm
 };
