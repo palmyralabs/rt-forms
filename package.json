@@ -26,8 +26,7 @@
   "devDependencies": {
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.15",
-    "@mui/material": "^5.15.15",
-    "dayjs": "^1.11.13",
+    "@mui/material": "^5.15.15",    
     "@testing-library/react": "^16.0.1",
     "@types/node": "^22.7.6",
     "@types/react": "^18.3.11",
@@ -49,12 +48,13 @@
   ],
   "dependencies": {
     "@mui/x-date-pickers": "^7.12.0",
-    "@palmyralabs/ts-utils": "github:palmyralabs/ts-utils",
     "@tanstack/react-table": "^8.20.5"
   },
   "peerDependencies": {
     "@palmyralabs/palmyra-wire": "^1.1.0",
+    "@palmyralabs/ts-utils": "0.1.0",
     "@palmyralabs/ts-predicates": "github:palmyralabs/ts-predicates",
+    "dayjs": "^1.11.13",
     "axios": "1.7.5"
   },
   "overrides": {
