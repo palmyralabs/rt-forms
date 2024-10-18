@@ -1,19 +1,18 @@
 var l = Object.defineProperty;
-var m = (e, r, t) => r in e ? l(e, r, { enumerable: !0, configurable: !0, writable: !0, value: t }) : e[r] = t;
-var s = (e, r, t) => m(e, typeof r != "symbol" ? r + "" : r, t);
+var m = (t, r, e) => r in t ? l(t, r, { enumerable: !0, configurable: !0, writable: !0, value: e }) : t[r] = e;
+var s = (t, r, e) => m(t, typeof r != "symbol" ? r + "" : r, e);
 import f from "dayjs";
-import { e as u } from "../../../chunks/accessor.js";
-import "../../../chunks/NoopConverter.js";
-function o(e) {
-  return e ? f(e).isValid() : !1;
+import { getValueByKey as u } from "@palmyralabs/ts-utils";
+function o(t) {
+  return t ? f(t).isValid() : !1;
 }
 class _ {
-  constructor(r, t) {
+  constructor(r, e) {
     s(this, "serverPattern");
-    s(this, "getFieldData", (r, t) => u(t.attribute, r));
-    s(this, "getRawdata", (r, t) => u(t.attribute, r));
+    s(this, "getFieldData", (r, e) => u(e.attribute, r));
+    s(this, "getRawdata", (r, e) => u(e.attribute, r));
     s(this, "getDefaultValue", (r) => r || "");
-    this.serverPattern = r.serverPattern || r.displayPattern || t;
+    this.serverPattern = r.serverPattern || r.displayPattern || e;
   }
   format(r) {
     if (r)
@@ -23,19 +22,19 @@ class _ {
     return f(r).format(this.serverPattern);
   }
   parse(r) {
-    var t, i;
+    var e, i;
     if (r && typeof r == "string") {
       const n = r.charAt(0);
       if (n == ">")
-        t = this._parseDate(r.slice(1));
+        e = this._parseDate(r.slice(1));
       else if (n == "<")
         i = this._parseDate(r.slice(1));
       else {
         const a = r.split("...");
-        t = this._parseDate(a[0]), a[1] && (i = this._parseDate(a[1]));
+        e = this._parseDate(a[0]), a[1] && (i = this._parseDate(a[1]));
       }
     }
-    return { from: t, to: i };
+    return { from: e, to: i };
   }
   _parseDate(r) {
     if (r)

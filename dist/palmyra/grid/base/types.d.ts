@@ -21,12 +21,16 @@ interface IPattern {
     serverPattern?: string;
     displayPattern?: string;
 }
-interface IRange {
+interface IConstraints {
     min?: number;
     max?: number;
 }
+interface IRange<T> {
+    from?: T;
+    to?: T;
+}
 type FieldType = "string" | "number" | "date" | "radio" | "select" | "iosswitch" | "datetime" | "textarea" | "checkbox" | "serverlookup" | "switch" | "autoComplete" | "password" | "multiSelect" | "dateRange" | "float" | "numbersOnly" | "integer" | "slider" | "sliderRange" | "rating";
-interface ColumnFieldOptions extends FieldOptions, IPattern, IRange {
+interface ColumnFieldOptions extends FieldOptions, IPattern, IConstraints {
     type: FieldType;
 }
 interface Converter<TEXT, DATA> {
@@ -99,4 +103,4 @@ interface PalmyraGridOptions<T> extends GridXOptions<T> {
 interface IPalmyraGrid extends IPageQueryable {
 }
 export type { ColumnDefinition, GridCustomizer, CellGetter, IExportOptions, IReactTanstackTable, ITableOptions, IGridPlugin, DataGridOptions, DataGridPluginOptions, GridXOptions, PalmyraGridOptions, IPalmyraGrid };
-export type { ITitle, IPattern, Converter, ColumnFieldOptions, FieldType, IRange };
+export type { ITitle, IPattern, Converter, ColumnFieldOptions, FieldType, IConstraints, IRange };

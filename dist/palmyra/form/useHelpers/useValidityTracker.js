@@ -1,28 +1,19 @@
-import "../../../chunks/NoopConverter.js";
-import "dayjs";
-import { useRef as o, useCallback as f } from "react";
-const a = (r) => {
-  if (r && r > 0) {
-    var n;
-    return function(t, ...e) {
-      clearTimeout(n), n = setTimeout(t.bind(null, ...e), r);
-    };
-  } else
-    return (t, ...e) => t.apply(null, e);
-}, b = (r, n) => {
-  const t = o({}), e = f(() => a(n), [n])(), s = (u, c) => {
-    if (c) {
-      if (!t.current[u])
+import { delayGenerator as o } from "@palmyralabs/ts-utils";
+import { useRef as f, useCallback as d } from "react";
+const b = (n, s) => {
+  const r = f({}), c = d(() => o(s), [s])(), u = (e, i) => {
+    if (i) {
+      if (!r.current[e])
         return;
-      delete t.current[u], i() && e(r, !0);
+      delete r.current[e], t() && c(n, !0);
     } else {
-      if (t.current[u])
+      if (r.current[e])
         return;
-      const l = i();
-      t.current[u] = u, l && e(r, !1);
+      const l = t();
+      r.current[e] = e, l && c(n, !1);
     }
-  }, i = () => Object.keys(t.current).length == 0;
-  return { isValid: i, setValidity: s };
+  }, t = () => Object.keys(r.current).length == 0;
+  return { isValid: t, setValidity: u };
 };
 export {
   b as useValidityTracker

@@ -1,20 +1,18 @@
-var n = Object.defineProperty;
-var u = (o, t, r) => t in o ? n(o, t, { enumerable: !0, configurable: !0, writable: !0, value: r }) : o[t] = r;
-var e = (o, t, r) => u(o, typeof t != "symbol" ? t + "" : t, r);
-import { e as a } from "../../../chunks/accessor.js";
-import "../../../chunks/NoopConverter.js";
-import "dayjs";
-class p {
+var o = Object.defineProperty;
+var u = (a, t, e) => t in a ? o(a, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : a[t] = e;
+var r = (a, t, e) => u(a, typeof t != "symbol" ? t + "" : t, e);
+import { getValueByKey as n } from "@palmyralabs/ts-utils";
+class l {
   constructor() {
-    e(this, "getFieldData", (t, r) => a(r.attribute, t));
-    e(this, "getRawdata", (t, r) => a(r.attribute, t));
-    e(this, "format", (t) => t);
-    e(this, "parse", (t) => t);
-    e(this, "convert", (t) => t);
-    e(this, "getDefaultValue", (t) => t || "");
+    r(this, "getFieldData", (t, e) => n(e.attribute, t));
+    r(this, "getRawdata", (t, e) => n(e.attribute, t));
+    r(this, "format", (t) => t);
+    r(this, "parse", (t) => t);
+    r(this, "convert", (t) => t);
+    r(this, "getDefaultValue", (t) => t || "");
   }
 }
-const c = new p();
+const i = new l();
 export {
-  c as noopConverter
+  i as noopConverter
 };

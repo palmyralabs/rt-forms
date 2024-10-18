@@ -1,9 +1,9 @@
-import { ColumnFieldOptions, Converter, IRange } from '../base/types';
+import { ColumnFieldOptions, Converter, IConstraints } from '../base/types';
 type ISliderRange = [number, number];
 declare class SliderRangeConverter implements Converter<any, ISliderRange> {
     min: number;
     max: number;
-    constructor(props: IRange);
+    constructor(props: IConstraints);
     getFieldData: (data: any, props: ColumnFieldOptions) => string | number | Date;
     getRawdata: (data: any, props: ColumnFieldOptions) => string | number | Date;
     format(data: ISliderRange): any;

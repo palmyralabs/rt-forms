@@ -25,8 +25,8 @@ export default defineConfig({
     },
     lib: {
       entry: resolve(__dirname, 'src/main.ts'),
-      name: 'PalmyraTsUtils',
-      fileName: 'palmyra-ts-utils',
+      name: 'PalmyraRTForms',
+      fileName: 'palmyra-rt-forms',
       formats: ['es']
     },
     rollupOptions: {
@@ -38,6 +38,7 @@ export default defineConfig({
         'dayjs',
         '@palmyralabs/palmyra-wire',
         '@palmyralabs/ts-predicates',
+        '@palmyralabs/ts-utils',
         'jspdf',
         'react',
         'html2canvas',
@@ -50,6 +51,7 @@ export default defineConfig({
         '@emotion/styled',
         '@mui/x-date-pickers',
         '@mui/material',
+        'dayjs',
         '@mui/icons-material',
         '@mui/styled-engine',
         '@mui/x-tree-view',

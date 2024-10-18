@@ -35,9 +35,14 @@ interface IPattern {
     displayPattern?: string,
 }
 
-interface IRange {
+interface IConstraints {
     min?: number,
     max?: number
+}
+
+interface IRange<T> {
+    from?: T,
+    to?:T
 }
 
 type FieldType = "string" | "number" | "date" | "radio" | "select" | "iosswitch"
@@ -45,7 +50,7 @@ type FieldType = "string" | "number" | "date" | "radio" | "select" | "iosswitch"
     | "password" | "multiSelect" | "dateRange" | "float" | "numbersOnly" | "integer"
     | "slider" | "sliderRange" | "rating";
 
-interface ColumnFieldOptions extends FieldOptions, IPattern, IRange {
+interface ColumnFieldOptions extends FieldOptions, IPattern, IConstraints {
     type: FieldType
 }
 
@@ -138,5 +143,5 @@ export type {
 };
 
 export type {
-    ITitle, IPattern, Converter, ColumnFieldOptions, FieldType, IRange
+    ITitle, IPattern, Converter, ColumnFieldOptions, FieldType, IConstraints, IRange
 }

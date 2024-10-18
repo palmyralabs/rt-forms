@@ -27,6 +27,7 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
+    "dayjs": "^1.11.13",
     "@testing-library/react": "^16.0.1",
     "@types/node": "^22.7.6",
     "@types/react": "^18.3.11",
@@ -48,7 +49,7 @@
   ],
   "dependencies": {
     "@mui/x-date-pickers": "^7.12.0",
-    "@palmyralabs/ts-utils": "^0.0.2",
+    "@palmyralabs/ts-utils": "github:palmyralabs/ts-utils",
     "@tanstack/react-table": "^8.20.5"
   },
   "peerDependencies": {
@@ -58,6 +59,6 @@
   },
   "overrides": {
     "glob": "^11.0.0",
-    "tough-cookie":"5.0.0"
+    "tough-cookie": "5.0.0"
   }
 }

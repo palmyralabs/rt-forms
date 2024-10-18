@@ -1,5 +1,5 @@
 import { getValueByKey } from "@palmyralabs/ts-utils";
-import { ColumnFieldOptions, Converter, IRange } from "../base/types";
+import { ColumnFieldOptions, Converter, IConstraints } from "../base/types";
 
 type ISliderRange = [number, number];
 
@@ -7,7 +7,7 @@ class SliderRangeConverter implements Converter<any, ISliderRange> {
     min = 0;
     max = 100
 
-    constructor(props: IRange) {
+    constructor(props: IConstraints) {
         this.min = props.min || this.min;
         this.max = props.max || this.max;
     }

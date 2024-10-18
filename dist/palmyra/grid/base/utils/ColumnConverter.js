@@ -1,14 +1,12 @@
-import { jsx as l } from "react/jsx-runtime";
+import { jsx as m } from "react/jsx-runtime";
 import { createColumnHelper as c } from "@tanstack/react-table";
 import { formatColumn as d } from "./CellFormatter.js";
-import { o as b, e as v } from "../../../../chunks/accessor.js";
-import "../../../../chunks/NoopConverter.js";
-import "dayjs";
-import { NoopGridCustomizer as C } from "../NoopGridCustomizer.js";
-import { getFormatConverter as g } from "../../utils/FormatterFactory.js";
+import { hasDot as b, getValueByKey as v } from "@palmyralabs/ts-utils";
+import { NoopGridCustomizer as g } from "../NoopGridCustomizer.js";
+import { getFormatConverter as C } from "../../utils/FormatterFactory.js";
 const u = c();
-function N(r, o) {
-  const e = o || C;
+function w(r, o) {
+  const e = o || g;
   return r.every((t) => t.columnGroup == null) ? r.map((t) => p(t, e)) : h(r, e);
 }
 function h(r, o) {
@@ -22,7 +20,7 @@ function h(r, o) {
 function p(r, o) {
   const e = r.sortable, t = r.searchable;
   var n = r.cellRenderer;
-  const a = o.formatHeader(r, y(r)), i = o.formatFooter(r, F());
+  const a = o.formatHeader(r, G(r)), i = o.formatFooter(r, F());
   if (n)
     return u.display({
       id: s(r),
@@ -36,8 +34,8 @@ function p(r, o) {
       footer: i,
       cell: n
     });
-  let m = o.formatCell(r, d(r));
-  return u.accessor(G(r), {
+  let l = o.formatCell(r, d(r));
+  return u.accessor(y(r), {
     id: s(r),
     meta: {
       attribute: r.attribute,
@@ -47,24 +45,24 @@ function p(r, o) {
     enableColumnFilter: t,
     header: a,
     footer: i,
-    cell: m
+    cell: l
   });
 }
-function G(r) {
+function y(r) {
   var o = r.attribute ? r.attribute : r.name;
-  const e = g(r);
+  const e = C(r);
   return b(o) ? (t) => e.convert(v(o, t)) : (t) => e.convert(t[o]);
 }
 function s(r) {
   return r.name ? r.name : r.attribute;
 }
-function y(r) {
-  return () => /* @__PURE__ */ l("span", { children: r.label });
+function G(r) {
+  return () => /* @__PURE__ */ m("span", { children: r.label });
 }
 function F(r) {
   return (o, e) => {
   };
 }
 export {
-  N as generateColumns
+  w as generateColumns
 };

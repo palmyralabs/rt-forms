@@ -1,15 +1,13 @@
-var s = Object.defineProperty;
-var u = (e, r, t) => r in e ? s(e, r, { enumerable: !0, configurable: !0, writable: !0, value: t }) : e[r] = t;
+var m = Object.defineProperty;
+var u = (e, r, t) => r in e ? m(e, r, { enumerable: !0, configurable: !0, writable: !0, value: t }) : e[r] = t;
 var i = (e, r, t) => u(e, typeof r != "symbol" ? r + "" : r, t);
-import { e as n } from "../../../chunks/accessor.js";
-import "../../../chunks/NoopConverter.js";
-import "dayjs";
-class b {
+import { getValueByKey as s } from "@palmyralabs/ts-utils";
+class h {
   constructor(r) {
     i(this, "min", 0);
     i(this, "max", 100);
-    i(this, "getFieldData", (r, t) => n(t.attribute, r));
-    i(this, "getRawdata", (r, t) => n(t.attribute, r));
+    i(this, "getFieldData", (r, t) => s(t.attribute, r));
+    i(this, "getRawdata", (r, t) => s(t.attribute, r));
     i(this, "getDefaultValue", (r) => r || this.min + "..." + this.max);
     this.min = r.min || this.min, this.max = r.max || this.max;
   }
@@ -18,12 +16,12 @@ class b {
       return r[0] + "..." + r[1];
   }
   parse(r) {
-    var t, m;
+    var t, a;
     if (r && typeof r == "string") {
-      const a = r.split("...");
-      t = this._parseNumber(a[0]), m = this._parseNumber(a[1]);
+      const n = r.split("...");
+      t = this._parseNumber(n[0]), a = this._parseNumber(n[1]);
     }
-    return [t, m];
+    return [t, a];
   }
   _parseNumber(r) {
     if (r)
@@ -34,5 +32,5 @@ class b {
   }
 }
 export {
-  b as SliderRangeConverter
+  h as SliderRangeConverter
 };

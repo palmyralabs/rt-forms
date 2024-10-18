@@ -1,29 +1,20 @@
-function i(n) {
+function c(n) {
   return n && typeof n == "object" && !Array.isArray(n);
 }
-function c(n, ...e) {
-  if (!e.length) return n;
-  const r = e.shift();
-  if (i(n) && i(r))
-    for (const o in r)
-      i(r[o]) ? (n[o] || Object.assign(n, { [o]: {} }), c(n[o], r[o])) : Object.assign(n, { [o]: r[o] });
-  return c(n, ...e);
+function f(n, ...i) {
+  if (!i.length) return n;
+  const r = i.shift();
+  if (c(n) && c(r))
+    for (const e in r)
+      c(r[e]) ? (n[e] || Object.assign(n, { [e]: {} }), f(n[e], r[e])) : Object.assign(n, { [e]: r[e] });
+  return f(n, ...i);
 }
-const s = (n) => {
-  var e = {};
-  return c(e, n), e;
-}, t = (n) => {
-  var e;
-  return function(r) {
-    clearTimeout(e), e = setTimeout(function() {
-      r.apply(null);
-    }, n || 0);
-  };
-}, f = t(300);
+const o = (n) => {
+  var i = {};
+  return f(i, n), i;
+};
 export {
-  s as cloneDeep,
-  f as delay,
-  t as delayGenerator,
-  i as isObject,
-  c as mergeDeep
+  o as cloneDeep,
+  c as isObject,
+  f as mergeDeep
 };

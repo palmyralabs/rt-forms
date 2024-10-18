@@ -1,56 +1,54 @@
-import { x as A, i as v, K as b } from "../../../chunks/accessor.js";
-import "../../../chunks/NoopConverter.js";
-import "dayjs";
-const m = (e) => {
+import { getValueSetter as A, setValueByKey as v, getValueAccessor as b } from "@palmyralabs/ts-utils";
+const V = (e) => {
   var r, t;
   return ((r = e.queryOptions) == null ? void 0 : r.idAttribute) || ((t = e.lookupOptions) == null ? void 0 : t.idAttribute) || "id";
-}, I = (e) => {
+}, g = (e) => {
   var r, t;
   return ((r = e.queryOptions) == null ? void 0 : r.labelAttribute) || ((t = e.lookupOptions) == null ? void 0 : t.labelAttribute) || "id";
-}, O = (e) => {
+}, I = (e) => {
   var r, t;
   return ((r = e.lookupOptions) == null ? void 0 : r.idAttribute) || ((t = e.queryOptions) == null ? void 0 : t.idAttribute) || "id";
-}, V = (e) => {
+}, O = (e) => {
   var r, t;
   return ((r = e.lookupOptions) == null ? void 0 : r.labelAttribute) || ((t = e.queryOptions) == null ? void 0 : t.labelAttribute) || "id";
-}, w = (e, { getOptionKey: r, getOptionValue: t }) => {
-  const { attribute: a, lookupOptions: o } = e, c = A(a);
+}, m = (e, { getOptionKey: r, getOptionValue: t }) => {
+  const { attribute: p, lookupOptions: o } = e, c = A(p);
   if (o != null && o.displayAttribute)
-    return (s, l) => {
-      const d = r(s), n = t(s);
-      v(o.displayAttribute, l, n), c(l, d);
+    return (n, l) => {
+      const d = r(n), i = t(n);
+      v(o.displayAttribute, l, i), c(l, d);
     };
   if (o != null && o.idAttribute)
-    return (s, l) => {
-      if (typeof s != "object")
+    return (n, l) => {
+      if (typeof n != "object")
         c(l, "");
       else {
-        const d = r(s), n = t(s), u = o.idAttribute, i = o.labelAttribute, p = { [u]: d, [i]: n };
-        c(l, p);
+        const d = r(n), i = t(n), u = o.idAttribute, s = o.labelAttribute, a = { [u]: d, [s]: i };
+        c(l, a);
       }
     };
   throw new Error("lookupOptions must be provided in the field options");
-}, S = (e) => {
-  const { attribute: r } = e, t = e.lookupOptions, a = m(e), o = I(e), c = b(r), s = A(a), l = A(o), d = (n, u) => {
-    var i = {};
-    return s(i, n), l(i, u), i;
+}, q = (e) => {
+  const { attribute: r } = e, t = e.lookupOptions, p = V(e), o = g(e), c = b(r), n = A(p), l = A(o), d = (i, u) => {
+    var s = {};
+    return n(s, i), l(s, u), s;
   };
   if (t != null && t.displayAttribute) {
-    const n = b(t.displayAttribute);
+    const i = b(t.displayAttribute);
     return (u) => {
-      const i = c(u);
-      if (i) {
-        const p = n(u);
-        return d(i, p);
+      const s = c(u);
+      if (s) {
+        const a = i(u);
+        return d(s, a);
       } else
         return null;
     };
   } else if (t != null && t.idAttribute) {
-    const n = O(e), u = V(e), i = b(n), p = b(u);
+    const i = I(e), u = O(e), s = b(i), a = b(u);
     return (K) => {
       const y = c(K);
       if (y) {
-        const f = i(y), k = p(y);
+        const f = s(y), k = a(y);
         return d(f, k);
       } else
         return null;
@@ -59,10 +57,10 @@ const m = (e) => {
     throw new Error("lookupOptions must be provided in the field options");
 };
 export {
-  S as generateFieldAccessor,
-  w as generateFieldWriter,
-  O as getLookupIdKey,
-  V as getLookupValueKey,
-  m as getOptionIdKey,
-  I as getOptionValueKey
+  q as generateFieldAccessor,
+  m as generateFieldWriter,
+  I as getLookupIdKey,
+  O as getLookupValueKey,
+  V as getOptionIdKey,
+  g as getOptionValueKey
 };

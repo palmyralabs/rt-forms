@@ -1,6 +1,4 @@
-import { e as l } from "../../../chunks/accessor.js";
-import "../../../chunks/NoopConverter.js";
-import "dayjs";
+import { getValueByKey as l } from "@palmyralabs/ts-utils";
 const o = {
   "length.eq": ["length.errorMessage.equal", "length.errorMessage", "invalidMessage"],
   "length.min": ["length.errorMessage.minimum", "length.errorMessage", "invalidMessage"],
@@ -10,7 +8,7 @@ const o = {
   rule: ["validRule.errorMessage", "invalidMessage"],
   regex: ["regExp.errorMessage", "invalidMessage"],
   required: ["missingMessage"]
-}, m = (r, e) => {
+}, c = (r, e) => {
   const a = r.reason;
   if (!a)
     return "";
@@ -45,5 +43,5 @@ const o = {
   return t(r, e);
 }, M = (r, e) => t(r.reason, e);
 export {
-  m as getErrorMessage
+  c as getErrorMessage
 };
