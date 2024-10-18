@@ -15,7 +15,7 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
     const idKey = props.idKey || 'id';
     const operation = props.mode != 'save' ? 'put' : 'save';
     const endPointVars = props.endPointOptions || {};
-    const { onSaveFailure, onSaveSuccess, preSave } = getHandlers(props);     
+    const { onSaveFailure, onSaveSuccess, preSave } = getHandlers(props);
     const getEndPoint = (endPoint: IEndPoint, idProperty: string): IEndPoint => {
         if (typeof endPoint == 'string') {
             return endPoint + '/{' + idProperty + '}';
@@ -33,7 +33,8 @@ const usePalmyraEditForm: IusePalmyraEditForm = (props: IPalmyraEditFormInput): 
             endPointVars: {
                 ...endPointVars,
                 [idProperty]: id
-            }
+            },
+            errorHandler: props.onQueryFailure
         };
         return formStore.get(request).then(d => {
             const onQueryData = props.onQueryData;

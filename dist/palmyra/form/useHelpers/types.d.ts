@@ -1,4 +1,4 @@
-import { IEndPoint, IEndPointOptions, StoreFactory, StoreOptions } from '@palmyralabs/palmyra-wire';
+import { ErrorHandler, IEndPoint, IEndPointOptions, StoreFactory, StoreOptions } from '@palmyralabs/palmyra-wire';
 import { MutableRefObject } from 'react';
 import { IForm } from '../types';
 interface IStoreProps<T extends StoreOptions> {
@@ -26,6 +26,7 @@ interface IPalmyraViewFormInput extends IuseFormOptions<StoreOptions>, IFormQuer
     id: string;
     idKey?: string;
     fields?: string[];
+    onQueryFailure?: ErrorHandler;
 }
 interface IPalmyraEditFormInput extends IPalmyraViewFormInput, IFormSaveEventHandler {
     mode?: 'edit' | 'save';

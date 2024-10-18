@@ -1,4 +1,4 @@
-import { IEndPoint, IEndPointOptions, StoreFactory, StoreOptions } from "@palmyralabs/palmyra-wire"
+import { ErrorHandler, IEndPoint, IEndPointOptions, StoreFactory, StoreOptions } from "@palmyralabs/palmyra-wire"
 import { MutableRefObject } from "react"
 import { IForm } from "../types"
 
@@ -33,7 +33,8 @@ interface IPalmyraNewFormInput extends IuseFormOptions<StoreOptions>,
 interface IPalmyraViewFormInput extends IuseFormOptions<StoreOptions>, IFormQueryEventHandler {
     id: string,
     idKey?: string,
-    fields?: string[]
+    fields?: string[],
+    onQueryFailure?:ErrorHandler
 }
 
 

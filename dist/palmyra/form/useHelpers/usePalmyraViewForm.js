@@ -1,27 +1,28 @@
-import { useContext as F, useRef as u, useEffect as R } from "react";
+import { useContext as P, useRef as i, useEffect as R } from "react";
 import { StoreFactoryContext as h } from "../formContext.js";
-const C = (t) => {
-  const f = t.storeFactory || F(h), n = t.formRef || u(null), s = u(), m = t.idKey || "id", d = t.endPointOptions || {}, y = (e, r) => typeof e == "string" ? e + "/{" + r + "}" : e, c = () => {
-    const e = t.id, r = m;
-    var l = y(t.endPoint, r);
-    const D = f.getFormStore({}, l, r);
-    var P = {
+const S = (t) => {
+  const f = t.storeFactory || P(h), n = t.formRef || i(null), a = i(), d = t.idKey || "id", m = t.endPointOptions || {}, y = (e, r) => typeof e == "string" ? e + "/{" + r + "}" : e, c = () => {
+    const e = t.id, r = d;
+    var g = y(t.endPoint, r);
+    const D = f.getFormStore({}, g, r);
+    var F = {
       options: {
-        ...d,
+        ...m,
         [r]: e
-      }
+      },
+      errorHandler: t.onQueryFailure
     };
-    return D.get(P).then((a) => {
-      const i = t.onQueryData, o = i ? i(a) : a;
-      return n.current && n.current.setData(o), s.current = o, Promise.resolve(o);
+    return D.get(F).then((s) => {
+      const u = t.onQueryData, o = u ? u(s) : s;
+      return n.current && n.current.setData(o), a.current = o, Promise.resolve(o);
     });
-  }, g = () => {
+  }, l = () => {
     c();
   };
   return R(() => {
     c();
-  }, [t.id]), { getData: () => s.current, formRef: n, refresh: g };
+  }, [t.id]), { getData: () => a.current, formRef: n, refresh: l };
 };
 export {
-  C as usePalmyraViewForm
+  S as usePalmyraViewForm
 };

@@ -32,7 +32,8 @@ const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): 
             options: {
                 ...endPointVars,
                 [idProperty]: id
-            }
+            },
+            errorHandler: props.onQueryFailure
         };
         return formStore.get(request).then(d => {
             const onQueryData = props.onQueryData;
