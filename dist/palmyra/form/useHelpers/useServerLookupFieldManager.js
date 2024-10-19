@@ -14,17 +14,21 @@ import "@tanstack/react-table";
 import "../../grid/base/utils/ColumnConverter.js";
 import "dayjs";
 import "../../grid/utils/FormatterFactory.js";
+import "../../../chunks/index.js";
+import "react-router-dom";
+import "../../menu/AsyncTreeMenuEditor.js";
+import "@mui/icons-material";
 import { getOptionIdKey as H, getOptionValueKey as J, generateFieldAccessor as N, generateFieldWriter as U } from "./ServerLookupCustomizer.js";
 const X = (t, e) => {
-  const s = v(H(t)), i = v(J(t)), r = (o) => typeof o == "object" ? s(o) : (console.error("getOptionKey", o), ""), c = (o) => typeof o == "object" ? i(o) : (o != "" && console.error("getOptionValue", o), ""), g = N(t), u = U(t, { getOptionKey: r, getOptionValue: c });
+  const s = v(H(t)), i = v(J(t)), r = (o) => typeof o == "object" ? s(o) : (console.error("getOptionKey", o), ""), c = (o) => typeof o == "object" ? i(o) : (o != "" && console.error("getOptionValue", o), ""), m = N(t), u = U(t, { getOptionKey: r, getOptionValue: c });
   var a = {
-    fieldAccessor: g,
+    fieldAccessor: m,
     fieldWriter: u
   };
   return e && (e.format && (a.format = e.format), e.parse && (a.parse = e.parse)), { customizer: a, optionIdAccessor: s, getOptionKey: r, getOptionValue: c };
-}, Oe = (t, e, s) => {
+}, qe = (t, e, s) => {
   var q, b, F;
-  const i = R(0), [r, c] = P(""), [g, u] = P([]), a = (s == null ? void 0 : s.preProcessSearchText) || ((n) => "*" + n + "*"), { customizer: o, optionIdAccessor: m, getOptionKey: x, getOptionValue: V } = X(e, s), y = E(t, e, o), k = Y(e), K = () => {
+  const i = R(0), [r, c] = P(""), [m, u] = P([]), a = (s == null ? void 0 : s.preProcessSearchText) || ((n) => "*" + n + "*"), { customizer: o, optionIdAccessor: g, getOptionKey: x, getOptionValue: V } = X(e, s), y = E(t, e, o), k = Y(e), K = () => {
     const {
       lookupOptions: n,
       storeOptions: f,
@@ -43,10 +47,10 @@ const X = (t, e) => {
     quickSearch: z,
     initialFetch: !1,
     defaultParams: e.defaultParams
-  }, C = G(T), I = (n, f) => m(n) == m(f);
+  }, C = G(T), I = (n, f) => g(n) == g(f);
   function L(n, f) {
     return n.find((O) => {
-      if (m(O) == f)
+      if (g(O) == f)
         return O;
     });
   }
@@ -69,7 +73,7 @@ const X = (t, e) => {
     searchText: r,
     setSearchText: c,
     refreshOptions: S,
-    options: g,
+    options: m,
     hasValueInOptions: I,
     getOptionValue: V,
     getOptionByKey: L,
@@ -84,5 +88,5 @@ function Y(t) {
   return w(i, t.queryOptions), e.getLookupStore(i, t.queryOptions.endPoint, s);
 }
 export {
-  Oe as useServerLookupFieldManager
+  qe as useServerLookupFieldManager
 };

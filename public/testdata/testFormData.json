@@ -12,8 +12,8 @@
         "dateTime": "2024-10-12 12:12:12",
         "dateRange": "2024-10-12...2024-12-20",
         "serverLookup": {
-            "id": 2,
-            "name": "Madurai"
+            "sid": 2,
+            "location": "Madurai"
         }
     }
 }
