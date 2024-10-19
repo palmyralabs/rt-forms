@@ -1,12 +1,14 @@
 import { jsx as n, Fragment as N, jsxs as p } from "react/jsx-runtime";
 import { useRef as S, useState as L, useEffect as k } from "react";
-import { f as j, A as B, c as M, I as U } from "../../chunks/index.js";
-import { useNavigate as V } from "react-router-dom";
+import V from "react-accessible-treeview";
+import j from "classnames";
+import { A as B, I as M } from "../../chunks/index.js";
+import { useNavigate as U } from "react-router-dom";
 const E = "palmyra.rui.sidemenu.expanded", v = "palmyra.rui.sidemenu.expanded.selected";
-function P(h) {
-  const o = V(), g = S(null);
+function q(h) {
+  const o = U(), g = S(null);
   let u = { name: "", id: -1, parent: null, children: [], isBranch: !0 };
-  const [l, y] = L({ data: [u], expandedIds: [], selectedId: [] }), A = h.store, i = S([]), b = (e, r, a) => e.map((s) => (s.id === r && !s.loaded && (s.loaded = !0, s.children = a.filter((d) => r == d.parent).map((d) => d.id)), s)).concat(a), w = (e) => e.split(",").map((a) => parseInt(a)), C = (e, r) => e && Array.isArray(e) ? e.map((t) => {
+  const [i, y] = L({ data: [u], expandedIds: [], selectedId: [] }), A = h.store, l = S([]), b = (e, r, a) => e.map((s) => (s.id === r && !s.loaded && (s.loaded = !0, s.children = a.filter((d) => r == d.parent).map((d) => d.id)), s)).concat(a), w = (e) => e.split(",").map((a) => parseInt(a)), T = (e, r) => e && Array.isArray(e) ? e.map((t) => {
     const s = t.children || "";
     return {
       id: t.id,
@@ -27,18 +29,18 @@ function P(h) {
   }
   k(() => {
     A.getRoot().then((e) => {
-      var r = C(e.result, -1);
-      const a = b(l.data, -1, r), t = (localStorage.getItem(E) || "").split(",");
-      i.current = t.map((c) => I(c)).filter((c) => r.some((m) => m.id == c));
+      var r = T(e.result, -1);
+      const a = b(i.data, -1, r), t = (localStorage.getItem(E) || "").split(",");
+      l.current = t.map((c) => I(c)).filter((c) => r.some((m) => m.id == c));
       const d = (localStorage.getItem(v) || "").split(",").map((c) => I(c)).filter((c) => r.some((m) => m.id == c));
-      y({ data: a, expandedIds: i.current, selectedId: d });
+      y({ data: a, expandedIds: l.current, selectedId: d });
     });
   }, []);
-  const O = () => {
-    localStorage.setItem(E, i.current.join());
-  }, R = (e) => {
+  const C = () => {
+    localStorage.setItem(E, l.current.join());
+  }, O = (e) => {
     localStorage.setItem(v, e);
-  }, T = (e) => {
+  }, R = (e) => {
     var r, a;
     if (!e.isBranch && ((r = e.metadata) != null && r.code)) {
       const t = e.metadata.code;
@@ -58,31 +60,31 @@ function P(h) {
         "aria-live": "polite"
       }
     ),
-    /* @__PURE__ */ n("div", { className: "checkbox", children: l.data.length > 1 && /* @__PURE__ */ n(
-      j,
+    /* @__PURE__ */ n("div", { className: "checkbox", children: i.data.length > 1 && /* @__PURE__ */ n(
+      V,
       {
         className: "async-tree-menu-container",
-        data: l.data,
+        data: i.data,
         "aria-label": "Checkbox tree",
         onExpand: (e) => {
           const r = e.isExpanded, a = e.element;
           if (r)
-            a.id != "" && (i.current.includes(a.id) || i.current.push(a.id));
+            a.id != "" && (l.current.includes(a.id) || l.current.push(a.id));
           else {
-            const t = i.current.indexOf(a.id);
-            t > -1 && i.current.splice(t, 1);
+            const t = l.current.indexOf(a.id);
+            t > -1 && l.current.splice(t, 1);
           }
-          O();
+          C();
         },
         onSelect: (e) => {
           const r = e.isSelected, a = e.element;
-          r && !e.isHalfSelected && a.id !== "" && R(a.id);
+          r && !e.isHalfSelected && a.id !== "" && O(a.id);
         },
         propagateSelect: !1,
         togglableSelect: !0,
         multiSelect: !1,
-        selectedIds: l.selectedId,
-        expandedIds: l.expandedIds,
+        selectedIds: i.selectedId,
+        expandedIds: i.expandedIds,
         propagateSelectUpwards: !0,
         nodeRenderer: ({
           element: e,
@@ -126,7 +128,7 @@ function P(h) {
                 {
                   className: t ? "async-tree-menu-selected-list" : "async-tree-menu-list",
                   onClick: (f) => {
-                    t || m(f), T(e);
+                    t || m(f), R(e);
                   },
                   children: [
                     /* @__PURE__ */ p("div", { className: "async-tree-menu-list-text-container", children: [
@@ -145,14 +147,14 @@ function P(h) {
   ] }) });
 }
 const F = (h) => {
-  const { isOpen: o, className: g } = h, u = "arrow", l = M(
+  const { isOpen: o, className: g } = h, u = "arrow", i = j(
     u,
     { [`${u}--closed`]: !o },
     { [`${u}--open`]: o },
     g
   );
-  return /* @__PURE__ */ n(U, { className: l });
+  return /* @__PURE__ */ n(M, { className: i });
 };
 export {
-  P as default
+  q as default
 };

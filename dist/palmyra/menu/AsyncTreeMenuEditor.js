@@ -1,10 +1,12 @@
-import { jsx as a, Fragment as g, jsxs as h } from "react/jsx-runtime";
+import { jsx as a, Fragment as g, jsxs as m } from "react/jsx-runtime";
 import { forwardRef as q, useRef as y, useState as C, useImperativeHandle as B, useEffect as P } from "react";
-import { f as j, A as V, c as $, a as G } from "../../chunks/index.js";
-import { F as H, a as U, b as z, A as J } from "../../chunks/AsyncTreeCrudDropDown.js";
+import { A as V, a as j } from "../../chunks/index.js";
+import { F as $, a as G, b as H, A as U } from "../../chunks/AsyncTreeCrudDropDown.js";
+import z from "react-accessible-treeview";
+import J from "classnames";
 import { ClickAwayListener as K } from "@mui/material";
-const ne = q(function(n, d) {
-  const s = n.groupId, m = y(null), b = d || y(null);
+const te = q(function(n, d) {
+  const s = n.groupId, h = y(null), b = d || y(null);
   let w = { name: "", id: -1, parent: null, children: [], isBranch: !0 };
   const [p, I] = C([w]), [k, S] = C([]), A = n.storeFactory.getTreeStore({ endPointOptions: { groupId: s } }, n.endPoint);
   B(b, () => ({
@@ -59,18 +61,18 @@ const ne = q(function(n, d) {
       });
     }), c;
   }, F = n.readOnly ? { color: "rgb( 230, 230, 230 )", backgroundColor: "white" } : { color: "rgb(44, 134, 213)", backgroundColor: "white" };
-  return /* @__PURE__ */ a(g, { children: /* @__PURE__ */ h("div", { children: [
+  return /* @__PURE__ */ a(g, { children: /* @__PURE__ */ m("div", { children: [
     /* @__PURE__ */ a(
       "div",
       {
         className: "visually-hidden",
-        ref: m,
+        ref: h,
         role: "alert",
         "aria-live": "polite"
       }
     ),
     /* @__PURE__ */ a("div", { className: "checkbox", children: /* @__PURE__ */ a(
-      j,
+      z,
       {
         data: p,
         selectedIds: k,
@@ -88,12 +90,12 @@ const ne = q(function(n, d) {
           getNodeProps: l,
           level: u,
           handleSelect: R,
-          handleExpand: L
+          handleExpand: T
         }) => {
           const N = o ? 1 : t ? 2 : 0;
           r.metadata ? r.metadata.selected = N : r.metadata = { selected: N };
-          const T = (f, v) => f && v.children.length === 0 ? /* @__PURE__ */ h(g, { children: [
-            /* @__PURE__ */ h(
+          const L = (f, v) => f && v.children.length === 0 ? /* @__PURE__ */ m(g, { children: [
+            /* @__PURE__ */ m(
               "span",
               {
                 role: "alert",
@@ -115,10 +117,10 @@ const ne = q(function(n, d) {
           ] }) : /* @__PURE__ */ a(Q, { isOpen: f }), M = (f) => {
             n.readOnly || (R(f), f.stopPropagation);
           };
-          return /* @__PURE__ */ h(
+          return /* @__PURE__ */ m(
             "div",
             {
-              ...l({ onClick: L }),
+              ...l({ onClick: T }),
               children: [
                 /* @__PURE__ */ a(
                   W,
@@ -129,9 +131,9 @@ const ne = q(function(n, d) {
                     variant: o ? "some" : t ? "all" : "none"
                   }
                 ),
-                /* @__PURE__ */ h("div", { className: "menu-list", children: [
+                /* @__PURE__ */ m("div", { className: "menu-list", children: [
                   /* @__PURE__ */ a("div", { className: "text-icon", children: /* @__PURE__ */ a("span", { className: "menu-name", children: r.name }) }),
-                  /* @__PURE__ */ a("div", { children: c ? T(e, r) : /* @__PURE__ */ a(g, { children: n.fineGrained ? "" : /* @__PURE__ */ a(X, { element: r, isSelected: t }) }) })
+                  /* @__PURE__ */ a("div", { children: c ? L(e, r) : /* @__PURE__ */ a(g, { children: n.fineGrained ? "" : /* @__PURE__ */ a(X, { element: r, isSelected: t }) }) })
                 ] })
               ]
             }
@@ -141,20 +143,20 @@ const ne = q(function(n, d) {
     ) })
   ] }) });
 }), Q = (i) => {
-  const { isOpen: n, className: d } = i, s = "arrow", m = $(
+  const { isOpen: n, className: d } = i, s = "arrow", h = J(
     s,
     { [`${s}--closed`]: !n },
     { [`${s}--open`]: n },
     d
   );
-  return /* @__PURE__ */ a(G, { className: m });
+  return /* @__PURE__ */ a(j, { className: h });
 }, W = ({ variant: i, ...n }) => {
   switch (i) {
     case "all":
-      return /* @__PURE__ */ a(z, { style: { color: n.style.color, backgroundColor: n.style.backgroundColor }, ...n });
+      return /* @__PURE__ */ a(H, { style: { color: n.style.color, backgroundColor: n.style.backgroundColor }, ...n });
     case "none":
       return /* @__PURE__ */ a(
-        U,
+        G,
         {
           style: { color: "rgba(128, 128,128, 0.2)" },
           onClick: n.onClick,
@@ -162,29 +164,29 @@ const ne = q(function(n, d) {
         }
       );
     case "some":
-      return /* @__PURE__ */ a(H, { style: { color: n.style.color, backgroundColor: n.style.backgroundColor }, ...n });
+      return /* @__PURE__ */ a($, { style: { color: n.style.color, backgroundColor: n.style.backgroundColor }, ...n });
     default:
       return null;
   }
 }, X = (i) => {
   const [n, d] = C(!1), s = () => {
     d(!n);
-  }, m = () => {
+  }, h = () => {
   };
-  return /* @__PURE__ */ a(g, { children: /* @__PURE__ */ h("div", { className: "crud-dropdown-container", children: [
+  return /* @__PURE__ */ a(g, { children: /* @__PURE__ */ m("div", { className: "crud-dropdown-container", children: [
     /* @__PURE__ */ a("span", { className: "crud-dropdown-text", onClick: s, children: "crud" }),
     n && /* @__PURE__ */ a(K, { onClickAway: () => {
       d(!1);
     }, children: /* @__PURE__ */ a("div", { children: /* @__PURE__ */ a(
-      J,
+      U,
       {
         isHalfSelected: i.isSelected,
         isSelected: i.isSelected,
-        handleSelect: m
+        handleSelect: h
       }
     ) }) })
   ] }) });
 };
 export {
-  ne as AsyncTreeMenuEditor
+  te as AsyncTreeMenuEditor
 };

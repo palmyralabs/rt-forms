@@ -10,14 +10,16 @@ import "@tanstack/react-table";
 import "../../grid/base/utils/ColumnConverter.js";
 import "dayjs";
 import "../../grid/utils/FormatterFactory.js";
+import "react-accessible-treeview";
+import "classnames";
 import "../../../chunks/index.js";
 import "react-router-dom";
 import "../../menu/AsyncTreeMenuEditor.js";
 import "@mui/icons-material";
 /* empty css                                  */
 /* empty css                             */
-const pr = (e, r, s) => {
-  var S, x;
+const Fr = (e, r, s) => {
+  var m, S;
   const t = I(L);
   if (!t)
     throw Error("useFieldManager must be called within the scope of <PalmyraForm>");
@@ -32,9 +34,9 @@ const pr = (e, r, s) => {
   R(() => {
     w != null && D();
   }, [a]);
-  const g = i.value, n = i.error, G = () => g, K = () => n != null && n.showError ? n : { status: !1, message: "" }, j = () => p, q = (o, u = !0, P = !0) => {
+  const g = i.value, n = i.error, G = () => g, K = () => n != null && n.showError ? n : { status: !1, message: "" }, j = () => p, q = (o, u = !0, x = !0) => {
     const v = typeof o == "function" ? o(g) : o, d = F(v, p, l);
-    v === g && n && d.status == n.status && d.message == n.message || (t.setFieldValidity(e, !d.status), d.showError = P, r != null && r.readOnly ? E((m) => ({ ...m, error: d })) : (E({ value: v, error: d }), u && v !== g && t.setFieldData(e, v)));
+    v === g && n && d.status == n.status && d.message == n.message || (t.setFieldValidity(e, !d.status), d.showError = x, r != null && r.readOnly ? E((P) => ({ ...P, error: d })) : (E({ value: v, error: d }), u && v !== g && t.setFieldData(e, v)));
   }, D = () => {
     const o = F(g, p, l);
     n && n.showError && o.status == n.status && o.message == n.message || (o.showError = !0, E((u) => ({ ...u, error: o })));
@@ -62,17 +64,17 @@ const pr = (e, r, s) => {
       const {
         invalidMessage: o,
         missingMessage: u,
-        validator: P,
+        validator: x,
         regExp: v,
         validRule: d,
-        validFn: m,
+        validFn: P,
         defaultValue: $,
         ...H
       } = l;
       return { ...H, ...a };
     }
   };
-  return t.registerFieldManager(W, l), w == null && r.defaultValue && t.setFieldData(e, i.value), (S = i.error) != null && S.status && t.setFieldValidity(e, (x = i.error) == null ? void 0 : x.status), W;
+  return t.registerFieldManager(W, l), w == null && r.defaultValue && t.setFieldData(e, i.value), (m = i.error) != null && m.status && t.setFieldValidity(e, (S = i.error) == null ? void 0 : S.status), W;
 };
 function T(e, r) {
   return r != null && r.fieldAccessor ? r.fieldAccessor : h(e) ? (t) => Q(e, t) : (t) => t == null ? void 0 : t[e];
@@ -93,5 +95,5 @@ const Y = (e, r, s, t, a, V) => {
   return e == null ? r.defaultValue != null ? l = s != null && s.parse ? s.parse(r.defaultValue) : r.defaultValue : l = a({}) : l = V(e), f = F(l, t, r), f.status && (f.showError = e != null || r.defaultValue != null), { value: l, error: f };
 };
 export {
-  pr as useFieldManager
+  Fr as useFieldManager
 };
