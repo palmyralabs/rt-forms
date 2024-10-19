@@ -29,7 +29,9 @@
 .py-form-field-container .py-form-field-data {
     width: 60%;
 }
-
+.py-form-field-container.py-form-field-data {
+    display:block;
+}
 .py-form-field-container-wrapper {
     width: 100% !important;
     display: flex;
