@@ -4,10 +4,9 @@ import { FaRegSquare, FaCheckSquare, FaMinusSquare } from "react-icons/fa";
 import { IoMdArrowDropright } from "react-icons/io";
 import TreeView, { INode } from "react-accessible-treeview";
 import cx from "classnames";
-import { ClickAwayListener } from "@mui/material";
+
 import "./AsyncTreeMenu.css";
 import { TreeQueryStore } from "@palmyralabs/palmyra-wire";
-import AsyncTreeCrudDropDown from "./AsyncTreeCrudDropDown";
 import { IAsyncTreeEditor, IAsyncTreeEditorInput, IChildTreeRequest } from "./types";
 
 const AsyncTreeMenuEditor = forwardRef(function AsyncTreeMenuEditor(props: IAsyncTreeEditorInput,
@@ -266,22 +265,11 @@ const LeafNode = (props: ILeafNodeProps) => {
         setDropdownOpen(!dropdownOpen);
     };
 
-    const handleSelect = () => {
-
-    }
 
     return <>
         <div className="crud-dropdown-container" >
-            <span className="crud-dropdown-text" onClick={toggleDropdown}>crud
-            </span>
-            {dropdownOpen && (
-                <ClickAwayListener onClickAway={() => { setDropdownOpen(false) }}>
-                    <div>
-                        <AsyncTreeCrudDropDown isHalfSelected={props.isSelected}
-                            isSelected={props.isSelected} handleSelect={handleSelect} />
-                    </div>
-                </ClickAwayListener>
-            )}
+            <span className="crud-dropdown-text" onClick={toggleDropdown}>crud - under construction
+            </span>            
         </div>
     </>
 }

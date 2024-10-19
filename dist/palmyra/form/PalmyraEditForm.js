@@ -4,7 +4,7 @@ import "./formContext.js";
 import "./PalmyraForm.js";
 import "@palmyralabs/ts-predicates";
 import "@palmyralabs/ts-utils";
-import { P as n } from "../../chunks/ServerCardLayout.js";
+import { P as k } from "../../chunks/ServerCardLayout.js";
 import '../../assets/CardLayout.css';import '../../assets/FieldContainer.css';import '../../assets/FieldGroupContainer.css';/* empty css                               */
 /* empty css                          */
 /* empty css                      */
@@ -17,9 +17,8 @@ import "classnames";
 import "../../chunks/index.js";
 import "react-router-dom";
 import "../menu/AsyncTreeMenuEditor.js";
-import "@mui/icons-material";
 import "./useHelpers/usePalmyraEditForm.js";
 import "./formUtil.js";
 export {
-  n as PalmyraEditForm
+  k as PalmyraEditForm
 };
