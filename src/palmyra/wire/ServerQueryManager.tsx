@@ -42,7 +42,7 @@ interface Result {
 
 const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
   const { quickSearch } = props;
-
+  const queryTimeRef = useRef<Date>(null);
   const store = props.store || getGridStore(props);
   const fetchAll = props.fetchAll != false;
   const defaultFilter = props.defaultParams?.filter || {};
@@ -51,7 +51,6 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
   const [filter, _setFilter] = props.filterTopic ? useKeyValue(props.filterTopic, defaultFilter)
     : useState<any>(defaultFilter);
 
-  const firstRun = useRef<Boolean>(props.initialFetch == false);
   const pageSize = props.pageSize ? props.pageSize : 15;
   var defaultPageSize = pageSize instanceof Array ? pageSize[0] : pageSize;
 
@@ -105,10 +104,6 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
   }
 
   useEffect(() => {
-    if (firstRun.current) {
-      firstRun.current = false;
-      return;
-    }
     if (fetchAll || !isEmptyFilter())
       refresh();
   }, [queryLimit, sortOrder, endPointVars])
@@ -125,8 +120,20 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
   const refresh = () => {
     const params: QueryRequest = getQueryRequest();
 
+    if (null != queryTimeRef.current) {
+      const curDate = new Date();
+      const prevDate = queryTimeRef.current;
+      if ((prevDate.getTime() - curDate.getTime()) < 200) {
+        if (!serverResult.isLoading) {
+          console.warn('ServerQueryManager: refresh called within short interval' + (prevDate.getTime() - curDate.getTime()));          
+        }
+        return;
+      }
+    }
+
     if (store) {
       try {
+        queryTimeRef.current = new Date();
         setLoading();
         store.query(params).then((d) => {
           setResult(d.result, d.total);
