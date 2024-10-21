@@ -123,9 +123,11 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
     if (null != queryTimeRef.current) {
       const curDate = new Date();
       const prevDate = queryTimeRef.current;
-      if ((prevDate.getTime() - curDate.getTime()) < 200) {
+      const diff = curDate.getTime() - prevDate.getTime();
+      if (diff < 200) {
         if (!serverResult.isLoading) {
-          console.warn('ServerQueryManager: refresh called within short interval' + (prevDate.getTime() - curDate.getTime()));          
+          console.warn('ServerQueryManager: refresh called within short interval'
+            + diff);
         }
         return;
       }
