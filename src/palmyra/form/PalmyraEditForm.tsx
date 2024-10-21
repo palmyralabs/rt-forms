@@ -18,7 +18,6 @@ const PalmyraEditForm = forwardRef(function EditForm(props: IEditFormOptions, re
             if (props.onValidChange)
                 props.onValidChange(true);
         }
-        refresh()
     }, [formRef, props.id])
 
     useImperativeHandle(currentRef, () => getSaveFormHandle(saveData, formRef, refresh))
