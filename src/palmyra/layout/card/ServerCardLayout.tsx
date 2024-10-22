@@ -13,7 +13,7 @@ interface ServerCardLayoutInput extends IServerQueryInput {
     preProcess?: (data: any) => any
 }
 
-const ServerCardLayout = forwardRef(function MuiSelect(props: ServerCardLayoutInput, ref: MutableRefObject<any>) {
+const ServerCardLayout = forwardRef(function ServerCardLayout(props: ServerCardLayoutInput, ref: MutableRefObject<any>) {
     const { Child, childProps } = props;
     const currentRef: MutableRefObject<IPageQueryable> = ref ? ref : useRef(null);
 

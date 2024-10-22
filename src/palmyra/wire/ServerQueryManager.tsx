@@ -41,7 +41,7 @@ interface Result {
 }
 
 const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
-  const { quickSearch } = props;
+  const { quickSearch, initialFetch = true } = props;
   const queryTimeRef = useRef<Date>(null);
   const store = props.store || getGridStore(props);
   const fetchAll = props.fetchAll != false;
@@ -131,6 +131,9 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
         }
         return;
       }
+    } else if (!initialFetch) {
+      queryTimeRef.current = new Date(new Date().getTime() - 60000);
+      return;
     }
 
     if (store) {

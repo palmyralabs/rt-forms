@@ -11,8 +11,7 @@ interface ICustomOptions extends IFieldConverter {
  *
  */
 declare const useServerLookupFieldManager: (key: string, o: FieldOptions & IServerLookupOptions, customOptions?: ICustomOptions) => {
-    searchText: string;
-    setSearchText: import('react').Dispatch<import('react').SetStateAction<string>>;
+    setSearchText: (text: string) => void;
     refreshOptions: () => void;
     options: any[];
     hasValueInOptions: (option: any, value: any) => boolean;

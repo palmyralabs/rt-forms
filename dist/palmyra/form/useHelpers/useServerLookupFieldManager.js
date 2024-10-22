@@ -1,7 +1,7 @@
-import { useRef as R, useState as P, useEffect as h, useContext as W } from "react";
+import { useRef as b, useState as R, useEffect as F, useContext as W } from "react";
 import { StoreFactoryContext as B } from "../formContext.js";
 import { useFieldManager as E } from "./useFieldManager.js";
-import { getValueAccessor as v } from "@palmyralabs/ts-utils";
+import { getValueAccessor as x } from "@palmyralabs/ts-utils";
 import { mergeDeep as w } from "../../utils/ObjectUtils.js";
 import "../PalmyraForm.js";
 import "@palmyralabs/ts-predicates";
@@ -20,73 +20,74 @@ import "../../../chunks/index.js";
 import "react-router-dom";
 import "../../menu/AsyncTreeMenuEditor.js";
 import { getOptionIdKey as H, getOptionValueKey as J, generateFieldAccessor as N, generateFieldWriter as U } from "./ServerLookupCustomizer.js";
-const X = (t, e) => {
-  const s = v(H(t)), n = v(J(t)), r = (o) => typeof o == "object" ? s(o) : (console.error("getOptionKey", o), ""), c = (o) => typeof o == "object" ? n(o) : (o != "" && console.error("getOptionValue", o), ""), m = N(t), u = U(t, { getOptionKey: r, getOptionValue: c });
-  var a = {
-    fieldAccessor: m,
-    fieldWriter: u
+const X = (o, e) => {
+  const s = x(H(o)), i = x(J(o)), n = (r) => typeof r == "object" ? s(r) : (console.error("getOptionKey", r), ""), u = (r) => typeof r == "object" ? i(r) : (r != "" && console.error("getOptionValue", r), ""), a = N(o), m = U(o, { getOptionKey: n, getOptionValue: u });
+  var c = {
+    fieldAccessor: a,
+    fieldWriter: m
   };
-  return e && (e.format && (a.format = e.format), e.parse && (a.parse = e.parse)), { customizer: a, optionIdAccessor: s, getOptionKey: r, getOptionValue: c };
-}, be = (t, e, s) => {
-  var q, b, F;
-  const n = R(0), [r, c] = P(""), [m, u] = P([]), a = (s == null ? void 0 : s.preProcessSearchText) || ((i) => "*" + i + "*"), { customizer: o, optionIdAccessor: g, getOptionKey: x, getOptionValue: V } = X(e, s), y = E(t, e, o), k = Y(e), K = () => {
+  return e && (e.format && (c.format = e.format), e.parse && (c.parse = e.parse)), { customizer: c, optionIdAccessor: s, getOptionKey: n, getOptionValue: u };
+}, be = (o, e, s) => {
+  var A, S, q;
+  const i = b(0), n = b(""), [u, a] = R([]), m = (s == null ? void 0 : s.preProcessSearchText) || ((t) => "*" + t + "*"), { customizer: c, optionIdAccessor: r, getOptionKey: P, getOptionValue: v } = X(e, s), g = E(o, e, c), V = Y(e), k = () => {
     const {
-      lookupOptions: i,
+      lookupOptions: t,
       storeOptions: f,
-      queryOptions: O,
+      queryOptions: d,
       displayAttribute: Z,
       fetchDefault: _,
       defaultParams: $,
       ...M
-    } = y.getFieldProps();
+    } = g.getFieldProps();
     return M;
-  }, z = ((q = e.queryOptions) == null ? void 0 : q.queryAttribute) || ((b = e.queryOptions) == null ? void 0 : b.labelAttribute) || "name", T = {
-    store: k,
-    storeOptions: (F = e.queryOptions) == null ? void 0 : F.storeOptions,
+  }, K = ((A = e.queryOptions) == null ? void 0 : A.queryAttribute) || ((S = e.queryOptions) == null ? void 0 : S.labelAttribute) || "name", z = {
+    store: V,
+    storeOptions: (q = e.queryOptions) == null ? void 0 : q.storeOptions,
     fetchAll: !0,
     pageSize: e.pageSize || 15,
-    quickSearch: z,
+    quickSearch: K,
     initialFetch: !1,
     defaultParams: e.defaultParams
-  }, C = G(T), I = (i, f) => g(i) == g(f);
-  function L(i, f) {
-    return i.find((O) => {
-      if (g(O) == f)
-        return O;
+  }, T = G(z), C = (t, f) => r(t) == r(f);
+  function I(t, f) {
+    return t.find((d) => {
+      if (r(d) == f)
+        return d;
     });
   }
-  const { setQuickSearch: A, refresh: Q, getCurrentData: j, getTotalRecords: D } = C, p = j(), d = D();
-  h(() => {
-    const i = p ? [...p] : [];
-    u(i), n.current < d && (n.current = d);
-  }, [p, d]);
-  const l = y.getValue();
-  h(() => {
-    l && typeof l == "object" && u([l]);
-  }, [l]), h(() => {
-    S();
-  }, [r]);
-  function S() {
-    r.length > 0 ? A(a(r)) : p ? A(null) : Q();
+  const { setQuickSearch: O, refresh: L, getCurrentData: Q, getTotalRecords: j } = T, p = Q(), y = j();
+  F(() => {
+    const t = p ? [...p] : [];
+    a(t), i.current < y && (i.current = y);
+  }, [p, y]);
+  const l = g.getValue();
+  F(() => {
+    l && typeof l == "object" && a([l]);
+  }, [l]);
+  const D = (t) => {
+    n.current = t || "", h();
+  };
+  function h() {
+    const t = n.current;
+    t.length > 0 ? O(m(t)) : p ? O(null) : L();
   }
   return {
-    ...y,
-    searchText: r,
-    setSearchText: c,
-    refreshOptions: S,
-    options: m,
-    hasValueInOptions: I,
-    getOptionValue: V,
-    getOptionByKey: L,
-    getOptionKey: x,
-    getFieldProps: K
+    ...g,
+    setSearchText: D,
+    refreshOptions: h,
+    options: u,
+    hasValueInOptions: C,
+    getOptionValue: v,
+    getOptionByKey: I,
+    getOptionKey: P,
+    getFieldProps: k
   };
 };
-function Y(t) {
-  var r;
-  const e = W(B), s = ((r = t.queryOptions) == null ? void 0 : r.queryAttribute) || "name";
-  var n = {};
-  return w(n, t.queryOptions), e.getLookupStore(n, t.queryOptions.endPoint, s);
+function Y(o) {
+  var n;
+  const e = W(B), s = ((n = o.queryOptions) == null ? void 0 : n.queryAttribute) || "name";
+  var i = {};
+  return w(i, o.queryOptions), e.getLookupStore(i, o.queryOptions.endPoint, s);
 }
 export {
   be as useServerLookupFieldManager

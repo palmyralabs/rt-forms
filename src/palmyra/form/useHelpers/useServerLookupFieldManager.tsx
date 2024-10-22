@@ -9,7 +9,6 @@ import { mergeDeep } from "../../utils";
 import { IServerQueryInput, useServerQuery } from "../../";
 import { generateFieldAccessor, generateFieldWriter, getOptionIdKey, getOptionValueKey } from "./ServerLookupCustomizer";
 
-
 interface ICustomOptions extends IFieldConverter {
     preProcessSearchText?: (d: string) => string
 }
@@ -66,7 +65,7 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
     customOptions?: ICustomOptions) => {
 
     const total = useRef<number>(0);
-    const [searchText, setSearchText] = useState<string>('');
+    const searchText = useRef<string>('');
     const [options, setOptions] = useState<Array<any>>([]);
 
     const preProcessSearchText = customOptions?.preProcessSearchText || ((d) => '*' + d + '*');
@@ -91,7 +90,6 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
     };
 
     const serverQuery = useServerQuery(serverQueryOptions);
-
 
     const hasValueInOptions = (option: any, value: any) => {
         return optionIdAccessor(option) == optionIdAccessor(value)
@@ -128,13 +126,15 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
         }
     }, [value]);
 
-    useEffect(() => {
+    const setSearchText = (text: string) => {
+        searchText.current = text || '';
         refreshOptions();
-    }, [searchText]);
+    }
 
     function refreshOptions() {
-        if (searchText.length > 0) { //&& searchText != labelAccessor(getValue())) {
-            setQuickSearch(preProcessSearchText(searchText));
+        const txt = searchText.current;
+        if (txt.length > 0) {
+            setQuickSearch(preProcessSearchText(txt));
         } else {
             if (data) {
                 setQuickSearch(null);
@@ -146,7 +146,7 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
     }
 
     return {
-        ...fieldManager, searchText, setSearchText, refreshOptions, options,
+        ...fieldManager, setSearchText, refreshOptions, options,
         hasValueInOptions, getOptionValue, getOptionByKey, getOptionKey, getFieldProps
     }
 }
