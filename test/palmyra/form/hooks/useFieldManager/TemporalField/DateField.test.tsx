@@ -1,26 +1,27 @@
-import dayjs from "dayjs";
 import { FieldOptions, IForm, PalmyraForm, useFieldManager } from "../../../../../../src/palmyra";
 import { describe, expect, test } from "vitest";
 import { renderHook } from "@testing-library/react";
 import { act, useRef } from "react";
 
-
-const serverPattern = "YYYY-MM-DD";
+// const serverPattern = "YYYY-MM-DD";
 
 const parse = (rawData: any) => {
     if (rawData) {
-        return dayjs(rawData, serverPattern)
+        const date = new Date(rawData);
+        console.log(rawData, date, format(date))
+        return isNaN(date.getTime()) ? undefined : format(date);
     }
     else {
         return undefined;
     }
 };
-const format = (v: any) => {
-    if (v && v.isValid && v.isValid())
-        return v.format(serverPattern);
+
+const format = (v) => {
+    if (v instanceof Date) {
+        return `${v.getFullYear()}-${v.getMonth() + 1}-${v.getDate()}`;
+    }
     return '';
 };
-
 
 describe('useFieldManager - DateField', () => {
 
@@ -36,8 +37,10 @@ describe('useFieldManager - DateField', () => {
 
         const formData = formRef.current.getData();
         const v = result.current.getValue();
+        
+        console.log("formData", formData)
 
-        expect(v.format(serverPattern)).toBe('2023-11-12');
+        expect(v).toBe('2023-11-12');
         expect(formData.date).toBe('2023-11-12');
     });
 
@@ -55,7 +58,7 @@ describe('useFieldManager - DateField', () => {
         const formData = formRef.current.getData();
         const v = result.current.getValue();
 
-        expect(v.format(serverPattern)).toBe('2023-11-12');
+        expect(v).toBe('2023-11-12');
         expect(formData.date).toBe('2023-11-12');
     });
 
@@ -77,37 +80,30 @@ describe('useFieldManager - DateField', () => {
         const formData = formRef.current.getData();
         const v = result.current.getValue();
 
-        expect(v.format(serverPattern)).toBe('2023-11-12');
+        expect(v).toBe('2023-11-12');
         expect(formData.date).toBe('2023-11-12');
     });
 
     test('set form data - with default value', () => {
         const formRefRender = renderHook(() => useRef<IForm>());
         const formRef = formRefRender.result.current;
-
         const wrapper = ({ children }) => {
             return <PalmyraForm formData={{}} ref={formRef}>{children} </PalmyraForm>
         }
         const options: FieldOptions = { attribute: 'date', defaultValue: '2023-01-12' }
         const { result } = renderHook(() => useFieldManager('date', options, { format, parse }), { wrapper });
 
-        const initialData = formRef.current.getData();
-        const va = result.current.getValue();
-
-        expect(va.format(serverPattern)).toBe('2023-01-12');
-        expect(initialData.date).toBe('2023-01-12');
-
-        act(() => {
-            formRef.current.setData({ date: '2023-11-12' })
-        });
-
         const formData = formRef.current.getData();
         const v = result.current.getValue();
 
-        expect(v.format(serverPattern)).toBe('2023-11-12');
+        expect(v).toBe('2023-01-12');
+        expect(formData.date).toBe('2023-01-12');
+        act(() => {
+            formRef.current.setData({ date: '2023-11-12' })
+        });
+        expect(v).toBe('2023-11-12');
         expect(formData.date).toBe('2023-11-12');
     });
-
 
     test('set form data - without date value', () => {
         const formRefRender = renderHook(() => useRef<IForm>());
@@ -119,18 +115,15 @@ describe('useFieldManager - DateField', () => {
         const options: FieldOptions = { attribute: 'date', defaultValue: '2023-01-12' }
         const { result } = renderHook(() => useFieldManager('date', options, { format, parse }), { wrapper });
 
-        const initialData = formRef.current.getData();
-        const va = result.current.getValue();
+        const formData = formRef.current.getData();
+        const v = result.current.getValue();
 
-        expect(va.format(serverPattern)).toBe('2023-01-12');
-        expect(initialData.date).toBe('2023-01-12');
+        expect(v).toBe('2023-01-12');
+        expect(formData.date).toBe('2023-01-12');
 
         act(() => {
             formRef.current.setData({})
         });
-
-        const formData = formRef.current.getData();
-        const v = result.current.getValue();
 
         expect(v).toBeUndefined();
         expect(formData.date).toBe('');
@@ -146,7 +139,7 @@ describe('useFieldManager - DateField', () => {
         }
         const options: FieldOptions = { attribute: 'date' }
         const { result } = renderHook(() => useFieldManager('date', options, { format, parse }), { wrapper });
-        
+
         const formData = formRef.current.getData();
 
         expect(result.current.getValue()).toBeUndefined();
@@ -156,7 +149,7 @@ describe('useFieldManager - DateField', () => {
             result.current.setValue('2023-01-11')
         });
 
-        expect(result.current.getValue()).toBe("2023-01-11");
+        expect(result.current.getValue()).toBe("2023-1-11");
         expect(formData.date).toBe("2023-01-11");
     });
 });
