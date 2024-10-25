@@ -1,8 +1,8 @@
 import { jsx as h } from "react/jsx-runtime";
-import { forwardRef as w, useRef as F, useEffect as O, useImperativeHandle as D, useState as P, useContext as $ } from "react";
+import { forwardRef as D, useRef as F, useEffect as x, useImperativeHandle as E, useState as P, useContext as $ } from "react";
 import '../assets/FieldContainer.css';import '../assets/FieldGroupContainer.css';import '../assets/CardLayout.css';/* empty css           */
 import { useKeyValue as tt } from "../palmyra/utils/pubsub/PubSubHelper.js";
-import { PalmyraForm as R } from "../palmyra/form/PalmyraForm.js";
+import { PalmyraForm as V } from "../palmyra/form/PalmyraForm.js";
 import { StoreFactoryContext as et } from "../palmyra/form/formContext.js";
 import "@palmyralabs/ts-predicates";
 import "@palmyralabs/ts-utils";
@@ -16,21 +16,21 @@ import "classnames";
 import "./index.js";
 import "react-router-dom";
 import "../palmyra/menu/AsyncTreeMenuEditor.js";
-import { getSaveFormHandle as V } from "../palmyra/form/formUtil.js";
+import { getSaveFormHandle as O } from "../palmyra/form/formUtil.js";
 /* empty css                    */
 /* empty css               */
 import { usePalmyraViewForm as ot } from "../palmyra/form/useHelpers/usePalmyraViewForm.js";
 import { usePalmyraNewForm as nt } from "../palmyra/form/useHelpers/usePalmyraNewForm.js";
 import { usePalmyraEditForm as at } from "../palmyra/form/useHelpers/usePalmyraEditForm.js";
-const kt = w(function(t, u) {
+const kt = D(function(t, u) {
   const s = t.storeFactory, { fetchData: i, saveData: c, formRef: a, refresh: y } = at(t), m = u || F();
-  return O(() => {
+  return x(() => {
     i(), a.current.isValid() && t.onValidChange && t.onValidChange(!0);
-  }, [a, t.id]), D(m, () => V(c, a, y)), /* @__PURE__ */ h(R, { onValidChange: t.onValidChange, ref: a, storeFactory: s, children: t.children });
-}), jt = w(function(t, u) {
+  }, [a, t.id]), E(m, () => O(c, a, y)), /* @__PURE__ */ h(V, { onValidChange: t.onValidChange, ref: a, storeFactory: s, children: t.children });
+}), Mt = D(function(t, u) {
   const s = t.storeFactory, { saveData: i, formRef: c } = nt(t), a = u || F();
-  return D(a, () => V(i, c)), /* @__PURE__ */ h(
-    R,
+  return E(a, () => O(i, c)), /* @__PURE__ */ h(
+    V,
     {
       onValidChange: t.onValidChange,
       formData: t.initialData,
@@ -39,13 +39,13 @@ const kt = w(function(t, u) {
       children: t.children
     }
   );
-}), Kt = w(function(t, u) {
+}), jt = D(function(t, u) {
   const s = t.storeFactory, { formRef: i, refresh: c } = ot(t), a = u || F();
-  return O(() => {
+  return x(() => {
     c();
-  }, [t.endPoint]), D(a, () => V({}, i, c)), /* @__PURE__ */ h(R, { ref: i, storeFactory: s, children: t.children });
-});
-function it(o) {
+  }, [t.endPoint]), E(a, () => O({}, i, c)), /* @__PURE__ */ h(V, { ref: i, storeFactory: s, children: t.children });
+}), it = 120;
+function st(o) {
   if (o.endPoint) {
     const t = $(et);
     if (!t)
@@ -54,39 +54,39 @@ function it(o) {
   } else
     throw new Error("Either store or endPoint must be provided");
 }
-const st = (o) => {
-  var z, A, G;
-  const { quickSearch: t, initialFetch: u = !0 } = o, s = F(null), i = o.store || it(o), c = o.fetchAll != !1, a = ((z = o.defaultParams) == null ? void 0 : z.filter) || {}, y = ((A = o.defaultParams) == null ? void 0 : A.sort) || {}, [m, f] = o.filterTopic ? tt(o.filterTopic, a) : P(a), L = o.pageSize ? o.pageSize : 15;
-  var _ = L instanceof Array ? L[0] : L;
-  const [T, p] = P((G = o.storeOptions) == null ? void 0 : G.endPointOptions), [S, q] = P({}), [d, E] = P({ limit: _, offset: 0, total: !0 }), [l, N] = P({ total: null, isLoading: !1, data: null }), g = (e) => {
-    E((r) => ({ limit: r.limit, total: r.total, offset: e * r.limit }));
+const ct = (o) => {
+  var A, K, z;
+  const { quickSearch: t, initialFetch: u = !0 } = o, s = F(null), i = o.store || st(o), c = o.fetchAll != !1, a = ((A = o.defaultParams) == null ? void 0 : A.filter) || {}, y = ((K = o.defaultParams) == null ? void 0 : K.sort) || {}, [m, f] = o.filterTopic ? tt(o.filterTopic, a) : P(a), w = o.pageSize ? o.pageSize : 15;
+  var G = w instanceof Array ? w[0] : w;
+  const [N, p] = P((z = o.storeOptions) == null ? void 0 : z.endPointOptions), [S, q] = P({}), [d, L] = P({ limit: G, offset: 0, total: !0 }), [l, T] = P({ total: null, isLoading: !1, data: null }), g = (e) => {
+    L((r) => ({ limit: r.limit, total: r.total, offset: e * r.limit }));
   }, H = (e) => {
     const r = e > 10 || e == -1 ? e : 15;
-    E((n) => {
+    L((n) => {
       const v = Math.floor(n.offset / r) * r;
       return { limit: r, total: n.total, offset: v };
     });
-  }, I = () => m ? Object.keys(m).length == 0 : !1, x = (e, r) => {
-    N((n) => (setTimeout(() => {
+  }, I = () => m ? Object.keys(m).length == 0 : !1, R = (e, r) => {
+    T((n) => (setTimeout(() => {
       o.onDataChange && o.onDataChange(e, n.data);
     }, 100), { data: e, total: r, isLoading: !1 }));
-  }, b = () => x([], 0), B = () => x(void 0, null), J = () => j({}), C = () => Math.round(d.offset / d.limit), U = () => d, W = () => {
-    N((e) => ({ ...e, isLoading: !0 }));
+  }, Q = () => R([], 0), Y = () => R(void 0, null), U = () => k({}), C = () => Math.round(d.offset / d.limit), B = () => d, J = () => {
+    T((e) => ({ ...e, isLoading: !0 }));
   };
-  O(() => {
-    (c || !I()) && k();
-  }, [d, S, T]);
-  const Q = () => ({
+  x(() => {
+    (c || !I()) && _();
+  }, [d, S, N]);
+  const b = () => ({
     sortOrder: S && Object.keys(S).length > 0 ? S : y,
     total: !0,
-    endPointVars: T,
+    endPointVars: N,
     ...d,
     filter: { ...m, ...a }
-  }), k = () => {
-    const e = Q();
+  }), _ = () => {
+    const e = b();
     if (s.current != null) {
       const r = /* @__PURE__ */ new Date(), n = s.current, v = r.getTime() - n.getTime();
-      if (v < 200) {
+      if (v < it) {
         l.isLoading || console.warn("ServerQueryManager: refresh called within short interval" + v);
         return;
       }
@@ -96,40 +96,40 @@ const st = (o) => {
     }
     if (i)
       try {
-        s.current = /* @__PURE__ */ new Date(), W(), i.query(e).then((r) => {
-          x(r.result, r.total);
+        s.current = /* @__PURE__ */ new Date(), J(), i.query(e).then((r) => {
+          R(r.result, r.total);
         }).catch((r) => {
           var n = r.response ? r.response : r;
-          console.error("error while fetching", n), B();
+          console.error("error while fetching", n), Y();
         });
       } catch (r) {
-        console.error(r), b();
+        console.error(r), Q();
       }
     else
-      console.error("Store is not provided for the Grid"), b();
-  }, X = (e) => {
+      console.error("Store is not provided for the Grid"), Q();
+  }, W = (e) => {
     const r = t;
     f(e ? (n) => (n[r] = e, { ...n }) : (n) => (delete n[r], { ...n })), g(0);
-  }, j = (e) => {
+  }, k = (e) => {
     typeof e == "function" || e && Object.keys(e).length > 0 ? f(e) : f({}), g(0);
-  }, Y = (e, r) => {
+  }, X = (e, r) => {
     f((n) => (n[e] = r, { ...n })), g(0);
-  }, K = (e) => {
+  }, M = (e) => {
     q(e);
-  }, Z = () => C() < M() ? (g(C() + 1), !0) : !1, M = () => Math.ceil((l == null ? void 0 : l.total) / (d.limit || 25));
+  }, Z = () => C() < j() ? (g(C() + 1), !0) : !1, j = () => Math.ceil((l == null ? void 0 : l.total) / (d.limit || 25));
   return {
-    addFilter: Y,
-    resetFilter: J,
-    setFilter: j,
-    setQuickSearch: X,
-    setSortColumns: K,
+    addFilter: X,
+    resetFilter: U,
+    setFilter: k,
+    setQuickSearch: W,
+    setSortColumns: M,
     setEndPointOptions: p,
-    getTotalPages: M,
-    refresh: k,
+    getTotalPages: j,
+    refresh: _,
     setPageSize: H,
     getPageNo: C,
-    getQueryLimit: U,
-    setQueryLimit: E,
+    getQueryLimit: B,
+    setQueryLimit: L,
     gotoPage: g,
     nextPage: Z,
     prevPage: () => {
@@ -139,16 +139,16 @@ const st = (o) => {
     export: (e) => {
       i.export ? i.export(e) : console.warn("Store does not implement export method");
     },
-    getQueryRequest: Q,
-    setSortOptions: K,
+    getQueryRequest: b,
+    setSortOptions: M,
     getCurrentFilter: () => m,
     getTotalRecords: () => l == null ? void 0 : l.total,
     getCurrentData: () => l == null ? void 0 : l.data,
     isLoading: l.isLoading
   };
-}, Mt = w(function(t, u) {
-  const { Child: s, childProps: i } = t, c = u || F(null), a = st(t), y = t.listKeyProvider || ((m, f) => f);
-  return D(c, () => ({
+}, At = D(function(t, u) {
+  const { Child: s, childProps: i } = t, c = u || F(null), a = ct(t), y = t.listKeyProvider || ((m, f) => f);
+  return E(c, () => ({
     ...a
   }), [a]), /* @__PURE__ */ h("div", { children: /* @__PURE__ */ h("div", { className: "card-page-container", children: /* @__PURE__ */ h(
     rt,
@@ -166,8 +166,8 @@ const st = (o) => {
 });
 export {
   kt as P,
-  Mt as S,
-  jt as a,
-  Kt as b,
-  st as u
+  At as S,
+  Mt as a,
+  jt as b,
+  ct as u
 };

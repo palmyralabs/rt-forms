@@ -18,7 +18,7 @@ const getOptionIdKey = (o: FieldOptions & ModdedServerLookupOptions) => {
 }
 
 const getOptionValueKey = (o: FieldOptions & ModdedServerLookupOptions) => {
-    return o.queryOptions?.labelAttribute || o.lookupOptions?.labelAttribute || 'id';
+    return o.queryOptions?.labelAttribute || o.lookupOptions?.labelAttribute || 'code';
 }
 
 const getLookupIdKey = (o: FieldOptions & ModdedServerLookupOptions) => {
@@ -26,7 +26,7 @@ const getLookupIdKey = (o: FieldOptions & ModdedServerLookupOptions) => {
 }
 
 const getLookupValueKey = (o: FieldOptions & ModdedServerLookupOptions) => {
-    return o.lookupOptions?.labelAttribute || o.queryOptions?.labelAttribute || 'id';
+    return o.lookupOptions?.labelAttribute || o.queryOptions?.labelAttribute || 'code';
 }
 
 

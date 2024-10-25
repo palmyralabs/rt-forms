@@ -4,6 +4,8 @@ import { useKeyValue } from '../utils';
 import { IPageQueryable } from './types';
 import { StoreFactoryContext } from '../form';
 
+const SERVER_QUERY_MIN_DELAY_MS = 120;
+
 type ExportStore = {
   export?(request: ExportRequest): void;
 }
@@ -124,7 +126,7 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
       const curDate = new Date();
       const prevDate = queryTimeRef.current;
       const diff = curDate.getTime() - prevDate.getTime();
-      if (diff < 200) {
+      if (diff < SERVER_QUERY_MIN_DELAY_MS) {
         if (!serverResult.isLoading) {
           console.warn('ServerQueryManager: refresh called within short interval'
             + diff);
