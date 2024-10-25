@@ -70,8 +70,10 @@ interface ObjectLookup {
     displayAttribute?: never;
 }
 type LookupOptions = FlatLookup | ObjectLookup;
-interface IServerLookupOptions {
+interface IServerLookupOptions extends IServerQueryOptions {
     lookupOptions: LookupOptions;
+}
+interface IServerQueryOptions {
     queryOptions: {
         endPoint: IEndPoint;
         queryAttribute?: string;
@@ -83,4 +85,4 @@ interface IServerLookupOptions {
     pageSize?: numbers;
     defaultParams?: DefaultQueryParams;
 }
-export type { FieldOptions, IMutateOptions, IFieldValidation, IServerLookupOptions };
+export type { FieldOptions, IMutateOptions, IFieldValidation, IServerLookupOptions, IServerQueryOptions };

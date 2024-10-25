@@ -11,14 +11,15 @@ interface ICustomOptions extends IFieldConverter {
  *
  */
 declare const useServerLookupFieldManager: (key: string, o: FieldOptions & IServerLookupOptions, customOptions?: ICustomOptions) => {
-    setSearchText: (text: string) => void;
-    refreshOptions: () => void;
-    options: any[];
     hasValueInOptions: (option: any, value: any) => boolean;
     getOptionValue: (option: any) => any;
     getOptionByKey: (options: any, id: any) => any;
     getOptionKey: (option: any) => any;
     getFieldProps: () => any;
+    setSearchText: (text: string) => void;
+    refreshOptions: () => void;
+    options: any[];
+    setOptions: import('react').Dispatch<import('react').SetStateAction<any[]>>;
     getValue: import('@palmyralabs/ts-utils').Supplier<any>;
     setValue: (v: any, skipValidation?: Boolean, propagate?: boolean) => void;
     isValid: () => boolean;

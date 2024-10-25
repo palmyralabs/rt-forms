@@ -45,6 +45,14 @@ interface IFieldManager {
     valueWriter: (formData: any, value: any) => void
 }
 
+
+interface IServerQueryFieldManager extends IFieldManager {
+    setSearchText: (text: string) => void,
+    refreshOptions: () => void,
+    options: any[],
+    setOptions: Dispatch<SetStateAction<any[]>>
+}
+
 interface IFormFieldError {
     status: boolean,
     message: string,
@@ -64,6 +72,13 @@ interface IFormManager {
 
 interface IFieldCustomizer extends IFieldConverter, IFieldAccessor {
 
+}
+
+interface IServerQueryFieldCustomizer extends IFieldCustomizer {
+    preProcessSearchText?: (d: string) => string,
+    fieldAccessor: (formData: any) => any
+    fieldWriter: (fieldValue: any, formData: any) => void,
+    optionIdAccessor: (d: any) => any
 }
 
 interface IFieldConverter {
@@ -123,5 +138,6 @@ export type {
     numbers, IFieldConverter, IFieldAccessor,
     FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions,
     IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IViewForm,
-    IEditFormOptions, ISaveForm, ISaveFormOptions, INewFormOptions, IViewFormOptions
+    IEditFormOptions, ISaveForm, ISaveFormOptions, INewFormOptions, IViewFormOptions,
+    IServerQueryFieldCustomizer, IServerQueryFieldManager
 }

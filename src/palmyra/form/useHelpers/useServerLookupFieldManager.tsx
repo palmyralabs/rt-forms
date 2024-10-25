@@ -1,13 +1,9 @@
-import { useContext, useEffect, useRef, useState } from "react"
-import { IFieldConverter, IFieldCustomizer } from "../types"
-import { StoreFactoryContext } from "../formContext";
+import { useEffect } from "react"
+import { IFieldConverter, IFieldCustomizer, IServerQueryFieldCustomizer } from "../types"
 import { FieldOptions, IServerLookupOptions } from "../typesFieldOptions";
-import { useFieldManager } from "./";
 import { getValueAccessor } from "@palmyralabs/ts-utils";
-import { LookupStore } from "@palmyralabs/palmyra-wire";
-import { mergeDeep } from "../../utils";
-import { IServerQueryInput, useServerQuery } from "../../";
 import { generateFieldAccessor, generateFieldWriter, getOptionIdKey, getOptionValueKey } from "./ServerLookupCustomizer";
+import { useServerQueryFieldManager } from "./useServerQueryFieldManager";
 
 interface ICustomOptions extends IFieldConverter {
     preProcessSearchText?: (d: string) => string
@@ -63,33 +59,20 @@ const getCustomizer = (o: FieldOptions & IServerLookupOptions,
  */
 const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLookupOptions,
     customOptions?: ICustomOptions) => {
-
-    const total = useRef<number>(0);
-    const searchText = useRef<string>('');
-    const [options, setOptions] = useState<Array<any>>([]);
-
-    const preProcessSearchText = customOptions?.preProcessSearchText || ((d) => '*' + d + '*');
-
     const { customizer, optionIdAccessor, getOptionKey, getOptionValue } = getCustomizer(o, customOptions);
 
-    const fieldManager = useFieldManager(key, o, customizer);
-    const store: LookupStore<any> = getLookupStore(o);
+    const serverQueryOptions: IServerQueryFieldCustomizer = {
+        fieldAccessor: customizer.fieldAccessor, fieldWriter: customizer.fieldWriter, optionIdAccessor,
+        parse: customizer.parse, format: customizer.format
+    };
+
+    const fieldManager = useServerQueryFieldManager(key, o, serverQueryOptions);
 
     const getFieldProps = () => {
         const { lookupOptions, storeOptions, queryOptions, displayAttribute, fetchDefault,
             defaultParams, ...result } = fieldManager.getFieldProps();
         return result;
     }
-
-    const queryAttribute = o.queryOptions?.queryAttribute || o.queryOptions?.labelAttribute || "name";
-
-    const serverQueryOptions: IServerQueryInput = {
-        store, storeOptions: o.queryOptions?.storeOptions, fetchAll: true,
-        pageSize: o.pageSize || 15, quickSearch: queryAttribute, initialFetch: false,
-        defaultParams: o.defaultParams
-    };
-
-    const serverQuery = useServerQuery(serverQueryOptions);
 
     const hasValueInOptions = (option: any, value: any) => {
         return optionIdAccessor(option) == optionIdAccessor(value)
@@ -103,60 +86,18 @@ const useServerLookupFieldManager = (key: string, o: FieldOptions & IServerLooku
         })
     }
 
-    const { setQuickSearch, refresh, getCurrentData, getTotalRecords } = serverQuery
-
-    const data = getCurrentData();
-    const totalRecords = getTotalRecords();
-
-    useEffect(() => {
-        const result = data ? [...data] : [];
-
-        setOptions(result);
-
-        if (total.current < totalRecords)
-            total.current = totalRecords;
-
-    }, [data, totalRecords])
-
     const value = fieldManager.getValue();
 
     useEffect(() => {
         if (value && typeof value == 'object') {
-            setOptions([value]);
+            fieldManager.setOptions([value]);
         }
     }, [value]);
 
-    const setSearchText = (text: string) => {
-        searchText.current = text || '';
-        refreshOptions();
-    }
-
-    function refreshOptions() {
-        const txt = searchText.current;
-        if (txt.length > 0) {
-            setQuickSearch(preProcessSearchText(txt));
-        } else {
-            if (data) {
-                setQuickSearch(null);
-            }
-            else {
-                refresh();
-            }
-        }
-    }
 
     return {
-        ...fieldManager, setSearchText, refreshOptions, options,
-        hasValueInOptions, getOptionValue, getOptionByKey, getOptionKey, getFieldProps
+        ...fieldManager, hasValueInOptions, getOptionValue, getOptionByKey, getOptionKey, getFieldProps
     }
-}
-
-function getLookupStore(o: IServerLookupOptions): LookupStore<any> {
-    const storeFactory = useContext(StoreFactoryContext);
-    const queryAttribute = o.queryOptions?.queryAttribute || "name";
-    var options: any = {};
-    mergeDeep(options, o.queryOptions);
-    return storeFactory.getLookupStore(options, o.queryOptions.endPoint, queryAttribute);
 }
 
 export { useServerLookupFieldManager };

@@ -36,6 +36,12 @@ interface IFieldManager {
     valueAccessor: (d: any) => any;
     valueWriter: (formData: any, value: any) => void;
 }
+interface IServerQueryFieldManager extends IFieldManager {
+    setSearchText: (text: string) => void;
+    refreshOptions: () => void;
+    options: any[];
+    setOptions: Dispatch<SetStateAction<any[]>>;
+}
 interface IFormFieldError {
     status: boolean;
     message: string;
@@ -52,6 +58,12 @@ interface IFormManager {
     setData: IConsumer<any>;
 }
 interface IFieldCustomizer extends IFieldConverter, IFieldAccessor {
+}
+interface IServerQueryFieldCustomizer extends IFieldCustomizer {
+    preProcessSearchText?: (d: string) => string;
+    fieldAccessor: (formData: any) => any;
+    fieldWriter: (fieldValue: any, formData: any) => void;
+    optionIdAccessor: (d: any) => any;
 }
 interface IFieldConverter {
     format?: (d: any) => any;
@@ -94,4 +106,4 @@ interface ISaveForm extends IForm {
 interface IViewForm extends IForm {
     refresh: () => void;
 }
-export type { numbers, IFieldConverter, IFieldAccessor, FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions, IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IViewForm, IEditFormOptions, ISaveForm, ISaveFormOptions, INewFormOptions, IViewFormOptions };
+export type { numbers, IFieldConverter, IFieldAccessor, FormMode, IForm, IFieldManager, IFieldGroup, IFieldCustomizer, IFieldGroupOptions, IFormOptions, IFormFieldError, IFormManager, IFieldGroupManager, IViewForm, IEditFormOptions, ISaveForm, ISaveFormOptions, INewFormOptions, IViewFormOptions, IServerQueryFieldCustomizer, IServerQueryFieldManager };
