@@ -1,87 +1,89 @@
 import { PalmyraForm as o } from "./form/PalmyraForm.js";
-import { FieldGroupManagerContext as a, FormManagerContext as m, StoreFactoryContext as p } from "./form/formContext.js";
-import { generatePredicate as f, validate as n } from "./form/validator/validatorHelper.js";
+import { FieldGroupManagerContext as m, FormManagerContext as a, StoreFactoryContext as p } from "./form/formContext.js";
+import { generatePredicate as f, validate as u } from "./form/validator/validatorHelper.js";
 import { useFieldManager as l } from "./form/useHelpers/useFieldManager.js";
 import { useServerLookupFieldManager as s } from "./form/useHelpers/useServerLookupFieldManager.js";
 import { useServerQueryFieldManager as F } from "./form/useHelpers/useServerQueryFieldManager.js";
-import { usePalmyraEditForm as y } from "./form/useHelpers/usePalmyraEditForm.js";
-import { usePalmyraNewForm as c } from "./form/useHelpers/usePalmyraNewForm.js";
-import { usePalmyraViewForm as P } from "./form/useHelpers/usePalmyraViewForm.js";
-import { P as M, a as G, b as D, S as E, u as T } from "../chunks/ServerCardLayout.js";
-import { getFieldHandler as b } from "./form/utils/getFieldHandler.js";
-import { FieldDecorator as h } from "./form/FieldDecorator.js";
-import { FieldGroupContainer as N } from "./form/FieldGroupContainer.js";
-import { execute as z, setKeyValue as A, useExecute as B, useKeyValue as I } from "./utils/pubsub/PubSubHelper.js";
-import { cloneDeep as Q, isObject as R, mergeDeep as j } from "./utils/ObjectUtils.js";
-import { CardLayout as O } from "./layout/card/CardLayout.js";
-import { EmptyChildTable as J } from "./grid/base/EmptyChildTable.js";
-import { useGridColumnCustomizer as W } from "./grid/base/GridColumnCustomizer.js";
-import { NoopGridCustomizer as Y } from "./grid/base/NoopGridCustomizer.js";
-import { useBaseGridManager as _ } from "./grid/base/useBaseGridManager.js";
-import { useSortColumn as ee } from "./grid/base/useSortColumn.js";
-import { formatBIT as oe, formatColumn as te, getFormatFn as ae } from "./grid/base/utils/CellFormatter.js";
-import { generateColumns as pe } from "./grid/base/utils/ColumnConverter.js";
-import { formatValue as fe, getDisplayValue as ne } from "./grid/base/utils/DataFetchUtil.js";
-import { CheckboxGridEnhancer as le } from "./grid/base/CheckboxGridEnhancer.js";
-import { useFieldGenrator as se } from "./grid/useFieldGenerator.js";
-import { DateTimeConverter as Fe } from "./grid/utils/DateConverter.js";
-import { DateRangeConverter as ye } from "./grid/utils/DateRangeConverter.js";
-import { getFormatConverter as ce } from "./grid/utils/FormatterFactory.js";
-import { convertToField as Pe } from "./grid/utils/GridFieldConverter.js";
-import { noopConverter as Me } from "./grid/utils/NoopConverter.js";
-import { SliderRangeConverter as De } from "./grid/utils/SliderRangeConverter.js";
-import { default as Te } from "./menu/AsyncTreeMenu.js";
-import { AsyncTreeMenuEditor as be } from "./menu/AsyncTreeMenuEditor.js";
-import { SimpleIconProvider as he } from "./menu/IconProvider.js";
+import { useServerAutoComplete as y } from "./form/useHelpers/useServerAutoComplete.js";
+import { usePalmyraEditForm as c } from "./form/useHelpers/usePalmyraEditForm.js";
+import { usePalmyraNewForm as P } from "./form/useHelpers/usePalmyraNewForm.js";
+import { usePalmyraViewForm as M } from "./form/useHelpers/usePalmyraViewForm.js";
+import { P as D, a as E, b as T, S as V, u as b } from "../chunks/ServerCardLayout.js";
+import { getFieldHandler as h } from "./form/utils/getFieldHandler.js";
+import { FieldDecorator as L } from "./form/FieldDecorator.js";
+import { FieldGroupContainer as k } from "./form/FieldGroupContainer.js";
+import { execute as B, setKeyValue as I, useExecute as K, useKeyValue as Q } from "./utils/pubsub/PubSubHelper.js";
+import { cloneDeep as j, isObject as H, mergeDeep as O } from "./utils/ObjectUtils.js";
+import { CardLayout as J } from "./layout/card/CardLayout.js";
+import { EmptyChildTable as W } from "./grid/base/EmptyChildTable.js";
+import { useGridColumnCustomizer as Y } from "./grid/base/GridColumnCustomizer.js";
+import { NoopGridCustomizer as _ } from "./grid/base/NoopGridCustomizer.js";
+import { useBaseGridManager as ee } from "./grid/base/useBaseGridManager.js";
+import { useSortColumn as oe } from "./grid/base/useSortColumn.js";
+import { formatBIT as me, formatColumn as ae, getFormatFn as pe } from "./grid/base/utils/CellFormatter.js";
+import { generateColumns as fe } from "./grid/base/utils/ColumnConverter.js";
+import { formatValue as ne, getDisplayValue as le } from "./grid/base/utils/DataFetchUtil.js";
+import { CheckboxGridEnhancer as se } from "./grid/base/CheckboxGridEnhancer.js";
+import { useFieldGenrator as Fe } from "./grid/useFieldGenerator.js";
+import { DateTimeConverter as ye } from "./grid/utils/DateConverter.js";
+import { DateRangeConverter as ce } from "./grid/utils/DateRangeConverter.js";
+import { getFormatConverter as Pe } from "./grid/utils/FormatterFactory.js";
+import { convertToField as Me } from "./grid/utils/GridFieldConverter.js";
+import { noopConverter as De } from "./grid/utils/NoopConverter.js";
+import { SliderRangeConverter as Te } from "./grid/utils/SliderRangeConverter.js";
+import { default as be } from "./menu/AsyncTreeMenu.js";
+import { AsyncTreeMenuEditor as he } from "./menu/AsyncTreeMenuEditor.js";
+import { SimpleIconProvider as Le } from "./menu/IconProvider.js";
 export {
-  Te as AsyncTreeMenu,
-  be as AsyncTreeMenuEditor,
-  O as CardLayout,
-  le as CheckboxGridEnhancer,
-  ye as DateRangeConverter,
-  Fe as DateTimeConverter,
-  J as EmptyChildTable,
-  h as FieldDecorator,
-  N as FieldGroupContainer,
-  a as FieldGroupManagerContext,
-  m as FormManagerContext,
-  Y as NoopGridCustomizer,
-  M as PalmyraEditForm,
+  be as AsyncTreeMenu,
+  he as AsyncTreeMenuEditor,
+  J as CardLayout,
+  se as CheckboxGridEnhancer,
+  ce as DateRangeConverter,
+  ye as DateTimeConverter,
+  W as EmptyChildTable,
+  L as FieldDecorator,
+  k as FieldGroupContainer,
+  m as FieldGroupManagerContext,
+  a as FormManagerContext,
+  _ as NoopGridCustomizer,
+  D as PalmyraEditForm,
   o as PalmyraForm,
-  G as PalmyraNewForm,
-  D as PalmyraViewForm,
-  E as ServerCardLayout,
-  he as SimpleIconProvider,
-  De as SliderRangeConverter,
+  E as PalmyraNewForm,
+  T as PalmyraViewForm,
+  V as ServerCardLayout,
+  Le as SimpleIconProvider,
+  Te as SliderRangeConverter,
   p as StoreFactoryContext,
-  Q as cloneDeep,
-  Pe as convertToField,
-  z as execute,
-  oe as formatBIT,
-  te as formatColumn,
-  fe as formatValue,
-  pe as generateColumns,
+  j as cloneDeep,
+  Me as convertToField,
+  B as execute,
+  me as formatBIT,
+  ae as formatColumn,
+  ne as formatValue,
+  fe as generateColumns,
   f as generatePredicate,
-  ne as getDisplayValue,
-  b as getFieldHandler,
-  ce as getFormatConverter,
-  ae as getFormatFn,
-  R as isObject,
-  j as mergeDeep,
-  Me as noopConverter,
-  A as setKeyValue,
-  _ as useBaseGridManager,
-  B as useExecute,
-  se as useFieldGenrator,
+  le as getDisplayValue,
+  h as getFieldHandler,
+  Pe as getFormatConverter,
+  pe as getFormatFn,
+  H as isObject,
+  O as mergeDeep,
+  De as noopConverter,
+  I as setKeyValue,
+  ee as useBaseGridManager,
+  K as useExecute,
+  Fe as useFieldGenrator,
   l as useFieldManager,
-  W as useGridColumnCustomizer,
-  I as useKeyValue,
-  y as usePalmyraEditForm,
-  c as usePalmyraNewForm,
-  P as usePalmyraViewForm,
+  Y as useGridColumnCustomizer,
+  Q as useKeyValue,
+  c as usePalmyraEditForm,
+  P as usePalmyraNewForm,
+  M as usePalmyraViewForm,
+  y as useServerAutoComplete,
   s as useServerLookupFieldManager,
-  T as useServerQuery,
+  b as useServerQuery,
   F as useServerQueryFieldManager,
-  ee as useSortColumn,
-  n as validate
+  oe as useSortColumn,
+  u as validate
 };
