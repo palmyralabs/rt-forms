@@ -147,16 +147,17 @@ describe('useFieldManager - DateField', () => {
         const options: FieldOptions = { attribute: 'date' }
         const { result } = renderHook(() => useFieldManager('date', options, { format, parse }), { wrapper });
         
-        const formData = formRef.current.getData();
+        var formData = formRef.current.getData();
 
         expect(result.current.getValue()).toBeUndefined();
         expect(formData.date).toBe("");
 
         act(() => {
-            result.current.setValue('2023-01-11')
+            result.current.setValue(parse('2023-01-11'))
         });
 
-        expect(result.current.getValue()).toBe("2023-01-11");
+        expect(format(result.current.getValue())).toBe("2023-01-11");
+        formData = formRef.current.getData();
         expect(formData.date).toBe("2023-01-11");
     });
 });
