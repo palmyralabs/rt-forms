@@ -15,10 +15,11 @@ import "classnames";
 import "../../../chunks/index.js";
 import "react-router-dom";
 import "../../menu/AsyncTreeMenuEditor.js";
+import "../../acl/AclAPIEditor.js";
 /* empty css                                  */
 /* empty css                             */
-const cr = (e, r, s) => {
-  var S, m;
+const Fr = (e, r, s) => {
+  var m, S;
   const t = I(L);
   if (!t)
     throw Error("useFieldManager must be called within the scope of <PalmyraForm>");
@@ -73,7 +74,7 @@ const cr = (e, r, s) => {
       return { ...H, ...a };
     }
   };
-  return t.registerFieldManager(W, l), w == null && r.defaultValue && t.setFieldData(e, i.value), (S = i.error) != null && S.status && t.setFieldValidity(e, (m = i.error) == null ? void 0 : m.status), W;
+  return t.registerFieldManager(W, l), w == null && r.defaultValue && t.setFieldData(e, i.value), (m = i.error) != null && m.status && t.setFieldValidity(e, (S = i.error) == null ? void 0 : S.status), W;
 };
 function T(e, r) {
   return r != null && r.fieldAccessor ? r.fieldAccessor : h(e) ? (t) => Q(e, t) : (t) => t == null ? void 0 : t[e];
@@ -94,5 +95,5 @@ const Y = (e, r, s, t, a, V) => {
   return e == null ? r.defaultValue != null ? l = s != null && s.parse ? s.parse(r.defaultValue) : r.defaultValue : l = a({}) : l = V(e), f = F(l, t, r), f.status && (f.showError = e != null || r.defaultValue != null), { value: l, error: f };
 };
 export {
-  cr as useFieldManager
+  Fr as useFieldManager
 };

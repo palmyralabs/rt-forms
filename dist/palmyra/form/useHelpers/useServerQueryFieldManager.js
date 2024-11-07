@@ -19,8 +19,9 @@ import "classnames";
 import "../../../chunks/index.js";
 import "react-router-dom";
 import "../../menu/AsyncTreeMenuEditor.js";
-const pt = (o, t, r) => {
-  var m, f, y;
+import "../../acl/AclAPIEditor.js";
+const at = (o, t, r) => {
+  var l, f, y;
   const s = d(0), i = d(""), [g, p] = Q([]), S = (r == null ? void 0 : r.preProcessSearchText) || ((e) => "*" + e + "*"), a = M(o, t, r), h = L(t), q = () => {
     const {
       lookupOptions: e,
@@ -32,7 +33,7 @@ const pt = (o, t, r) => {
       ...v
     } = a.getFieldProps();
     return v;
-  }, O = ((m = t.queryOptions) == null ? void 0 : m.queryAttribute) || ((f = t.queryOptions) == null ? void 0 : f.labelAttribute) || "name", x = {
+  }, O = ((l = t.queryOptions) == null ? void 0 : l.queryAttribute) || ((f = t.queryOptions) == null ? void 0 : f.labelAttribute) || "name", x = {
     store: h,
     storeOptions: (y = t.queryOptions) == null ? void 0 : y.storeOptions,
     fetchAll: !0,
@@ -46,16 +47,16 @@ const pt = (o, t, r) => {
     p(e), s.current < u && (s.current = u);
   }, [n, u]);
   const k = (e) => {
-    i.current = e || "", l();
+    i.current = e || "", m();
   };
-  function l() {
+  function m() {
     const e = i.current;
     e.length > 0 ? c(S(e)) : n ? c(null) : b();
   }
   return {
     ...a,
     setSearchText: k,
-    refreshOptions: l,
+    refreshOptions: m,
     options: g,
     setOptions: p,
     getFieldProps: q
@@ -68,5 +69,5 @@ function L(o) {
   return R(s, o.queryOptions), t.getLookupStore(s, o.queryOptions.endPoint, r);
 }
 export {
-  pt as useServerQueryFieldManager
+  at as useServerQueryFieldManager
 };

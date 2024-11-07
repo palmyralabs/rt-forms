@@ -1,6 +1,5 @@
 import './ApiAccessMgmt.css';
 import { CheckBoxIcon } from '../../../src/palmyra/menu/AsyncTreeMenuEditor';
-import style from './../../../node_modules/@mui/system/legacy/style';
 import { forwardRef, MutableRefObject, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { AclAPIEditorProps, APIPermission, IAclAPIEditor, NestedAPIPermission } from './types';
 

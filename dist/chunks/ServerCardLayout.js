@@ -16,18 +16,19 @@ import "classnames";
 import "./index.js";
 import "react-router-dom";
 import "../palmyra/menu/AsyncTreeMenuEditor.js";
+import "../palmyra/acl/AclAPIEditor.js";
 import { getSaveFormHandle as O } from "../palmyra/form/formUtil.js";
 /* empty css                    */
 /* empty css               */
 import { usePalmyraViewForm as ot } from "../palmyra/form/useHelpers/usePalmyraViewForm.js";
 import { usePalmyraNewForm as nt } from "../palmyra/form/useHelpers/usePalmyraNewForm.js";
 import { usePalmyraEditForm as at } from "../palmyra/form/useHelpers/usePalmyraEditForm.js";
-const kt = D(function(t, u) {
+const Mt = D(function(t, u) {
   const s = t.storeFactory, { fetchData: i, saveData: c, formRef: a, refresh: y } = at(t), m = u || F();
   return x(() => {
     i(), a.current.isValid() && t.onValidChange && t.onValidChange(!0);
   }, [a, t.id]), E(m, () => O(c, a, y)), /* @__PURE__ */ h(V, { onValidChange: t.onValidChange, ref: a, storeFactory: s, children: t.children });
-}), Mt = D(function(t, u) {
+}), jt = D(function(t, u) {
   const s = t.storeFactory, { saveData: i, formRef: c } = nt(t), a = u || F();
   return E(a, () => O(i, c)), /* @__PURE__ */ h(
     V,
@@ -39,7 +40,7 @@ const kt = D(function(t, u) {
       children: t.children
     }
   );
-}), jt = D(function(t, u) {
+}), At = D(function(t, u) {
   const s = t.storeFactory, { formRef: i, refresh: c } = ot(t), a = u || F();
   return x(() => {
     c();
@@ -55,10 +56,10 @@ function st(o) {
     throw new Error("Either store or endPoint must be provided");
 }
 const ct = (o) => {
-  var A, K, z;
+  var A, K, p;
   const { quickSearch: t, initialFetch: u = !0 } = o, s = F(null), i = o.store || st(o), c = o.fetchAll != !1, a = ((A = o.defaultParams) == null ? void 0 : A.filter) || {}, y = ((K = o.defaultParams) == null ? void 0 : K.sort) || {}, [m, f] = o.filterTopic ? tt(o.filterTopic, a) : P(a), w = o.pageSize ? o.pageSize : 15;
-  var G = w instanceof Array ? w[0] : w;
-  const [N, p] = P((z = o.storeOptions) == null ? void 0 : z.endPointOptions), [S, q] = P({}), [d, L] = P({ limit: G, offset: 0, total: !0 }), [l, T] = P({ total: null, isLoading: !1, data: null }), g = (e) => {
+  var z = w instanceof Array ? w[0] : w;
+  const [N, G] = P((p = o.storeOptions) == null ? void 0 : p.endPointOptions), [S, q] = P({}), [d, L] = P({ limit: z, offset: 0, total: !0 }), [l, T] = P({ total: null, isLoading: !1, data: null }), g = (e) => {
     L((r) => ({ limit: r.limit, total: r.total, offset: e * r.limit }));
   }, H = (e) => {
     const r = e > 10 || e == -1 ? e : 15;
@@ -123,7 +124,7 @@ const ct = (o) => {
     setFilter: k,
     setQuickSearch: W,
     setSortColumns: M,
-    setEndPointOptions: p,
+    setEndPointOptions: G,
     getTotalPages: j,
     refresh: _,
     setPageSize: H,
@@ -146,7 +147,7 @@ const ct = (o) => {
     getCurrentData: () => l == null ? void 0 : l.data,
     isLoading: l.isLoading
   };
-}, At = D(function(t, u) {
+}, Kt = D(function(t, u) {
   const { Child: s, childProps: i } = t, c = u || F(null), a = ct(t), y = t.listKeyProvider || ((m, f) => f);
   return E(c, () => ({
     ...a
@@ -165,9 +166,9 @@ const ct = (o) => {
   ) }) });
 });
 export {
-  kt as P,
-  At as S,
-  Mt as a,
-  jt as b,
+  Mt as P,
+  Kt as S,
+  jt as a,
+  At as b,
   ct as u
 };

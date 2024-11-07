@@ -4,7 +4,7 @@ import "../form/PalmyraForm.js";
 import "../form/formContext.js";
 import "@palmyralabs/ts-predicates";
 import "@palmyralabs/ts-utils";
-import { u as j } from "../../chunks/ServerCardLayout.js";
+import { u as k } from "../../chunks/ServerCardLayout.js";
 import "react/jsx-runtime";
 import '../../assets/FieldContainer.css';import '../../assets/FieldGroupContainer.css';import '../../assets/CardLayout.css';/* empty css                      */
 import "@tanstack/react-table";
@@ -16,8 +16,9 @@ import "classnames";
 import "../../chunks/index.js";
 import "react-router-dom";
 import "../menu/AsyncTreeMenuEditor.js";
+import "../acl/AclAPIEditor.js";
 /* empty css                               */
 /* empty css                          */
 export {
-  j as useServerQuery
+  k as useServerQuery
 };

@@ -8,4 +8,10 @@ interface NestedAPIPermission extends APIPermission {
     children?: NestedAPIPermission[];
     permissions?: APIPermission[];
 }
-export type { APIPermission, NestedAPIPermission };
+interface AclAPIEditorProps {
+    data: NestedAPIPermission[];
+}
+interface IAclAPIEditor {
+    getValue: () => NestedAPIPermission[];
+}
+export type { APIPermission, NestedAPIPermission, AclAPIEditorProps, IAclAPIEditor };
