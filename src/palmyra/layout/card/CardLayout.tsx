@@ -22,7 +22,7 @@ const CardLayout = (props: CardLayoutInput) => {
     }
 
     const childKeyProvider = props.childKeyProvider || ((data: any, index: number) => index);
-    const preProcess = props.preProcess || ((d: any, index?:number) => d);
+    const preProcess = props.preProcess || ((d: any, index?: number) => d);
     const EmptyChild = props.EmptyChild || EmptyChildCard;
 
     return (
@@ -36,7 +36,7 @@ const CardLayout = (props: CardLayoutInput) => {
                     {dataList.map((rawData: any, index: number) => {
                         const data = preProcess(rawData, index);
                         return <Child key={childKeyProvider(data, index)}
-                            {...childProps} data={data} index={index}></Child>
+                            {...childProps} data={data} index={index} elementCount={dataList.length}></Child>
                     })}
                 </div>
             </div>)}

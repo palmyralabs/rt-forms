@@ -174,5 +174,6 @@ const re = q(function(n, i) {
   }, children: "crud - under construction" }) }) });
 };
 export {
-  re as AsyncTreeMenuEditor
+  re as AsyncTreeMenuEditor,
+  K as CheckBoxIcon
 };

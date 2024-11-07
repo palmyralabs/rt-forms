@@ -1,30 +1,31 @@
-import { jsx as i, jsxs as m } from "react/jsx-runtime";
+import { jsx as r, jsxs as m } from "react/jsx-runtime";
 import '../../../assets/CardLayout.css';/* empty css                         */
 import { NoopEmptyChildCard as C, EmptyChildCard as y } from "./EmptyChildCard.js";
-const E = (d) => {
-  const { children: c, dataList: e, Child: l, childProps: n } = d;
-  if (!e) {
-    const r = d.Loading || C;
-    return /* @__PURE__ */ i(r, {});
+const g = (t) => {
+  const { children: c, dataList: i, Child: n, childProps: l } = t;
+  if (!i) {
+    const d = t.Loading || C;
+    return /* @__PURE__ */ r(d, {});
   }
-  const o = d.childKeyProvider || ((r, t) => t), s = d.preProcess || ((r, t) => r), h = d.EmptyChild || y;
-  return /* @__PURE__ */ i("div", { children: e.length == 0 ? /* @__PURE__ */ i(h, {}) : /* @__PURE__ */ m("div", { className: "card-container", children: [
-    d.title && /* @__PURE__ */ i("div", { className: "card-header", children: d.title }),
+  const o = t.childKeyProvider || ((d, e) => e), h = t.preProcess || ((d, e) => d), s = t.EmptyChild || y;
+  return /* @__PURE__ */ r("div", { children: i.length == 0 ? /* @__PURE__ */ r(s, {}) : /* @__PURE__ */ m("div", { className: "card-container", children: [
+    t.title && /* @__PURE__ */ r("div", { className: "card-header", children: t.title }),
     c,
-    /* @__PURE__ */ i("div", { className: "card-wrapper", children: e.map((r, t) => {
-      const a = s(r, t);
-      return /* @__PURE__ */ i(
-        l,
+    /* @__PURE__ */ r("div", { className: "card-wrapper", children: i.map((d, e) => {
+      const a = h(d, e);
+      return /* @__PURE__ */ r(
+        n,
         {
-          ...n,
+          ...l,
           data: a,
-          index: t
+          index: e,
+          elementCount: i.length
         },
-        o(a, t)
+        o(a, e)
       );
     }) })
   ] }) });
 };
 export {
-  E as CardLayout
+  g as CardLayout
 };
