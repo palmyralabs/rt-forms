@@ -1,5 +1,6 @@
 
 interface APIPermission {
+    id:number,
     code: string,
     mask: number,
     operations: string

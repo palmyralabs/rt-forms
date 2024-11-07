@@ -5,12 +5,12 @@ import { useFieldManager as l } from "./form/useHelpers/useFieldManager.js";
 import { useServerLookupFieldManager as s } from "./form/useHelpers/useServerLookupFieldManager.js";
 import { useServerQueryFieldManager as F } from "./form/useHelpers/useServerQueryFieldManager.js";
 import { useServerAutoComplete as y } from "./form/useHelpers/useServerAutoComplete.js";
-import { usePalmyraEditForm as c } from "./form/useHelpers/usePalmyraEditForm.js";
+import { usePalmyraEditForm as g } from "./form/useHelpers/usePalmyraEditForm.js";
 import { usePalmyraNewForm as P } from "./form/useHelpers/usePalmyraNewForm.js";
-import { usePalmyraViewForm as M } from "./form/useHelpers/usePalmyraViewForm.js";
-import { P as G, a as D, b as T, S as V, u as A } from "../chunks/ServerCardLayout.js";
+import { usePalmyraViewForm as E } from "./form/useHelpers/usePalmyraViewForm.js";
+import { P as A, a as G, b as D, S as T, u as V } from "../chunks/ServerCardLayout.js";
 import { getFieldHandler as w } from "./form/utils/getFieldHandler.js";
-import { FieldDecorator as I } from "./form/FieldDecorator.js";
+import { FieldDecorator as h } from "./form/FieldDecorator.js";
 import { FieldGroupContainer as N } from "./form/FieldGroupContainer.js";
 import { execute as z, setKeyValue as B, useExecute as K, useKeyValue as Q } from "./utils/pubsub/PubSubHelper.js";
 import { cloneDeep as j, isObject as H, mergeDeep as O } from "./utils/ObjectUtils.js";
@@ -26,39 +26,40 @@ import { formatValue as ne, getDisplayValue as le } from "./grid/base/utils/Data
 import { CheckboxGridEnhancer as se } from "./grid/base/CheckboxGridEnhancer.js";
 import { useFieldGenrator as Fe } from "./grid/useFieldGenerator.js";
 import { DateTimeConverter as ye } from "./grid/utils/DateConverter.js";
-import { DateRangeConverter as ce } from "./grid/utils/DateRangeConverter.js";
+import { DateRangeConverter as ge } from "./grid/utils/DateRangeConverter.js";
 import { getFormatConverter as Pe } from "./grid/utils/FormatterFactory.js";
-import { convertToField as Me } from "./grid/utils/GridFieldConverter.js";
-import { noopConverter as Ge } from "./grid/utils/NoopConverter.js";
-import { SliderRangeConverter as Te } from "./grid/utils/SliderRangeConverter.js";
-import { default as Ae } from "./menu/AsyncTreeMenu.js";
+import { convertToField as Ee } from "./grid/utils/GridFieldConverter.js";
+import { noopConverter as Ae } from "./grid/utils/NoopConverter.js";
+import { SliderRangeConverter as De } from "./grid/utils/SliderRangeConverter.js";
+import { default as Ve } from "./menu/AsyncTreeMenu.js";
 import { AsyncTreeMenuEditor as we } from "./menu/AsyncTreeMenuEditor.js";
-import { SimpleIconProvider as Ie } from "./menu/IconProvider.js";
+import { SimpleIconProvider as he } from "./menu/IconProvider.js";
 import { AclAPIEditor as Ne } from "./acl/AclAPIEditor.js";
+import { useAclAPIEditor as ze } from "./acl/useAclAPIEditor.js";
 export {
   Ne as AclAPIEditor,
-  Ae as AsyncTreeMenu,
+  Ve as AsyncTreeMenu,
   we as AsyncTreeMenuEditor,
   J as CardLayout,
   se as CheckboxGridEnhancer,
-  ce as DateRangeConverter,
+  ge as DateRangeConverter,
   ye as DateTimeConverter,
   W as EmptyChildTable,
-  I as FieldDecorator,
+  h as FieldDecorator,
   N as FieldGroupContainer,
   m as FieldGroupManagerContext,
   a as FormManagerContext,
   _ as NoopGridCustomizer,
-  G as PalmyraEditForm,
+  A as PalmyraEditForm,
   o as PalmyraForm,
-  D as PalmyraNewForm,
-  T as PalmyraViewForm,
-  V as ServerCardLayout,
-  Ie as SimpleIconProvider,
-  Te as SliderRangeConverter,
+  G as PalmyraNewForm,
+  D as PalmyraViewForm,
+  T as ServerCardLayout,
+  he as SimpleIconProvider,
+  De as SliderRangeConverter,
   p as StoreFactoryContext,
   j as cloneDeep,
-  Me as convertToField,
+  Ee as convertToField,
   z as execute,
   me as formatBIT,
   ae as formatColumn,
@@ -71,20 +72,21 @@ export {
   pe as getFormatFn,
   H as isObject,
   O as mergeDeep,
-  Ge as noopConverter,
+  Ae as noopConverter,
   B as setKeyValue,
+  ze as useAclAPIEditor,
   ee as useBaseGridManager,
   K as useExecute,
   Fe as useFieldGenrator,
   l as useFieldManager,
   Y as useGridColumnCustomizer,
   Q as useKeyValue,
-  c as usePalmyraEditForm,
+  g as usePalmyraEditForm,
   P as usePalmyraNewForm,
-  M as usePalmyraViewForm,
+  E as usePalmyraViewForm,
   y as useServerAutoComplete,
   s as useServerLookupFieldManager,
-  A as useServerQuery,
+  V as useServerQuery,
   F as useServerQueryFieldManager,
   oe as useSortColumn,
   u as validate
