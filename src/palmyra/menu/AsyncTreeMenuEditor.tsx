@@ -269,9 +269,9 @@ const LeafNode = (props: ILeafNodeProps) => {
     return <>
         <div className="crud-dropdown-container" >
             <span className="crud-dropdown-text" onClick={toggleDropdown}>crud - under construction
-            </span>            
+            </span>
         </div>
     </>
 }
 
-export { AsyncTreeMenuEditor };
+export { AsyncTreeMenuEditor, CheckBoxIcon };
