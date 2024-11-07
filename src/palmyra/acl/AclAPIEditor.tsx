@@ -8,7 +8,7 @@ const style =
     { color: "rgb(44, 134, 213)", backgroundColor: 'white' };
 
 
-const AclAPIEditor = forwardRef(function AclAPIEditor (props: AclAPIEditorProps, ref:MutableRefObject<IAclAPIEditor>) {
+const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, ref: MutableRefObject<IAclAPIEditor>) {
     const [data, setData] = useState<NestedAPIPermission[]>(props.data);
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const AclAPIEditor = forwardRef(function AclAPIEditor (props: AclAPIEditorProps,
     return (
         <div className='apilist-container'>
             {data.map((d: NestedAPIPermission, pIndex: number) => (
-                <div key={d.className}>
+                <div key={d.className} className='parent-list'>
                     <h3>{d.className}</h3>
                     {d.permissions?.map((permission: APIPermission, index) => {
                         const isSelected = permission.mask > 0;
@@ -49,7 +49,7 @@ const AclAPIEditor = forwardRef(function AclAPIEditor (props: AclAPIEditorProps,
                                     style={style}
                                     variant={isSelected ? "all" : "none"}
                                 />
-                                <p>{permission.code} / {permission.operations}</p>
+                                <span>{permission.code} <span className='operation-text'>({permission.operations})</span></span>
                             </div>
                         );
                     })}
