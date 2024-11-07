@@ -48,7 +48,7 @@ const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, 
                                     style={style}
                                     variant={isSelected ? "all" : "none"}
                                 />
-                                <span>{permission.code} <span className='operation-text'>({permission.operations})</span></span>
+                                <span>{permission.code} <span className='operation-text'>({permission.name})</span></span>
                             </div>
                         );
                     })}

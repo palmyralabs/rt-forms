@@ -1,7 +1,7 @@
 import { StoreFactory, StoreOptions } from "@palmyralabs/palmyra-wire";
 import { MutableRefObject, useContext, useEffect, useRef, useState } from "react";
 import { StoreFactoryContext } from "../form";
-import { IAclAPIEditor, NestedAPIPermission } from "./types";
+import { APIPermission, IAclAPIEditor, NestedAPIPermission } from "./types";
 
 interface PalmyraAclEditorProps {
     groupId: string,
@@ -19,20 +19,20 @@ const useAclAPIEditor = (props: PalmyraAclEditorProps) => {
 
     const refresh = () => {
         store.get({ endPointVars: { groupId } }).then((apiData) => {
-            const groupedData = apiData.reduce((data, item) => {
+            const groupedData = apiData.reduce((data: Record<string, APIPermission[]>, item: any) => {
                 if (!data[item.className]) {
                     data[item.className] = [];
                 }
                 data[item.className].push({
-                    id:item.id,
+                    id: item.id,
                     code: item.code,
-                    operations: item.operations,
+                    name: item.permission,
                     mask: item.mask
                 });
                 return data;
             }, {});
 
-            const aclList: any = Object.entries(groupedData).map(([className, permissions]) => ({
+            const aclList = Object.entries(groupedData).map(([className, permissions]) => ({
                 className,
                 permissions
             }));

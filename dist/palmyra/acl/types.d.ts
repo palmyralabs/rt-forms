@@ -2,7 +2,7 @@ interface APIPermission {
     id: number;
     code: string;
     mask: number;
-    operations: string;
+    name: string;
 }
 interface NestedAPIPermission extends APIPermission {
     className: string;
