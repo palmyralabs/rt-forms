@@ -18,6 +18,8 @@ const getOptionIdKey = (o: FieldOptions & ModdedServerLookupOptions) => {
 }
 
 const getOptionValueKey = (o: FieldOptions & ModdedServerLookupOptions) => {
+    if (o.lookupOptions.displayAttribute)
+        return o.queryOptions?.labelAttribute || o.lookupOptions?.displayAttribute || 'code';
     return o.queryOptions?.labelAttribute || o.lookupOptions?.labelAttribute || 'code';
 }
 
@@ -26,6 +28,8 @@ const getLookupIdKey = (o: FieldOptions & ModdedServerLookupOptions) => {
 }
 
 const getLookupValueKey = (o: FieldOptions & ModdedServerLookupOptions) => {
+    if (o.lookupOptions.displayAttribute)
+        return o.lookupOptions.displayAttribute;
     return o.lookupOptions?.labelAttribute || o.queryOptions?.labelAttribute || 'code';
 }
 
@@ -91,14 +95,17 @@ const generateFieldAccessor = (o: FieldOptions & IServerLookupOptions) => {
     if (lookupOptions?.displayAttribute) {
         const displayAccessor = getValueAccessor(lookupOptions.displayAttribute);
         return (formData: any) => {
-            const id = valueAccessor(formData);
+            const id = valueAccessor(formData);  
             if (id) {
                 const value = displayAccessor(formData);
                 return formatValue(id, value)
             } else
                 return null;
         }
-    } else if (lookupOptions?.idAttribute) {
+    } else 
+        return 
+        /** The below code is not required and kept here for reference only */
+    /** if (lookupOptions?.idAttribute) {
         const lookupIdKey = getLookupIdKey(o);
         const lookupValueKey = getLookupValueKey(o);
 
@@ -116,7 +123,7 @@ const generateFieldAccessor = (o: FieldOptions & IServerLookupOptions) => {
         }
     } else {
         throw new Error('lookupOptions must be provided in the field options')
-    }
+    } */
 }
 
 export {

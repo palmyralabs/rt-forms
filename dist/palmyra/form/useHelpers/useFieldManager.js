@@ -19,11 +19,11 @@ import "../../acl/AclAPIEditor.js";
 /* empty css                                  */
 /* empty css                             */
 const Fr = (e, r, s) => {
-  var m, S;
+  var S, m;
   const t = I(L);
   if (!t)
     throw Error("useFieldManager must be called within the scope of <PalmyraForm>");
-  const [a, V] = C({}), l = { ...r, ...a }, f = T(e), M = U(s), A = (o) => M(f(o)), y = J(() => X(e, s), [e])(), p = N(l), w = t.getFieldRawData(f), B = Y(
+  const [a, V] = C({}), l = { ...r, ...a }, f = T(e, s), M = U(s), A = (o) => M(f(o)), y = J(() => X(e, s), [e])(), p = N(l), w = t.getFieldRawData(f), B = Y(
     w,
     l,
     s,
@@ -34,16 +34,16 @@ const Fr = (e, r, s) => {
   R(() => {
     w != null && D();
   }, [a]);
-  const g = i.value, n = i.error, G = () => g, K = () => n != null && n.showError ? n : { status: !1, message: "" }, j = () => p, q = (o, u = !0, x = !0) => {
-    const v = typeof o == "function" ? o(g) : o, d = F(v, p, l);
-    v === g && n && d.status == n.status && d.message == n.message || (t.setFieldValidity(e, !d.status), d.showError = x, r != null && r.readOnly ? E((P) => ({ ...P, error: d })) : (E({ value: v, error: d }), u && v !== g && t.setFieldData(e, v)));
+  const g = i.value, n = i.error, G = () => g, K = () => n != null && n.showError ? n : { status: !1, message: "" }, j = () => p, q = (o, d = !0, x = !0) => {
+    const v = typeof o == "function" ? o(g) : o, u = F(v, p, l);
+    v === g && n && u.status == n.status && u.message == n.message || (t.setFieldValidity(e, !u.status), u.showError = x, r != null && r.readOnly ? E((P) => ({ ...P, error: u })) : (E({ value: v, error: u }), d && v !== g && t.setFieldData(e, v)));
   }, D = () => {
     const o = F(g, p, l);
-    n && n.showError && o.status == n.status && o.message == n.message || (o.showError = !0, E((u) => ({ ...u, error: o })));
+    n && n.showError && o.status == n.status && o.message == n.message || (o.showError = !0, E((d) => ({ ...d, error: o })));
   };
   R(() => {
-    const { error: o, value: u } = i;
-    t.setFieldData(e, u), t.setFieldValidity(e, !o.status);
+    const { error: o, value: d } = i;
+    t.setFieldData(e, d), t.setFieldValidity(e, !o.status);
   }, [i]);
   const W = {
     getValidator: j,
@@ -63,10 +63,10 @@ const Fr = (e, r, s) => {
     getFieldProps: () => {
       const {
         invalidMessage: o,
-        missingMessage: u,
+        missingMessage: d,
         validator: x,
         regExp: v,
-        validRule: d,
+        validRule: u,
         validFn: P,
         defaultValue: $,
         ...H
@@ -74,7 +74,7 @@ const Fr = (e, r, s) => {
       return { ...H, ...a };
     }
   };
-  return t.registerFieldManager(W, l), w == null && r.defaultValue && t.setFieldData(e, i.value), (m = i.error) != null && m.status && t.setFieldValidity(e, (S = i.error) == null ? void 0 : S.status), W;
+  return t.registerFieldManager(W, l), w == null && r.defaultValue && t.setFieldData(e, i.value), (S = i.error) != null && S.status && t.setFieldValidity(e, (m = i.error) == null ? void 0 : m.status), W;
 };
 function T(e, r) {
   return r != null && r.fieldAccessor ? r.fieldAccessor : h(e) ? (t) => Q(e, t) : (t) => t == null ? void 0 : t[e];

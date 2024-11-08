@@ -18,18 +18,20 @@ const getCustomizer = (o: FieldOptions & IServerLookupOptions,
         if (typeof option == 'object')
             return optionIdAccessor(option);
         else {
-            console.error('getOptionKey', option);
+            if (option != '')
+                console.warn('getOptionKey', option)
+            return option;
         }
-        return '';
     }
 
     const getOptionValue = (option: any) => {
         if (typeof option == 'object')
             return optionLabelAccessor(option);
-        else if (option != '') {
-            console.error('getOptionValue', option);
+        else {
+            if (option != '')
+                console.warn('getOptionValue', option)
+            return option;
         }
-        return '';
     }
 
     const fieldAccessor = generateFieldAccessor(o);

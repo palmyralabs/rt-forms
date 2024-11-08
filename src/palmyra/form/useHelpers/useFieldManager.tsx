@@ -21,7 +21,7 @@ interface FieldStatus {
  */
 
 const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: IFieldCustomizer): IFieldManager => {
-    // const init = useRef<string>();
+
     const fieldGroupManager: IFieldGroupManager = useContext(FieldGroupManagerContext);
     if (!fieldGroupManager)
         throw Error('useFieldManager must be called within the scope of <PalmyraForm>')
@@ -29,7 +29,7 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
     const [mutateOptions, setMutateOptions] = useState<IMutateOptions>({});
     const options = { ...fieldOptions, ...mutateOptions };
 
-    const rawValueAccessor = getRawValueAccessor(key);
+    const rawValueAccessor = getRawValueAccessor(key, customizer);
     const valueFormatter = getValueFormatter(customizer);
     const valueAccessor = (d: any) => valueFormatter(rawValueAccessor(d));
     const valueWriter = useCallback(() => getWriter(key, customizer), [key])();
@@ -47,11 +47,6 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
             refreshError();
     }, [mutateOptions]);
 
-    // useEffect(() => {
-    //     init.current = 'done';
-    //     return () => { init.current = null }
-    // }, []);
-
     const value = fieldState.value;
     const error = fieldState.error;
 
@@ -68,8 +63,6 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
 
     const setValue = (v: Dispatch<SetStateAction<any>>, propagate = true, showError = true) => {
         const d: any = (typeof v == 'function') ? v(value) : v;
-
-
 
         const newError = validate(d, validator, options);
 
@@ -96,7 +89,6 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
         setFieldState((v) => {
             return { ...v, error: e };
         });
-
     }
 
     useEffect(() => {
