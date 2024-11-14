@@ -32,11 +32,11 @@ import '../../assets/AclAPIEditor.css';const A = { color: "rgb(44, 134, 213)", b
             }
           ),
           /* @__PURE__ */ c("span", { children: [
-            e.code,
+            e.name,
             " ",
             /* @__PURE__ */ c("span", { className: "operation-text", children: [
               "(",
-              e.name,
+              e.code,
               ")"
             ] })
           ] })
