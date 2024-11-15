@@ -1,4 +1,4 @@
-import { jsx as U, Fragment as je, jsxs as B } from "react/jsx-runtime";
+import { jsx as F, Fragment as je, jsxs as B } from "react/jsx-runtime";
 import { CheckBoxIcon as Ie } from "../menu/AsyncTreeMenuEditor.js";
 import Y, { useMemo as Me, useState as ye, useCallback as $e, useLayoutEffect as ke, useEffect as fe, forwardRef as De, useRef as qe, useImperativeHandle as Ne } from "react";
 import { g as Ye } from "../../chunks/_commonjsHelpers.js";
@@ -15,7 +15,7 @@ var be;
 function Le() {
   if (be) return P;
   be = 1;
-  var t = typeof Symbol == "function" && Symbol.for, s = t ? Symbol.for("react.element") : 60103, f = t ? Symbol.for("react.portal") : 60106, i = t ? Symbol.for("react.fragment") : 60107, c = t ? Symbol.for("react.strict_mode") : 60108, a = t ? Symbol.for("react.profiler") : 60114, v = t ? Symbol.for("react.provider") : 60109, u = t ? Symbol.for("react.context") : 60110, C = t ? Symbol.for("react.async_mode") : 60111, l = t ? Symbol.for("react.concurrent_mode") : 60111, m = t ? Symbol.for("react.forward_ref") : 60112, p = t ? Symbol.for("react.suspense") : 60113, _ = t ? Symbol.for("react.suspense_list") : 60120, w = t ? Symbol.for("react.memo") : 60115, A = t ? Symbol.for("react.lazy") : 60116, x = t ? Symbol.for("react.block") : 60121, M = t ? Symbol.for("react.fundamental") : 60117, D = t ? Symbol.for("react.responder") : 60118, F = t ? Symbol.for("react.scope") : 60119;
+  var t = typeof Symbol == "function" && Symbol.for, s = t ? Symbol.for("react.element") : 60103, f = t ? Symbol.for("react.portal") : 60106, i = t ? Symbol.for("react.fragment") : 60107, c = t ? Symbol.for("react.strict_mode") : 60108, a = t ? Symbol.for("react.profiler") : 60114, v = t ? Symbol.for("react.provider") : 60109, u = t ? Symbol.for("react.context") : 60110, C = t ? Symbol.for("react.async_mode") : 60111, l = t ? Symbol.for("react.concurrent_mode") : 60111, m = t ? Symbol.for("react.forward_ref") : 60112, p = t ? Symbol.for("react.suspense") : 60113, _ = t ? Symbol.for("react.suspense_list") : 60120, w = t ? Symbol.for("react.memo") : 60115, A = t ? Symbol.for("react.lazy") : 60116, x = t ? Symbol.for("react.block") : 60121, M = t ? Symbol.for("react.fundamental") : 60117, D = t ? Symbol.for("react.responder") : 60118, U = t ? Symbol.for("react.scope") : 60119;
   function I(n) {
     if (typeof n == "object" && n !== null) {
       var L = n.$$typeof;
@@ -74,7 +74,7 @@ function Le() {
   }, P.isSuspense = function(n) {
     return I(n) === p;
   }, P.isValidElementType = function(n) {
-    return typeof n == "string" || typeof n == "function" || n === i || n === l || n === a || n === c || n === p || n === _ || typeof n == "object" && n !== null && (n.$$typeof === A || n.$$typeof === w || n.$$typeof === v || n.$$typeof === u || n.$$typeof === m || n.$$typeof === M || n.$$typeof === D || n.$$typeof === F || n.$$typeof === x);
+    return typeof n == "string" || typeof n == "function" || n === i || n === l || n === a || n === c || n === p || n === _ || typeof n == "object" && n !== null && (n.$$typeof === A || n.$$typeof === w || n.$$typeof === v || n.$$typeof === u || n.$$typeof === m || n.$$typeof === M || n.$$typeof === D || n.$$typeof === U || n.$$typeof === x);
   }, P.typeOf = I, P;
 }
 var S = {};
@@ -89,10 +89,10 @@ var S = {};
 var Ee;
 function We() {
   return Ee || (Ee = 1, process.env.NODE_ENV !== "production" && function() {
-    var t = typeof Symbol == "function" && Symbol.for, s = t ? Symbol.for("react.element") : 60103, f = t ? Symbol.for("react.portal") : 60106, i = t ? Symbol.for("react.fragment") : 60107, c = t ? Symbol.for("react.strict_mode") : 60108, a = t ? Symbol.for("react.profiler") : 60114, v = t ? Symbol.for("react.provider") : 60109, u = t ? Symbol.for("react.context") : 60110, C = t ? Symbol.for("react.async_mode") : 60111, l = t ? Symbol.for("react.concurrent_mode") : 60111, m = t ? Symbol.for("react.forward_ref") : 60112, p = t ? Symbol.for("react.suspense") : 60113, _ = t ? Symbol.for("react.suspense_list") : 60120, w = t ? Symbol.for("react.memo") : 60115, A = t ? Symbol.for("react.lazy") : 60116, x = t ? Symbol.for("react.block") : 60121, M = t ? Symbol.for("react.fundamental") : 60117, D = t ? Symbol.for("react.responder") : 60118, F = t ? Symbol.for("react.scope") : 60119;
+    var t = typeof Symbol == "function" && Symbol.for, s = t ? Symbol.for("react.element") : 60103, f = t ? Symbol.for("react.portal") : 60106, i = t ? Symbol.for("react.fragment") : 60107, c = t ? Symbol.for("react.strict_mode") : 60108, a = t ? Symbol.for("react.profiler") : 60114, v = t ? Symbol.for("react.provider") : 60109, u = t ? Symbol.for("react.context") : 60110, C = t ? Symbol.for("react.async_mode") : 60111, l = t ? Symbol.for("react.concurrent_mode") : 60111, m = t ? Symbol.for("react.forward_ref") : 60112, p = t ? Symbol.for("react.suspense") : 60113, _ = t ? Symbol.for("react.suspense_list") : 60120, w = t ? Symbol.for("react.memo") : 60115, A = t ? Symbol.for("react.lazy") : 60116, x = t ? Symbol.for("react.block") : 60121, M = t ? Symbol.for("react.fundamental") : 60117, D = t ? Symbol.for("react.responder") : 60118, U = t ? Symbol.for("react.scope") : 60119;
     function I(r) {
       return typeof r == "string" || typeof r == "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-      r === i || r === l || r === a || r === c || r === p || r === _ || typeof r == "object" && r !== null && (r.$$typeof === A || r.$$typeof === w || r.$$typeof === v || r.$$typeof === u || r.$$typeof === m || r.$$typeof === M || r.$$typeof === D || r.$$typeof === F || r.$$typeof === x);
+      r === i || r === l || r === a || r === c || r === p || r === _ || typeof r == "object" && r !== null && (r.$$typeof === A || r.$$typeof === w || r.$$typeof === v || r.$$typeof === u || r.$$typeof === m || r.$$typeof === M || r.$$typeof === D || r.$$typeof === U || r.$$typeof === x);
     }
     function j(r) {
       if (typeof r == "object" && r !== null) {
@@ -317,7 +317,7 @@ function Ue() {
       object: D("object"),
       string: D("string"),
       symbol: D("symbol"),
-      any: F(),
+      any: U(),
       arrayOf: I,
       element: j(),
       elementType: n(),
@@ -373,7 +373,7 @@ function Ue() {
       }
       return M(o);
     }
-    function F() {
+    function U() {
       return M(v);
     }
     function I(e) {
@@ -802,19 +802,19 @@ const Qe = { color: "rgb(44, 134, 213)", backgroundColor: "white" }, or = De(fun
     const l = () => c([...i]);
     return window.addEventListener("resize", l), () => window.removeEventListener("resize", l);
   }, [i]);
-  const u = { 350: 1, 450: 2, 750: 3, 900: 5, 1200: 7, 1800: 10 };
-  return /* @__PURE__ */ U(je, { children: /* @__PURE__ */ U(
+  const u = { 450: 1, 750: 2, 900: 2, 1200: 3, 2e3: 5 };
+  return /* @__PURE__ */ F(je, { children: /* @__PURE__ */ F(
     Ae,
     {
       columnsCountBreakPoints: s.columnsCountBreakPoints || u,
-      children: /* @__PURE__ */ U(me, { gutter: s.gutter || "10px", children: i.map((l, m) => {
+      children: /* @__PURE__ */ F(me, { gutter: s.gutter || "10px", children: i.map((l, m) => {
         var p;
         return /* @__PURE__ */ B("div", { className: "parent-list", children: [
-          /* @__PURE__ */ U("h3", { children: l.className }),
+          /* @__PURE__ */ F("h3", { children: l.className }),
           (p = l.permissions) == null ? void 0 : p.map((_, w) => {
             const A = _.mask > 0;
             return /* @__PURE__ */ B("div", { className: "child-list", children: [
-              /* @__PURE__ */ U(
+              /* @__PURE__ */ F("div", { children: /* @__PURE__ */ F(
                 Ie,
                 {
                   className: "checkbox-icon",
@@ -822,7 +822,7 @@ const Qe = { color: "rgb(44, 134, 213)", backgroundColor: "white" }, or = De(fun
                   style: Qe,
                   variant: A ? "all" : "none"
                 }
-              ),
+              ) }),
               /* @__PURE__ */ B("div", { className: "api-label-field", children: [
                 /* @__PURE__ */ B("span", { className: "operation-name-text", children: [
                   " ",
