@@ -3,6 +3,7 @@ import { CheckBoxIcon } from '../../../src/palmyra/menu/AsyncTreeMenuEditor';
 import { forwardRef, MutableRefObject, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { AclAPIEditorProps, APIPermission, IAclAPIEditor, NestedAPIPermission } from './types';
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
+import style from './../../../node_modules/@mui/system/modern/style';
 
 const style =
     { color: "rgb(44, 134, 213)", backgroundColor: 'white' };
@@ -39,7 +40,7 @@ const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, 
         return () => window.removeEventListener("resize", handleResize);
     }, [data]);
 
-    const defaultColumnsCountBreakPoints = { 350: 1, 450: 2, 750: 3, 900: 5, 1200: 7, 1800: 10 };
+    const defaultColumnsCountBreakPoints = { 450: 1, 750: 2, 900: 2, 1200: 3, 2000: 5 };
     const defaultGutter = "10px";
     return (
         <>
@@ -53,12 +54,14 @@ const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, 
                                 const isSelected = permission.mask > 0;
                                 return (
                                     <div className='child-list' key={index}>
-                                        <CheckBoxIcon
-                                            className="checkbox-icon"
-                                            onClick={() => handleClick(pIndex, index, !isSelected)}
-                                            style={style}
-                                            variant={isSelected ? "all" : "none"}
-                                        />
+                                        <div>
+                                            <CheckBoxIcon
+                                                className="checkbox-icon"
+                                                onClick={() => handleClick(pIndex, index, !isSelected)}
+                                                style={style}
+                                                variant={isSelected ? "all" : "none"}
+                                            />
+                                        </div>
                                         <div className='api-label-field'>
                                             <span className='operation-name-text'> {permission.name}</span>
                                             <span className='operation-code-text'>({permission.code})</span>
