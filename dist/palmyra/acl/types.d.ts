@@ -11,6 +11,10 @@ interface NestedAPIPermission extends APIPermission {
 }
 interface AclAPIEditorProps {
     data: NestedAPIPermission[];
+    columnsCountBreakPoints?: {
+        [key: number]: number;
+    };
+    gutter?: string;
 }
 interface IAclAPIEditor {
     getValue: () => NestedAPIPermission[];
