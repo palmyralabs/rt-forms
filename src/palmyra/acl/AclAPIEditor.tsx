@@ -2,7 +2,7 @@ import './ApiAccessMgmt.css';
 import { CheckBoxIcon } from '../../../src/palmyra/menu/AsyncTreeMenuEditor';
 import { forwardRef, MutableRefObject, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { AclAPIEditorProps, APIPermission, IAclAPIEditor, NestedAPIPermission } from './types';
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 
 const style =
     { color: "rgb(44, 134, 213)", backgroundColor: 'white' };
@@ -38,11 +38,14 @@ const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, 
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, [data]);
+
+    const defaultColumnsCountBreakPoints = { 350: 1, 450: 2, 750: 3, 900: 5, 1200: 7, 1800: 10 };
+    const defaultGutter = "10px";
     return (
-        <div>
+        <>
             <ResponsiveMasonry
-                columnsCountBreakPoints={{ 350: 1, 450: 2, 750: 3, 900: 5, 1200: 7, 1800: 10 }} >
-                <Masonry gutter="10px">
+                columnsCountBreakPoints={props.columnsCountBreakPoints || defaultColumnsCountBreakPoints}>
+                <Masonry gutter={props.gutter || defaultGutter}>
                     {data.map((d: NestedAPIPermission, pIndex: number) => (
                         <div key={d.className} className='parent-list'>
                             <h3>{d.className}</h3>
@@ -56,7 +59,10 @@ const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, 
                                             style={style}
                                             variant={isSelected ? "all" : "none"}
                                         />
-                                        <span>{permission.name} <span className='operation-text'>({permission.code})</span></span>
+                                        <div className='api-label-field'>
+                                            <span className='operation-name-text'> {permission.name}</span>
+                                            <span className='operation-code-text'>({permission.code})</span>
+                                        </div>
                                     </div>
                                 );
                             })}
@@ -64,7 +70,7 @@ const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, 
                     ))}
                 </Masonry>
             </ResponsiveMasonry>
-        </div>
+        </>
     )
 });
 
