@@ -87,4 +87,7 @@ interface IServerQueryOptions {
 }
 
 
+type IHiddenFieldDefinition = Pick<FieldOptions, "attribute">;
+
 export type { FieldOptions, IMutateOptions, IFieldValidation, IServerLookupOptions, IServerQueryOptions }
+export type { IHiddenFieldDefinition }

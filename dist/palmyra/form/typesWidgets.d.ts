@@ -1,11 +1,13 @@
 import { IMutateOptions } from './typesFieldOptions';
-interface IInputField {
-    focus: () => void;
-    isValid: () => void;
-    clear: () => void;
-    refreshError: () => void;
+interface IBaseField {
     getValue: () => any;
     setValue: (v: any, doValidate?: boolean) => void;
+    isValid: () => void;
+}
+interface IInputField extends IBaseField {
+    focus: () => void;
+    clear: () => void;
+    refreshError: () => void;
     setRequired: (required: boolean) => void;
     setDisabled: (disabled: boolean) => void;
     setReadOnly: (readOnly: boolean) => void;
@@ -41,4 +43,4 @@ interface ISwitchField extends IInputField, IOptionsField {
 }
 interface ISliderField extends IInputField {
 }
-export type { IInputField, ITextField, ICheckBoxField, IDateField, IDateTimeField, IRadioGroupField, ISelectField, ITimeField, ISwitchField, ISliderField, IRatingField, IServerLookupField };
+export type { IBaseField, IInputField, ITextField, ICheckBoxField, IDateField, IDateTimeField, IRadioGroupField, ISelectField, ITimeField, ISwitchField, ISliderField, IRatingField, IServerLookupField };
