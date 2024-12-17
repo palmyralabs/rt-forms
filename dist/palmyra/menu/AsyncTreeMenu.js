@@ -1,14 +1,15 @@
-import { jsx as n, Fragment as N, jsxs as p } from "react/jsx-runtime";
-import { useRef as S, useState as L, useEffect as k } from "react";
+import { jsx as n, Fragment as S, jsxs as p } from "react/jsx-runtime";
+import { useRef as v, useState as k, useEffect as P } from "react";
 import V from "react-accessible-treeview";
 import j from "classnames";
 import { A as B, I as M } from "../../chunks/index.js";
 import { useNavigate as U } from "react-router-dom";
-const E = "palmyra.rui.sidemenu.expanded", v = "palmyra.rui.sidemenu.expanded.selected";
-function q(h) {
-  const o = U(), g = S(null);
-  let u = { name: "", id: -1, parent: null, children: [], isBranch: !0 };
-  const [i, y] = L({ data: [u], expandedIds: [], selectedId: [] }), A = h.store, l = S([]), b = (e, r, a) => e.map((s) => (s.id === r && !s.loaded && (s.loaded = !0, s.children = a.filter((d) => r == d.parent).map((d) => d.id)), s)).concat(a), w = (e) => e.split(",").map((a) => parseInt(a)), T = (e, r) => e && Array.isArray(e) ? e.map((t) => {
+import { SimpleIconProvider as F } from "./IconProvider.js";
+const N = "palmyra.rui.sidemenu.expanded", E = "palmyra.rui.sidemenu.expanded.selected";
+function J(f) {
+  const o = U(), g = v(null);
+  let m = { name: "", id: -1, parent: null, children: [], isBranch: !0 };
+  const [i, y] = k({ data: [m], expandedIds: [], selectedId: [] }), A = f.store, l = v([]), b = (e, r, a) => e.map((s) => (s.id === r && !s.loaded && (s.loaded = !0, s.children = a.filter((d) => r == d.parent).map((d) => d.id)), s)).concat(a), w = (e) => e.split(",").map((a) => parseInt(a)), T = (e, r) => e && Array.isArray(e) ? e.map((t) => {
     const s = t.children || "";
     return {
       id: t.id,
@@ -27,19 +28,19 @@ function q(h) {
   function I(e) {
     return typeof e == "number" ? e : parseInt(e);
   }
-  k(() => {
+  P(() => {
     A.getRoot().then((e) => {
       var r = T(e.result, -1);
-      const a = b(i.data, -1, r), t = (localStorage.getItem(E) || "").split(",");
-      l.current = t.map((c) => I(c)).filter((c) => r.some((m) => m.id == c));
-      const d = (localStorage.getItem(v) || "").split(",").map((c) => I(c)).filter((c) => r.some((m) => m.id == c));
+      const a = b(i.data, -1, r), t = (localStorage.getItem(N) || "").split(",");
+      l.current = t.map((c) => I(c)).filter((c) => r.some((u) => u.id == c));
+      const d = (localStorage.getItem(E) || "").split(",").map((c) => I(c)).filter((c) => r.some((u) => u.id == c));
       y({ data: a, expandedIds: l.current, selectedId: d });
     });
   }, []);
   const C = () => {
-    localStorage.setItem(E, l.current.join());
+    localStorage.setItem(N, l.current.join());
   }, O = (e) => {
-    localStorage.setItem(v, e);
+    localStorage.setItem(E, e);
   }, R = (e) => {
     var r, a;
     if (!e.isBranch && ((r = e.metadata) != null && r.code)) {
@@ -49,8 +50,8 @@ function q(h) {
       const t = e.metadata.target;
       o(t);
     }
-  };
-  return /* @__PURE__ */ n(N, { children: /* @__PURE__ */ p("div", { className: "sidebar-asyn-menu", children: [
+  }, _ = f.iconProvider || F;
+  return /* @__PURE__ */ n(S, { children: /* @__PURE__ */ p("div", { className: "sidebar-asyn-menu", children: [
     /* @__PURE__ */ n(
       "div",
       {
@@ -94,10 +95,10 @@ function q(h) {
           isHalfSelected: s,
           getNodeProps: d,
           level: c,
-          handleSelect: m,
-          handleExpand: _
+          handleSelect: u,
+          handleExpand: D
         }) => {
-          const D = (f, x) => f && x.children.length === 0 ? /* @__PURE__ */ p(N, { children: [
+          const L = (h, x) => h && x.children.length === 0 ? /* @__PURE__ */ p(S, { children: [
             /* @__PURE__ */ p(
               "span",
               {
@@ -117,25 +118,30 @@ function q(h) {
                 className: "loading-icon"
               }
             )
-          ] }) : /* @__PURE__ */ n(F, { isOpen: f });
+          ] }) : /* @__PURE__ */ n(H, { isOpen: h });
           return /* @__PURE__ */ n(
             "div",
             {
-              ...d({ onClick: _ }),
+              ...d({ onClick: D }),
               style: { marginLeft: 5 * (c - 1) },
               children: /* @__PURE__ */ p(
                 "div",
                 {
                   className: t ? "async-tree-menu-selected-list" : "async-tree-menu-list",
-                  onClick: (f) => {
-                    t || m(f), R(e);
+                  onClick: (h) => {
+                    t || u(h), R(e);
                   },
                   children: [
                     /* @__PURE__ */ p("div", { className: "async-tree-menu-list-text-container", children: [
-                      /* @__PURE__ */ n("div", { className: "menu-icon" }),
+                      /* @__PURE__ */ n("div", {
+                        className: "menu-icon",
+                        /* 
+                        // @ts-ignore */
+                        children: _.getIcon(e.metadata.code)
+                      }),
                       /* @__PURE__ */ n("span", { className: "menu-name", children: e.name })
                     ] }),
-                    /* @__PURE__ */ n("div", { className: "async-tree-menu-list-arrow-container", children: r && D(a, e) })
+                    /* @__PURE__ */ n("div", { className: "async-tree-menu-list-arrow-container", children: r && L(a, e) })
                   ]
                 }
               )
@@ -146,15 +152,15 @@ function q(h) {
     ) })
   ] }) });
 }
-const F = (h) => {
-  const { isOpen: o, className: g } = h, u = "arrow", i = j(
-    u,
-    { [`${u}--closed`]: !o },
-    { [`${u}--open`]: o },
+const H = (f) => {
+  const { isOpen: o, className: g } = f, m = "arrow", i = j(
+    m,
+    { [`${m}--closed`]: !o },
+    { [`${m}--open`]: o },
     g
   );
   return /* @__PURE__ */ n(M, { className: i });
 };
 export {
-  q as default
+  J as default
 };

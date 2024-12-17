@@ -7,6 +7,7 @@ import { AiOutlineLoading } from "react-icons/ai";
 import { IoIosArrowForward } from "react-icons/io";
 import { IAsyncTreeMenuInput, IChildTreeRequest } from "./types";
 import { TreeQueryStore } from "@palmyralabs/palmyra-wire";
+import { IconProvider, SimpleIconProvider } from "./IconProvider";
 
 const MENU_STORE_KEY_EXPANDED = 'palmyra.rui.sidemenu.expanded';
 const MENU_STORE_KEY_SELECTED = 'palmyra.rui.sidemenu.expanded.selected';
@@ -114,6 +115,8 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
         }
     }
 
+    const iconProvider: IconProvider = props.iconProvider || SimpleIconProvider;
+
     return (
         <>
             <div className="sidebar-asyn-menu">
@@ -205,7 +208,9 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                                                 navigateTo(element);
                                             }}>
                                             <div className="async-tree-menu-list-text-container">
-                                                <div className="menu-icon"></div>
+                                                <div className="menu-icon">{/* 
+                                                // @ts-ignore */
+                                                    iconProvider.getIcon(element.metadata.code)}</div>
                                                 <span className="menu-name">{element.name}</span>
                                             </div>
                                             <div className="async-tree-menu-list-arrow-container">

@@ -28,6 +28,7 @@ interface TreeMenuInput {
 
 interface IAsyncTreeMenuInput {
     store: TreeQueryStore<IChildTreeRequest, any>
+    iconProvider?: IconProvider,
 }
 
 interface IAsyncTreeEditorInput {
