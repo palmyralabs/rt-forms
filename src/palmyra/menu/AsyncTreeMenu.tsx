@@ -116,7 +116,6 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
     }
 
     const iconProvider: IconProvider = props.iconProvider || SimpleIconProvider;
-
     return (
         <>
             <div className="sidebar-asyn-menu">
@@ -194,6 +193,10 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                                     );
                                 };
 
+                                // @ts-ignore
+                                const Icon = iconProvider.getIcon(element.metadata.code);
+
+
                                 return (
                                     <div
                                         {...getNodeProps({ onClick: handleExpand })}
@@ -208,9 +211,7 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                                                 navigateTo(element);
                                             }}>
                                             <div className="async-tree-menu-list-text-container">
-                                                <div className="menu-icon">{/* 
-                                                // @ts-ignore */
-                                                    iconProvider.getIcon(element.metadata.code)}</div>
+                                                <div className="menu-icon">{Icon && <Icon/>}</div>
                                                 <span className="menu-name">{element.name}</span>
                                             </div>
                                             <div className="async-tree-menu-list-arrow-container">

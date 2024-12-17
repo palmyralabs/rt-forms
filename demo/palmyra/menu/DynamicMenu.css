@@ -1,0 +1,12 @@
+.async-tree-menu-selected-list {
+    background: rgba(var(--default-color-rgb), 0.15);
+}
+
+.async-tree-menu-list {
+    color: rgba(var(--default-color-rgb), 0.45);
+}
+
+.async-tree-menu-list:hover {
+    background: rgba(var(--default-color-rgb), 0.15);
+    color: var(--default-color);
+}
