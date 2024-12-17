@@ -52,15 +52,15 @@
   "peerDependencies": {
     "@palmyralabs/palmyra-wire": "^1.1.0",
     "@palmyralabs/ts-predicates": "github:palmyralabs/ts-predicates",
-    "@palmyralabs/ts-utils": "0.1.0",
+    "@palmyralabs/ts-utils": "^0.2.0",
     "@tanstack/react-table": "^8.20.5",
     "react-responsive-masonry": "2.2.0",
-    "axios": "1.7.5",
+    "axios": "^1.7.5",
     "dayjs": "^1.11.13",
     "react-accessible-treeview": "^2.9.1"
   },
   "overrides": {
     "glob": "^11.0.0",
-    "tough-cookie": "5.0.0"
+    "tough-cookie": "^5.0.0"
   }
 }
