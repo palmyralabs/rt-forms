@@ -1,8 +1,9 @@
-import { jsxs as s, jsx as e } from "react/jsx-runtime";
-import '../../assets/FormGroup.css';const p = ({ title: r, children: o }) => /* @__PURE__ */ s("div", { className: "py-form-group", children: [
-  /* @__PURE__ */ e("div", { className: "py-form-group-title", children: r }),
+import { jsxs as m, jsx as p } from "react/jsx-runtime";
+import '../../assets/FormGroup.css';/* empty css                     */
+const i = ({ title: r, children: o }) => /* @__PURE__ */ m("div", { className: "py-form-group", children: [
+  /* @__PURE__ */ p("div", { className: "py-form-group-title", children: r }),
   o
 ] });
 export {
-  p as FormGroup
+  i as FormGroup
 };

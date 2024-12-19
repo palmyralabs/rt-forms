@@ -1,6 +1,6 @@
 import { jsx as C, Fragment as ae } from "react/jsx-runtime";
 import { useContext as te, useState as D, useCallback as oe, useEffect as T, forwardRef as O, useRef as L, useImperativeHandle as Q } from "react";
-import '../assets/FieldContainer.css';import '../assets/FieldGroupContainer.css';import '../assets/CardLayout.css';/* empty css           */
+import '../assets/FormGroup.css';import '../assets/FieldContainer.css';import '../assets/FieldGroupContainer.css';import '../assets/CardLayout.css';/* empty css           */
 import { useKeyValue as ne } from "../palmyra/utils/pubsub/PubSubHelper.js";
 import { PalmyraForm as J } from "../palmyra/form/PalmyraForm.js";
 import { FieldGroupManagerContext as se, StoreFactoryContext as ie } from "../palmyra/form/formContext.js";
@@ -20,6 +20,7 @@ import "../palmyra/acl/AclAPIEditor.js";
 import { getSaveFormHandle as X } from "../palmyra/form/formUtil.js";
 /* empty css                    */
 /* empty css               */
+/* empty css          */
 import { generatePredicate as ue, validate as q } from "../palmyra/form/validator/validatorHelper.js";
 import { usePalmyraViewForm as de } from "../palmyra/form/useHelpers/usePalmyraViewForm.js";
 import { usePalmyraNewForm as fe } from "../palmyra/form/useHelpers/usePalmyraNewForm.js";
@@ -38,12 +39,12 @@ const me = (t, e, n) => {
     F
   ), [f, x] = D(B);
   T(() => {
-    R != null && p();
+    R != null && _();
   }, [a]);
-  const m = f.value, g = f.error, h = () => m, _ = () => g != null && g.showError ? g : { status: !1, message: "" }, w = () => S, I = (l, v = !0, A = !0) => {
+  const m = f.value, g = f.error, h = () => m, p = () => g != null && g.showError ? g : { status: !1, message: "" }, w = () => S, I = (l, v = !0, A = !0) => {
     const P = typeof l == "function" ? l(m) : l, V = q(P, S, o);
     P === m && g && V.status == g.status && V.message == g.message || (r.setFieldValidity(t, !V.status), V.showError = A, e != null && e.readOnly ? x((N) => ({ ...N, error: V })) : (x({ value: P, error: V }), v && P !== m && r.setFieldData(t, P)));
-  }, p = () => {
+  }, _ = () => {
     const l = q(m, S, o);
     g && g.showError && l.status == g.status && l.message == g.message || (l.showError = !0, x((v) => ({ ...v, error: l })));
   };
@@ -62,8 +63,8 @@ const me = (t, e, n) => {
       var l;
       return f.error == null ? !q(m, S, o).status : !((l = f.error) != null && l.status);
     },
-    getError: _,
-    refreshError: p,
+    getError: p,
+    refreshError: _,
     mutateOptions: a,
     setMutateOptions: c,
     getFieldProps: () => {
@@ -99,12 +100,12 @@ function ye(t, e) {
 const ve = (t, e, n, r, a, c) => {
   var o = null, d = void 0;
   return t == null ? e.defaultValue != null ? o = n != null && n.parse ? n.parse(e.defaultValue) : e.defaultValue : o = a({}) : o = c(t), d = q(o, r, e), d.status && (d.showError = t != null || e.defaultValue != null), { value: o, error: d };
-}, Ze = O(function(e, n) {
+}, $e = O(function(e, n) {
   const r = e.storeFactory, { fetchData: a, saveData: c, formRef: o, refresh: d } = ge(e), F = n || L();
   return T(() => {
     a(), o.current.isValid() && e.onValidChange && e.onValidChange(!0);
   }, [o, e.id]), Q(F, () => X(c, o, d)), /* @__PURE__ */ C(J, { onValidChange: e.onValidChange, ref: o, storeFactory: r, children: e.children });
-}), $e = O(function(e, n) {
+}), ke = O(function(e, n) {
   const r = e.storeFactory, { saveData: a, formRef: c } = fe(e), o = n || L();
   return Q(o, () => X(a, c)), /* @__PURE__ */ C(
     J,
@@ -116,12 +117,12 @@ const ve = (t, e, n, r, a, c) => {
       children: e.children
     }
   );
-}), ke = O(function(e, n) {
+}), ze = O(function(e, n) {
   const r = e.storeFactory, { formRef: a, refresh: c } = de(e), o = n || L();
   return T(() => {
     c();
   }, [e.endPoint]), Q(o, () => X({}, a, c)), /* @__PURE__ */ C(J, { ref: a, storeFactory: r, children: e.children });
-}), ze = O(function(e, n) {
+}), et = O(function(e, n) {
   const r = me(e.attribute, e), a = n || L(null), { getValue: c, setValue: o, isValid: d } = r;
   return Q(a, () => ({
     getValue: c,
@@ -142,7 +143,7 @@ const we = (t) => {
   var k, z, ee;
   const { quickSearch: e, initialFetch: n = !0 } = t, r = L(null), a = t.store || Ve(t), c = t.fetchAll != !1, o = ((k = t.defaultParams) == null ? void 0 : k.filter) || {}, d = ((z = t.defaultParams) == null ? void 0 : z.sort) || {}, [F, y] = t.filterTopic ? ne(t.filterTopic, o) : D(o), M = t.pageSize ? t.pageSize : 15;
   var S = M instanceof Array ? M[0] : M;
-  const [R, B] = D((ee = t.storeOptions) == null ? void 0 : ee.endPointOptions), [f, x] = D({}), [m, g] = D({ limit: S, offset: 0, total: !0 }), [h, _] = D({ total: null, isLoading: !1, data: null }), w = (s) => {
+  const [R, B] = D((ee = t.storeOptions) == null ? void 0 : ee.endPointOptions), [f, x] = D({}), [m, g] = D({ limit: S, offset: 0, total: !0 }), [h, p] = D({ total: null, isLoading: !1, data: null }), w = (s) => {
     g((i) => ({ limit: i.limit, total: i.total, offset: s * i.limit }));
   }, I = (s) => {
     const i = s > 10 || s == -1 ? s : 15;
@@ -150,15 +151,15 @@ const we = (t) => {
       const j = Math.floor(u.offset / i) * i;
       return { limit: i, total: u.total, offset: j };
     });
-  }, p = () => F ? Object.keys(F).length == 0 : !1, K = (s, i) => {
-    _((u) => (setTimeout(() => {
+  }, _ = () => F ? Object.keys(F).length == 0 : !1, K = (s, i) => {
+    p((u) => (setTimeout(() => {
       t.onDataChange && t.onDataChange(s, u.data);
     }, 100), { data: s, total: i, isLoading: !1 }));
   }, Y = () => K([], 0), W = () => K(void 0, null), G = () => N({}), E = () => Math.round(m.offset / m.limit), l = () => m, v = () => {
-    _((s) => ({ ...s, isLoading: !0 }));
+    p((s) => ({ ...s, isLoading: !0 }));
   };
   T(() => {
-    (c || !p()) && P();
+    (c || !_()) && P();
   }, [m, f, R]);
   const A = () => ({
     sortOrder: f && Object.keys(f).length > 0 ? f : d,
@@ -230,7 +231,7 @@ const we = (t) => {
     getCurrentData: () => h == null ? void 0 : h.data,
     isLoading: h.isLoading
   };
-}, et = O(function(e, n) {
+}, tt = O(function(e, n) {
   const { Child: r, childProps: a } = e, c = n || L(null), o = we(e), d = e.listKeyProvider || ((F, y) => y);
   return Q(c, () => ({
     ...o
@@ -249,11 +250,11 @@ const we = (t) => {
   ) }) });
 });
 export {
-  ze as H,
-  Ze as P,
-  et as S,
-  $e as a,
-  ke as b,
+  et as H,
+  $e as P,
+  tt as S,
+  ke as a,
+  ze as b,
   we as c,
   me as u
 };

@@ -12,4 +12,5 @@ export * from './PalmyraViewForm';
 export * from './utils/getFieldHandler';
 export * from './FieldDecorator';
 export * from './FieldGroupContainer';
+export * from './FormGroup';
 export * from './HiddenField';

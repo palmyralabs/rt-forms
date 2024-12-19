@@ -3,7 +3,7 @@ import "../form/PalmyraForm.js";
 import { StoreFactoryContext as D } from "../form/formContext.js";
 import "@palmyralabs/ts-predicates";
 import "@palmyralabs/ts-utils";
-import '../../assets/FieldContainer.css';import '../../assets/FieldGroupContainer.css';import '../../assets/CardLayout.css';/* empty css                            */
+import '../../assets/FormGroup.css';import '../../assets/FieldContainer.css';import '../../assets/FieldGroupContainer.css';import '../../assets/CardLayout.css';/* empty css                            */
 import "react/jsx-runtime";
 /* empty css                      */
 import "@tanstack/react-table";
@@ -18,9 +18,10 @@ import "../menu/AsyncTreeMenuEditor.js";
 import "./AclAPIEditor.js";
 /* empty css                               */
 /* empty css                          */
-const B = (r) => {
-  const { groupId: s } = r, p = r.storeFactory || f(D), c = r.editorRef || l(null), m = p.getFormStore({}, "/admin/acl/permission/group/{groupId}"), [u, d] = g([]), n = () => {
-    m.get({ endPointVars: { groupId: s } }).then((i) => {
+/* empty css                     */
+const G = (r) => {
+  const { groupId: s } = r, p = r.storeFactory || f(D), m = r.editorRef || l(null), c = p.getFormStore({}, "/admin/acl/permission/group/{groupId}"), [u, d] = g([]), n = () => {
+    c.get({ endPointVars: { groupId: s } }).then((i) => {
       const e = i.reduce((o, t) => (o[t.className] || (o[t.className] = []), o[t.className].push({
         id: t.id,
         code: t.code,
@@ -35,16 +36,16 @@ const B = (r) => {
   };
   return h(() => {
     n();
-  }, [s, r.editorRef]), { aclData: u, editorRef: c, refresh: n, saveData: () => {
-    const i = c.current.getValue(), e = [];
+  }, [s, r.editorRef]), { aclData: u, editorRef: m, refresh: n, saveData: () => {
+    const i = m.current.getValue(), e = [];
     i.forEach((a) => {
       var o;
       (o = a.permissions) == null || o.forEach((t) => {
         e.push({ permissionId: t.id, mask: t.mask });
       });
-    }), m.put(e, { endPointVars: { groupId: s } });
+    }), c.put(e, { endPointVars: { groupId: s } });
   } };
 };
 export {
-  B as useAclAPIEditor
+  G as useAclAPIEditor
 };

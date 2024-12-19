@@ -6,8 +6,9 @@ import { mergeDeep as z } from "../../utils/ObjectUtils.js";
 import "../PalmyraForm.js";
 import "@palmyralabs/ts-predicates";
 import "react/jsx-runtime";
-import '../../../assets/CardLayout.css';import '../../../assets/FieldContainer.css';import '../../../assets/FieldGroupContainer.css';/* empty css                                  */
+import '../../../assets/CardLayout.css';import '../../../assets/FormGroup.css';import '../../../assets/FieldContainer.css';import '../../../assets/FieldGroupContainer.css';/* empty css                                  */
 /* empty css                             */
+/* empty css                        */
 /* empty css                         */
 import "@tanstack/react-table";
 import "../../grid/base/utils/ColumnConverter.js";
@@ -19,7 +20,7 @@ import "../../../chunks/index.js";
 import "react-router-dom";
 import "../../menu/AsyncTreeMenuEditor.js";
 import "../../acl/AclAPIEditor.js";
-const pt = (o, t, r) => {
+const at = (o, t, r) => {
   var m, f, y;
   const s = d(0), i = d(""), [g, p] = Q([]), S = (r == null ? void 0 : r.preProcessSearchText) || ((e) => "*" + e + "*"), a = M(o, t, r), h = L(t), q = () => {
     const {
@@ -68,5 +69,5 @@ function L(o) {
   return z(s, o.queryOptions), t.getLookupStore(s, o.queryOptions.endPoint, r);
 }
 export {
-  pt as useServerQueryFieldManager
+  at as useServerQueryFieldManager
 };
