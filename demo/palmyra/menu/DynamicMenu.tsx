@@ -1,7 +1,7 @@
-import { IChildTreeRequest, IconProvider, SimpleIconProvider } from "@palmyralabs/rt-forms";
 import './DynamicMenu.css'
 import { TreeQueryStore } from "@palmyralabs/palmyra-wire";
-import { AsyncTreeMenu } from "../../../src/palmyra";
+import { AsyncTreeMenu, IChildTreeRequest, IconProvider } from "../../../src/palmyra";
+import { SimpleIconProvider } from './SimpleIconProvider';
 
 interface IOptions {
     treeStore: TreeQueryStore<IChildTreeRequest, any>

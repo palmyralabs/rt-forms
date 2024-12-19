@@ -1,5 +1,5 @@
-import { IconProvider } from "@palmyralabs/rt-forms";
 import { BiHome } from "react-icons/bi";
+import { IconProvider } from "../../../src/palmyra";
 
 
 const iconMap: any = {

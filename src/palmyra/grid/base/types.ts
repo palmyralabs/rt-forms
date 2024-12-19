@@ -1,15 +1,15 @@
 import { CellContext, ColumnDef, OnChangeFn, Row, RowData, RowModel, RowSelectionState, Table } from "@tanstack/react-table";
 import { MutableRefObject } from "react";
-import { IPageQueryable, IServerQueryInput } from "@palmyralabs/rt-forms";
 
 type IReactTanstackTable = import("@tanstack/table-core").Table<RowData>;
 
 type IExportOptions = PartialRecord<'csv' | 'excel' | 'pdf' | 'docx', string>
 
-import { FieldOptions } from "@palmyralabs/rt-forms";
 
 import { ReactNode } from "react";
 import { IEndPoint } from "@palmyralabs/palmyra-wire";
+import { IPageQueryable, IServerQueryInput } from "../../wire";
+import { FieldOptions } from "../../form";
 
 
 interface ApiDataTableOptions extends Omit<IServerQueryInput, 'store'>, IGridPlugin {
