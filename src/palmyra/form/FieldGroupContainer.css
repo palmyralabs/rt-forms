@@ -2,6 +2,7 @@
     width: 100% !important;
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
 }
 
 .py-field-group-container-1columns .py-form-field-container {
