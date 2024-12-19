@@ -1,21 +1,21 @@
-import { jsx as n, Fragment as S, jsxs as p } from "react/jsx-runtime";
-import { useRef as v, useState as k, useEffect as P } from "react";
-import V from "react-accessible-treeview";
-import j from "classnames";
-import { A as B, I as M } from "../../chunks/index.js";
-import { useNavigate as U } from "react-router-dom";
-import { SimpleIconProvider as F } from "./IconProvider.js";
-const N = "palmyra.rui.sidemenu.expanded", E = "palmyra.rui.sidemenu.expanded.selected";
-function J(f) {
-  const o = U(), g = v(null);
+import { jsx as n, Fragment as v, jsxs as p } from "react/jsx-runtime";
+import { useRef as N, useState as P, useEffect as V } from "react";
+import j from "react-accessible-treeview";
+import B from "classnames";
+import { A as M, I as U } from "../../chunks/index.js";
+import { useNavigate as F } from "react-router-dom";
+import { SimpleIconProvider as H } from "./IconProvider.js";
+const E = "palmyra.rui.sidemenu.expanded", y = "palmyra.rui.sidemenu.expanded.selected";
+function Q(f) {
+  const o = F(), g = N(null);
   let m = { name: "", id: -1, parent: null, children: [], isBranch: !0 };
-  const [i, y] = k({ data: [m], expandedIds: [], selectedId: [] }), A = f.store, l = v([]), b = (e, r, a) => e.map((s) => (s.id === r && !s.loaded && (s.loaded = !0, s.children = a.filter((d) => r == d.parent).map((d) => d.id)), s)).concat(a), w = (e) => e.split(",").map((a) => parseInt(a)), T = (e, r) => e && Array.isArray(e) ? e.map((t) => {
+  const [i, A] = P({ data: [m], expandedIds: [], selectedId: [] }), b = f.store, l = N([]), w = (e, r, a) => e.map((s) => (s.id === r && !s.loaded && (s.loaded = !0, s.children = a.filter((d) => r == d.parent).map((d) => d.id)), s)).concat(a), T = (e) => e.split(",").map((a) => parseInt(a)), C = (e, r) => e && Array.isArray(e) ? e.map((t) => {
     const s = t.children || "";
     return {
       id: t.id,
       name: t.name,
       parent: t.parent ? t.parent : r,
-      children: t.children ? w(t.children) : [],
+      children: t.children ? T(t.children) : [],
       isBranch: s.length > 0,
       loaded: !0,
       metadata: {
@@ -28,20 +28,20 @@ function J(f) {
   function I(e) {
     return typeof e == "number" ? e : parseInt(e);
   }
-  P(() => {
-    A.getRoot().then((e) => {
-      var r = T(e.result, -1);
-      const a = b(i.data, -1, r), t = (localStorage.getItem(N) || "").split(",");
+  V(() => {
+    b.getRoot().then((e) => {
+      var r = C(e.result, -1);
+      const a = w(i.data, -1, r), t = (localStorage.getItem(E) || "").split(",");
       l.current = t.map((c) => I(c)).filter((c) => r.some((u) => u.id == c));
-      const d = (localStorage.getItem(E) || "").split(",").map((c) => I(c)).filter((c) => r.some((u) => u.id == c));
-      y({ data: a, expandedIds: l.current, selectedId: d });
+      const d = (localStorage.getItem(y) || "").split(",").map((c) => I(c)).filter((c) => r.some((u) => u.id == c));
+      A({ data: a, expandedIds: l.current, selectedId: d });
     });
   }, []);
-  const C = () => {
-    localStorage.setItem(N, l.current.join());
-  }, O = (e) => {
-    localStorage.setItem(E, e);
+  const O = () => {
+    localStorage.setItem(E, l.current.join());
   }, R = (e) => {
+    localStorage.setItem(y, e);
+  }, _ = (e) => {
     var r, a;
     if (!e.isBranch && ((r = e.metadata) != null && r.code)) {
       const t = e.metadata.code;
@@ -50,8 +50,8 @@ function J(f) {
       const t = e.metadata.target;
       o(t);
     }
-  }, _ = f.iconProvider || F;
-  return /* @__PURE__ */ n(S, { children: /* @__PURE__ */ p("div", { className: "sidebar-asyn-menu", children: [
+  }, D = f.iconProvider || H;
+  return /* @__PURE__ */ n(v, { children: /* @__PURE__ */ p("div", { className: "sidebar-asyn-menu", children: [
     /* @__PURE__ */ n(
       "div",
       {
@@ -62,7 +62,7 @@ function J(f) {
       }
     ),
     /* @__PURE__ */ n("div", { className: "checkbox", children: i.data.length > 1 && /* @__PURE__ */ n(
-      V,
+      j,
       {
         className: "async-tree-menu-container",
         data: i.data,
@@ -75,11 +75,11 @@ function J(f) {
             const t = l.current.indexOf(a.id);
             t > -1 && l.current.splice(t, 1);
           }
-          C();
+          O();
         },
         onSelect: (e) => {
           const r = e.isSelected, a = e.element;
-          r && !e.isHalfSelected && a.id !== "" && O(a.id);
+          r && !e.isHalfSelected && a.id !== "" && R(a.id);
         },
         propagateSelect: !1,
         togglableSelect: !0,
@@ -96,9 +96,9 @@ function J(f) {
           getNodeProps: d,
           level: c,
           handleSelect: u,
-          handleExpand: D
+          handleExpand: L
         }) => {
-          const L = (h, x) => h && x.children.length === 0 ? /* @__PURE__ */ p(S, { children: [
+          const k = (h, S) => h && S.children.length === 0 ? /* @__PURE__ */ p(v, { children: [
             /* @__PURE__ */ p(
               "span",
               {
@@ -107,41 +107,36 @@ function J(f) {
                 className: "visually-hidden",
                 children: [
                   "loading ",
-                  x.name
+                  S.name
                 ]
               }
             ),
             /* @__PURE__ */ n(
-              B,
+              M,
               {
                 "aria-hidden": !0,
                 className: "loading-icon"
               }
             )
-          ] }) : /* @__PURE__ */ n(H, { isOpen: h });
+          ] }) : /* @__PURE__ */ n(K, { isOpen: h }), x = D.getIcon(e.metadata.code);
           return /* @__PURE__ */ n(
             "div",
             {
-              ...d({ onClick: D }),
+              ...d({ onClick: L }),
               style: { marginLeft: 5 * (c - 1) },
               children: /* @__PURE__ */ p(
                 "div",
                 {
                   className: t ? "async-tree-menu-selected-list" : "async-tree-menu-list",
                   onClick: (h) => {
-                    t || u(h), R(e);
+                    t || u(h), _(e);
                   },
                   children: [
                     /* @__PURE__ */ p("div", { className: "async-tree-menu-list-text-container", children: [
-                      /* @__PURE__ */ n("div", {
-                        className: "menu-icon",
-                        /* 
-                        // @ts-ignore */
-                        children: _.getIcon(e.metadata.code)
-                      }),
+                      /* @__PURE__ */ n("div", { className: "menu-icon", children: x && /* @__PURE__ */ n(x, {}) }),
                       /* @__PURE__ */ n("span", { className: "menu-name", children: e.name })
                     ] }),
-                    /* @__PURE__ */ n("div", { className: "async-tree-menu-list-arrow-container", children: r && L(a, e) })
+                    /* @__PURE__ */ n("div", { className: "async-tree-menu-list-arrow-container", children: r && k(a, e) })
                   ]
                 }
               )
@@ -152,15 +147,15 @@ function J(f) {
     ) })
   ] }) });
 }
-const H = (f) => {
-  const { isOpen: o, className: g } = f, m = "arrow", i = j(
+const K = (f) => {
+  const { isOpen: o, className: g } = f, m = "arrow", i = B(
     m,
     { [`${m}--closed`]: !o },
     { [`${m}--open`]: o },
     g
   );
-  return /* @__PURE__ */ n(M, { className: i });
+  return /* @__PURE__ */ n(U, { className: i });
 };
 export {
-  J as default
+  Q as default
 };
