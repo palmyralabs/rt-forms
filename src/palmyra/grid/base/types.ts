@@ -18,8 +18,8 @@ interface ApiDataTableOptions extends Omit<IServerQueryInput, 'store'>, IGridPlu
     customizer?: GridCustomizer,
     EmptyChild?: React.FC,
     onRowClick?: Function
-  }
-  
+}
+
 
 interface IDecoratedTitle {
     title: string,
@@ -42,7 +42,7 @@ interface IConstraints {
 
 interface IRange<T> {
     from?: T,
-    to?:T
+    to?: T
 }
 
 type FieldType = "string" | "number" | "date" | "radio" | "select" | "iosswitch"
@@ -128,6 +128,9 @@ interface PaginationOptions {
 
 interface GridXOptions<ControlPropsType> extends DataGridOptions {
     title?: ITitle,
+    pagination?: {
+        ignoreSinglePage?: boolean
+    }
     getPluginOptions?: any,
     DataGridControlProps?: ControlPropsType
     DataGridControls?: (props: DataGridPluginOptions & ControlPropsType) => JSX.Element
