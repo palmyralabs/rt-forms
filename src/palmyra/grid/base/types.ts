@@ -112,13 +112,18 @@ interface DataGridOptions extends ApiDataTableOptions {
     topic?: string
 }
 
-interface DataGridPluginOptions {
+
+interface DataGridPluginOptions extends PaginationOptions {
     topic: string,
     getPluginOptions?: () => any
     quickSearch?: string
     queryRef: MutableRefObject<IPageQueryable>,
-    pageSize?: number | number[],
     columns: ColumnDefinition[]
+}
+
+interface PaginationOptions {
+    pageSize?: number | number[],
+    ignoreSinglePage?: boolean
 }
 
 interface GridXOptions<ControlPropsType> extends DataGridOptions {
@@ -139,7 +144,8 @@ interface IPalmyraGrid extends IPageQueryable {
 
 export type {
     ColumnDefinition, GridCustomizer, CellGetter, IExportOptions, IReactTanstackTable, ITableOptions,
-    IGridPlugin, DataGridOptions, DataGridPluginOptions, GridXOptions, PalmyraGridOptions, IPalmyraGrid
+    IGridPlugin, DataGridOptions, DataGridPluginOptions, GridXOptions, PalmyraGridOptions, IPalmyraGrid,
+    PaginationOptions
 };
 
 export type {
