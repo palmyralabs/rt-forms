@@ -61,7 +61,9 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
         return validator;
     }
 
-    const setValue = (v: Dispatch<SetStateAction<any>>, propagate = true, showError = true) => {
+    const setValue = (v: Dispatch<SetStateAction<any>>, propagate = true, showError = true,
+        readOnlyOverride = false
+    ) => {
         const d: any = (typeof v == 'function') ? v(value) : v;
 
         const newError = validate(d, validator, options);
@@ -71,7 +73,8 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
         }
         fieldGroupManager.setFieldValidity(key, !newError.status);
         newError.showError = showError;
-        if (fieldOptions?.readOnly) {
+        
+        if (fieldOptions?.readOnly && !readOnlyOverride) {
             setFieldState((d) => { return { ...d, error: newError } });
         } else {
             setFieldState({ value: d, error: newError });

@@ -117,7 +117,8 @@ const assignChildrenData = (fields: Record<string, { options: FieldOptions, fiel
     Object.keys(fields).every((key: string) => {
         const fieldManager = fields[key].field;
         const accessor = fieldManager.valueAccessor;
-        fieldManager.setValue(accessor(data), false, false);
+        // @ts-ignore
+        fieldManager.setValue(accessor(data), false, false, true);
         return true;
     });
 }

@@ -32,7 +32,7 @@ interface IFieldGroupOptions {
 
 interface IFieldManager {
     getValue: Supplier<any>,
-    setValue: (v: any, skipValidation?: Boolean, propagate?: boolean) => void,
+    setValue: (v: any) => void,
     isValid: OPredicate,
     getError: Supplier<IFormFieldError>,
     refreshError: (force?: boolean) => void,

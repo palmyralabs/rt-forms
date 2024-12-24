@@ -21,7 +21,7 @@ declare const useServerLookupFieldManager: (key: string, o: FieldOptions & IServ
     options: any[];
     setOptions: import('react').Dispatch<import('react').SetStateAction<any[]>>;
     getValue: import('@palmyralabs/ts-utils').Supplier<any>;
-    setValue: (v: any, skipValidation?: Boolean, propagate?: boolean) => void;
+    setValue: (v: any) => void;
     isValid: () => boolean;
     getError: import('@palmyralabs/ts-utils').Supplier<import('..').IFormFieldError>;
     refreshError: (force?: boolean) => void;

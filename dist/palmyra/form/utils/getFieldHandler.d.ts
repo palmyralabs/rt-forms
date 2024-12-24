@@ -2,7 +2,7 @@ import { IFieldManager } from '../types';
 import { IMutateOptions } from '../typesFieldOptions';
 declare const getFieldHandler: (fieldManager: IFieldManager) => {
     isValid(): boolean;
-    setValue: (v: any, skipValidation?: Boolean, propagate?: boolean) => void;
+    setValue: (v: any) => void;
     getValue: import('@palmyralabs/ts-utils').Supplier<any>;
     clear(): void;
     refreshError(): void;
