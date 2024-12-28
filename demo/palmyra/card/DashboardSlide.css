@@ -1,0 +1,46 @@
+.card-wrapper {
+    /* gap: 20px; */
+}
+
+.card-header {
+    margin-top: 0;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.dash-slide {
+    border: 1px solid;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dash-slide .left-slide-section,
+.dash-slide .right-slide-section {
+    text-align: center;
+}
+
+.dash-slide .right-slide-section .icon-container {
+    background-color: rgb(233, 26, 95, 0.15);
+    color: rgb(233, 26, 95);
+    font-size: 2em;
+    padding: 10px;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+}
+
+.dash-slide .label {
+    width: 100%;
+    color: rgba(var(--dark-color-rgb), 0.65);
+}
+
+.dash-slide .data {
+    margin-top: 0.5em;
+    font-weight: 600;
+    font-size: 1.2em;
+}
