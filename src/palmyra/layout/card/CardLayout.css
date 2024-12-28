@@ -3,6 +3,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+    transition: all 0.5s ease-in-out;
 }
 
 .card-pagination {
@@ -61,39 +62,39 @@
     color: rgb(124, 124, 124, 0.85);
 }
 
-.card-view-x2 {
+.card-view-x2,
+.card-view-x3,
+.card-view-x4,
+.card-view-x5,
+.card-view-x6,
+.card-view-x7 {
     flex: 0 1 0;
     width: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+
+.card-view-x2 {
     min-width: calc(50% - 10px);
 }
 
 .card-view-x3 {
-    flex: 0 1 0;
-    width: 0;
     min-width: calc(33% - 5px);
 }
 
 .card-view-x4 {
-    flex: 0 1 0;
-    width: 0;
     min-width: calc(25% - 10px);
 }
 
 .card-view-x5 {
-    flex: 0 1 0;
-    width: 0;
     min-width: calc(20% - 10px);
 }
 
 .card-view-x6 {
-    flex: 0 1 0;
-    width: 0;
     min-width: calc(16.6% - 10px);
 }
 
 .card-view-x7 {
-    flex: 0 1 0;
-    width: 0;
     min-width: calc(14.3% - 10px);
 }
 
