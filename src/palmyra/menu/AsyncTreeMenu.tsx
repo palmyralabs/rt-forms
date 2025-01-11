@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import TreeView, { INode, ITreeViewOnExpandProps, ITreeViewOnSelectProps, NodeId } from "react-accessible-treeview";
 import cx from "classnames";
 import "./AsyncTreeMenu.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineLoading } from "react-icons/ai";
 import { IoIosArrowForward } from "react-icons/io";
 import { IAsyncTreeMenuInput, IChildTreeRequest } from "./types";
@@ -14,6 +14,7 @@ const MENU_STORE_KEY_SELECTED = 'palmyra.rui.sidemenu.expanded.selected';
 
 export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
     const navigate = useNavigate();
+    const location = useLocation();
     const loadedAlertElement = useRef(null);
     let rootNode = { name: "", id: -1, parent: null, children: [], isBranch: true };
     const [data, setData] = useState({ data: [rootNode], expandedIds: [], selectedId: [] });
@@ -83,16 +84,19 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                 })
             });
 
-            const localSelVal = (localStorage.getItem(MENU_STORE_KEY_SELECTED) || '').split(',').map(d => parse(d));
-            const selectedId = localSelVal.filter((id) => {
-                return nodes.some((d) => {
-                    return d.id == id;
-                })
-            });
+            // const localSelVal = (localStorage.getItem(MENU_STORE_KEY_SELECTED) || '').split(',').map(d => parse(d));
+            // const selectedId = localSelVal.filter((id) => {
+            //     return nodes.some((d) => {
+            //         return d.id == id;
+            //     })
+            // });
+            const selectedId = nodes
+                .filter((node) => node.metadata?.target === location.pathname)
+                .map((node) => node.id);
 
             setData({ data: sd, expandedIds: expandedIdRef.current, selectedId: selectedId });
         });
-    }, []);
+    }, [location.pathname]);
 
     const persistExpanded = () => {
         localStorage.setItem(MENU_STORE_KEY_EXPANDED, expandedIdRef.current.join());
@@ -134,15 +138,16 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                                 const isExpanded = p.isExpanded;
                                 const element = p.element;
                                 if (isExpanded) {
-                                    if (element.id != "") {
-                                        if (!expandedIdRef.current.includes(element.id))
-                                            expandedIdRef.current.push(element.id);
+                                    if (element.id !== "" && !expandedIdRef.current.includes(element.id)) {
+                                        expandedIdRef.current.push(element.id);
                                     }
                                 } else {
-                                    const idx: number = expandedIdRef.current.indexOf(element.id)
-                                    if (idx > -1) {
-                                        expandedIdRef.current.splice(idx, 1);
-                                    }
+                                    const removeWithChildren = (nodeId: NodeId) => {
+                                        expandedIdRef.current = expandedIdRef.current.filter((id) => id !== nodeId);
+                                        const childNodes = data?.data.filter((node) => node.parent === nodeId);
+                                        childNodes.forEach((child) => removeWithChildren(child.id));
+                                    };
+                                    removeWithChildren(element.id);
                                 }
                                 persistExpanded();
                             }}
@@ -211,7 +216,7 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                                                 navigateTo(element);
                                             }}>
                                             <div className="async-tree-menu-list-text-container">
-                                                <div className="menu-icon">{Icon && <Icon/>}</div>
+                                                <div className="menu-icon">{Icon && <Icon />}</div>
                                                 <span className="menu-name">{element.name}</span>
                                             </div>
                                             <div className="async-tree-menu-list-arrow-container">

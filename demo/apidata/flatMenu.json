@@ -3,7 +3,8 @@
         {
             "id": 1,
             "name": "Home",
-            "code": "home"
+            "code": "home",
+            "children":"6,7,8"
         },
         {
             "id": 2,
@@ -24,6 +25,24 @@
             "id": 5,
             "name": "Summary Dialog Grid",
             "code": "dialogGrid"
+        },
+        {
+            "id": 6,
+            "name": "Home 1",
+            "code": "editGrid",
+            "parent":1
+        },
+        {
+            "id": 7,
+            "name": "Home 2",
+            "code": "drawerGrid",
+            "parent":1
+        },
+        {
+            "id": 8,
+            "name": "Home 3",
+            "code": "dialogGrid",
+            "parent":1
         }
     ],
     "status": 200
