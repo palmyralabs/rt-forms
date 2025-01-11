@@ -68,7 +68,7 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
   };
 
   const setPageSize = (pageSize: number) => {
-    const limit: number = (pageSize > 10 || pageSize == -1) ? pageSize : 15;
+    const limit: number = (pageSize > 0 || pageSize == -1) ? pageSize : 15;
     setQueryLimit((q) => {
       const offset: number = Math.floor(q.offset / limit) * limit;
       return { limit, total: q.total, offset: offset }

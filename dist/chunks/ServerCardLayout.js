@@ -146,7 +146,7 @@ const we = (t) => {
   const [R, I] = D((ee = t.storeOptions) == null ? void 0 : ee.endPointOptions), [f, x] = D({}), [m, g] = D({ limit: S, offset: 0, total: !0 }), [h, p] = D({ total: null, isLoading: !1, data: null }), V = (s) => {
     g((i) => ({ limit: i.limit, total: i.total, offset: s * i.limit }));
   }, Y = (s) => {
-    const i = s > 10 || s == -1 ? s : 15;
+    const i = s > 0 || s == -1 ? s : 15;
     g((u) => {
       const b = Math.floor(u.offset / i) * i;
       return { limit: i, total: u.total, offset: b };
