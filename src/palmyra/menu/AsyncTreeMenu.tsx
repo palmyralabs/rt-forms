@@ -96,7 +96,7 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
 
             setData({ data: sd, expandedIds: expandedIdRef.current, selectedId: selectedId });
         });
-    }, [location.pathname]);
+    }, []);
 
     const persistExpanded = () => {
         localStorage.setItem(MENU_STORE_KEY_EXPANDED, expandedIdRef.current.join());
@@ -118,7 +118,11 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
             navigate(target);
         }
     }
-
+    const removeWithChildren = (nodeId: NodeId) => {
+        expandedIdRef.current = expandedIdRef.current.filter((id) => id !== nodeId);
+        const childNodes = data?.data.filter((node) => node.parent === nodeId);
+        childNodes.forEach((child) => removeWithChildren(child.id));
+    };
     const iconProvider: IconProvider = props.iconProvider || SimpleIconProvider;
     return (
         <>
@@ -142,11 +146,6 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                                         expandedIdRef.current.push(element.id);
                                     }
                                 } else {
-                                    const removeWithChildren = (nodeId: NodeId) => {
-                                        expandedIdRef.current = expandedIdRef.current.filter((id) => id !== nodeId);
-                                        const childNodes = data?.data.filter((node) => node.parent === nodeId);
-                                        childNodes.forEach((child) => removeWithChildren(child.id));
-                                    };
                                     removeWithChildren(element.id);
                                 }
                                 persistExpanded();
