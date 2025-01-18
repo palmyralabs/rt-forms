@@ -81,6 +81,7 @@ const generateFieldAccessor = (o: FieldOptions & IServerLookupOptions) => {
     const optionIdKey = getOptionIdKey(o);
     const optionValueKey = getOptionValueKey(o);
 
+
     const valueAccessor = getValueAccessor(attribute);
     const optionIdSetter = getValueSetter(optionIdKey);
     const optionValueSetter = getValueSetter(optionValueKey);
@@ -95,35 +96,34 @@ const generateFieldAccessor = (o: FieldOptions & IServerLookupOptions) => {
     if (lookupOptions?.displayAttribute) {
         const displayAccessor = getValueAccessor(lookupOptions.displayAttribute);
         return (formData: any) => {
-            const id = valueAccessor(formData);  
+            const id = valueAccessor(formData);
             if (id) {
                 const value = displayAccessor(formData);
                 return formatValue(id, value)
             } else
                 return null;
         }
-    } else 
-        return 
-        /** The below code is not required and kept here for reference only */
-    /** if (lookupOptions?.idAttribute) {
+    } else {
         const lookupIdKey = getLookupIdKey(o);
         const lookupValueKey = getLookupValueKey(o);
-
-        const idKeyAccessor = getValueAccessor(lookupIdKey);
-        const valueKeyAccessor = getValueAccessor(lookupValueKey);
-
-        return (formData: any) => {
-            const data = valueAccessor(formData);
-            if (data) {
-                const key = idKeyAccessor(data);
-                const value = valueKeyAccessor(data);
-                return formatValue(key, value);
-            } else
-                return null;
+        if (optionIdKey != lookupIdKey || optionValueKey != lookupValueKey) {
+            return (formData: any) => {
+                const lookUpKeyAccessor = getValueAccessor(lookupIdKey);
+                const lookupValueAccessor = getValueAccessor(lookupValueKey);
+                const data = valueAccessor(formData);
+                if (data) {
+                    const id = lookUpKeyAccessor(data);
+                    const value = lookupValueAccessor(data);
+                    if (id || value) {
+                        var v = {};
+                        optionIdSetter(v, id);
+                        optionValueSetter(v, value);
+                        return v;
+                    }
+                }
+            }
         }
-    } else {
-        throw new Error('lookupOptions must be provided in the field options')
-    } */
+    }
 }
 
 export {

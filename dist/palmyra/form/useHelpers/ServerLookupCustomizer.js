@@ -1,56 +1,68 @@
-import { getValueSetter as a, setValueByKey as A, getValueAccessor as y } from "@palmyralabs/ts-utils";
-const O = (t) => {
-  var r, e;
-  return ((r = t.queryOptions) == null ? void 0 : r.idAttribute) || ((e = t.lookupOptions) == null ? void 0 : e.idAttribute) || "id";
-}, f = (t) => {
-  var r, e, l, i;
-  return t.lookupOptions.displayAttribute ? ((r = t.queryOptions) == null ? void 0 : r.labelAttribute) || ((e = t.lookupOptions) == null ? void 0 : e.displayAttribute) || "code" : ((l = t.queryOptions) == null ? void 0 : l.labelAttribute) || ((i = t.lookupOptions) == null ? void 0 : i.labelAttribute) || "code";
-}, K = (t) => {
-  var r, e;
-  return ((r = t.lookupOptions) == null ? void 0 : r.idAttribute) || ((e = t.queryOptions) == null ? void 0 : e.idAttribute) || "id";
-}, V = (t) => {
-  var r, e;
-  return t.lookupOptions.displayAttribute ? t.lookupOptions.displayAttribute : ((r = t.lookupOptions) == null ? void 0 : r.labelAttribute) || ((e = t.queryOptions) == null ? void 0 : e.labelAttribute) || "code";
-}, g = (t, { getOptionKey: r, getOptionValue: e }) => {
-  const { attribute: l, lookupOptions: i } = t, p = a(l);
-  if (i != null && i.displayAttribute)
-    return (o, s) => {
-      const b = r(o), n = e(o);
-      A(i.displayAttribute, s, n), p(s, b);
+import { getValueSetter as k, setValueByKey as V, getValueAccessor as b } from "@palmyralabs/ts-utils";
+const g = (t) => {
+  var o, e;
+  return ((o = t.queryOptions) == null ? void 0 : o.idAttribute) || ((e = t.lookupOptions) == null ? void 0 : e.idAttribute) || "id";
+}, q = (t) => {
+  var o, e, c, r;
+  return t.lookupOptions.displayAttribute ? ((o = t.queryOptions) == null ? void 0 : o.labelAttribute) || ((e = t.lookupOptions) == null ? void 0 : e.displayAttribute) || "code" : ((c = t.queryOptions) == null ? void 0 : c.labelAttribute) || ((r = t.lookupOptions) == null ? void 0 : r.labelAttribute) || "code";
+}, v = (t) => {
+  var o, e;
+  return ((o = t.lookupOptions) == null ? void 0 : o.idAttribute) || ((e = t.queryOptions) == null ? void 0 : e.idAttribute) || "id";
+}, I = (t) => {
+  var o, e;
+  return t.lookupOptions.displayAttribute ? t.lookupOptions.displayAttribute : ((o = t.lookupOptions) == null ? void 0 : o.labelAttribute) || ((e = t.queryOptions) == null ? void 0 : e.labelAttribute) || "code";
+}, m = (t, { getOptionKey: o, getOptionValue: e }) => {
+  const { attribute: c, lookupOptions: r } = t, p = k(c);
+  if (r != null && r.displayAttribute)
+    return (u, l) => {
+      const a = o(u), i = e(u);
+      V(r.displayAttribute, l, i), p(l, a);
     };
-  if (i != null && i.idAttribute)
-    return (o, s) => {
-      if (typeof o != "object")
-        p(s, "");
+  if (r != null && r.idAttribute)
+    return (u, l) => {
+      if (typeof u != "object")
+        p(l, "");
       else {
-        const b = r(o), n = e(o), c = i.idAttribute, u = i.labelAttribute, d = { [c]: b, [u]: n };
-        p(s, d);
+        const a = o(u), i = e(u), n = r.idAttribute, s = r.labelAttribute, d = { [n]: a, [s]: i };
+        p(l, d);
       }
     };
   throw new Error("lookupOptions must be provided in the field options");
-}, q = (t) => {
-  const { attribute: r } = t, e = t.lookupOptions, l = O(t), i = f(t), p = y(r), o = a(l), s = a(i), b = (n, c) => {
-    var u = {};
-    return o(u, n), s(u, c), u;
+}, h = (t) => {
+  const { attribute: o } = t, e = t.lookupOptions, c = g(t), r = q(t), p = b(o), u = k(c), l = k(r), a = (i, n) => {
+    var s = {};
+    return u(s, i), l(s, n), s;
   };
   if (e != null && e.displayAttribute) {
-    const n = y(e.displayAttribute);
-    return (c) => {
-      const u = p(c);
-      if (u) {
-        const d = n(c);
-        return b(u, d);
+    const i = b(e.displayAttribute);
+    return (n) => {
+      const s = p(n);
+      if (s) {
+        const d = i(n);
+        return a(s, d);
       } else
         return null;
     };
-  } else
-    return;
+  } else {
+    const i = v(t), n = I(t);
+    if (c != i || r != n)
+      return (s) => {
+        const d = b(i), O = b(n), y = p(s);
+        if (y) {
+          const f = d(y), K = O(y);
+          if (f || K) {
+            var A = {};
+            return u(A, f), l(A, K), A;
+          }
+        }
+      };
+  }
 };
 export {
-  q as generateFieldAccessor,
-  g as generateFieldWriter,
-  K as getLookupIdKey,
-  V as getLookupValueKey,
-  O as getOptionIdKey,
-  f as getOptionValueKey
+  h as generateFieldAccessor,
+  m as generateFieldWriter,
+  v as getLookupIdKey,
+  I as getLookupValueKey,
+  g as getOptionIdKey,
+  q as getOptionValueKey
 };
