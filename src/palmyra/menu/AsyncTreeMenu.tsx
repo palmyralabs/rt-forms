@@ -105,7 +105,6 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
     const persistSelected = (element) => {
         //@ts-ignore
         localStorage.setItem(MENU_STORE_KEY_SELECTED, element);
-        console.log(element, 'ele')
     }
 
     const navigateTo = (element: INode) => {
@@ -200,7 +199,6 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
 
                                 // @ts-ignore
                                 const Icon = iconProvider.getIcon(element.metadata.code);
-                                console.log(isSelected, 'sele')
 
                                 return (
                                     <div
