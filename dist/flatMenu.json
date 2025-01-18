@@ -3,7 +3,8 @@
         {
             "id": 1,
             "name": "Home",
-            "code": "home"
+            "code": "home",
+            "children": "6,7,8"
         },
         {
             "id": 2,
@@ -24,6 +25,50 @@
             "id": 5,
             "name": "Summary Dialog Grid",
             "code": "dialogGrid"
+        },
+        {
+            "id": 6,
+            "name": "Home 1",
+            "code": "editGrid",
+            "parent": 1,
+            "children": "9,10"
+        },
+        {
+            "id": 7,
+            "name": "Home 2",
+            "code": "drawerGrid",
+            "parent": 1
+        },
+        {
+            "id": 8,
+            "name": "Home 3",
+            "code": "dialogGrid",
+            "parent": 1
+        },
+        {
+            "id": 9,
+            "name": "Home 1.1",
+            "code": "drawerGrid",
+            "parent": 6,
+            "children": "11,12"
+        },
+        {
+            "id": 10,
+            "name": "Home 1.2",
+            "code": "dialogGrid",
+            "parent": 6
+        },
+        {
+            "id": 11,
+            "name": "Home 1.1.1",
+            "code": "drawerGrid",
+            "parent": 9
+        },
+        {
+            "id": 12,
+            "name": "Home 1.1.2",
+            "code": "dialogGrid",
+            "parent": 9
         }
     ],
     "status": 200

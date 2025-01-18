@@ -9,7 +9,7 @@ type IFieldDecoratorInput = {
     index?: number
 }
 
-const ContainerClass = 'palmyra-form-field-container';
+const ContainerClass = 'py-form-field-container';
 
 const getColSpanClass = (colspan: number): string => {
     return ContainerClass + '-' + colspan + 'colspan';
@@ -22,8 +22,8 @@ const FieldDecorator = (props: IFieldDecoratorInput) => {
         if (props.colspan) {
             containerClass += ' ' + getColSpanClass(props.colspan);
         }
-        const labelClass = props.customLabelClass ? 'palmyra-form-field-label ' + props.customLabelClass : 'palmyra-form-field-label'
-        const fieldClass = props.customFieldClass ? 'palmyra-form-field-data ' + props.customFieldClass : 'palmyra-form-field-data'
+        const labelClass = props.customLabelClass ? 'py-form-field-label ' + props.customLabelClass : 'py-form-field-label'
+        const fieldClass = props.customFieldClass ? 'py-form-field-data ' + props.customFieldClass : 'py-form-field-data'
         return (
             <div className={containerClass}>
                 <div className={labelClass}>
@@ -37,7 +37,7 @@ const FieldDecorator = (props: IFieldDecoratorInput) => {
     }
     else {
         var fieldClass = ContainerClass;
-        fieldClass += ' ' + ( props.customFieldClass ? 'palmyra-form-field-data ' + props.customFieldClass : 'palmyra-form-field-data');
+        fieldClass += ' ' + ( props.customFieldClass ? 'py-form-field-data ' + props.customFieldClass : 'py-form-field-data');
         if (props.colspan) {
             fieldClass += ' ' + getColSpanClass(props.colspan);
         }

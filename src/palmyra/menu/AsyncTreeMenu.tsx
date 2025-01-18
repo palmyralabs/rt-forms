@@ -14,6 +14,7 @@ const MENU_STORE_KEY_SELECTED = 'palmyra.rui.sidemenu.expanded.selected';
 
 export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
     const navigate = useNavigate();
+    // const location = useLocation();
     const loadedAlertElement = useRef(null);
     let rootNode = { name: "", id: -1, parent: null, children: [], isBranch: true };
     const [data, setData] = useState({ data: [rootNode], expandedIds: [], selectedId: [] });
@@ -89,6 +90,9 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                     return d.id == id;
                 })
             });
+            // const selectedId = nodes
+            //     .filter((node) => node.metadata?.target === location.pathname)
+            //     .map((node) => node.id);
 
             setData({ data: sd, expandedIds: expandedIdRef.current, selectedId: selectedId });
         });
@@ -114,7 +118,11 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
             navigate(target);
         }
     }
-
+    const removeWithChildren = (nodeId: NodeId) => {
+        expandedIdRef.current = expandedIdRef.current.filter((id) => id !== nodeId);
+        const childNodes = data?.data.filter((node) => node.parent === nodeId);
+        childNodes.forEach((child) => removeWithChildren(child.id));
+    };
     const iconProvider: IconProvider = props.iconProvider || SimpleIconProvider;
     return (
         <>
@@ -134,15 +142,11 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                                 const isExpanded = p.isExpanded;
                                 const element = p.element;
                                 if (isExpanded) {
-                                    if (element.id != "") {
-                                        if (!expandedIdRef.current.includes(element.id))
-                                            expandedIdRef.current.push(element.id);
+                                    if (element.id !== "" && !expandedIdRef.current.includes(element.id)) {
+                                        expandedIdRef.current.push(element.id);
                                     }
                                 } else {
-                                    const idx: number = expandedIdRef.current.indexOf(element.id)
-                                    if (idx > -1) {
-                                        expandedIdRef.current.splice(idx, 1);
-                                    }
+                                    removeWithChildren(element.id);
                                 }
                                 persistExpanded();
                             }}
@@ -196,7 +200,6 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                                 // @ts-ignore
                                 const Icon = iconProvider.getIcon(element.metadata.code);
 
-
                                 return (
                                     <div
                                         {...getNodeProps({ onClick: handleExpand })}
@@ -211,7 +214,7 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                                                 navigateTo(element);
                                             }}>
                                             <div className="async-tree-menu-list-text-container">
-                                                <div className="menu-icon">{Icon && <Icon/>}</div>
+                                                <div className="menu-icon">{Icon && <Icon />}</div>
                                                 <span className="menu-name">{element.name}</span>
                                             </div>
                                             <div className="async-tree-menu-list-arrow-container">
