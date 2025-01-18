@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import TreeView, { INode, ITreeViewOnExpandProps, ITreeViewOnSelectProps, NodeId } from "react-accessible-treeview";
 import cx from "classnames";
 import "./AsyncTreeMenu.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineLoading } from "react-icons/ai";
 import { IoIosArrowForward } from "react-icons/io";
 import { IAsyncTreeMenuInput, IChildTreeRequest } from "./types";
@@ -14,7 +14,7 @@ const MENU_STORE_KEY_SELECTED = 'palmyra.rui.sidemenu.expanded.selected';
 
 export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
     const loadedAlertElement = useRef(null);
     let rootNode = { name: "", id: -1, parent: null, children: [], isBranch: true };
     const [data, setData] = useState({ data: [rootNode], expandedIds: [], selectedId: [] });
@@ -84,15 +84,15 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                 })
             });
 
-            // const localSelVal = (localStorage.getItem(MENU_STORE_KEY_SELECTED) || '').split(',').map(d => parse(d));
-            // const selectedId = localSelVal.filter((id) => {
-            //     return nodes.some((d) => {
-            //         return d.id == id;
-            //     })
-            // });
-            const selectedId = nodes
-                .filter((node) => node.metadata?.target === location.pathname)
-                .map((node) => node.id);
+            const localSelVal = (localStorage.getItem(MENU_STORE_KEY_SELECTED) || '').split(',').map(d => parse(d));
+            const selectedId = localSelVal.filter((id) => {
+                return nodes.some((d) => {
+                    return d.id == id;
+                })
+            });
+            // const selectedId = nodes
+            //     .filter((node) => node.metadata?.target === location.pathname)
+            //     .map((node) => node.id);
 
             setData({ data: sd, expandedIds: expandedIdRef.current, selectedId: selectedId });
         });
@@ -105,6 +105,7 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
     const persistSelected = (element) => {
         //@ts-ignore
         localStorage.setItem(MENU_STORE_KEY_SELECTED, element);
+        console.log(element, 'ele')
     }
 
     const navigateTo = (element: INode) => {
@@ -199,7 +200,7 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
 
                                 // @ts-ignore
                                 const Icon = iconProvider.getIcon(element.metadata.code);
-
+                                console.log(isSelected, 'sele')
 
                                 return (
                                     <div
