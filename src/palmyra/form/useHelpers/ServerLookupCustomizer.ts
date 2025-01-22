@@ -18,7 +18,7 @@ const getOptionIdKey = (o: FieldOptions & ModdedServerLookupOptions) => {
 }
 
 const getOptionValueKey = (o: FieldOptions & ModdedServerLookupOptions) => {
-    if (o.lookupOptions.displayAttribute)
+    if (o.lookupOptions?.displayAttribute)
         return o.queryOptions?.labelAttribute || o.lookupOptions?.displayAttribute || 'code';
     return o.queryOptions?.labelAttribute || o.lookupOptions?.labelAttribute || 'code';
 }
@@ -28,7 +28,7 @@ const getLookupIdKey = (o: FieldOptions & ModdedServerLookupOptions) => {
 }
 
 const getLookupValueKey = (o: FieldOptions & ModdedServerLookupOptions) => {
-    if (o.lookupOptions.displayAttribute)
+    if (o.lookupOptions?.displayAttribute)
         return o.lookupOptions.displayAttribute;
     return o.lookupOptions?.labelAttribute || o.queryOptions?.labelAttribute || 'code';
 }
@@ -47,22 +47,28 @@ const generateFieldWriter = (o: FieldOptions & ModdedServerLookupOptions,
 
     if (lookupOptions?.displayAttribute) {
         return (v: any, data: any) => {
-            const key = getOptionKey(v);
-            const value = getOptionValue(v);
-            setValueByKey(lookupOptions.displayAttribute, data, value);
-            valueSetter(data, key)
+            if (v != undefined && v != null) {
+                const key = getOptionKey(v);
+                const value = getOptionValue(v);
+                setValueByKey(lookupOptions.displayAttribute, data, value);
+                valueSetter(data, key)
+            } else {
+                valueSetter(data, null);
+            }
         }
     } else if (lookupOptions?.idAttribute) {
         return (v: any, data: any) => {
             if (typeof v != 'object') {
-                valueSetter(data, '');
-            } else {
+                valueSetter(data, null)
+            } else if (v) {
                 const key = getOptionKey(v);
                 const value = getOptionValue(v);
                 const idKey = lookupOptions.idAttribute;
                 const valueKey = lookupOptions.labelAttribute;
                 const r = { [idKey]: key, [valueKey]: value };
                 valueSetter(data, r);
+            } else {
+                valueSetter(data, null)
             }
         }
     } else {

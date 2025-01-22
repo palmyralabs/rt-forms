@@ -68,6 +68,6 @@ describe('useServerLookupFieldManager', () => {
         })
 
         expect(result.current.getValue()).toBe('');
-        expect(formRef.current.getData().lookup).toBe('');
+        expect(formRef.current.getData().lookup).toBeNull();
     });
 })

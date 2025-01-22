@@ -52,7 +52,7 @@
     "**/*.css"
   ],
   "peerDependencies": {
-    "@palmyralabs/palmyra-wire": "^1.1.0",
+    "@palmyralabs/palmyra-wire": "^1.1.4",
     "@palmyralabs/ts-predicates": "github:palmyralabs/ts-predicates",
     "@palmyralabs/ts-utils": "^0.2.0",
     "@tanstack/react-table": "^8.20.5",
