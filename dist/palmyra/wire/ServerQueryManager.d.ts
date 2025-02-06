@@ -1,4 +1,4 @@
-import { DefaultQueryParams, AbstractQueryStore, IEndPoint, ExportRequest, StoreOptions } from '@palmyralabs/palmyra-wire';
+import { DefaultQueryParams, AbstractQueryStore, IEndPoint, ExportRequest, StoreOptions, strings } from '@palmyralabs/palmyra-wire';
 import { IPageQueryable } from './types';
 type ExportStore = {
     export?(request: ExportRequest): void;
@@ -15,6 +15,12 @@ interface IServerQueryInput {
     quickSearch?: string;
     filterTopic?: string;
     initialFetch?: boolean;
+    initParams?: {
+        filter?: Record<any, any>;
+        sort?: strings;
+        limit?: number;
+        offset?: number;
+    };
 }
 declare const useServerQuery: (props: IServerQueryInput) => IPageQueryable;
 export { useServerQuery };

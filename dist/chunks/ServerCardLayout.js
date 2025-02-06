@@ -1,12 +1,12 @@
-import { jsx as C, Fragment as ae } from "react/jsx-runtime";
-import { useContext as te, useState as D, useCallback as oe, useEffect as T, forwardRef as O, useRef as L, useImperativeHandle as Q } from "react";
+import { jsx as C, Fragment as de } from "react/jsx-runtime";
+import { useContext as le, useState as D, useCallback as ge, useEffect as N, forwardRef as T, useRef as x, useImperativeHandle as O } from "react";
 import '../assets/FormGroup.css';import '../assets/FieldContainer.css';import '../assets/FieldGroupContainer.css';import '../assets/CardLayout.css';/* empty css           */
-import { useKeyValue as ne } from "../palmyra/utils/pubsub/PubSubHelper.js";
-import { PalmyraForm as X } from "../palmyra/form/PalmyraForm.js";
-import { FieldGroupManagerContext as se, StoreFactoryContext as ie } from "../palmyra/form/formContext.js";
+import { useKeyValue as me } from "../palmyra/utils/pubsub/PubSubHelper.js";
+import { PalmyraForm as Z } from "../palmyra/form/PalmyraForm.js";
+import { FieldGroupManagerContext as he, StoreFactoryContext as Fe } from "../palmyra/form/formContext.js";
 import "@palmyralabs/ts-predicates";
-import { hasDot as J, getValueByKey as le, setValueByKey as q } from "@palmyralabs/ts-utils";
-import { CardLayout as ce } from "../palmyra/layout/card/CardLayout.js";
+import { hasDot as X, getValueByKey as ye, setValueByKey as b } from "@palmyralabs/ts-utils";
+import { CardLayout as Pe } from "../palmyra/layout/card/CardLayout.js";
 import "@tanstack/react-table";
 import "../palmyra/grid/base/utils/ColumnConverter.js";
 import "dayjs";
@@ -17,98 +17,98 @@ import "./index.js";
 import "react-router-dom";
 import "../palmyra/menu/AsyncTreeMenuEditor.js";
 import "../palmyra/acl/AclAPIEditor.js";
-import { getSaveFormHandle as Z } from "../palmyra/form/formUtil.js";
+import { getSaveFormHandle as $ } from "../palmyra/form/formUtil.js";
 /* empty css                    */
 /* empty css               */
 /* empty css          */
-import { generatePredicate as ue, validate as B } from "../palmyra/form/validator/validatorHelper.js";
-import { usePalmyraViewForm as de } from "../palmyra/form/useHelpers/usePalmyraViewForm.js";
-import { usePalmyraNewForm as fe } from "../palmyra/form/useHelpers/usePalmyraNewForm.js";
-import { usePalmyraEditForm as ge } from "../palmyra/form/useHelpers/usePalmyraEditForm.js";
-const me = (t, e, n) => {
-  var G, E;
-  const r = te(se);
+import { generatePredicate as ve, validate as q } from "../palmyra/form/validator/validatorHelper.js";
+import { usePalmyraViewForm as Ve } from "../palmyra/form/useHelpers/usePalmyraViewForm.js";
+import { usePalmyraNewForm as we } from "../palmyra/form/useHelpers/usePalmyraNewForm.js";
+import { usePalmyraEditForm as Se } from "../palmyra/form/useHelpers/usePalmyraEditForm.js";
+const Ee = (t, e, a) => {
+  var Q, _;
+  const r = le(he);
   if (!r)
     throw Error("useFieldManager must be called within the scope of <PalmyraForm>");
-  const [a, c] = D({}), o = { ...e, ...a }, d = he(t, n), F = Fe(n), y = (l) => F(d(l)), M = oe(() => ye(t, n), [t])(), S = ue(o), R = r.getFieldRawData(d), I = ve(
-    R,
+  const [n, c] = D({}), o = { ...e, ...n }, f = De(t, a), P = Ce(a), R = (l) => P(f(l)), B = ge(() => Re(t, a), [t])(), E = ve(o), A = r.getFieldRawData(f), I = Le(
+    A,
     o,
-    n,
-    S,
-    y,
-    F
-  ), [f, x] = D(I);
-  T(() => {
-    R != null && _();
-  }, [a]);
-  const m = f.value, g = f.error, h = () => m, p = () => g != null && g.showError ? g : { status: !1, message: "" }, V = () => S, Y = (l, P = !0, A = !0, N = !1) => {
-    const w = typeof l == "function" ? l(m) : l, v = B(w, S, o);
-    w === m && g && v.status == g.status && v.message == g.message || (r.setFieldValidity(t, !v.status), v.showError = A, e != null && e.readOnly && !N ? x((H) => ({ ...H, error: v })) : (x({ value: w, error: v }), P && w !== m && r.setFieldData(t, w)));
-  }, _ = () => {
-    const l = B(m, S, o);
-    g && g.showError && l.status == g.status && l.message == g.message || (l.showError = !0, x((P) => ({ ...P, error: l })));
+    a,
+    E,
+    R,
+    P
+  ), [g, w] = D(I);
+  N(() => {
+    A != null && M();
+  }, [n]);
+  const m = g.value, d = g.error, Y = () => m, L = () => d != null && d.showError ? d : { status: !1, message: "" }, U = () => E, S = (l, y = !0, K = !0, W = !1) => {
+    const F = typeof l == "function" ? l(m) : l, V = q(F, E, o);
+    F === m && d && V.status == d.status && V.message == d.message || (r.setFieldValidity(t, !V.status), V.showError = K, e != null && e.readOnly && !W ? w((G) => ({ ...G, error: V })) : (w({ value: F, error: V }), y && F !== m && r.setFieldData(t, F)));
+  }, M = () => {
+    const l = q(m, E, o);
+    d && d.showError && l.status == d.status && l.message == d.message || (l.showError = !0, w((y) => ({ ...y, error: l })));
   };
-  T(() => {
-    const { error: l, value: P } = f;
-    r.setFieldData(t, P), r.setFieldValidity(t, !l.status);
-  }, [f]);
-  const W = {
-    getValidator: V,
-    getValue: h,
-    setValue: Y,
-    valueAccessor: y,
-    valueWriter: M,
-    rawValueAccessor: d,
+  N(() => {
+    const { error: l, value: y } = g;
+    r.setFieldData(t, y), r.setFieldValidity(t, !l.status);
+  }, [g]);
+  const v = {
+    getValidator: U,
+    getValue: Y,
+    setValue: S,
+    valueAccessor: R,
+    valueWriter: B,
+    rawValueAccessor: f,
     isValid: () => {
       var l;
-      return f.error == null ? !B(m, S, o).status : !((l = f.error) != null && l.status);
+      return g.error == null ? !q(m, E, o).status : !((l = g.error) != null && l.status);
     },
-    getError: p,
-    refreshError: _,
-    mutateOptions: a,
+    getError: L,
+    refreshError: M,
+    mutateOptions: n,
     setMutateOptions: c,
     getFieldProps: () => {
       const {
         invalidMessage: l,
-        missingMessage: P,
-        validator: A,
-        regExp: N,
-        validRule: w,
-        validFn: v,
-        defaultValue: H,
-        ...j
+        missingMessage: y,
+        validator: K,
+        regExp: W,
+        validRule: F,
+        validFn: V,
+        defaultValue: G,
+        ...H
       } = o;
-      return { ...j, ...a };
+      return { ...H, ...n };
     }
   };
-  return r.registerFieldManager(W, o), R == null && e.defaultValue && r.setFieldData(t, f.value), (G = f.error) != null && G.status && r.setFieldValidity(t, (E = f.error) == null ? void 0 : E.status), W;
+  return r.registerFieldManager(v, o), A == null && e.defaultValue && r.setFieldData(t, g.value), (Q = g.error) != null && Q.status && r.setFieldValidity(t, (_ = g.error) == null ? void 0 : _.status), v;
 };
-function he(t, e) {
-  return e != null && e.fieldAccessor ? e.fieldAccessor : J(t) ? (r) => le(t, r) : (r) => r == null ? void 0 : r[t];
+function De(t, e) {
+  return e != null && e.fieldAccessor ? e.fieldAccessor : X(t) ? (r) => ye(t, r) : (r) => r == null ? void 0 : r[t];
 }
-function Fe(t) {
+function Ce(t) {
   if (t != null && t.parse) {
     const e = t.parse;
-    return (n) => e(n);
+    return (a) => e(a);
   }
   return (e) => e ?? "";
 }
-function ye(t, e) {
-  const n = e == null ? void 0 : e.format;
-  return n ? e != null && e.fieldWriter ? (r, a) => e.fieldWriter(n(a), r) : J(t) ? (r, a) => q(t, r, n(a)) : (r, a) => q(t, r, n(a)) : e != null && e.fieldWriter ? (r, a) => e.fieldWriter(a, r) : J(t) ? (r, a) => q(t, r, a) : (r, a) => q(t, r, a);
+function Re(t, e) {
+  const a = e == null ? void 0 : e.format;
+  return a ? e != null && e.fieldWriter ? (r, n) => e.fieldWriter(a(n), r) : X(t) ? (r, n) => b(t, r, a(n)) : (r, n) => b(t, r, a(n)) : e != null && e.fieldWriter ? (r, n) => e.fieldWriter(n, r) : X(t) ? (r, n) => b(t, r, n) : (r, n) => b(t, r, n);
 }
-const ve = (t, e, n, r, a, c) => {
-  var o = null, d = void 0;
-  return t == null ? e.defaultValue != null ? o = n != null && n.parse ? n.parse(e.defaultValue) : e.defaultValue : o = a({}) : o = c(t), d = B(o, r, e), d.status && (d.showError = t != null || e.defaultValue != null), { value: o, error: d };
-}, $e = O(function(e, n) {
-  const r = e.storeFactory, { fetchData: a, saveData: c, formRef: o, refresh: d } = ge(e), F = n || L();
-  return T(() => {
-    a(), o.current.isValid() && e.onValidChange && e.onValidChange(!0);
-  }, [o, e.id]), Q(F, () => Z(c, o, d)), /* @__PURE__ */ C(X, { onValidChange: e.onValidChange, ref: o, storeFactory: r, children: e.children });
-}), ke = O(function(e, n) {
-  const r = e.storeFactory, { saveData: a, formRef: c } = fe(e), o = n || L();
-  return Q(o, () => Z(a, c)), /* @__PURE__ */ C(
-    X,
+const Le = (t, e, a, r, n, c) => {
+  var o = null, f = void 0;
+  return t == null ? e.defaultValue != null ? o = a != null && a.parse ? a.parse(e.defaultValue) : e.defaultValue : o = n({}) : o = c(t), f = q(o, r, e), f.status && (f.showError = t != null || e.defaultValue != null), { value: o, error: f };
+}, st = T(function(e, a) {
+  const r = e.storeFactory, { fetchData: n, saveData: c, formRef: o, refresh: f } = Se(e), P = a || x();
+  return N(() => {
+    n(), o.current.isValid() && e.onValidChange && e.onValidChange(!0);
+  }, [o, e.id]), O(P, () => $(c, o, f)), /* @__PURE__ */ C(Z, { onValidChange: e.onValidChange, ref: o, storeFactory: r, children: e.children });
+}), it = T(function(e, a) {
+  const r = e.storeFactory, { saveData: n, formRef: c } = we(e), o = a || x();
+  return O(o, () => $(n, c)), /* @__PURE__ */ C(
+    Z,
     {
       onValidChange: e.onValidChange,
       formData: e.initialData,
@@ -117,132 +117,132 @@ const ve = (t, e, n, r, a, c) => {
       children: e.children
     }
   );
-}), ze = O(function(e, n) {
-  const r = e.storeFactory, { formRef: a, refresh: c } = de(e), o = n || L();
-  return T(() => {
+}), lt = T(function(e, a) {
+  const r = e.storeFactory, { formRef: n, refresh: c } = Ve(e), o = a || x();
+  return N(() => {
     c();
-  }, [e.endPoint]), Q(o, () => Z({}, a, c)), /* @__PURE__ */ C(X, { ref: a, storeFactory: r, children: e.children });
-}), et = O(function(e, n) {
-  const r = me(e.attribute, e), a = n || L(null), { getValue: c, setValue: o, isValid: d } = r;
-  return Q(a, () => ({
+  }, [e.endPoint]), O(o, () => $({}, n, c)), /* @__PURE__ */ C(Z, { ref: n, storeFactory: r, children: e.children });
+}), ct = T(function(e, a) {
+  const r = Ee(e.attribute, e), n = a || x(null), { getValue: c, setValue: o, isValid: f } = r;
+  return O(n, () => ({
     getValue: c,
     setValue: o,
-    isValid: d
-  }), [r]), /* @__PURE__ */ C(ae, {});
-}), Pe = 120;
-function Ve(t) {
+    isValid: f
+  }), [r]), /* @__PURE__ */ C(de, {});
+}), Me = 120;
+function xe(t) {
   if (t.endPoint) {
-    const e = te(ie);
+    const e = le(Fe);
     if (!e)
       throw new Error("@palmyralabs/rt-forms - StoreFactoryContext is not available");
     return e.getGridStore(t.storeOptions, t.endPoint);
   } else
     throw new Error("Either store or endPoint must be provided");
 }
-const we = (t) => {
-  var k, z, ee;
-  const { quickSearch: e, initialFetch: n = !0 } = t, r = L(null), a = t.store || Ve(t), c = t.fetchAll != !1, o = ((k = t.defaultParams) == null ? void 0 : k.filter) || {}, d = ((z = t.defaultParams) == null ? void 0 : z.sort) || {}, [F, y] = t.filterTopic ? ne(t.filterTopic, o) : D(o), M = t.pageSize ? t.pageSize : 15;
-  var S = M instanceof Array ? M[0] : M;
-  const [R, I] = D((ee = t.storeOptions) == null ? void 0 : ee.endPointOptions), [f, x] = D({}), [m, g] = D({ limit: S, offset: 0, total: !0 }), [h, p] = D({ total: null, isLoading: !1, data: null }), V = (s) => {
-    g((i) => ({ limit: i.limit, total: i.total, offset: s * i.limit }));
-  }, Y = (s) => {
+const Ae = (t) => {
+  var te, re, ne, ae, oe, se, ie;
+  const { quickSearch: e, initialFetch: a = !0 } = t, r = x(null), n = t.store || xe(t), c = t.fetchAll != !1, o = ((te = t.defaultParams) == null ? void 0 : te.filter) || {}, f = ((re = t.defaultParams) == null ? void 0 : re.sort) || {}, P = t.pageSize ? t.pageSize : 15;
+  var R = P instanceof Array ? P[0] : P;
+  const B = ((ne = t.initParams) == null ? void 0 : ne.filter) || {}, E = ((ae = t.initParams) == null ? void 0 : ae.limit) || R, A = ((oe = t.initParams) == null ? void 0 : oe.offset) || 0, I = ((se = t.initParams) == null ? void 0 : se.sort) || {}, g = { ...B, ...o }, [w, m] = t.filterTopic ? me(t.filterTopic, g) : D(g), [d, Y] = D((ie = t.storeOptions) == null ? void 0 : ie.endPointOptions), [L, U] = D(I), [S, M] = D({ limit: E, offset: A, total: !0 }), [h, J] = D({ total: null, isLoading: !1, data: null }), v = (s) => {
+    M((i) => ({ limit: i.limit, total: i.total, offset: s * i.limit }));
+  }, Q = (s) => {
     const i = s > 0 || s == -1 ? s : 15;
-    g((u) => {
-      const b = Math.floor(u.offset / i) * i;
-      return { limit: i, total: u.total, offset: b };
+    M((u) => {
+      const j = Math.floor(u.offset / i) * i;
+      return { limit: i, total: u.total, offset: j };
     });
-  }, _ = () => F ? Object.keys(F).length == 0 : !1, K = (s, i) => {
-    p((u) => (setTimeout(() => {
+  }, _ = () => w ? Object.keys(w).length == 0 : !1, l = (s, i) => {
+    J((u) => (setTimeout(() => {
       t.onDataChange && t.onDataChange(s, u.data);
     }, 100), { data: s, total: i, isLoading: !1 }));
-  }, U = () => K([], 0), W = () => K(void 0, null), G = () => v({}), E = () => Math.round(m.offset / m.limit), l = () => m, P = () => {
-    p((s) => ({ ...s, isLoading: !0 }));
+  }, y = () => l([], 0), K = () => l(void 0, null), W = () => p({}), F = () => Math.round(S.offset / S.limit), V = () => S, G = () => {
+    J((s) => ({ ...s, isLoading: !0 }));
   };
-  T(() => {
-    (c || !_()) && N();
-  }, [m, f, R]);
-  const A = () => ({
-    sortOrder: f && Object.keys(f).length > 0 ? f : d,
+  N(() => {
+    (c || !_()) && k();
+  }, [S, L, d]);
+  const H = () => ({
+    sortOrder: L && Object.keys(L).length > 0 ? L : f,
     total: !0,
-    endPointVars: R,
-    ...m,
-    filter: { ...F, ...o }
-  }), N = () => {
-    const s = A();
+    endPointVars: d,
+    ...S,
+    filter: { ...w, ...o }
+  }), k = () => {
+    const s = H();
     if (r.current != null) {
-      const i = /* @__PURE__ */ new Date(), u = r.current, b = i.getTime() - u.getTime();
-      if (b < Pe) {
-        h.isLoading || console.warn("ServerQueryManager: refresh called within short interval" + b);
+      const i = /* @__PURE__ */ new Date(), u = r.current, j = i.getTime() - u.getTime();
+      if (j < Me) {
+        h.isLoading || console.warn("ServerQueryManager: refresh called within short interval" + j);
         return;
       }
-    } else if (!n) {
+    } else if (!a) {
       r.current = new Date((/* @__PURE__ */ new Date()).getTime() - 6e4);
       return;
     }
-    if (a)
+    if (n)
       try {
-        r.current = /* @__PURE__ */ new Date(), P(), a.query(s).then((i) => {
-          K(i.result, i.total);
+        r.current = /* @__PURE__ */ new Date(), G(), n.query(s).then((i) => {
+          l(i.result, i.total);
         }).catch((i) => {
           var u = i.response ? i.response : i;
-          console.error("error while fetching", u), W();
+          console.error("error while fetching", u), K();
         });
       } catch (i) {
-        console.error(i), U();
+        console.error(i), y();
       }
     else
-      console.error("Store is not provided for the Grid"), U();
-  }, w = (s) => {
+      console.error("Store is not provided for the Grid"), y();
+  }, ce = (s) => {
     const i = e;
-    y(s ? (u) => (u[i] = s, { ...u }) : (u) => (delete u[i], { ...u })), V(0);
-  }, v = (s) => {
-    typeof s == "function" || s && Object.keys(s).length > 0 ? y(s) : y({}), V(0);
-  }, H = (s, i) => {
-    y((u) => (u[s] = i, { ...u })), V(0);
-  }, j = (s) => {
-    x(s);
-  }, re = () => E() < $() ? (V(E() + 1), !0) : !1, $ = () => Math.ceil((h == null ? void 0 : h.total) / (m.limit || 25));
+    m(s ? (u) => (u[i] = s, { ...u }) : (u) => (delete u[i], { ...u })), v(0);
+  }, p = (s) => {
+    typeof s == "function" || s && Object.keys(s).length > 0 ? m(s) : m({}), v(0);
+  }, ue = (s, i) => {
+    m((u) => (u[s] = i, { ...u })), v(0);
+  }, z = (s) => {
+    U(s);
+  }, fe = () => F() < ee() ? (v(F() + 1), !0) : !1, ee = () => Math.ceil((h == null ? void 0 : h.total) / (S.limit || 25));
   return {
-    addFilter: H,
-    resetFilter: G,
-    setFilter: v,
-    setQuickSearch: w,
-    setSortColumns: j,
-    setEndPointOptions: I,
-    getTotalPages: $,
-    refresh: N,
-    setPageSize: Y,
-    getPageNo: E,
-    getQueryLimit: l,
-    setQueryLimit: g,
-    gotoPage: V,
-    nextPage: re,
+    addFilter: ue,
+    resetFilter: W,
+    setFilter: p,
+    setQuickSearch: ce,
+    setSortColumns: z,
+    setEndPointOptions: Y,
+    getTotalPages: ee,
+    refresh: k,
+    setPageSize: Q,
+    getPageNo: F,
+    getQueryLimit: V,
+    setQueryLimit: M,
+    gotoPage: v,
+    nextPage: fe,
     prevPage: () => {
-      const s = E();
-      return s > 0 ? (V(s - 1), !0) : !1;
+      const s = F();
+      return s > 0 ? (v(s - 1), !0) : !1;
     },
     export: (s) => {
-      a.export ? a.export(s) : console.warn("Store does not implement export method");
+      n.export ? n.export(s) : console.warn("Store does not implement export method");
     },
-    getQueryRequest: A,
-    setSortOptions: j,
-    getCurrentFilter: () => F,
+    getQueryRequest: H,
+    setSortOptions: z,
+    getCurrentFilter: () => w,
     getTotalRecords: () => h == null ? void 0 : h.total,
     getCurrentData: () => h == null ? void 0 : h.data,
     isLoading: h.isLoading
   };
-}, tt = O(function(e, n) {
-  const { Child: r, childProps: a } = e, c = n || L(null), o = we(e), d = e.listKeyProvider || ((F, y) => y);
-  return Q(c, () => ({
+}, ut = T(function(e, a) {
+  const { Child: r, childProps: n } = e, c = a || x(null), o = Ae(e), f = e.listKeyProvider || ((P, R) => R);
+  return O(c, () => ({
     ...o
   }), [o]), /* @__PURE__ */ C("div", { children: /* @__PURE__ */ C("div", { className: "card-page-container", children: /* @__PURE__ */ C(
-    ce,
+    Pe,
     {
       Child: r,
-      childKeyProvider: d,
+      childKeyProvider: f,
       preProcess: e.preProcess,
       dataList: o.getCurrentData(),
-      childProps: a,
+      childProps: n,
       EmptyChild: e.EmptyChild,
       Loading: e.Loading,
       title: e.title
@@ -250,11 +250,11 @@ const we = (t) => {
   ) }) });
 });
 export {
-  et as H,
-  $e as P,
-  tt as S,
-  ke as a,
-  ze as b,
-  we as c,
-  me as u
+  ct as H,
+  st as P,
+  ut as S,
+  it as a,
+  lt as b,
+  Ae as c,
+  Ee as u
 };

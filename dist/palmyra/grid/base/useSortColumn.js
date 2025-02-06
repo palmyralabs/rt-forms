@@ -1,9 +1,9 @@
 import { useState as a } from "react";
-const u = ({ sortDisabled: t, onSortChange: o }) => {
-  const [e, s] = a("");
+const u = ({ sortDisabled: t, onSortChange: s }) => {
+  const [e, o] = a("");
   var r = e;
   return { sortColumn: () => {
-    if (!(o === void 0 || t)) {
+    if (!(s === void 0 || t)) {
       switch (r) {
         case "asc":
           r = "desc";
@@ -15,7 +15,7 @@ const u = ({ sortDisabled: t, onSortChange: o }) => {
           r = "asc";
           break;
       }
-      s(r);
+      o(r);
     }
   }, order: r, sortOrder: e };
 };

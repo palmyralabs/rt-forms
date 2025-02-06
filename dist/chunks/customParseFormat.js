@@ -22,8 +22,8 @@ var B = { exports: {} };
     }, G = function(t, r) {
       var e, n = m.meridiem;
       if (n) {
-        for (var f = 1; f <= 24; f += 1) if (t.indexOf(n(f, 0, r)) > -1) {
-          e = f > 12;
+        for (var u = 1; u <= 24; u += 1) if (t.indexOf(n(u, 0, r)) > -1) {
+          e = u > 12;
           break;
         }
       } else e = t === (r ? "pm" : "PM");
@@ -59,18 +59,18 @@ var B = { exports: {} };
     function K(t) {
       var r, e;
       r = t, e = m && m.formats;
-      for (var n = (t = r.replace(/(\[[^\]]+])|(LTS?|l{1,4}|L{1,4})/g, function(v, l, c) {
-        var i = c && c.toUpperCase();
-        return l || e[c] || j[c] || e[i].replace(/(\[[^\]]+])|(MMMM|MM|DD|dddd)/g, function(M, Y, D) {
+      for (var n = (t = r.replace(/(\[[^\]]+])|(LTS?|l{1,4}|L{1,4})/g, function(v, l, f) {
+        var i = f && f.toUpperCase();
+        return l || e[f] || j[f] || e[i].replace(/(\[[^\]]+])|(MMMM|MM|DD|dddd)/g, function(M, Y, D) {
           return Y || D.slice(1);
         });
-      })).match(k), f = n.length, h = 0; h < f; h += 1) {
-        var y = n[h], p = J[y], u = p && p[0], d = p && p[1];
-        n[h] = d ? { regex: u, parser: d } : y.replace(/^\[|\]$/g, "");
+      })).match(k), u = n.length, c = 0; c < u; c += 1) {
+        var y = n[c], p = J[y], h = p && p[0], d = p && p[1];
+        n[c] = d ? { regex: h, parser: d } : y.replace(/^\[|\]$/g, "");
       }
       return function(v) {
-        for (var l = {}, c = 0, i = 0; c < f; c += 1) {
-          var M = n[c];
+        for (var l = {}, f = 0, i = 0; f < u; f += 1) {
+          var M = n[f];
           if (typeof M == "string") i += M.length;
           else {
             var Y = M.regex, D = M.parser, $ = v.slice(i), g = Y.exec($)[0];
@@ -88,14 +88,14 @@ var B = { exports: {} };
     }
     return function(t, r, e) {
       e.p.customParseFormat = !0, t && t.parseTwoDigitYear && (X = t.parseTwoDigitYear);
-      var n = r.prototype, f = n.parse;
-      n.parse = function(h) {
-        var y = h.date, p = h.utc, u = h.args;
+      var n = r.prototype, u = n.parse;
+      n.parse = function(c) {
+        var y = c.date, p = c.utc, h = c.args;
         this.$u = p;
-        var d = u[1];
+        var d = h[1];
         if (typeof d == "string") {
-          var v = u[2] === !0, l = u[3] === !0, c = v || l, i = u[2];
-          l && (i = u[2]), m = this.$locale(), !v && i && (m = e.Ls[i]), this.$d = function($, g, w, S) {
+          var v = h[2] === !0, l = h[3] === !0, f = v || l, i = h[2];
+          l && (i = h[2]), m = this.$locale(), !v && i && (m = e.Ls[i]), this.$d = function($, g, w, S) {
             try {
               if (["x", "X"].indexOf(g) > -1) return new Date((g === "X" ? 1e3 : 1) * $);
               var a = K(g)($), H = a.year, A = a.month, N = a.day, R = a.hours, W = a.minutes, tt = a.seconds, rt = a.milliseconds, V = a.zone, q = a.week, O = /* @__PURE__ */ new Date(), P = N || (H || A ? 1 : O.getDate()), z = H || O.getFullYear(), T = 0;
@@ -105,23 +105,23 @@ var B = { exports: {} };
             } catch {
               return /* @__PURE__ */ new Date("");
             }
-          }(y, d, p, e), this.init(), i && i !== !0 && (this.$L = this.locale(i).$L), c && y != this.format(d) && (this.$d = /* @__PURE__ */ new Date("")), m = {};
+          }(y, d, p, e), this.init(), i && i !== !0 && (this.$L = this.locale(i).$L), f && y != this.format(d) && (this.$d = /* @__PURE__ */ new Date("")), m = {};
         } else if (d instanceof Array) for (var M = d.length, Y = 1; Y <= M; Y += 1) {
-          u[1] = d[Y - 1];
-          var D = e.apply(this, u);
+          h[1] = d[Y - 1];
+          var D = e.apply(this, h);
           if (D.isValid()) {
             this.$d = D.$d, this.$L = D.$L, this.init();
             break;
           }
           Y === M && (this.$d = /* @__PURE__ */ new Date(""));
         }
-        else f.call(this, h);
+        else u.call(this, c);
       };
     };
   });
 })(B);
 var ot = B.exports;
-const ct = /* @__PURE__ */ nt(ot);
+const ft = /* @__PURE__ */ nt(ot);
 export {
-  ct as c
+  ft as c
 };

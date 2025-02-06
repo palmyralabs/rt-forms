@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEndPoint, GridStore, ExportRequest, StoreOptions } from '@palmyralabs/palmyra-wire';
+import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEndPoint, GridStore, ExportRequest, StoreOptions, strings } from '@palmyralabs/palmyra-wire';
 import { useKeyValue } from '../utils';
 import { IPageQueryable } from './types';
 import { StoreFactoryContext } from '../form';
@@ -21,7 +21,13 @@ interface IServerQueryInput {
   pageSize?: number | number[],
   quickSearch?: string,
   filterTopic?: string,
-  initialFetch?: boolean
+  initialFetch?: boolean,
+  initParams?: {
+    filter?: Record<any, any>,
+    sort?: strings,
+    limit?: number,
+    offset?: number
+  }
 }
 
 function getGridStore(o: IServerQueryInput): GridStore<any> {
@@ -49,16 +55,21 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
   const fetchAll = props.fetchAll != false;
   const defaultFilter = props.defaultParams?.filter || {};
   const defaultSort = props.defaultParams?.sort || {};
-
-  const [filter, _setFilter] = props.filterTopic ? useKeyValue(props.filterTopic, defaultFilter)
-    : useState<any>(defaultFilter);
-
   const pageSize = props.pageSize ? props.pageSize : 15;
   var defaultPageSize = pageSize instanceof Array ? pageSize[0] : pageSize;
 
+  const f = props.initParams?.filter || {};
+  const limit = props.initParams?.limit || defaultPageSize;
+  const offset = props.initParams?.offset || 0;
+  const sort = props.initParams?.sort || {};
+  const initialFilter = { ...f, ...defaultFilter };
+
+  const [filter, _setFilter] = props.filterTopic ? useKeyValue(props.filterTopic, initialFilter)
+    : useState<any>(initialFilter);
+
   const [endPointVars, setEndPointOptions] = useState(props.storeOptions?.endPointOptions);
-  const [sortOrder, setSortOrder] = useState({});
-  const [queryLimit, setQueryLimit] = useState<IPagination>({ limit: defaultPageSize, offset: 0, total: true });
+  const [sortOrder, setSortOrder] = useState(sort);
+  const [queryLimit, setQueryLimit] = useState<IPagination>({ limit, offset, total: true });
   const [serverResult, setServerResult] = useState<Result>({ total: null, isLoading: false, data: null });
 
   const gotoPage = (pageNo: number) => {

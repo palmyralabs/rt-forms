@@ -1,15 +1,15 @@
 import { jsx as m } from "react/jsx-runtime";
-import { createColumnHelper as c } from "@tanstack/react-table";
-import { formatColumn as d } from "./CellFormatter.js";
-import { hasDot as b, getValueByKey as v } from "@palmyralabs/ts-utils";
-import { NoopGridCustomizer as g } from "../NoopGridCustomizer.js";
-import { getFormatConverter as C } from "../../utils/FormatterFactory.js";
-const u = c();
+import { createColumnHelper as d } from "@tanstack/react-table";
+import { formatColumn as c } from "./CellFormatter.js";
+import { hasDot as b, getValueByKey as g } from "@palmyralabs/ts-utils";
+import { NoopGridCustomizer as C } from "../NoopGridCustomizer.js";
+import { getFormatConverter as h } from "../../utils/FormatterFactory.js";
+const u = d();
 function w(r, o) {
-  const e = o || g;
-  return r.every((t) => t.columnGroup == null) ? r.map((t) => p(t, e)) : h(r, e);
+  const e = o || C;
+  return r.every((t) => t.columnGroup == null) ? r.map((t) => p(t, e)) : v(r, e);
 }
-function h(r, o) {
+function v(r, o) {
   const e = new Array();
   var t = void 0;
   return r.map((n) => {
@@ -20,7 +20,7 @@ function h(r, o) {
 function p(r, o) {
   const e = r.sortable, t = r.searchable;
   var n = r.cellRenderer;
-  const a = o.formatHeader(r, G(r)), i = o.formatFooter(r, F());
+  const a = o.formatHeader(r, G(r)), i = o.formatFooter(r, f());
   if (n)
     return u.display({
       id: s(r),
@@ -34,7 +34,7 @@ function p(r, o) {
       footer: i,
       cell: n
     });
-  let l = o.formatCell(r, d(r));
+  let l = o.formatCell(r, c(r));
   return u.accessor(y(r), {
     id: s(r),
     meta: {
@@ -50,8 +50,8 @@ function p(r, o) {
 }
 function y(r) {
   var o = r.attribute ? r.attribute : r.name;
-  const e = C(r);
-  return b(o) ? (t) => e.convert(v(o, t)) : (t) => e.convert(t[o]);
+  const e = h(r);
+  return b(o) ? (t) => e.convert(g(o, t)) : (t) => e.convert(t[o]);
 }
 function s(r) {
   return r.name ? r.name : r.attribute;
@@ -59,7 +59,7 @@ function s(r) {
 function G(r) {
   return () => /* @__PURE__ */ m("span", { children: r.label });
 }
-function F(r) {
+function f(r) {
   return (o, e) => {
   };
 }
