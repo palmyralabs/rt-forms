@@ -62,8 +62,8 @@ describe('PalmyraForm/usePalmyraEditForm- Form Initialization', () => {
         };
 
         const editForm = renderHook(() => usePalmyraEditForm(props)).result;
-        act(() => {
-            expect(() => editForm.current.fetchData()).rejects.toThrowError();
+        await act(async () => {
+            await expect(() => editForm.current.fetchData()).rejects.toThrowError();
         })
 
         // wait till the callback happens
@@ -85,8 +85,8 @@ describe('PalmyraForm/usePalmyraEditForm- Form Initialization', () => {
         };
 
         const editForm = renderHook(() => usePalmyraEditForm(props)).result;
-        act(() => {
-            expect(() => editForm.current.fetchData()).rejects.toThrowError();
+        await act(async () => {
+            await expect(() => editForm.current.fetchData()).rejects.toThrowError();
         })
     })
 })
