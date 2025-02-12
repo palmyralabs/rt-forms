@@ -30,5 +30,6 @@ declare const useServerAutoComplete: (key: string, o: FieldOptions & IServerQuer
     rawValueAccessor: (d: any) => any;
     valueAccessor: (d: any) => any;
     valueWriter: (formData: any, value: any) => void;
+    setError: (errorMsg: string, showError?: boolean) => void;
 };
 export { useServerAutoComplete };

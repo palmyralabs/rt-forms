@@ -11,7 +11,7 @@ const g = (t) => {
 }, S = (t) => {
   var o, e, u;
   return (o = t.lookupOptions) != null && o.displayAttribute ? t.lookupOptions.displayAttribute : ((e = t.lookupOptions) == null ? void 0 : e.labelAttribute) || ((u = t.queryOptions) == null ? void 0 : u.labelAttribute) || "code";
-}, h = (t, { getOptionKey: o, getOptionValue: e }) => {
+}, v = (t, { getOptionKey: o, getOptionValue: e }) => {
   const { attribute: u, lookupOptions: r } = t, s = f(u);
   if (r != null && r.displayAttribute)
     return (i, n) => {
@@ -32,7 +32,7 @@ const g = (t) => {
         s(n, null);
     };
   throw new Error("lookupOptions must be provided in the field options");
-}, v = (t) => {
+}, h = (t) => {
   const { attribute: o } = t, e = t.lookupOptions, u = g(t), r = q(t), s = b(o), i = f(u), n = f(r), d = (l, p) => {
     var c = {};
     return i(c, l), n(c, p), c;
@@ -63,8 +63,8 @@ const g = (t) => {
   }
 };
 export {
-  v as generateFieldAccessor,
-  h as generateFieldWriter,
+  h as generateFieldAccessor,
+  v as generateFieldWriter,
   I as getLookupIdKey,
   S as getLookupValueKey,
   g as getOptionIdKey,

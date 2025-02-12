@@ -2,7 +2,7 @@ import { IFieldManager } from "../types";
 import { IMutateOptions } from "../typesFieldOptions";
 
 const getFieldHandler = (fieldManager: IFieldManager) => {
-    const { getError, getValue, setValue, setMutateOptions } = fieldManager;
+    const { getError, getValue, setValue, setMutateOptions, setError } = fieldManager;
     return {
         isValid() {
             const error = getError();
@@ -16,6 +16,7 @@ const getFieldHandler = (fieldManager: IFieldManager) => {
         refreshError() {
             fieldManager.refreshError()
         },
+        setError,
         setVisible(visible: boolean) {
             setMutateOptions((d: IMutateOptions) => ({ ...d, visible }));
         },

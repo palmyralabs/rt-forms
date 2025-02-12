@@ -35,6 +35,7 @@ interface IFieldManager {
     rawValueAccessor: (d: any) => any;
     valueAccessor: (d: any) => any;
     valueWriter: (formData: any, value: any) => void;
+    setError: (errorMsg: string, showError?: boolean) => void;
 }
 interface IServerQueryFieldManager extends IFieldManager {
     setSearchText: (text: string) => void;

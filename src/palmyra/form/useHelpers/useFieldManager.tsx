@@ -73,7 +73,7 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
         }
         fieldGroupManager.setFieldValidity(key, !newError.status);
         newError.showError = showError;
-        
+
         if (fieldOptions?.readOnly && !readOnlyOverride) {
             setFieldState((d) => { return { ...d, error: newError } });
         } else {
@@ -91,6 +91,13 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
         e.showError = true;
         setFieldState((v) => {
             return { ...v, error: e };
+        });
+    }
+
+    const setError = (errorMsg: string, showError?: boolean) => {
+        // TODO : show error behaviour to be verified.
+        setFieldState((v: any) => {
+            return { ...v, error: { status: true, message: errorMsg, showError: true } }
         });
     }
 
@@ -118,7 +125,7 @@ const useFieldManager = (key: string, fieldOptions: FieldOptions, customizer?: I
 
     const fieldManager: IFieldManager = {
         getValidator, getValue, setValue, valueAccessor, valueWriter, rawValueAccessor,
-        isValid, getError, refreshError, mutateOptions, setMutateOptions, getFieldProps
+        isValid, getError, refreshError, mutateOptions, setMutateOptions, getFieldProps, setError
     }
 
     fieldGroupManager.registerFieldManager(fieldManager, options);

@@ -31,5 +31,6 @@ declare const useServerLookupFieldManager: (key: string, o: FieldOptions & IServ
     rawValueAccessor: (d: any) => any;
     valueAccessor: (d: any) => any;
     valueWriter: (formData: any, value: any) => void;
+    setError: (errorMsg: string, showError?: boolean) => void;
 };
 export { useServerLookupFieldManager };

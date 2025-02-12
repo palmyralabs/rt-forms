@@ -1,20 +1,20 @@
 import { useRef as g } from "react";
 import { useValidityTracker as M } from "./useValidityTracker.js";
 const A = (o) => {
-  const s = g(o.formData || {}), u = g({}), d = o.onValidChange || ((t) => {
+  const s = g(o.formData || {}), l = g({}), d = o.onValidChange || ((t) => {
     console.log(t);
-  }), i = g({}), { isValid: y, setValidity: D } = M((t) => {
+  }), i = g({}), { isValid: v, setValidity: D } = M((t) => {
     d(t);
-  }, 200), F = () => ({ ...s.current, ...u.current }), G = () => s.current, V = () => {
+  }, 200), F = () => ({ ...s.current, ...l.current }), y = () => s.current, G = () => {
     const t = F(), r = i.current;
     for (const n in r)
       r[n].setData(t);
-  }, p = (t) => {
+  }, V = (t) => {
     const r = i.current;
     for (const n in r)
       r[n].setData(t);
     s.current = t;
-  }, v = (t) => i.current[t], m = (t) => {
+  }, p = (t) => i.current[t], m = (t) => {
     const r = i.current, n = R(t);
     return r[t.name] = n, n;
   }, R = (t) => {
@@ -30,8 +30,8 @@ const A = (o) => {
         var e = {};
         const a = r.current;
         return Object.keys(a).every((c) => {
-          const l = a[c].field;
-          return l.valueWriter(e, l.getValue()), !0;
+          const u = a[c].field;
+          return u.valueWriter(e, u.getValue()), !0;
         }), e;
       },
       registerFieldManager: (e, a) => {
@@ -41,13 +41,13 @@ const A = (o) => {
       },
       hasField: (e) => r.current[e] != null,
       getFieldRawData: (e) => {
-        var a = e(u.current);
+        var a = e(l.current);
         return a ?? e(s.current);
       },
       setFieldData: (e, a) => {
-        var l;
-        const c = (l = r.current[e]) == null ? void 0 : l.field;
-        c && c.valueWriter(u.current, a);
+        var u;
+        const c = (u = r.current[e]) == null ? void 0 : u.field;
+        c && c.valueWriter(l.current, a);
       },
       setFieldValidity: n.setValidity,
       isValid: n.isValid
@@ -55,16 +55,16 @@ const A = (o) => {
   };
   return {
     getData: F,
-    getPropsData: G,
-    isValid: y,
-    reset: V,
-    setData: p,
+    getPropsData: y,
+    isValid: v,
+    reset: G,
+    setData: V,
     registerFieldGroupManager: m,
-    getFieldGroupManager: v
+    getFieldGroupManager: p
   };
 }, k = (o, s) => {
-  Object.keys(o).every((u) => {
-    const d = o[u].field, i = d.valueAccessor;
+  Object.keys(o).every((l) => {
+    const d = o[l].field, i = d.valueAccessor;
     return d.setValue(i(s), !1, !1, !0), !0;
   });
 };

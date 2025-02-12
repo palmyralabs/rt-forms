@@ -1,5 +1,5 @@
-const u = (s) => {
-  const { getError: i, getValue: l, setValue: o, setMutateOptions: t } = s;
+const a = (s) => {
+  const { getError: i, getValue: l, setValue: o, setMutateOptions: t, setError: u } = s;
   return {
     isValid() {
       return !i().status;
@@ -12,6 +12,7 @@ const u = (s) => {
     refreshError() {
       s.refreshError();
     },
+    setError: u,
     setVisible(e) {
       t((r) => ({ ...r, visible: e }));
     },
@@ -30,5 +31,5 @@ const u = (s) => {
   };
 };
 export {
-  u as getFieldHandler
+  a as getFieldHandler
 };

@@ -42,7 +42,8 @@ interface IFieldManager {
     getValidator: Supplier<(v: any) => PredicateResponse>,
     rawValueAccessor: (d: any) => any,
     valueAccessor: (d: any) => any,
-    valueWriter: (formData: any, value: any) => void
+    valueWriter: (formData: any, value: any) => void,
+    setError: (errorMsg: string, showError?: boolean) => void,
 }
 
 
