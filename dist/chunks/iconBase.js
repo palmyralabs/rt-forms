@@ -68,7 +68,7 @@ function P(e, t) {
   if (typeof e != "object" || !e) return e;
   var r = e[Symbol.toPrimitive];
   if (r !== void 0) {
-    var n = r.call(e, t || "default");
+    var n = r.call(e, t);
     if (typeof n != "object") return n;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }

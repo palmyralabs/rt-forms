@@ -207,26 +207,28 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
     setSortOrder(sortOrder);
   }
 
-  const nextPage = (): boolean => {
+  const nextPage = (): number => {
     const pageNo = getPageNo();
     if (pageNo < getTotalPages()) {
-      gotoPage(getPageNo() + 1);
-      return true;
+      const nextPage:number = pageNo + 1
+      gotoPage(nextPage);
+      return nextPage;
     }
-    return false;
+    return -1;
   }
 
   const getTotalPages = (): number => {
     return Math.ceil(serverResult?.total / (queryLimit.limit || 25));
   }
 
-  const prevPage = (): boolean => {
+  const prevPage = (): number => {
     const pageNo = getPageNo();
     if (pageNo > 0) {
-      gotoPage(pageNo - 1);
-      return true;
+      const prevPage:number = pageNo - 1
+      gotoPage(prevPage);
+      return prevPage;
     }
-    return false;
+    return -1;
   }
 
   const exportResult = (request: ExportRequest) => {
@@ -241,7 +243,7 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
     setSortColumns, setEndPointOptions, getTotalPages,
     refresh, setPageSize, getPageNo, getQueryLimit, setQueryLimit,
     gotoPage, nextPage, prevPage, export: exportResult,
-    getQueryRequest, setSortOptions: setSortColumns,
+    getQueryRequest, 
     getCurrentFilter: () => filter, getTotalRecords: () => serverResult?.total,
     getCurrentData: () => serverResult?.data, isLoading: serverResult.isLoading
   }

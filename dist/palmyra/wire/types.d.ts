@@ -6,7 +6,6 @@ interface IQueryable {
     refresh: () => void;
     setEndPointOptions: (d: any) => void;
     addFilter: (key: string, v: any) => void;
-    setSortOptions: (d: any) => void;
     getCurrentData: () => Array<any>;
     setSortColumns: (sortOrder: any) => void;
     export: (request: ExportRequest) => void;
@@ -16,8 +15,8 @@ interface IPageQueryable extends IQueryable {
     setQueryLimit: (d: IPagination) => void;
     getQueryLimit: () => IPagination;
     gotoPage: (page: number) => void;
-    nextPage: () => void;
-    prevPage: () => void;
+    nextPage: () => number;
+    prevPage: () => number;
     setPageSize: (recordsPerPage: number) => void;
     getPageNo: () => number;
     getQueryRequest: () => QueryRequest;
