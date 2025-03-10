@@ -1,6 +1,6 @@
 import { RowData, ColumnDef } from "@tanstack/react-table";
 import { ColumnDefinition, GridCustomizer, IGridPlugin } from "./base/types";
-import { IEndPoint } from "@palmyralabs/palmyra-wire";
+import { IEndPoint, strings } from "@palmyralabs/palmyra-wire";
 import { IServerQueryInput } from "../wire";
 
 interface BaseTableOptions {
@@ -12,7 +12,10 @@ interface BaseTableOptions {
   onRowClick?: Function,
   onColumnSort?: Function,
   EmptyChild?: React.FC,
-  customizer?: GridCustomizer
+  customizer?: GridCustomizer,
+  initParams?: {
+    sort?: strings
+  }
 }
 
 interface ApiDataTableOptions extends Omit<IServerQueryInput, 'store'>, IGridPlugin {

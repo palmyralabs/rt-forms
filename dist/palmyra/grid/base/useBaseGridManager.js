@@ -1,30 +1,31 @@
-import { useState as g, useEffect as f } from "react";
+import { useState as f, useEffect as P } from "react";
 import { EmptyChildTable as w } from "./EmptyChildTable.js";
-import { getCoreRowModel as P } from "@tanstack/react-table";
-const E = (t) => {
-  const { columnDefs: s, rowData: l, customizer: o } = t, i = t.onColumnSort || (() => {
-  }), C = t.EmptyChild || w, p = t.onRowClick || (() => {
-  }), m = (o == null ? void 0 : o.preProcessData) || ((n) => n), c = o != null && o.getTableOptions ? o.getTableOptions() : {}, [e, u] = g({});
+import { getCoreRowModel as b } from "@tanstack/react-table";
+const R = (t) => {
+  var a;
+  const { columnDefs: s, rowData: i, customizer: o } = t, C = t.onColumnSort || (() => {
+  }), m = t.EmptyChild || w, p = t.onRowClick || (() => {
+  }), c = (o == null ? void 0 : o.preProcessData) || ((n) => n), u = o != null && o.getTableOptions ? o.getTableOptions() : {}, [e, d] = f(((a = t.initParams) == null ? void 0 : a.sort) || {});
   o != null && o.preProcessColumns && (o == null || o.preProcessColumns(s));
-  const d = {
-    data: m(l),
+  const S = {
+    data: c(i),
     manualSorting: !0,
     manualFiltering: !0,
     manualPagination: !0,
     columns: s,
-    getCoreRowModel: P(),
-    ...c
+    getCoreRowModel: b(),
+    ...u
   };
-  f(() => {
-    i(e);
+  P(() => {
+    C(e);
   }, [e]);
-  const S = (n, a) => {
+  const g = (n, l) => {
     var r = { ...e };
-    a == "" ? delete r[n] : r[n] = a, u(r);
+    l == "" ? delete r[n] : r[n] = l, d(r);
   };
-  return { onColumnSort: t.onColumnSort ? S : () => {
-  }, onRowClick: p, options: d, EmptyChildren: C };
+  return { onColumnSort: t.onColumnSort ? g : () => {
+  }, onRowClick: p, options: S, EmptyChildren: m };
 };
 export {
-  E as useBaseGridManager
+  R as useBaseGridManager
 };

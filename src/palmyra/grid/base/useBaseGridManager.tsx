@@ -13,7 +13,7 @@ const useBaseGridManager = (o: BaseTableOptions) => {
 
     const preProcessData = customizer?.preProcessData || ((d: any) => d);
     const tableOptions = customizer?.getTableOptions ? customizer.getTableOptions() : {};
-    const [sortColumn, setSortColumn] = useState({});
+    const [sortColumn, setSortColumn] = useState(o.initParams?.sort || {});
 
     if (customizer?.preProcessColumns) {
         customizer?.preProcessColumns(columnDefs);
