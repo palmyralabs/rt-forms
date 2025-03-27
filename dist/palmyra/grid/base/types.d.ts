@@ -7,6 +7,7 @@ type IReactTanstackTable = import('@tanstack/table-core').Table<RowData>;
 type IExportOptions = PartialRecord<'csv' | 'excel' | 'pdf' | 'docx', string>;
 interface ApiDataTableOptions extends Omit<IServerQueryInput, 'store'>, IGridPlugin {
     endPoint: IEndPoint;
+    lsKey: string;
     columns: ColumnDefinition[];
     customizer?: GridCustomizer;
     EmptyChild?: React.FC;

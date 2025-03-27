@@ -5,7 +5,6 @@ type IReactTanstackTable = import("@tanstack/table-core").Table<RowData>;
 
 type IExportOptions = PartialRecord<'csv' | 'excel' | 'pdf' | 'docx', string>
 
-
 import { ReactNode } from "react";
 import { IEndPoint } from "@palmyralabs/palmyra-wire";
 import { IPageQueryable, IServerQueryInput } from "../../wire";
@@ -13,16 +12,16 @@ import { FieldOptions } from "../../form";
 
 
 interface ApiDataTableOptions extends Omit<IServerQueryInput, 'store'>, IGridPlugin {
-    endPoint: IEndPoint,
-    columns: ColumnDefinition[],
-    customizer?: GridCustomizer,
-    EmptyChild?: React.FC,
+    endPoint: IEndPoint;
+    lsKey: string;
+    columns: ColumnDefinition[];
+    customizer?: GridCustomizer;
+    EmptyChild?: React.FC;
     onRowClick?: Function
 }
 
-
 interface IDecoratedTitle {
-    title: string,
+    title: string;
     toolTip?: string
 }
 
@@ -31,7 +30,7 @@ type widgetFn = () => ReactNode;
 type ITitle = string | IDecoratedTitle | widgetFn;
 
 interface IPattern {
-    serverPattern?: string,
+    serverPattern?: string;
     displayPattern?: string,
 }
 
