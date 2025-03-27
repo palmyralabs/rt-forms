@@ -179,4 +179,4 @@ export type {
     ITitle, IPattern, Converter, ColumnFieldOptions, FieldType, IConstraints, IRange
 }
 
-export type { BaseTableOptions, StaticGridOptions }
+export type { ApiDataTableOptions, BaseTableOptions, StaticGridOptions }

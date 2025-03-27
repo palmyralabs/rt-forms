@@ -134,4 +134,4 @@ interface StaticGridOptions extends Omit<IServerQueryInput, 'store'>, IGridPlugi
 }
 export type { ColumnDefinition, GridCustomizer, CellGetter, IExportOptions, IReactTanstackTable, ITableOptions, IGridPlugin, DataGridOptions, DataGridPluginOptions, GridXOptions, PalmyraGridOptions, IPalmyraGrid, PaginationOptions };
 export type { ITitle, IPattern, Converter, ColumnFieldOptions, FieldType, IConstraints, IRange };
-export type { BaseTableOptions, StaticGridOptions };
+export type { ApiDataTableOptions, BaseTableOptions, StaticGridOptions };
