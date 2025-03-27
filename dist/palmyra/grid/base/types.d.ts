@@ -1,18 +1,10 @@
 import { CellContext, ColumnDef, OnChangeFn, Row, RowData, RowModel, RowSelectionState, Table } from '@tanstack/react-table';
 import { MutableRefObject, ReactNode } from 'react';
-import { IEndPoint } from '@palmyralabs/palmyra-wire';
+import { IEndPoint, strings } from '@palmyralabs/palmyra-wire';
 import { IPageQueryable, IServerQueryInput } from '../../wire';
 import { FieldOptions } from '../../form';
 type IReactTanstackTable = import('@tanstack/table-core').Table<RowData>;
 type IExportOptions = PartialRecord<'csv' | 'excel' | 'pdf' | 'docx', string>;
-interface ApiDataTableOptions extends Omit<IServerQueryInput, 'store'>, IGridPlugin {
-    endPoint: IEndPoint;
-    lsKey: string;
-    columns: ColumnDefinition[];
-    customizer?: GridCustomizer;
-    EmptyChild?: React.FC;
-    onRowClick?: Function;
-}
 interface IDecoratedTitle {
     title: string;
     toolTip?: string;
@@ -110,5 +102,36 @@ interface PalmyraGridOptions<T> extends GridXOptions<T> {
 }
 interface IPalmyraGrid extends IPageQueryable {
 }
+interface ApiDataTableOptions extends Omit<IServerQueryInput, 'store'>, IGridPlugin {
+    endPoint: IEndPoint;
+    lsKey?: string;
+    columns: ColumnDefinition[];
+    customizer?: GridCustomizer;
+    EmptyChild?: React.FC;
+    onRowClick?: Function;
+}
+interface BaseTableOptions {
+    'aria-label'?: string;
+    showFooter?: boolean;
+    className?: string;
+    columnDefs: ColumnDef<RowData, any>[];
+    rowData: any[];
+    onRowClick?: Function;
+    onColumnSort?: Function;
+    EmptyChild?: React.FC;
+    customizer?: GridCustomizer;
+    initParams?: {
+        sort?: strings;
+    };
+}
+interface StaticGridOptions extends Omit<IServerQueryInput, 'store'>, IGridPlugin {
+    columns: ColumnDefinition[];
+    customizer?: GridCustomizer;
+    EmptyChild?: React.FC;
+    onRowClick?: Function;
+    rowData: any;
+    setSortColumns?: any;
+}
 export type { ColumnDefinition, GridCustomizer, CellGetter, IExportOptions, IReactTanstackTable, ITableOptions, IGridPlugin, DataGridOptions, DataGridPluginOptions, GridXOptions, PalmyraGridOptions, IPalmyraGrid, PaginationOptions };
 export type { ITitle, IPattern, Converter, ColumnFieldOptions, FieldType, IConstraints, IRange };
+export type { BaseTableOptions, StaticGridOptions };

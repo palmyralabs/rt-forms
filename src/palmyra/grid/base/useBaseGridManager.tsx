@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { EmptyChildTable } from './EmptyChildTable';
 import { getCoreRowModel } from "@tanstack/react-table";
-import { BaseTableOptions } from "../typesInternal";
+import { BaseTableOptions } from "./types";
 
 const useBaseGridManager = (o: BaseTableOptions) => {
 
