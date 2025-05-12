@@ -50,7 +50,24 @@ const CheckboxGridEnhancer = (): IGridEnhancer => {
                         {...{
                             checked: getAllChecked(),
                             indeterminate: table.getIsSomeRowsSelected(),
-                            onChange: table.getToggleAllRowsSelectedHandler(),
+                            onChange: (e: any) => {
+                                const checked = e.target?.checked;
+                                const rows = table.getFilteredRowModel().rows;
+
+                                if (checked) {
+                                    rows.forEach(row => {
+                                        const key = row.original.id;
+                                        idSelected.current[key] = true;
+                                    });
+                                } else {
+                                    rows.forEach(row => {
+                                        const key = row.original.id;
+                                        delete idSelected.current[key];
+                                    });
+                                }
+
+                                table.getToggleAllRowsSelectedHandler()(e);
+                            },
                         }}
                     />
                 )
