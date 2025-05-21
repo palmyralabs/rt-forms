@@ -1,21 +1,21 @@
-import { jsx as o } from "react/jsx-runtime";
-import { useState as h, useRef as r, useEffect as S } from "react";
-import { getFilteredRowModel as f } from "@tanstack/react-table";
-const T = () => {
-  const [n, l] = h({}), t = r({}), c = r();
+import { jsx as l } from "react/jsx-runtime";
+import { useState as k, useRef as a, useEffect as p } from "react";
+import { getFilteredRowModel as R } from "@tanstack/react-table";
+const A = () => {
+  const [c, s] = k({}), t = a({}), n = a();
   return { getTableOptions: () => ({
     state: {
-      rowSelection: n
+      rowSelection: c
     },
     enableRowSelection: !0,
-    onRowSelectionChange: l,
-    getFilteredRowModel: f(),
+    onRowSelectionChange: s,
+    getFilteredRowModel: R(),
     debug: !0
-  }), preProcessColumns: (i) => {
-    const u = {
+  }), preProcessColumns: (S) => {
+    const m = {
       id: "select",
-      header: ({ table: e }) => /* @__PURE__ */ o(
-        g,
+      header: ({ table: e }) => /* @__PURE__ */ l(
+        f,
         {
           checked: (() => {
             try {
@@ -25,46 +25,56 @@ const T = () => {
             }
           })(),
           indeterminate: e.getIsSomeRowsSelected(),
-          onChange: e.getToggleAllRowsSelectedHandler()
+          onChange: (o) => {
+            var h;
+            const u = (h = o.target) == null ? void 0 : h.checked, r = e.getFilteredRowModel().rows;
+            u ? r.forEach((d) => {
+              const i = d.original.id;
+              t.current[i] = !0;
+            }) : r.forEach((d) => {
+              const i = d.original.id;
+              delete t.current[i];
+            }), e.getToggleAllRowsSelectedHandler()(o);
+          }
         }
       ),
       cell: ({ row: e }) => {
-        const s = (d) => {
-          const a = e.original.id;
-          e.getIsSelected() ? delete t.current[a] : t.current[a] = !0, e.getToggleSelectedHandler()(d);
+        const g = (o) => {
+          const r = e.original.id;
+          e.getIsSelected() ? delete t.current[r] : t.current[r] = !0, e.getToggleSelectedHandler()(o);
         };
-        return /* @__PURE__ */ o("div", { className: "px-1", children: /* @__PURE__ */ o(
-          g,
+        return /* @__PURE__ */ l("div", { className: "px-1", children: /* @__PURE__ */ l(
+          f,
           {
             checked: e.getIsSelected(),
             disabled: !e.getCanSelect(),
             indeterminate: e.getIsSomeSelected(),
-            onChange: s
+            onChange: g
           }
         ) });
       }
     };
-    i.push(u);
-  }, getTableRef: () => c, getSelectedIds: () => t.current };
+    S.push(m);
+  }, getTableRef: () => n, getSelectedIds: () => t.current };
 };
-function g({
-  indeterminate: n,
-  className: l = "",
+function f({
+  indeterminate: c,
+  className: s = "",
   ...t
 }) {
-  const c = r(null);
-  return S(() => {
-    typeof n == "boolean" && (c.current.indeterminate = !t.checked && n);
-  }, [c, n]), /* @__PURE__ */ o(
+  const n = a(null);
+  return p(() => {
+    typeof c == "boolean" && (n.current.indeterminate = !t.checked && c);
+  }, [n, c]), /* @__PURE__ */ l(
     "input",
     {
       type: "checkbox",
-      ref: c,
-      className: l + " cursor-pointer",
+      ref: n,
+      className: s + " cursor-pointer",
       ...t
     }
   );
 }
 export {
-  T as CheckboxGridEnhancer
+  A as CheckboxGridEnhancer
 };
