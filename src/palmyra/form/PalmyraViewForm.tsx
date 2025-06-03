@@ -1,9 +1,9 @@
 
+import { MutableRefObject, forwardRef, useImperativeHandle, useRef } from "react";
+import { getSaveFormHandle } from "./formUtil";
+import { PalmyraForm } from "./PalmyraForm";
 import { IViewForm, IViewFormOptions } from "./types";
 import { usePalmyraViewForm } from "./useHelpers";
-import { PalmyraForm } from "./PalmyraForm";
-import { MutableRefObject, forwardRef, useEffect, useImperativeHandle, useRef } from "react";
-import { getSaveFormHandle } from "./formUtil";
 
 const PalmyraViewForm = forwardRef(function EditForm(props: IViewFormOptions, ref: MutableRefObject<IViewForm>) {
     const storeFactory = props.storeFactory;
@@ -11,9 +11,9 @@ const PalmyraViewForm = forwardRef(function EditForm(props: IViewFormOptions, re
     const { formRef, refresh } = usePalmyraViewForm(props)
     const currentRef = ref || useRef<IViewForm>();
 
-    useEffect(() => {
-        refresh()
-    }, [props.endPoint])
+    // useEffect(() => {
+    //     refresh()
+    // }, [props.endPoint])
 
     useImperativeHandle(currentRef, () => getSaveFormHandle({}, formRef, refresh))
 
