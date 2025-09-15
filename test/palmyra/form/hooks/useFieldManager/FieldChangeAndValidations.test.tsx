@@ -21,7 +21,7 @@ describe('useFieldManager', () => {
         expect(result.current.isValid()).toBeTruthy();
 
         act(() => {
-            fieldManager.setValue('hellow@gmail.c', false, true);
+            fieldManager.setValue('hellow@gmail.c');
         })
 
         expect(result.current.getError().status).toBeTruthy();

@@ -1,5 +1,5 @@
 import { CellContext, ColumnDef, OnChangeFn, Row, RowData, RowModel, RowSelectionState, Table } from "@tanstack/react-table";
-import { MutableRefObject } from "react";
+import { JSX, MutableRefObject } from "react";
 
 type IReactTanstackTable = import("@tanstack/table-core").Table<RowData>;
 

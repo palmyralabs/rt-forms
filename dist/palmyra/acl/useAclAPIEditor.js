@@ -22,14 +22,14 @@ import "./AclAPIEditor.js";
 const G = (r) => {
   const { groupId: s } = r, p = r.storeFactory || f(D), m = r.editorRef || l(null), c = p.getFormStore({}, "/admin/acl/permission/group/{groupId}"), [u, d] = g([]), n = () => {
     c.get({ endPointVars: { groupId: s } }).then((i) => {
-      const e = i.reduce((o, t) => (o[t.className] || (o[t.className] = []), o[t.className].push({
-        id: t.id,
-        code: t.code,
-        name: t.permission,
-        mask: t.mask
-      }), o), {}), a = Object.entries(e).map(([o, t]) => ({
-        className: o,
-        permissions: t
+      const e = i.reduce((t, o) => (t[o.className] || (t[o.className] = []), t[o.className].push({
+        id: o.id,
+        code: o.code,
+        name: o.permission,
+        mask: o.mask
+      }), t), {}), a = Object.entries(e).map(([t, o]) => ({
+        className: t,
+        permissions: o
       }));
       d(a);
     });
@@ -39,8 +39,7 @@ const G = (r) => {
   }, [s, r.editorRef]), { aclData: u, editorRef: m, refresh: n, saveData: () => {
     const i = m.current.getValue(), e = [];
     i.forEach((a) => {
-      var o;
-      (o = a.permissions) == null || o.forEach((t) => {
+      a.permissions?.forEach((t) => {
         e.push({ permissionId: t.id, mask: t.mask });
       });
     }), c.put(e, { endPointVars: { groupId: s } });

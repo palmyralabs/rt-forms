@@ -1,15 +1,13 @@
-const m = (i, t) => ({ formatCell: (u, e) => {
-  const r = u.attribute;
-  return i[r] ? i[r](e) : e;
-}, formatHeader: (u, e) => {
-  var n;
-  const r = u.attribute;
-  return (n = t == null ? void 0 : t.header) != null && n[r] ? t.header[r](u, e) : e;
-}, formatFooter: (u, e) => {
-  var n;
-  const r = u.attribute;
-  return (n = t == null ? void 0 : t.footer) != null && n[r] ? t.footer[r](u, e) : e;
+const s = (u, o) => ({ formatCell: (e, t) => {
+  const r = e.attribute;
+  return u[r] ? u[r](t) : t;
+}, formatHeader: (e, t) => {
+  const r = e.attribute;
+  return o?.header?.[r] ? o.header[r](e, t) : t;
+}, formatFooter: (e, t) => {
+  const r = e.attribute;
+  return o?.footer?.[r] ? o.footer[r](e, t) : t;
 } });
 export {
-  m as useGridColumnCustomizer
+  s as useGridColumnCustomizer
 };

@@ -1,21 +1,21 @@
 import { jsx as l } from "react/jsx-runtime";
-import { useState as k, useRef as a, useEffect as p } from "react";
-import { getFilteredRowModel as R } from "@tanstack/react-table";
-const A = () => {
-  const [c, s] = k({}), t = a({}), n = a();
+import { useState as m, useRef as a, useEffect as k } from "react";
+import { getFilteredRowModel as p } from "@tanstack/react-table";
+const T = () => {
+  const [c, s] = m({}), t = a({}), n = a(null);
   return { getTableOptions: () => ({
     state: {
       rowSelection: c
     },
     enableRowSelection: !0,
     onRowSelectionChange: s,
-    getFilteredRowModel: R(),
+    getFilteredRowModel: p(),
     debug: !0
-  }), preProcessColumns: (S) => {
-    const m = {
+  }), preProcessColumns: (f) => {
+    const S = {
       id: "select",
       header: ({ table: e }) => /* @__PURE__ */ l(
-        f,
+        h,
         {
           checked: (() => {
             try {
@@ -26,8 +26,7 @@ const A = () => {
           })(),
           indeterminate: e.getIsSomeRowsSelected(),
           onChange: (o) => {
-            var h;
-            const u = (h = o.target) == null ? void 0 : h.checked, r = e.getFilteredRowModel().rows;
+            const u = o.target?.checked, r = e.getFilteredRowModel().rows;
             u ? r.forEach((d) => {
               const i = d.original.id;
               t.current[i] = !0;
@@ -44,7 +43,7 @@ const A = () => {
           e.getIsSelected() ? delete t.current[r] : t.current[r] = !0, e.getToggleSelectedHandler()(o);
         };
         return /* @__PURE__ */ l("div", { className: "px-1", children: /* @__PURE__ */ l(
-          f,
+          h,
           {
             checked: e.getIsSelected(),
             disabled: !e.getCanSelect(),
@@ -54,16 +53,16 @@ const A = () => {
         ) });
       }
     };
-    S.push(m);
+    f.push(S);
   }, getTableRef: () => n, getSelectedIds: () => t.current };
 };
-function f({
+function h({
   indeterminate: c,
   className: s = "",
   ...t
 }) {
   const n = a(null);
-  return p(() => {
+  return k(() => {
     typeof c == "boolean" && (n.current.indeterminate = !t.checked && c);
   }, [n, c]), /* @__PURE__ */ l(
     "input",
@@ -76,5 +75,5 @@ function f({
   );
 }
 export {
-  A as CheckboxGridEnhancer
+  T as CheckboxGridEnhancer
 };

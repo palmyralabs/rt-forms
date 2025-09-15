@@ -8,9 +8,9 @@ describe("Palmyra Form", () => {
 
     const initProps = () => {
         const getById: any = queryByAttribute.bind(null, 'id');
-        const formRef: any = renderHook(() => useRef<IForm>()).result.current;
-        const fieldRef: any = renderHook(() => useRef<IInputField>()).result.current;
-        const numberFieldRef: any = renderHook(() => useRef<IInputField>()).result.current;
+        const formRef: any = renderHook(() => useRef<IForm>(null)).result.current;
+        const fieldRef: any = renderHook(() => useRef<IInputField>(null)).result.current;
+        const numberFieldRef: any = renderHook(() => useRef<IInputField>(null)).result.current;
         return { getById, formRef, fieldRef, numberFieldRef }
     }
 

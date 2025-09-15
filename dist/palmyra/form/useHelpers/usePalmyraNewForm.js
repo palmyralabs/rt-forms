@@ -1,16 +1,15 @@
-import { useContext as S, useRef as d } from "react";
-import { getHandlers as F } from "./utils.js";
+import { useContext as d, useRef as D } from "react";
+import { getHandlers as S } from "./utils.js";
 import { StoreFactoryContext as y } from "../formContext.js";
 const j = (e) => {
-  const a = e.storeFactory || S(y), t = e.formRef || d(null), s = e.endPointOptions || {}, { onSaveFailure: c, onSaveSuccess: i, preSave: u } = F(e), o = () => t.current ? t.current.getData() : e.initialData, f = (n) => {
-    t.current && t.current.setData(n);
+  const a = e.storeFactory || d(y), t = e.formRef || D(null), s = e.endPointOptions || {}, { onSaveFailure: c, onSaveSuccess: i, preSave: u } = S(e), n = () => t.current ? t.current.getData() : e.initialData, f = (o) => {
+    t.current && t.current.setData(o);
   };
-  return { getData: o, saveData: (n) => {
-    if (n || t && t.current) {
-      const l = "id";
+  return { getData: n, saveData: (o) => {
+    if (o || t && t.current) {
       var m = e.endPoint;
-      const v = a.getFormStore({}, m, l), D = n || o(), P = u(D);
-      return v.post(P, { endPointVars: s }).then((r) => (e.refreshOnSaveResponse != !1 && f(r), i(r), Promise.resolve(r))).catch((r) => (c(r), Promise.reject(r)));
+      const l = a.getFormStore({}, m, "id"), v = o || n(), P = u(v);
+      return l.post(P, { endPointVars: s }).then((r) => (e.refreshOnSaveResponse != !1 && f(r), i(r), Promise.resolve(r))).catch((r) => (c(r), Promise.reject(r)));
     } else
       return Promise.reject("invalid data");
   }, formRef: t };

@@ -5,7 +5,7 @@ import InputField from "../../../field/InputField";
 import { expect, test } from "vitest";
 
 test('form ref - initial data', () => {
-    const formRef: any = renderHook(() => useRef<IForm>()).result.current;
+    const formRef: any = renderHook(() => useRef<IForm>(null)).result.current;
     const Wrapper = () => {
         return (<>
             <PalmyraForm formData={{ option: 1 }} ref={formRef}>
@@ -23,7 +23,7 @@ test('form ref - initial data', () => {
 });
 
 test('form ref - initial data 0', () => {
-    const formRef: any = renderHook(() => useRef<IForm>()).result.current;
+    const formRef: any = renderHook(() => useRef<IForm>(null)).result.current;
     const Wrapper = () => {
         return (<>
             <PalmyraForm formData={{}} ref={formRef}>
@@ -40,7 +40,7 @@ test('form ref - initial data 0', () => {
 });
 
 test('field ref - initial data', () => {
-    const fieldRef: any = renderHook(() => useRef<IInputField>()).result.current;
+    const fieldRef: any = renderHook(() => useRef<IInputField>(null)).result.current;
     const Wrapper = () => {
         return (<>
             <PalmyraForm formData={{ option: 1 }}>
@@ -57,7 +57,7 @@ test('field ref - initial data', () => {
 });
 
 test('field ref - initial data 0', () => {
-    const fieldRef: any = renderHook(() => useRef<IForm>()).result.current;
+    const fieldRef: any = renderHook(() => useRef<IForm>(null)).result.current;
     const Wrapper = () => {
         return (<>
             <PalmyraForm formData={{}} >

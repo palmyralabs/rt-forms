@@ -5,7 +5,7 @@ import { useRef } from "react";
 
 describe('PalmyraForm/useFieldManager- Form Initialization - required', () => {
 
-    const formRefRender = renderHook(() => useRef<IForm>());
+    const formRefRender = renderHook(() => useRef<IForm>(null));
     const formRef = formRefRender.result.current;
 
     test("no defaultValue", () => {

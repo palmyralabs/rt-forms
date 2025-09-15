@@ -1,8 +1,8 @@
-import { useRef as d, useState as Q, useEffect as T, useContext as C } from "react";
-import { StoreFactoryContext as D } from "../formContext.js";
-import { u as M, c as R } from "../../../chunks/ServerCardLayout.js";
+import { useRef as l, useState as F, useEffect as k, useContext as v } from "react";
+import { StoreFactoryContext as Q } from "../formContext.js";
+import { u as T, c as C } from "../../../chunks/ServerCardLayout.js";
 import "@palmyralabs/ts-utils";
-import { mergeDeep as z } from "../../utils/ObjectUtils.js";
+import { mergeDeep as D } from "../../utils/ObjectUtils.js";
 import "../PalmyraForm.js";
 import "@palmyralabs/ts-predicates";
 import "react/jsx-runtime";
@@ -20,54 +20,52 @@ import "../../../chunks/index.js";
 import "react-router-dom";
 import "../../menu/AsyncTreeMenuEditor.js";
 import "../../acl/AclAPIEditor.js";
-const at = (o, t, r) => {
-  var m, f, y;
-  const s = d(0), i = d(""), [g, p] = Q([]), S = (r == null ? void 0 : r.preProcessSearchText) || ((e) => "*" + e + "*"), a = M(o, t, r), h = L(t), q = () => {
+const nt = (r, t, s) => {
+  const o = l(0), u = l(""), [f, p] = F([]), y = s?.preProcessSearchText || ((e) => "*" + e + "*"), c = T(r, t, s), d = M(t), g = () => {
     const {
       lookupOptions: e,
-      storeOptions: E,
-      queryOptions: j,
-      displayAttribute: w,
-      fetchDefault: B,
-      defaultParams: G,
-      ...v
-    } = a.getFieldProps();
-    return v;
-  }, O = ((m = t.queryOptions) == null ? void 0 : m.queryAttribute) || ((f = t.queryOptions) == null ? void 0 : f.labelAttribute) || "name", x = {
-    store: h,
-    storeOptions: (y = t.queryOptions) == null ? void 0 : y.storeOptions,
+      storeOptions: R,
+      queryOptions: z,
+      displayAttribute: L,
+      fetchDefault: E,
+      defaultParams: j,
+      ...A
+    } = c.getFieldProps();
+    return A;
+  }, O = t.queryOptions?.queryAttribute || t.queryOptions?.labelAttribute || "name", S = {
+    store: d,
+    storeOptions: t.queryOptions?.storeOptions,
     fetchAll: !0,
     pageSize: t.pageSize || 15,
     quickSearch: O,
     initialFetch: !1,
     defaultParams: t.defaultParams
-  }, P = R(x), { setQuickSearch: c, refresh: b, getCurrentData: A, getTotalRecords: F } = P, n = A(), u = F();
-  T(() => {
-    const e = n ? [...n] : [];
-    p(e), s.current < u && (s.current = u);
-  }, [n, u]);
-  const k = (e) => {
-    i.current = e || "", l();
+  }, h = C(S), { setQuickSearch: a, refresh: q, getCurrentData: x, getTotalRecords: P } = h, i = x(), n = P();
+  k(() => {
+    const e = i ? [...i] : [];
+    p(e), o.current < n && (o.current = n);
+  }, [i, n]);
+  const b = (e) => {
+    u.current = e || "", m();
   };
-  function l() {
-    const e = i.current;
-    e.length > 0 ? c(S(e)) : n ? c(null) : b();
+  function m() {
+    const e = u.current;
+    e.length > 0 ? a(y(e)) : i ? a(null) : q();
   }
   return {
-    ...a,
-    setSearchText: k,
-    refreshOptions: l,
-    options: g,
+    ...c,
+    setSearchText: b,
+    refreshOptions: m,
+    options: f,
     setOptions: p,
-    getFieldProps: q
+    getFieldProps: g
   };
 };
-function L(o) {
-  var i;
-  const t = C(D), r = ((i = o.queryOptions) == null ? void 0 : i.queryAttribute) || "name";
-  var s = {};
-  return z(s, o.queryOptions), t.getLookupStore(s, o.queryOptions.endPoint, r);
+function M(r) {
+  const t = v(Q), s = r.queryOptions?.queryAttribute || "name";
+  var o = {};
+  return D(o, r.queryOptions), t.getLookupStore(o, r.queryOptions.endPoint, s);
 }
 export {
-  at as useServerQueryFieldManager
+  nt as useServerQueryFieldManager
 };

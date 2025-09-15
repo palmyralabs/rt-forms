@@ -42,7 +42,7 @@ describe('useServerLookupFieldManager', () => {
 
     test('set data', async () => {
         const storeFactory = new PalmyraStoreFactory({ baseUrl: '/api/palmyra' });
-        const formRef = renderHook(() => useRef<IForm>()).result.current;
+        const formRef = renderHook(() => useRef<IForm>(null)).result.current;
         const wrapper = ({ children }) => {
             return <PalmyraForm formData={{ lookup: { id: 1, label: 'hello' } }} storeFactory={storeFactory} ref={formRef}>{children} </PalmyraForm>
         }

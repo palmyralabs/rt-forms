@@ -1,5 +1,5 @@
 import { CellContext, ColumnDef, OnChangeFn, Row, RowData, RowModel, RowSelectionState, Table } from '@tanstack/react-table';
-import { MutableRefObject, ReactNode } from 'react';
+import { JSX, MutableRefObject, ReactNode } from 'react';
 import { IEndPoint, strings } from '@palmyralabs/palmyra-wire';
 import { IPageQueryable, IServerQueryInput } from '../../wire';
 import { FieldOptions } from '../../form';

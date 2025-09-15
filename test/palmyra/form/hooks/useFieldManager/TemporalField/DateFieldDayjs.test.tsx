@@ -25,7 +25,7 @@ const format = (v: any) => {
 describe('useFieldManager - DateField', () => {
 
     test('Initial form data', () => {
-        const formRefRender = renderHook(() => useRef<IForm>());
+        const formRefRender = renderHook(() => useRef<IForm>(null));
         const formRef = formRefRender.result.current;
 
         const wrapper = ({ children }) => {
@@ -43,7 +43,7 @@ describe('useFieldManager - DateField', () => {
 
 
     test('Default Value in field', () => {
-        const formRefRender = renderHook(() => useRef<IForm>());
+        const formRefRender = renderHook(() => useRef<IForm>(null));
         const formRef = formRefRender.result.current;
 
         const wrapper = ({ children }) => {
@@ -61,7 +61,7 @@ describe('useFieldManager - DateField', () => {
 
 
     test('set form data - no default value', () => {
-        const formRefRender = renderHook(() => useRef<IForm>());
+        const formRefRender = renderHook(() => useRef<IForm>(null));
         const formRef = formRefRender.result.current;
 
         const wrapper = ({ children }) => {
@@ -82,7 +82,7 @@ describe('useFieldManager - DateField', () => {
     });
 
     test('set form data - with default value', () => {
-        const formRefRender = renderHook(() => useRef<IForm>());
+        const formRefRender = renderHook(() => useRef<IForm>(null));
         const formRef = formRefRender.result.current;
 
         const wrapper = ({ children }) => {
@@ -110,7 +110,7 @@ describe('useFieldManager - DateField', () => {
 
 
     test('set form data - without date value', () => {
-        const formRefRender = renderHook(() => useRef<IForm>());
+        const formRefRender = renderHook(() => useRef<IForm>(null));
         const formRef = formRefRender.result.current;
 
         const wrapper = ({ children }) => {
@@ -138,7 +138,7 @@ describe('useFieldManager - DateField', () => {
 
 
     test('set field data', () => {
-        const formRefRender = renderHook(() => useRef<IForm>());
+        const formRefRender = renderHook(() => useRef<IForm>(null));
         const formRef = formRefRender.result.current;
 
         const wrapper = ({ children }) => {

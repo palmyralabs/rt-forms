@@ -32,7 +32,7 @@ describe('PalmyraForm/usePalmyraEditForm- Form Initialization', () => {
 
     test("200-Data Fetched - only once", async () => {
         const storeFactory = new PalmyraStoreFactory({ baseUrl: '/api/palmyra/' });
-        const formRef = renderHook(() => useRef<IForm>()).result.current;
+        const formRef = renderHook(() => useRef<IForm>(null)).result.current;
         const props: IPalmyraEditFormInput = {
             id: '23', endPoint: 'productType', storeFactory, formRef
         };
@@ -53,7 +53,7 @@ describe('PalmyraForm/usePalmyraEditForm- Form Initialization', () => {
 
     test("404-Data not found - onFetchFailure called", async () => {
         const storeFactory = new PalmyraStoreFactory({ baseUrl: '/api/palmyra/' });
-        const formRef = renderHook(() => useRef<IForm>()).result.current;
+        const formRef = renderHook(() => useRef<IForm>(null)).result.current;
         const errorHandler: ErrorHandler = vi.fn((d) => { return true });
 
         const props: IPalmyraEditFormInput = {
@@ -78,7 +78,7 @@ describe('PalmyraForm/usePalmyraEditForm- Form Initialization', () => {
 
     test("404-Data not found", async () => {
         const storeFactory = new PalmyraStoreFactory({ baseUrl: '/api/palmyra/' });
-        const formRef = renderHook(() => useRef<IForm>()).result.current;
+        const formRef = renderHook(() => useRef<IForm>(null)).result.current;
 
         const props: IPalmyraEditFormInput = {
             id: '24', endPoint: 'productType', storeFactory, formRef

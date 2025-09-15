@@ -9,7 +9,7 @@ const PalmyraViewForm = forwardRef(function EditForm(props: IViewFormOptions, re
     const storeFactory = props.storeFactory;
 
     const { formRef, refresh } = usePalmyraViewForm(props)
-    const currentRef = ref || useRef<IViewForm>();
+    const currentRef = ref || useRef<IViewForm>(null);
 
     // useEffect(() => {
     //     refresh()

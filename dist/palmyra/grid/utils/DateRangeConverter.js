@@ -1,49 +1,46 @@
-var l = Object.defineProperty;
-var m = (t, r, e) => r in t ? l(t, r, { enumerable: !0, configurable: !0, writable: !0, value: e }) : t[r] = e;
-var s = (t, r, e) => m(t, typeof r != "symbol" ? r + "" : r, e);
-import f from "dayjs";
-import { getValueByKey as u } from "@palmyralabs/ts-utils";
-function o(t) {
-  return t ? f(t).isValid() : !1;
+import o from "dayjs";
+import { getValueByKey as n } from "@palmyralabs/ts-utils";
+function a(t) {
+  return t ? o(t).isValid() : !1;
 }
-class _ {
+class m {
+  serverPattern;
   constructor(r, e) {
-    s(this, "serverPattern");
-    s(this, "getFieldData", (r, e) => u(e.attribute, r));
-    s(this, "getRawdata", (r, e) => u(e.attribute, r));
-    s(this, "getDefaultValue", (r) => r || "");
     this.serverPattern = r.serverPattern || r.displayPattern || e;
   }
+  getFieldData = (r, e) => n(e.attribute, r);
+  getRawdata = (r, e) => n(e.attribute, r);
   format(r) {
     if (r)
-      return o(r.from) ? o(r.to) ? this._formatDate(r.from) + "..." + this._formatDate(r.to) : ">" + this._formatDate(r.from) : o(r.to) ? "<" + this._formatDate(r.to) : void 0;
+      return a(r.from) ? a(r.to) ? this._formatDate(r.from) + "..." + this._formatDate(r.to) : ">" + this._formatDate(r.from) : a(r.to) ? "<" + this._formatDate(r.to) : void 0;
   }
   _formatDate(r) {
-    return f(r).format(this.serverPattern);
+    return o(r).format(this.serverPattern);
   }
   parse(r) {
-    var e, i;
+    var e, s;
     if (r && typeof r == "string") {
-      const n = r.charAt(0);
-      if (n == ">")
+      const f = r.charAt(0);
+      if (f == ">")
         e = this._parseDate(r.slice(1));
-      else if (n == "<")
-        i = this._parseDate(r.slice(1));
+      else if (f == "<")
+        s = this._parseDate(r.slice(1));
       else {
-        const a = r.split("...");
-        e = this._parseDate(a[0]), a[1] && (i = this._parseDate(a[1]));
+        const i = r.split("...");
+        e = this._parseDate(i[0]), i[1] && (s = this._parseDate(i[1]));
       }
     }
-    return { from: e, to: i };
+    return { from: e, to: s };
   }
   _parseDate(r) {
     if (r)
-      return f(r, this.serverPattern).toDate();
+      return o(r, this.serverPattern).toDate();
   }
   convert(r) {
     return r;
   }
+  getDefaultValue = (r) => r || "";
 }
 export {
-  _ as DateRangeConverter
+  m as DateRangeConverter
 };

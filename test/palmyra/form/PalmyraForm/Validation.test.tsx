@@ -8,8 +8,8 @@ describe("Palmyra Form", () => {
 
     const initProps = () => {
         const getById: any = queryByAttribute.bind(null, 'id');
-        const formRef: any = renderHook(() => useRef<IForm>()).result.current;
-        const fieldRef: any = renderHook(() => useRef<IInputField>()).result.current;
+        const formRef: any = renderHook(() => useRef<IForm>(null)).result.current;
+        const fieldRef: any = renderHook(() => useRef<IInputField>(null)).result.current;
         return { getById, formRef, fieldRef }
     }
 
@@ -157,4 +157,51 @@ describe("Palmyra Form", () => {
         expect(fieldRef.current.isValid()).toBeTruthy();
     });
 
+
+
+
+
+    test("input field - regex - failure", () => {
+        const { fieldRef } = initProps();
+        const Wrapper = () => {
+            return (
+                <PalmyraForm formData={{ email: 'sample@gmail' }} >
+                    <InputField attribute="email" ref={fieldRef} title="Email"
+                        regExp={{ regex: (/^[^\s@]+@[^\s@]+\.[^\s@]+$/), errorMessage: 'Invalid Email' }} />
+                </PalmyraForm>)
+        }
+        render(<Wrapper />);
+
+        expect(fieldRef.current.getValue()).toBe('sample@gmail');
+        expect(fieldRef.current.isValid()).toBeFalsy();
+
+        const errorMessage = screen.getByText(/Invalid Email/i);
+        expect(errorMessage).toBeTruthy();
+        // expect(errorMessage).toBe(<div>Invalid Email</div>);
+    });
+
+    test("input field - regex - success", () => {
+        const { fieldRef } = initProps();
+        const Wrapper = () => {
+            return (
+                <PalmyraForm formData={{ email: 'sample1' }} >
+                    <InputField attribute="email" ref={fieldRef} title="Email"
+                        regExp={{ regex: (/^[A-Za-z]+$/) }} 
+                        invalidMessage='Alphabets Only'/>
+                </PalmyraForm>)
+        }
+        render(<Wrapper />);
+
+        expect(fieldRef.current.getValue()).toBe('sample1');
+        expect(fieldRef.current.isValid()).toBeFalsy();
+        const errorMessage = screen.findByText(/Alphabets Only/i);
+        expect(errorMessage).toBeTruthy();
+        const emailInput = screen.getByTitle('Email');
+        fireEvent.change(emailInput, { target: { value: 'example' } });
+        expect(fieldRef.current.getValue()).toBe('example');
+        expect(fieldRef.current.isValid()).toBeTruthy();
+    });
+
+
+    
 });

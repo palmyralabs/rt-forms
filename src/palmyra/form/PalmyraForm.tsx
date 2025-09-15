@@ -8,7 +8,7 @@ import { useFormManager } from "./useHelpers/useFormManager";
 const PalmyraForm = forwardRef(function PalmyraForm(props: IFormOptions, ref: MutableRefObject<IForm>) {
     const currentRef = ref ? ref : useRef<IForm>(null);
     const storeFactory = props.storeFactory || useContext(StoreFactoryContext);
-    const defaultFieldMangerRef = useRef<IFieldManager>();
+    const defaultFieldMangerRef = useRef<IFieldManager>(null);
     const data = props.formData;
     const onValidityChange = props.onValidChange;
 

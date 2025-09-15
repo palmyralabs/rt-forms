@@ -10,7 +10,7 @@ const PalmyraEditForm = forwardRef(function EditForm(props: IEditFormOptions, re
 
     const { fetchData, saveData, formRef, refresh } = usePalmyraEditForm(props)
 
-    const currentRef = ref || useRef<ISaveForm>();
+    const currentRef = ref || useRef<ISaveForm>(null);
 
     useEffect(() => {
         fetchData();

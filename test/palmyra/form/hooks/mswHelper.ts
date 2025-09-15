@@ -7,14 +7,25 @@ const data = [
     { id: 3, name: "Location" }
 ]
 
+const lookup = { id: 1, name: "Name" }
+
 const handlers = [
     http.get('/api/palmyra/masterdata', ({ request, params, cookies }) => {
         return HttpResponse.json({ result: data, total: data.length })
     }),
 ]
 
+const getHandlers = [
+    http.get('/api/palmyra/data/lookup', ({ request, params, cookies }) => {
+        console.log(HttpResponse.json({ result: lookup }))
+
+        return HttpResponse.json({ result: lookup })
+    }),
+]
+
 const mswServer = setupServer(
-    ...handlers
+    ...handlers,
+    ...getHandlers
 )
 
 

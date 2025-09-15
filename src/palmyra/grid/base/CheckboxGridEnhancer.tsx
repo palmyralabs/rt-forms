@@ -13,7 +13,7 @@ interface IGridEnhancer {
 const CheckboxGridEnhancer = (): IGridEnhancer => {
     const [rowSelection, setRowSelection] = useState({})
     const idSelected = useRef({});
-    const tableRef = useRef<IReactTanstackTable>();
+    const tableRef = useRef<IReactTanstackTable>(null);
 
     const getTableOptions = (): ITableOptions => {
         return {

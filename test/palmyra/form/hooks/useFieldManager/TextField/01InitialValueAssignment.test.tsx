@@ -76,7 +76,7 @@ describe('PalmyraForm/useFieldManager- Form Initialization / Value Assignments',
         expect - field, form - isValid truthy
          */
 
-        const formRefRender = renderHook(() => useRef<IForm>());
+        const formRefRender = renderHook(() => useRef<IForm>(null));
         const formRef = formRefRender.result.current;
 
         const wrapper = ({ children }) => {

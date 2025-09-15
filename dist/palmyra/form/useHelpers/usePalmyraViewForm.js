@@ -1,7 +1,7 @@
 import { useContext as P, useRef as i, useEffect as R } from "react";
 import { StoreFactoryContext as h } from "../formContext.js";
 const S = (t) => {
-  const f = t.storeFactory || P(h), n = t.formRef || i(null), a = i(), d = t.idKey || "id", m = t.endPointOptions || {}, y = (e, r) => typeof e == "string" ? e + "/{" + r + "}" : e, c = () => {
+  const f = t.storeFactory || P(h), n = t.formRef || i(null), a = i(null), d = t.idKey || "id", m = t.endPointOptions || {}, y = (e, r) => typeof e == "string" ? e + "/{" + r + "}" : e, c = () => {
     const e = t.id, r = d;
     var g = y(t.endPoint, r);
     const D = f.getFormStore({}, g, r);

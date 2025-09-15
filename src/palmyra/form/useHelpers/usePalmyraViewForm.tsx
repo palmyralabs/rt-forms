@@ -11,7 +11,7 @@ type IusePalmyraViewForm = (props: IPalmyraViewFormInput) => IPalmyraViewFormOut
 const usePalmyraViewForm: IusePalmyraViewForm = (props: IPalmyraViewFormInput): IPalmyraViewFormOutput => {
     const storeFactory = props.storeFactory || useContext(StoreFactoryContext);
     const formRef = props.formRef || useRef<any>(null);
-    const dataRef = useRef<any>();
+    const dataRef = useRef<any>(null);
     const idKey = props.idKey || 'id';
     const endPointVars = props.endPointOptions || {};
 
