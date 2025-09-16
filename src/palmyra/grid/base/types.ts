@@ -1,5 +1,5 @@
 import { CellContext, ColumnDef, OnChangeFn, Row, RowData, RowModel, RowSelectionState, Table } from "@tanstack/react-table";
-import { JSX, MutableRefObject } from "react";
+import { JSX, RefObject } from "react";
 
 type IReactTanstackTable = import("@tanstack/table-core").Table<RowData>;
 
@@ -81,7 +81,7 @@ interface GridCustomizer {
     preProcessColumns?: (columnDefs: ColumnDef<RowData, any>[]) => any,
     preProcessData?: (data: any) => any,
     getTableOptions?: () => ITableOptions,
-    getTableRef?: () => MutableRefObject<IReactTanstackTable>
+    getTableRef?: () => RefObject<IReactTanstackTable>
 }
 
 interface ITableOptions {
@@ -107,7 +107,7 @@ interface DataGridPluginOptions extends PaginationOptions {
     topic: string,
     getPluginOptions?: () => any
     quickSearch?: string
-    queryRef: MutableRefObject<IPageQueryable>,
+    queryRef: RefObject<IPageQueryable>,
     columns: ColumnDefinition[]
 }
 

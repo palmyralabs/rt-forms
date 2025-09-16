@@ -1,11 +1,11 @@
 
 import { INewFormOptions, ISaveForm } from "./types";
 import { PalmyraForm } from "./PalmyraForm";
-import { forwardRef, MutableRefObject, useImperativeHandle, useRef } from "react";
+import { forwardRef, RefObject, useImperativeHandle, useRef } from "react";
 import { getSaveFormHandle } from "./formUtil";
 import { usePalmyraNewForm } from "./useHelpers";
 
-const PalmyraNewForm = forwardRef(function EditForm(props: INewFormOptions, ref: MutableRefObject<ISaveForm>) {
+const PalmyraNewForm = forwardRef(function EditForm(props: INewFormOptions, ref: RefObject<ISaveForm>) {
     const storeFactory = props.storeFactory;
 
     const { saveData, formRef } = usePalmyraNewForm(props)

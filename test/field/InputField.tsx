@@ -1,9 +1,9 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
+import { useRef, useImperativeHandle, forwardRef, RefObject } from 'react';
 import { FieldDecorator, IFormFieldError, ITextField, ITextFieldDefinition, getFieldHandler, useFieldManager } from '../../src/palmyra';
 import { getFieldLabel } from '../../demo/palmyra/mui/form/util';
 import { TextFieldProps } from '@mui/material';
 
-const InputField = forwardRef(function InputField(props: ITextFieldDefinition & TextFieldProps, ref: MutableRefObject<ITextField>) {
+const InputField = forwardRef(function InputField(props: ITextFieldDefinition & TextFieldProps, ref: RefObject<ITextField>) {
     const fieldManager = useFieldManager(props.attribute, props);
     const { getError, getValue, setValue, mutateOptions, refreshError } = fieldManager;
     const currentRef = ref ? ref : useRef<ITextField>(null);

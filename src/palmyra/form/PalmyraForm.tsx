@@ -1,11 +1,11 @@
-import { forwardRef, MutableRefObject, useContext, useEffect, useImperativeHandle, useRef } from "react";
+import { forwardRef, RefObject, useContext, useEffect, useImperativeHandle, useRef } from "react";
 import { IFieldManager, IForm, IFormOptions } from "./types";
 import { FormManagerContext, StoreFactoryContext } from "./formContext";
 import { FieldGroup } from "./FieldGroup";
 import { useFormManager } from "./useHelpers/useFormManager";
 
 
-const PalmyraForm = forwardRef(function PalmyraForm(props: IFormOptions, ref: MutableRefObject<IForm>) {
+const PalmyraForm = forwardRef(function PalmyraForm(props: IFormOptions, ref: RefObject<IForm>) {
     const currentRef = ref ? ref : useRef<IForm>(null);
     const storeFactory = props.storeFactory || useContext(StoreFactoryContext);
     const defaultFieldMangerRef = useRef<IFieldManager>(null);

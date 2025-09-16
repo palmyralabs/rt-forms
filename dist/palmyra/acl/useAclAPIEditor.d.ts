@@ -1,14 +1,14 @@
 import { StoreFactory, StoreOptions } from '@palmyralabs/palmyra-wire';
-import { MutableRefObject } from 'react';
+import { RefObject } from 'react';
 import { IAclAPIEditor } from './types';
 interface PalmyraAclEditorProps {
     groupId: string;
     storeFactory?: StoreFactory<any, StoreOptions>;
-    editorRef?: MutableRefObject<IAclAPIEditor>;
+    editorRef?: RefObject<IAclAPIEditor>;
 }
 declare const useAclAPIEditor: (props: PalmyraAclEditorProps) => {
     aclData: any;
-    editorRef: MutableRefObject<IAclAPIEditor>;
+    editorRef: RefObject<IAclAPIEditor>;
     refresh: () => void;
     saveData: () => void;
 };

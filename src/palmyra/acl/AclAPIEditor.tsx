@@ -1,6 +1,6 @@
 import './ApiAccessMgmt.css';
 import { CheckBoxIcon } from '../../../src/palmyra/menu/AsyncTreeMenuEditor';
-import { forwardRef, MutableRefObject, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, RefObject, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { AclAPIEditorProps, APIPermission, IAclAPIEditor, NestedAPIPermission } from './types';
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 
@@ -8,7 +8,7 @@ const style =
     { color: "rgb(44, 134, 213)", backgroundColor: 'white' };
 
 
-const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, ref: MutableRefObject<IAclAPIEditor>) {
+const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, ref: RefObject<IAclAPIEditor>) {
     const [data, setData] = useState<NestedAPIPermission[]>(props.data);
 
     useEffect(() => {

@@ -1,10 +1,10 @@
-import { useRef, useImperativeHandle, forwardRef, MutableRefObject } from 'react';
+import { useRef, useImperativeHandle, forwardRef, RefObject } from 'react';
 
 import { IBaseField, ITextField } from './typesWidgets';
 import { useFieldManager } from './useHelpers';
 import { IHiddenFieldDefinition } from './typesFieldOptions';
 
-const HiddenField = forwardRef(function HiddenField(props: IHiddenFieldDefinition, ref: MutableRefObject<IBaseField>) {
+const HiddenField = forwardRef(function HiddenField(props: IHiddenFieldDefinition, ref: RefObject<IBaseField>) {
     const fieldManager = useFieldManager(props.attribute, props);
     const currentRef = ref ? ref : useRef<ITextField>(null);
 

@@ -1,12 +1,12 @@
 import { StoreFactory, StoreOptions } from "@palmyralabs/palmyra-wire";
-import { MutableRefObject, useContext, useEffect, useRef, useState } from "react";
+import { RefObject, useContext, useEffect, useRef, useState } from "react";
 import { StoreFactoryContext } from "../form";
 import { APIPermission, IAclAPIEditor, NestedAPIPermission } from "./types";
 
 interface PalmyraAclEditorProps {
     groupId: string,
     storeFactory?: StoreFactory<any, StoreOptions>,
-    editorRef?: MutableRefObject<IAclAPIEditor>
+    editorRef?: RefObject<IAclAPIEditor>
 }
 
 const useAclAPIEditor = (props: PalmyraAclEditorProps) => {

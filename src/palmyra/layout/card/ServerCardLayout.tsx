@@ -1,4 +1,4 @@
-import { MutableRefObject, forwardRef, useImperativeHandle, useRef } from 'react';
+import { RefObject, forwardRef, useImperativeHandle, useRef } from 'react';
 import './CardLayout.css';
 import { IPageQueryable, IServerQueryInput, useServerQuery } from '../../wire';
 import { CardLayout } from './CardLayout';
@@ -13,9 +13,9 @@ interface ServerCardLayoutInput extends IServerQueryInput {
     preProcess?: (data: any) => any
 }
 
-const ServerCardLayout = forwardRef(function ServerCardLayout(props: ServerCardLayoutInput, ref: MutableRefObject<any>) {
+const ServerCardLayout = forwardRef(function ServerCardLayout(props: ServerCardLayoutInput, ref: RefObject<any>) {
     const { Child, childProps } = props;
-    const currentRef: MutableRefObject<IPageQueryable> = ref ? ref : useRef(null);
+    const currentRef: RefObject<IPageQueryable> = ref ? ref : useRef(null);
 
     const serverQuery = useServerQuery(props);
 

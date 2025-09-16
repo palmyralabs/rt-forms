@@ -1,5 +1,5 @@
 import { ErrorHandler, IEndPoint, IEndPointOptions, StoreFactory, StoreOptions } from "@palmyralabs/palmyra-wire"
-import { MutableRefObject } from "react"
+import { RefObject } from "react"
 import { IForm } from "../types"
 
 interface IStoreProps<T extends StoreOptions> {
@@ -10,7 +10,7 @@ interface IStoreProps<T extends StoreOptions> {
 interface IuseFormOptions<T extends StoreOptions> extends IStoreProps<T> {
     endPoint: IEndPoint,
     endPointOptions?: IEndPointOptions,
-    formRef?: MutableRefObject<IForm>
+    formRef?: RefObject<IForm>
 }
 
 interface IFormSaveEventHandler {
@@ -54,7 +54,7 @@ interface IFormRefresh {
 
 interface IPalmyraFormOutput {
     getData: () => any,
-    formRef: MutableRefObject<IForm>
+    formRef: RefObject<IForm>
 }
 
 interface IPalmyraViewFormOutput extends IFormRefresh, IPalmyraFormOutput {

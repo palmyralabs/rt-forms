@@ -1,5 +1,5 @@
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { MutableRefObject } from "react";
+import { RefObject } from "react";
 import { ColumnFieldOptions, Converter, FieldType } from "../base/types";
 import { DateTimeConverter } from "./DateConverter";
 import { DateRangeConverter } from "./DateRangeConverter";
@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 
 dayjs.extend(customParseFormat);
 
-const getFormatConverter = (props: ColumnFieldOptions, formDataRef?: MutableRefObject<any>): Converter<any, any> => {
+const getFormatConverter = (props: ColumnFieldOptions, formDataRef?: RefObject<any>): Converter<any, any> => {
 
     const type: FieldType = props.type;
 
