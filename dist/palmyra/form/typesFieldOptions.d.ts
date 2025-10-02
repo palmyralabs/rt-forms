@@ -1,4 +1,4 @@
-import { DefaultQueryParams, IEndPoint, StoreOptions } from '@palmyralabs/palmyra-wire';
+import { AbstractHandler, DefaultQueryParams, IEndPoint, StoreOptions } from '@palmyralabs/palmyra-wire';
 import { PredicateResponse, validationRule } from '@palmyralabs/ts-predicates';
 import { IPredicate } from '@palmyralabs/ts-utils';
 import { numbers } from './types';
@@ -73,7 +73,7 @@ type LookupOptions = FlatLookup | ObjectLookup;
 interface IServerLookupOptions extends IServerQueryOptions {
     lookupOptions: LookupOptions;
 }
-interface IServerQueryOptions {
+interface IServerQueryOptions extends AbstractHandler {
     queryOptions: {
         endPoint: IEndPoint;
         queryAttribute?: string;
