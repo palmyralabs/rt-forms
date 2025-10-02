@@ -33,7 +33,7 @@ const useServerQueryFieldManager = (key: string, o: FieldOptions & IServerQueryO
     const serverQueryOptions: IServerQueryInput = {
         store, storeOptions: o.queryOptions?.storeOptions, fetchAll: true,
         pageSize: o.pageSize || 15, quickSearch: queryAttribute, initialFetch: false,
-        defaultParams: o.defaultParams
+        defaultParams: o.defaultParams, transformRequest: o.transformRequest, transformResult: o.transformResult
     };
 
     const serverQuery = useServerQuery(serverQueryOptions);

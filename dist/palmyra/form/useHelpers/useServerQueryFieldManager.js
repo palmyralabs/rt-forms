@@ -1,8 +1,8 @@
-import { useRef as l, useState as F, useEffect as k, useContext as v } from "react";
-import { StoreFactoryContext as Q } from "../formContext.js";
-import { u as T, c as C } from "../../../chunks/ServerCardLayout.js";
+import { useRef as l, useState as F, useEffect as R, useContext as k } from "react";
+import { StoreFactoryContext as v } from "../formContext.js";
+import { u as Q, c as T } from "../../../chunks/ServerCardLayout.js";
 import "@palmyralabs/ts-utils";
-import { mergeDeep as D } from "../../utils/ObjectUtils.js";
+import { mergeDeep as C } from "../../utils/ObjectUtils.js";
 import "../PalmyraForm.js";
 import "@palmyralabs/ts-predicates";
 import "react/jsx-runtime";
@@ -20,52 +20,54 @@ import "../../../chunks/index.js";
 import "react-router-dom";
 import "../../menu/AsyncTreeMenuEditor.js";
 import "../../acl/AclAPIEditor.js";
-const nt = (r, t, s) => {
-  const o = l(0), u = l(""), [f, p] = F([]), y = s?.preProcessSearchText || ((e) => "*" + e + "*"), c = T(r, t, s), d = M(t), g = () => {
+const it = (r, t, s) => {
+  const o = l(0), u = l(""), [f, p] = F([]), y = s?.preProcessSearchText || ((e) => "*" + e + "*"), a = Q(r, t, s), q = D(t), d = () => {
     const {
       lookupOptions: e,
-      storeOptions: R,
+      storeOptions: M,
       queryOptions: z,
       displayAttribute: L,
       fetchDefault: E,
       defaultParams: j,
       ...A
-    } = c.getFieldProps();
+    } = a.getFieldProps();
     return A;
-  }, O = t.queryOptions?.queryAttribute || t.queryOptions?.labelAttribute || "name", S = {
-    store: d,
+  }, g = t.queryOptions?.queryAttribute || t.queryOptions?.labelAttribute || "name", O = {
+    store: q,
     storeOptions: t.queryOptions?.storeOptions,
     fetchAll: !0,
     pageSize: t.pageSize || 15,
-    quickSearch: O,
+    quickSearch: g,
     initialFetch: !1,
-    defaultParams: t.defaultParams
-  }, h = C(S), { setQuickSearch: a, refresh: q, getCurrentData: x, getTotalRecords: P } = h, i = x(), n = P();
-  k(() => {
-    const e = i ? [...i] : [];
-    p(e), o.current < n && (o.current = n);
-  }, [i, n]);
+    defaultParams: t.defaultParams,
+    transformRequest: t.transformRequest,
+    transformResult: t.transformResult
+  }, S = T(O), { setQuickSearch: c, refresh: h, getCurrentData: x, getTotalRecords: P } = S, n = x(), i = P();
+  R(() => {
+    const e = n ? [...n] : [];
+    p(e), o.current < i && (o.current = i);
+  }, [n, i]);
   const b = (e) => {
     u.current = e || "", m();
   };
   function m() {
     const e = u.current;
-    e.length > 0 ? a(y(e)) : i ? a(null) : q();
+    e.length > 0 ? c(y(e)) : n ? c(null) : h();
   }
   return {
-    ...c,
+    ...a,
     setSearchText: b,
     refreshOptions: m,
     options: f,
     setOptions: p,
-    getFieldProps: g
+    getFieldProps: d
   };
 };
-function M(r) {
-  const t = v(Q), s = r.queryOptions?.queryAttribute || "name";
+function D(r) {
+  const t = k(v), s = r.queryOptions?.queryAttribute || "name";
   var o = {};
-  return D(o, r.queryOptions), t.getLookupStore(o, r.queryOptions.endPoint, s);
+  return C(o, r.queryOptions), t.getLookupStore(o, r.queryOptions.endPoint, s);
 }
 export {
-  nt as useServerQueryFieldManager
+  it as useServerQueryFieldManager
 };
