@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEndPoint, GridStore, ExportRequest, StoreOptions, strings } from '@palmyralabs/palmyra-wire';
+import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEndPoint, GridStore, ExportRequest, StoreOptions, strings, AbstractHandler } from '@palmyralabs/palmyra-wire';
 import { useKeyValue } from '../utils';
 import { IPageQueryable } from './types';
 import { StoreFactoryContext } from '../form';
@@ -10,7 +10,7 @@ type ExportStore = {
   export?(request: ExportRequest): void;
 }
 
-interface IServerQueryInput {
+interface IServerQueryInput extends AbstractHandler {
   store?: AbstractQueryStore<any> & ExportStore,
   fields?: string[]
   endPoint?: IEndPoint,
@@ -127,6 +127,11 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
       sortOrder: _sort, total: true, endPointVars,
       ...queryLimit, filter: { ...filter, ...defaultFilter }
     };
+    if (props.transformRequest)
+      params.transformRequest = props.transformRequest;
+    if (props.transformResult)
+      params.transformResult = props.transformResult;
+
     return params;
   }
 
@@ -210,7 +215,7 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
   const nextPage = (): number => {
     const pageNo = getPageNo();
     if (pageNo < getTotalPages()) {
-      const nextPage:number = pageNo + 1
+      const nextPage: number = pageNo + 1
       gotoPage(nextPage);
       return nextPage;
     }
@@ -224,7 +229,7 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
   const prevPage = (): number => {
     const pageNo = getPageNo();
     if (pageNo > 0) {
-      const prevPage:number = pageNo - 1
+      const prevPage: number = pageNo - 1
       gotoPage(prevPage);
       return prevPage;
     }
@@ -243,7 +248,7 @@ const useServerQuery = (props: IServerQueryInput): IPageQueryable => {
     setSortColumns, setEndPointOptions, getTotalPages,
     refresh, setPageSize, getPageNo, getQueryLimit, setQueryLimit,
     gotoPage, nextPage, prevPage, export: exportResult,
-    getQueryRequest, 
+    getQueryRequest,
     getCurrentFilter: () => filter, getTotalRecords: () => serverResult?.total,
     getCurrentData: () => serverResult?.data, isLoading: serverResult.isLoading
   }

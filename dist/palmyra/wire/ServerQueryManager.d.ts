@@ -1,9 +1,9 @@
-import { DefaultQueryParams, AbstractQueryStore, IEndPoint, ExportRequest, StoreOptions, strings } from '@palmyralabs/palmyra-wire';
+import { DefaultQueryParams, AbstractQueryStore, IEndPoint, ExportRequest, StoreOptions, strings, AbstractHandler } from '@palmyralabs/palmyra-wire';
 import { IPageQueryable } from './types';
 type ExportStore = {
     export?(request: ExportRequest): void;
 };
-interface IServerQueryInput {
+interface IServerQueryInput extends AbstractHandler {
     store?: AbstractQueryStore<any> & ExportStore;
     fields?: string[];
     endPoint?: IEndPoint;
