@@ -93,6 +93,7 @@ interface GridXOptions<ControlPropsType> extends DataGridOptions {
     pagination?: {
         ignoreSinglePage?: boolean;
     };
+    showFooter?: boolean;
     getPluginOptions?: any;
     DataGridControlProps?: ControlPropsType;
     DataGridControls?: (props: DataGridPluginOptions & ControlPropsType) => JSX.Element;
@@ -109,6 +110,7 @@ interface ApiDataTableOptions extends Omit<IServerQueryInput, 'store'>, IGridPlu
     customizer?: GridCustomizer;
     EmptyChild?: React.FC;
     onRowClick?: Function;
+    showFooter?: boolean;
 }
 interface BaseTableOptions {
     'aria-label'?: string;
