@@ -1,4 +1,4 @@
-import { AbstractHandler, DefaultQueryParams, IEndPoint, StoreOptions } from '@palmyralabs/palmyra-wire';
+import { AbstractHandler, DefaultQueryParams, IEndPoint, StoreOptions, strings } from '@palmyralabs/palmyra-wire';
 import { PredicateResponse, validationRule } from '@palmyralabs/ts-predicates';
 import { IPredicate } from '@palmyralabs/ts-utils';
 import { numbers } from './types';
@@ -84,6 +84,12 @@ interface IServerQueryOptions extends AbstractHandler {
     fetchDefault?: number;
     pageSize?: numbers;
     defaultParams?: DefaultQueryParams;
+    initParams?: {
+        filter?: Record<any, any>;
+        sort?: strings;
+        limit?: number;
+        offset?: number;
+    };
 }
 type IHiddenFieldDefinition = Pick<FieldOptions, "attribute">;
 export type { FieldOptions, IMutateOptions, IFieldValidation, IServerLookupOptions, IServerQueryOptions };

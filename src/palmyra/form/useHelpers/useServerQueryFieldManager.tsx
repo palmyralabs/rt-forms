@@ -31,7 +31,7 @@ const useServerQueryFieldManager = (key: string, o: FieldOptions & IServerQueryO
     const queryAttribute = o.queryOptions?.queryAttribute || o.queryOptions?.labelAttribute || "name";
 
     const serverQueryOptions: IServerQueryInput = {
-        store, storeOptions: o.queryOptions?.storeOptions, fetchAll: true,
+        store, storeOptions: o.queryOptions?.storeOptions, fetchAll: true, initParams: o.initParams,
         pageSize: o.pageSize || 15, quickSearch: queryAttribute, initialFetch: false,
         defaultParams: o.defaultParams, transformRequest: o.transformRequest, transformResult: o.transformResult
     };

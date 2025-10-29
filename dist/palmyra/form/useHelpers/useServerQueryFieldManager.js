@@ -20,8 +20,8 @@ import "../../../chunks/index.js";
 import "react-router-dom";
 import "../../menu/AsyncTreeMenuEditor.js";
 import "../../acl/AclAPIEditor.js";
-const it = (r, t, s) => {
-  const o = l(0), u = l(""), [f, p] = F([]), y = s?.preProcessSearchText || ((e) => "*" + e + "*"), a = Q(r, t, s), q = D(t), d = () => {
+const nt = (r, t, s) => {
+  const o = l(0), u = l(""), [f, a] = F([]), y = s?.preProcessSearchText || ((e) => "*" + e + "*"), p = Q(r, t, s), q = D(t), d = () => {
     const {
       lookupOptions: e,
       storeOptions: M,
@@ -30,36 +30,37 @@ const it = (r, t, s) => {
       fetchDefault: E,
       defaultParams: j,
       ...A
-    } = a.getFieldProps();
+    } = p.getFieldProps();
     return A;
   }, g = t.queryOptions?.queryAttribute || t.queryOptions?.labelAttribute || "name", O = {
     store: q,
     storeOptions: t.queryOptions?.storeOptions,
     fetchAll: !0,
+    initParams: t.initParams,
     pageSize: t.pageSize || 15,
     quickSearch: g,
     initialFetch: !1,
     defaultParams: t.defaultParams,
     transformRequest: t.transformRequest,
     transformResult: t.transformResult
-  }, S = T(O), { setQuickSearch: c, refresh: h, getCurrentData: x, getTotalRecords: P } = S, n = x(), i = P();
+  }, S = T(O), { setQuickSearch: c, refresh: h, getCurrentData: P, getTotalRecords: x } = S, i = P(), n = x();
   R(() => {
-    const e = n ? [...n] : [];
-    p(e), o.current < i && (o.current = i);
-  }, [n, i]);
+    const e = i ? [...i] : [];
+    a(e), o.current < n && (o.current = n);
+  }, [i, n]);
   const b = (e) => {
     u.current = e || "", m();
   };
   function m() {
     const e = u.current;
-    e.length > 0 ? c(y(e)) : n ? c(null) : h();
+    e.length > 0 ? c(y(e)) : i ? c(null) : h();
   }
   return {
-    ...a,
+    ...p,
     setSearchText: b,
     refreshOptions: m,
     options: f,
-    setOptions: p,
+    setOptions: a,
     getFieldProps: d
   };
 };
@@ -69,5 +70,5 @@ function D(r) {
   return C(o, r.queryOptions), t.getLookupStore(o, r.queryOptions.endPoint, s);
 }
 export {
-  it as useServerQueryFieldManager
+  nt as useServerQueryFieldManager
 };
