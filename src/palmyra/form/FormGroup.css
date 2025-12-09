@@ -2,6 +2,9 @@
     font-weight: 600;
     font-size: 1em;
     padding: 0 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 /* -- 1 column layout - */
