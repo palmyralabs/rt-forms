@@ -1,6 +1,7 @@
 import { ErrorHandler, IEndPoint, IEndPointOptions, StoreFactory, StoreOptions } from '@palmyralabs/palmyra-wire';
 import { RefObject } from 'react';
 import { IForm } from '../types';
+import { AxiosInstance } from 'axios';
 interface IStoreProps<T extends StoreOptions> {
     storeFactory?: StoreFactory<any, T>;
     storeOptions?: T;
@@ -9,6 +10,7 @@ interface IuseFormOptions<T extends StoreOptions> extends IStoreProps<T> {
     endPoint: IEndPoint;
     endPointOptions?: IEndPointOptions;
     formRef?: RefObject<IForm>;
+    axiosCustomizer?: (axios: AxiosInstance) => void;
 }
 interface IFormSaveEventHandler {
     onSaveSuccess?: (data: any) => void;

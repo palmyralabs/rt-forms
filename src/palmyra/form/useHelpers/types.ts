@@ -1,6 +1,7 @@
 import { ErrorHandler, IEndPoint, IEndPointOptions, StoreFactory, StoreOptions } from "@palmyralabs/palmyra-wire"
 import { RefObject } from "react"
 import { IForm } from "../types"
+import { AxiosInstance } from "axios"
 
 interface IStoreProps<T extends StoreOptions> {
     storeFactory?: StoreFactory<any, T>,
@@ -10,7 +11,8 @@ interface IStoreProps<T extends StoreOptions> {
 interface IuseFormOptions<T extends StoreOptions> extends IStoreProps<T> {
     endPoint: IEndPoint,
     endPointOptions?: IEndPointOptions,
-    formRef?: RefObject<IForm>
+    formRef?: RefObject<IForm>,
+    axiosCustomizer?: (axios: AxiosInstance) => void
 }
 
 interface IFormSaveEventHandler {
@@ -34,7 +36,7 @@ interface IPalmyraViewFormInput extends IuseFormOptions<StoreOptions>, IFormQuer
     id: string,
     idKey?: string,
     fields?: string[],
-    onQueryFailure?:ErrorHandler
+    onQueryFailure?: ErrorHandler
 }
 
 
