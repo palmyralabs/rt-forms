@@ -15,12 +15,12 @@
   ],
   "scripts": {
     "start": "vite",
-    "dev": "vite",
-    "build": "export NODE_OPTIONS='--no-webstorage' && vitest --root test/ && tsc --p ./build.tsconfig.json && vite --config vite.config.js build",
+    "dev": "vite", 
+    "build": "vitest --root test/ && tsc --p ./build.tsconfig.json && vite --config vite.config.js build",
     "compile": "tsc --p ./demo.tsconfig.json && tsc --p ./build.tsconfig.json",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
-    "test": "export NODE_OPTIONS='--no-webstorage' && tsc --p ./test.tsconfig.json && vitest --root test/",
+    "test": "tsc --p ./test.tsconfig.json && vitest --root test/",
     "testScript": "vitest --root test/"
   },
   "devDependencies": {
