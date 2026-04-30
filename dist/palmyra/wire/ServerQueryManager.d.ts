@@ -1,5 +1,6 @@
 import { DefaultQueryParams, AbstractQueryStore, IEndPoint, ExportRequest, StoreOptions, strings, AbstractHandler } from '@palmyralabs/palmyra-wire';
 import { IPageQueryable } from './types';
+import { Table, TableOptions } from '@tanstack/react-table';
 type ExportStore = {
     export?(request: ExportRequest): void;
 };
@@ -21,6 +22,8 @@ interface IServerQueryInput extends AbstractHandler {
         limit?: number;
         offset?: number;
     };
+    tableOptions?: Partial<TableOptions<any>>;
+    onTableReady?: (table: Table<any>) => void;
 }
 declare const useServerQuery: (props: IServerQueryInput) => IPageQueryable;
 export { useServerQuery };
