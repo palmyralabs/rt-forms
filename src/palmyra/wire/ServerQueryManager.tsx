@@ -3,6 +3,7 @@ import { DefaultQueryParams, AbstractQueryStore, IPagination, QueryRequest, IEnd
 import { useKeyValue } from '../utils';
 import { IPageQueryable } from './types';
 import { StoreFactoryContext } from '../form';
+import { Table, TableOptions } from '@tanstack/react-table';
 
 const SERVER_QUERY_MIN_DELAY_MS = 120;
 
@@ -28,6 +29,8 @@ interface IServerQueryInput extends AbstractHandler {
     limit?: number,
     offset?: number
   }
+  tableOptions?: Partial<TableOptions<any>>;
+  onTableReady?: (table: Table<any>) => void;
 }
 
 function getGridStore(o: IServerQueryInput): GridStore<any> {
