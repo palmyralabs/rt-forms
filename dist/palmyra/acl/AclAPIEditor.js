@@ -3,19 +3,11 @@ import { CheckBoxIcon as Me } from "../menu/AsyncTreeMenuEditor.js";
 import Y, { useMemo as $e, useState as ye, useCallback as ke, useLayoutEffect as qe, useEffect as le, forwardRef as De, useRef as Ne, useImperativeHandle as Ye } from "react";
 import { g as Le } from "../../chunks/_commonjsHelpers.js";
 import '../../assets/AclAPIEditor.css';var J = { exports: {} }, X = { exports: {} }, C = {};
-/** @license React v16.13.1
- * react-is.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
 var be;
 function We() {
   if (be) return C;
   be = 1;
-  var r = typeof Symbol == "function" && Symbol.for, s = r ? Symbol.for("react.element") : 60103, f = r ? Symbol.for("react.portal") : 60106, i = r ? Symbol.for("react.fragment") : 60107, c = r ? Symbol.for("react.strict_mode") : 60108, a = r ? Symbol.for("react.profiler") : 60114, v = r ? Symbol.for("react.provider") : 60109, u = r ? Symbol.for("react.context") : 60110, P = r ? Symbol.for("react.async_mode") : 60111, l = r ? Symbol.for("react.concurrent_mode") : 60111, m = r ? Symbol.for("react.forward_ref") : 60112, p = r ? Symbol.for("react.suspense") : 60113, _ = r ? Symbol.for("react.suspense_list") : 60120, w = r ? Symbol.for("react.memo") : 60115, M = r ? Symbol.for("react.lazy") : 60116, x = r ? Symbol.for("react.block") : 60121, I = r ? Symbol.for("react.fundamental") : 60117, q = r ? Symbol.for("react.responder") : 60118, U = r ? Symbol.for("react.scope") : 60119;
+  var r = typeof Symbol == "function" && Symbol.for, s = r ? /* @__PURE__ */ Symbol.for("react.element") : 60103, f = r ? /* @__PURE__ */ Symbol.for("react.portal") : 60106, i = r ? /* @__PURE__ */ Symbol.for("react.fragment") : 60107, c = r ? /* @__PURE__ */ Symbol.for("react.strict_mode") : 60108, a = r ? /* @__PURE__ */ Symbol.for("react.profiler") : 60114, v = r ? /* @__PURE__ */ Symbol.for("react.provider") : 60109, u = r ? /* @__PURE__ */ Symbol.for("react.context") : 60110, P = r ? /* @__PURE__ */ Symbol.for("react.async_mode") : 60111, l = r ? /* @__PURE__ */ Symbol.for("react.concurrent_mode") : 60111, m = r ? /* @__PURE__ */ Symbol.for("react.forward_ref") : 60112, p = r ? /* @__PURE__ */ Symbol.for("react.suspense") : 60113, _ = r ? /* @__PURE__ */ Symbol.for("react.suspense_list") : 60120, w = r ? /* @__PURE__ */ Symbol.for("react.memo") : 60115, M = r ? /* @__PURE__ */ Symbol.for("react.lazy") : 60116, x = r ? /* @__PURE__ */ Symbol.for("react.block") : 60121, I = r ? /* @__PURE__ */ Symbol.for("react.fundamental") : 60117, q = r ? /* @__PURE__ */ Symbol.for("react.responder") : 60118, U = r ? /* @__PURE__ */ Symbol.for("react.scope") : 60119;
   function j(n) {
     if (typeof n == "object" && n !== null) {
       var L = n.$$typeof;
@@ -78,18 +70,10 @@ function We() {
   }, C.typeOf = j, C;
 }
 var S = {};
-/** @license React v16.13.1
- * react-is.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
 var Ee;
 function ze() {
   return Ee || (Ee = 1, process.env.NODE_ENV !== "production" && (function() {
-    var r = typeof Symbol == "function" && Symbol.for, s = r ? Symbol.for("react.element") : 60103, f = r ? Symbol.for("react.portal") : 60106, i = r ? Symbol.for("react.fragment") : 60107, c = r ? Symbol.for("react.strict_mode") : 60108, a = r ? Symbol.for("react.profiler") : 60114, v = r ? Symbol.for("react.provider") : 60109, u = r ? Symbol.for("react.context") : 60110, P = r ? Symbol.for("react.async_mode") : 60111, l = r ? Symbol.for("react.concurrent_mode") : 60111, m = r ? Symbol.for("react.forward_ref") : 60112, p = r ? Symbol.for("react.suspense") : 60113, _ = r ? Symbol.for("react.suspense_list") : 60120, w = r ? Symbol.for("react.memo") : 60115, M = r ? Symbol.for("react.lazy") : 60116, x = r ? Symbol.for("react.block") : 60121, I = r ? Symbol.for("react.fundamental") : 60117, q = r ? Symbol.for("react.responder") : 60118, U = r ? Symbol.for("react.scope") : 60119;
+    var r = typeof Symbol == "function" && Symbol.for, s = r ? /* @__PURE__ */ Symbol.for("react.element") : 60103, f = r ? /* @__PURE__ */ Symbol.for("react.portal") : 60106, i = r ? /* @__PURE__ */ Symbol.for("react.fragment") : 60107, c = r ? /* @__PURE__ */ Symbol.for("react.strict_mode") : 60108, a = r ? /* @__PURE__ */ Symbol.for("react.profiler") : 60114, v = r ? /* @__PURE__ */ Symbol.for("react.provider") : 60109, u = r ? /* @__PURE__ */ Symbol.for("react.context") : 60110, P = r ? /* @__PURE__ */ Symbol.for("react.async_mode") : 60111, l = r ? /* @__PURE__ */ Symbol.for("react.concurrent_mode") : 60111, m = r ? /* @__PURE__ */ Symbol.for("react.forward_ref") : 60112, p = r ? /* @__PURE__ */ Symbol.for("react.suspense") : 60113, _ = r ? /* @__PURE__ */ Symbol.for("react.suspense_list") : 60120, w = r ? /* @__PURE__ */ Symbol.for("react.memo") : 60115, M = r ? /* @__PURE__ */ Symbol.for("react.lazy") : 60116, x = r ? /* @__PURE__ */ Symbol.for("react.block") : 60121, I = r ? /* @__PURE__ */ Symbol.for("react.fundamental") : 60117, q = r ? /* @__PURE__ */ Symbol.for("react.responder") : 60118, U = r ? /* @__PURE__ */ Symbol.for("react.scope") : 60119;
     function j(t) {
       return typeof t == "string" || typeof t == "function" || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
       t === i || t === l || t === a || t === c || t === p || t === _ || typeof t == "object" && t !== null && (t.$$typeof === M || t.$$typeof === w || t.$$typeof === v || t.$$typeof === u || t.$$typeof === m || t.$$typeof === I || t.$$typeof === q || t.$$typeof === U || t.$$typeof === x);
@@ -173,11 +157,6 @@ var ge;
 function we() {
   return ge || (ge = 1, process.env.NODE_ENV === "production" ? X.exports = We() : X.exports = ze()), X.exports;
 }
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
 var ie, Te;
 function Fe() {
   if (Te) return ie;

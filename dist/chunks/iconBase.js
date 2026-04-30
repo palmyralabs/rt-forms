@@ -1,112 +1,109 @@
-import a from "react";
-var p = {
+import i from "react";
+var y = {
   color: void 0,
   size: void 0,
   className: void 0,
   style: void 0,
   attr: void 0
-}, s = a.createContext && /* @__PURE__ */ a.createContext(p), O = ["attr", "size", "title"];
-function g(e, t) {
+}, f = i.createContext && /* @__PURE__ */ i.createContext(y), g = ["attr", "size", "title"];
+function p(e, r) {
   if (e == null) return {};
-  var r = y(e, t), n, i;
+  var t, n, o = O(e, r);
   if (Object.getOwnPropertySymbols) {
-    var o = Object.getOwnPropertySymbols(e);
-    for (i = 0; i < o.length; i++)
-      n = o[i], !(t.indexOf(n) >= 0) && Object.prototype.propertyIsEnumerable.call(e, n) && (r[n] = e[n]);
+    var a = Object.getOwnPropertySymbols(e);
+    for (n = 0; n < a.length; n++) t = a[n], r.indexOf(t) === -1 && {}.propertyIsEnumerable.call(e, t) && (o[t] = e[t]);
   }
-  return r;
+  return o;
 }
-function y(e, t) {
+function O(e, r) {
   if (e == null) return {};
-  var r = {};
-  for (var n in e)
-    if (Object.prototype.hasOwnProperty.call(e, n)) {
-      if (t.indexOf(n) >= 0) continue;
-      r[n] = e[n];
-    }
-  return r;
+  var t = {};
+  for (var n in e) if ({}.hasOwnProperty.call(e, n)) {
+    if (r.indexOf(n) !== -1) continue;
+    t[n] = e[n];
+  }
+  return t;
 }
-function c() {
-  return c = Object.assign ? Object.assign.bind() : function(e) {
-    for (var t = 1; t < arguments.length; t++) {
-      var r = arguments[t];
-      for (var n in r)
-        Object.prototype.hasOwnProperty.call(r, n) && (e[n] = r[n]);
+function u() {
+  return u = Object.assign ? Object.assign.bind() : function(e) {
+    for (var r = 1; r < arguments.length; r++) {
+      var t = arguments[r];
+      for (var n in t) ({}).hasOwnProperty.call(t, n) && (e[n] = t[n]);
     }
     return e;
-  }, c.apply(this, arguments);
+  }, u.apply(null, arguments);
 }
-function m(e, t) {
-  var r = Object.keys(e);
+function m(e, r) {
+  var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
     var n = Object.getOwnPropertySymbols(e);
-    t && (n = n.filter(function(i) {
-      return Object.getOwnPropertyDescriptor(e, i).enumerable;
-    })), r.push.apply(r, n);
+    r && (n = n.filter(function(o) {
+      return Object.getOwnPropertyDescriptor(e, o).enumerable;
+    })), t.push.apply(t, n);
   }
-  return r;
+  return t;
 }
-function u(e) {
-  for (var t = 1; t < arguments.length; t++) {
-    var r = arguments[t] != null ? arguments[t] : {};
-    t % 2 ? m(Object(r), !0).forEach(function(n) {
-      d(e, n, r[n]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r)) : m(Object(r)).forEach(function(n) {
-      Object.defineProperty(e, n, Object.getOwnPropertyDescriptor(r, n));
+function c(e) {
+  for (var r = 1; r < arguments.length; r++) {
+    var t = arguments[r] != null ? arguments[r] : {};
+    r % 2 ? m(Object(t), !0).forEach(function(n) {
+      d(e, n, t[n]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : m(Object(t)).forEach(function(n) {
+      Object.defineProperty(e, n, Object.getOwnPropertyDescriptor(t, n));
     });
   }
   return e;
 }
-function d(e, t, r) {
-  return t = j(t), t in e ? Object.defineProperty(e, t, { value: r, enumerable: !0, configurable: !0, writable: !0 }) : e[t] = r, e;
+function d(e, r, t) {
+  return (r = j(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e;
 }
 function j(e) {
-  var t = P(e, "string");
-  return typeof t == "symbol" ? t : t + "";
+  var r = P(e, "string");
+  return typeof r == "symbol" ? r : r + "";
 }
-function P(e, t) {
+function P(e, r) {
   if (typeof e != "object" || !e) return e;
-  var r = e[Symbol.toPrimitive];
-  if (r !== void 0) {
-    var n = r.call(e, t);
+  var t = e[Symbol.toPrimitive];
+  if (t !== void 0) {
+    var n = t.call(e, r);
     if (typeof n != "object") return n;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (t === "string" ? String : Number)(e);
+  return (r === "string" ? String : Number)(e);
 }
 function b(e) {
-  return e && e.map((t, r) => /* @__PURE__ */ a.createElement(t.tag, u({
-    key: r
-  }, t.attr), b(t.child)));
+  return e && e.map((r, t) => /* @__PURE__ */ i.createElement(r.tag, c({
+    key: t
+  }, r.attr), b(r.child)));
 }
-function E(e) {
-  return (t) => /* @__PURE__ */ a.createElement(h, c({
-    attr: u({}, e.attr)
-  }, t), b(e.child));
+function x(e) {
+  return (r) => /* @__PURE__ */ i.createElement(h, u({
+    attr: c({}, e.attr)
+  }, r), b(e.child));
 }
 function h(e) {
-  var t = (r) => {
+  var r = (t) => {
     var {
       attr: n,
-      size: i,
-      title: o
-    } = e, v = g(e, O), f = i || r.size || "1em", l;
-    return r.className && (l = r.className), e.className && (l = (l ? l + " " : "") + e.className), /* @__PURE__ */ a.createElement("svg", c({
+      size: o,
+      title: a
+    } = e, v = p(e, g), s = o || t.size || "1em", l;
+    return t.className && (l = t.className), e.className && (l = (l ? l + " " : "") + e.className), /* @__PURE__ */ i.createElement("svg", u({
       stroke: "currentColor",
       fill: "currentColor",
       strokeWidth: "0"
-    }, r.attr, n, v, {
+    }, t.attr, n, v, {
       className: l,
-      style: u(u({
-        color: e.color || r.color
-      }, r.style), e.style),
-      height: f,
-      width: f,
+      style: c(c({
+        color: e.color || t.color
+      }, t.style), e.style),
+      height: s,
+      width: s,
       xmlns: "http://www.w3.org/2000/svg"
-    }), o && /* @__PURE__ */ a.createElement("title", null, o), e.children);
+    }), a && /* @__PURE__ */ i.createElement("title", null, a), e.children);
   };
-  return s !== void 0 ? /* @__PURE__ */ a.createElement(s.Consumer, null, (r) => t(r)) : t(p);
+  return f !== void 0 ? /* @__PURE__ */ i.createElement(f.Consumer, null, (t) => r(t)) : r(y);
 }
 export {
-  E as G
+  x as G
 };

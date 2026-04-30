@@ -1,4 +1,4 @@
-import { CellContext, ColumnDef, OnChangeFn, Row, RowData, RowModel, RowSelectionState, Table } from '@tanstack/react-table';
+import { CellContext, ColumnDef, OnChangeFn, Row, RowData, RowModel, RowSelectionState, Table, TableOptions } from '@tanstack/react-table';
 import { JSX, RefObject, ReactNode } from 'react';
 import { IEndPoint, strings } from '@palmyralabs/palmyra-wire';
 import { IPageQueryable, IServerQueryInput } from '../../wire';
@@ -125,6 +125,8 @@ interface BaseTableOptions {
     initParams?: {
         sort?: strings;
     };
+    tableOptions?: Partial<TableOptions<any>>;
+    onTableReady?: (table: Table<any>) => void;
 }
 interface StaticGridOptions extends Omit<IServerQueryInput, 'store'>, IGridPlugin {
     columns: ColumnDefinition[];
