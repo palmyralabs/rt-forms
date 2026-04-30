@@ -1,4 +1,4 @@
-import { CellContext, ColumnDef, OnChangeFn, Row, RowData, RowModel, RowSelectionState, Table } from "@tanstack/react-table";
+import { CellContext, ColumnDef, OnChangeFn, Row, RowData, RowModel, RowSelectionState, Table, TableOptions } from "@tanstack/react-table";
 import { JSX, RefObject } from "react";
 
 type IReactTanstackTable = import("@tanstack/table-core").Table<RowData>;
@@ -159,7 +159,9 @@ interface BaseTableOptions {
     customizer?: GridCustomizer,
     initParams?: {
         sort?: strings
-    }
+    },
+    tableOptions?: Partial<TableOptions<any>>;
+    onTableReady?: (table: Table<any>) => void;
 }
 
 interface StaticGridOptions extends Omit<IServerQueryInput, 'store'>, IGridPlugin {
