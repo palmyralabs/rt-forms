@@ -35,7 +35,7 @@ interface Converter<TEXT, DATA> {
     parse: (text: TEXT) => DATA;
     convert: (text: TEXT) => TEXT;
 }
-interface ColumnDefinition extends ColumnFieldOptions {
+type ColumnDefinition<TData extends RowData = RowData> = Omit<ColumnDef<TData, any>, 'accessorKey'> & ColumnFieldOptions & {
     attribute: string;
     label: string;
     name?: string;
@@ -48,7 +48,7 @@ interface ColumnDefinition extends ColumnFieldOptions {
     quickSearch?: boolean;
     cellRenderer?: React.FC;
     columnGroup?: string;
-}
+};
 type CellGetter = ((props: CellContext<RowData, any>) => any);
 type PartialRecord<K extends keyof any, T> = {
     [P in K]?: T;
