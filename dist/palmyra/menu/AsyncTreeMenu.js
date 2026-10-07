@@ -1,22 +1,23 @@
-import { jsx as n, Fragment as x, jsxs as p } from "react/jsx-runtime";
-import { useRef as E, useState as V, useEffect as j } from "react";
-import B from "react-accessible-treeview";
-import M from "classnames";
-import { A as U, I as F } from "../../chunks/index.js";
+import { jsx as n, Fragment as y, jsxs as p } from "react/jsx-runtime";
+import { useRef as A, useState as B, useEffect as M } from "react";
+import U from "react-accessible-treeview";
+import F from "classnames";
+import "../../chunks/iconBase.js";
 import { useNavigate as H } from "react-router-dom";
-import { SimpleIconProvider as K } from "./IconProvider.js";
-const y = "palmyra.rui.sidemenu.expanded", A = "palmyra.rui.sidemenu.expanded.selected";
-function Q(h) {
-  const o = H(), g = E(null);
-  let m = { name: "", id: -1, parent: null, children: [], isBranch: !0 };
-  const [i, b] = V({ data: [m], expandedIds: [], selectedId: [] }), w = h.store, l = E([]), C = (e, a, t) => e.map((s) => (s.id === a && !s.loaded && (s.loaded = !0, s.children = t.filter((d) => a == d.parent).map((d) => d.id)), s)).concat(t), T = (e) => e.split(",").map((t) => parseInt(t)), R = (e, a) => e && Array.isArray(e) ? e.map((r) => {
-    const s = r.children || "";
+import { A as K, a as Y } from "../../chunks/index.js";
+import { SimpleIconProvider as $ } from "./IconProvider.js";
+const b = "palmyra.rui.sidemenu.expanded", w = "palmyra.rui.sidemenu.expanded.selected";
+function te(d) {
+  const m = H(), f = A(null);
+  let g = { name: "", id: -1, parent: null, children: [], isBranch: !0 };
+  const [s, I] = B({ data: [g], expandedIds: [], selectedId: [] }), C = d.store, o = A([]), T = (e, a, t) => e.map((c) => (c.id === a && !c.loaded && (c.loaded = !0, c.children = t.filter((l) => a == l.parent).map((l) => l.id)), c)).concat(t), L = (e) => e.split(",").map((t) => parseInt(t)), R = (e, a) => e && Array.isArray(e) ? e.map((r) => {
+    const c = r.children || "";
     return {
       id: r.id,
       name: r.name,
       parent: r.parent ? r.parent : a,
-      children: r.children ? T(r.children) : [],
-      isBranch: s.length > 0,
+      children: r.children ? L(r.children) : [],
+      isBranch: c.length > 0,
       loaded: !0,
       metadata: {
         code: r.code,
@@ -25,52 +26,52 @@ function Q(h) {
       }
     };
   }) : [];
-  function I(e) {
+  function N(e) {
     return typeof e == "number" ? e : parseInt(e);
   }
-  j(() => {
-    w.getRoot().then((e) => {
+  M(() => {
+    C.getRoot().then((e) => {
       var a = R(e.result, -1);
-      const t = C(i.data, -1, a), r = (localStorage.getItem(y) || "").split(",");
-      l.current = r.map((c) => I(c)).filter((c) => a.some((u) => u.id == c));
-      const d = (localStorage.getItem(A) || "").split(",").map((c) => I(c)).filter((c) => a.some((u) => u.id == c));
-      b({ data: t, expandedIds: l.current, selectedId: d });
+      const t = T(s.data, -1, a), r = (localStorage.getItem(b) || "").split(",");
+      o.current = r.map((i) => N(i)).filter((i) => a.some((u) => u.id == i));
+      const l = (localStorage.getItem(w) || "").split(",").map((i) => N(i)).filter((i) => a.some((u) => u.id == i));
+      I({ data: t, expandedIds: o.current, selectedId: l });
     });
   }, []);
   const _ = () => {
-    localStorage.setItem(y, l.current.join());
+    localStorage.setItem(b, o.current.join());
   }, D = (e) => {
-    localStorage.setItem(A, e);
-  }, L = (e) => {
+    localStorage.setItem(w, e);
+  }, O = (e) => {
     if (!e.isBranch && e.metadata?.code) {
       const a = e.metadata.code;
-      o(a);
+      m(a);
     } else if (e.metadata?.target) {
       const a = e.metadata.target;
-      o(a);
+      m(a);
     }
-  }, N = (e) => {
-    l.current = l.current.filter((t) => t !== e), (i?.data.filter((t) => t.parent === e)).forEach((t) => N(t.id));
-  }, O = h.iconProvider || K;
-  return /* @__PURE__ */ n(x, { children: /* @__PURE__ */ p("div", { className: "sidebar-asyn-menu", children: [
+  }, v = (e) => {
+    o.current = o.current.filter((t) => t !== e), (s?.data.filter((t) => t.parent === e)).forEach((t) => v(t.id));
+  }, k = d.iconProvider || $, S = d.icons, P = S?.loading || K;
+  return /* @__PURE__ */ n(y, { children: /* @__PURE__ */ p("div", { className: "sidebar-asyn-menu", children: [
     /* @__PURE__ */ n(
       "div",
       {
         className: "visually-hidden",
-        ref: g,
+        ref: f,
         role: "alert",
         "aria-live": "polite"
       }
     ),
-    /* @__PURE__ */ n("div", { className: "checkbox", children: i.data.length > 1 && /* @__PURE__ */ n(
-      B,
+    /* @__PURE__ */ n("div", { className: "checkbox", children: s.data.length > 1 && /* @__PURE__ */ n(
+      U,
       {
         className: "async-tree-menu-container",
-        data: i.data,
+        data: s.data,
         "aria-label": "Checkbox tree",
         onExpand: (e) => {
           const a = e.isExpanded, t = e.element;
-          a ? t.id !== "" && !l.current.includes(t.id) && l.current.push(t.id) : N(t.id), _();
+          a ? t.id !== "" && !o.current.includes(t.id) && o.current.push(t.id) : v(t.id), _();
         },
         onSelect: (e) => {
           const a = e.isSelected, t = e.element;
@@ -79,21 +80,21 @@ function Q(h) {
         propagateSelect: !1,
         togglableSelect: !0,
         multiSelect: !1,
-        selectedIds: i.selectedId,
-        expandedIds: i.expandedIds,
+        selectedIds: s.selectedId,
+        expandedIds: s.expandedIds,
         propagateSelectUpwards: !0,
         nodeRenderer: ({
           element: e,
           isBranch: a,
           isExpanded: t,
           isSelected: r,
-          isHalfSelected: s,
-          getNodeProps: d,
-          level: c,
+          isHalfSelected: c,
+          getNodeProps: l,
+          level: i,
           handleSelect: u,
-          handleExpand: k
+          handleExpand: V
         }) => {
-          const P = (f, S) => f && S.children.length === 0 ? /* @__PURE__ */ p(x, { children: [
+          const j = (h, E) => h && E.children.length === 0 ? /* @__PURE__ */ p(y, { children: [
             /* @__PURE__ */ p(
               "span",
               {
@@ -102,36 +103,36 @@ function Q(h) {
                 className: "visually-hidden",
                 children: [
                   "loading ",
-                  S.name
+                  E.name
                 ]
               }
             ),
             /* @__PURE__ */ n(
-              U,
+              P,
               {
                 "aria-hidden": !0,
                 className: "loading-icon"
               }
             )
-          ] }) : /* @__PURE__ */ n(Y, { isOpen: f }), v = O.getIcon(e.metadata.code);
+          ] }) : /* @__PURE__ */ n(W, { isOpen: h, icon: S?.arrow }), x = k.getIcon(e.metadata.code);
           return /* @__PURE__ */ n(
             "div",
             {
-              ...d({ onClick: k }),
-              style: { marginLeft: 5 * (c - 1) },
+              ...l({ onClick: V }),
+              style: { marginLeft: 5 * (i - 1) },
               children: /* @__PURE__ */ p(
                 "div",
                 {
                   className: r ? "async-tree-menu-selected-list" : "async-tree-menu-list",
-                  onClick: (f) => {
-                    r || u(f), L(e);
+                  onClick: (h) => {
+                    r || u(h), O(e);
                   },
                   children: [
                     /* @__PURE__ */ p("div", { className: "async-tree-menu-list-text-container", children: [
-                      /* @__PURE__ */ n("div", { className: "menu-icon", children: v && /* @__PURE__ */ n(v, {}) }),
+                      /* @__PURE__ */ n("div", { className: "menu-icon", children: x && /* @__PURE__ */ n(x, {}) }),
                       /* @__PURE__ */ n("span", { className: "menu-name", children: e.name })
                     ] }),
-                    /* @__PURE__ */ n("div", { className: "async-tree-menu-list-arrow-container", children: a && P(t, e) })
+                    /* @__PURE__ */ n("div", { className: "async-tree-menu-list-arrow-container", children: a && j(t, e) })
                   ]
                 }
               )
@@ -142,15 +143,15 @@ function Q(h) {
     ) })
   ] }) });
 }
-const Y = (h) => {
-  const { isOpen: o, className: g } = h, m = "arrow", i = M(
-    m,
-    { [`${m}--closed`]: !o },
-    { [`${m}--open`]: o },
-    g
+const W = (d) => {
+  const { isOpen: m, className: f } = d, g = d.icon || Y, s = "arrow", I = F(
+    s,
+    { [`${s}--closed`]: !m },
+    { [`${s}--open`]: m },
+    f
   );
-  return /* @__PURE__ */ n(F, { className: i });
+  return /* @__PURE__ */ n(g, { className: I });
 };
 export {
-  Q as default
+  te as default
 };

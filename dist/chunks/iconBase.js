@@ -1,5 +1,5 @@
 import i from "react";
-var y = {
+import '../assets/iconBase.css';var y = {
   color: void 0,
   size: void 0,
   className: void 0,

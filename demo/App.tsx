@@ -8,6 +8,7 @@ import ViewForm from "./palmyra/mui/palmyraHooks/ViewForm";
 import TreeMenu from "./palmyra/menu/TreeMenu";
 import ApiAccessMgmt from "./palmyra/apiControl/ApiAccessMgmt";
 import SideMenu from './palmyra/menu/SideMenu';
+import TreeIconsDemo from './palmyra/menu/TreeIconsDemo';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { DashboardSlide } from "./palmyra/card/DashboardSlide";
 
@@ -27,6 +28,7 @@ const App = () => {
         {/* <EditForm /> */}
         {/* <TreeMenu /> */}
         {/* <SideMenu /> */}
+        {/* <TreeIconsDemo /> */}
         {/* <ApiAccessMgmt/> */}
         {/* <NewForm /> */}
         {/* <ViewForm /> */}

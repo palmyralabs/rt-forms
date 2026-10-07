@@ -1,3 +1,4 @@
+import { CheckBoxIcons } from '../menu/types';
 interface APIPermission {
     id: number;
     code: string;
@@ -15,6 +16,7 @@ interface AclAPIEditorProps {
         [key: number]: number;
     };
     gutter?: string;
+    icons?: CheckBoxIcons;
 }
 interface IAclAPIEditor {
     getValue: () => NestedAPIPermission[];

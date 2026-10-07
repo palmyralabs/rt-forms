@@ -1,26 +1,12 @@
-import "react/jsx-runtime";
-import "react";
-import "./formUtil.js";
-import "./PalmyraForm.js";
-import "./formContext.js";
-import "@palmyralabs/ts-predicates";
-import "@palmyralabs/ts-utils";
-import { b as n } from "../../chunks/ServerCardLayout.js";
-import '../../assets/CardLayout.css';import '../../assets/FormGroup.css';import '../../assets/FieldContainer.css';import '../../assets/FieldGroupContainer.css';/* empty css                               */
-/* empty css                          */
-/* empty css                     */
-/* empty css                      */
-import "@tanstack/react-table";
-import "../grid/base/utils/ColumnConverter.js";
-import "dayjs";
-import "../grid/utils/FormatterFactory.js";
-import "react-accessible-treeview";
-import "classnames";
-import "../../chunks/index.js";
-import "react-router-dom";
-import "../menu/AsyncTreeMenuEditor.js";
-import "../acl/AclAPIEditor.js";
-import "./useHelpers/usePalmyraViewForm.js";
+import { jsx as a } from "react/jsx-runtime";
+import { forwardRef as n, useRef as i, useImperativeHandle as c } from "react";
+import { getSaveFormHandle as l } from "./formUtil.js";
+import { PalmyraForm as s } from "./PalmyraForm.js";
+import { usePalmyraViewForm as u } from "./useHelpers/usePalmyraViewForm.js";
+const w = n(function(r, o) {
+  const m = r.storeFactory, { formRef: e, refresh: t } = u(r), f = o || i(null);
+  return c(f, () => l({}, e, t)), /* @__PURE__ */ a(s, { ref: e, storeFactory: m, children: r.children });
+});
 export {
-  n as PalmyraViewForm
+  w as PalmyraViewForm
 };

@@ -1,50 +1,31 @@
-import { useContext as f, useRef as l, useState as g, useEffect as h } from "react";
-import "../form/PalmyraForm.js";
+import { useContext as l, useRef as p, useState as g, useEffect as h } from "react";
 import { StoreFactoryContext as D } from "../form/formContext.js";
-import "@palmyralabs/ts-predicates";
-import "@palmyralabs/ts-utils";
-import '../../assets/FormGroup.css';import '../../assets/FieldContainer.css';import '../../assets/FieldGroupContainer.css';import '../../assets/CardLayout.css';/* empty css                            */
-import "react/jsx-runtime";
-/* empty css                      */
-import "@tanstack/react-table";
-import "../grid/base/utils/ColumnConverter.js";
-import "dayjs";
-import "../grid/utils/FormatterFactory.js";
-import "react-accessible-treeview";
-import "classnames";
-import "../../chunks/index.js";
-import "react-router-dom";
-import "../menu/AsyncTreeMenuEditor.js";
-import "./AclAPIEditor.js";
-/* empty css                               */
-/* empty css                          */
-/* empty css                     */
-const G = (r) => {
-  const { groupId: s } = r, p = r.storeFactory || f(D), m = r.editorRef || l(null), c = p.getFormStore({}, "/admin/acl/permission/group/{groupId}"), [u, d] = g([]), n = () => {
-    c.get({ endPointVars: { groupId: s } }).then((i) => {
-      const e = i.reduce((t, o) => (t[o.className] || (t[o.className] = []), t[o.className].push({
-        id: o.id,
-        code: o.code,
-        name: o.permission,
-        mask: o.mask
-      }), t), {}), a = Object.entries(e).map(([t, o]) => ({
-        className: t,
-        permissions: o
+const I = (t) => {
+  const { groupId: r } = t, d = t.storeFactory || l(D), n = t.editorRef || p(null), i = d.getFormStore({}, "/admin/acl/permission/group/{groupId}"), [m, f] = g([]), u = () => {
+    i.get({ endPointVars: { groupId: r } }).then((a) => {
+      const o = a.reduce((e, s) => (e[s.className] || (e[s.className] = []), e[s.className].push({
+        id: s.id,
+        code: s.code,
+        name: s.permission,
+        mask: s.mask
+      }), e), {}), c = Object.entries(o).map(([e, s]) => ({
+        className: e,
+        permissions: s
       }));
-      d(a);
+      f(c);
     });
   };
   return h(() => {
-    n();
-  }, [s, r.editorRef]), { aclData: u, editorRef: m, refresh: n, saveData: () => {
-    const i = m.current.getValue(), e = [];
-    i.forEach((a) => {
-      a.permissions?.forEach((t) => {
-        e.push({ permissionId: t.id, mask: t.mask });
+    u();
+  }, [r, t.editorRef]), { aclData: m, editorRef: n, refresh: u, saveData: () => {
+    const a = n.current.getValue(), o = [];
+    a.forEach((c) => {
+      c.permissions?.forEach((e) => {
+        o.push({ permissionId: e.id, mask: e.mask });
       });
-    }), c.put(e, { endPointVars: { groupId: s } });
+    }), i.put(o, { endPointVars: { groupId: r } });
   } };
 };
 export {
-  G as useAclAPIEditor
+  I as useAclAPIEditor
 };

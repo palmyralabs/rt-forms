@@ -1,27 +1,10 @@
-import { useRef as l, useState as F, useEffect as R, useContext as k } from "react";
+import { useRef as f, useState as F, useEffect as R, useContext as k } from "react";
 import { StoreFactoryContext as v } from "../formContext.js";
-import { u as Q, c as T } from "../../../chunks/ServerCardLayout.js";
-import "@palmyralabs/ts-utils";
+import { useFieldManager as Q } from "./useFieldManager.js";
+import { useServerQuery as T } from "../../wire/ServerQueryManager.js";
 import { mergeDeep as C } from "../../utils/ObjectUtils.js";
-import "../PalmyraForm.js";
-import "@palmyralabs/ts-predicates";
-import "react/jsx-runtime";
-import '../../../assets/CardLayout.css';import '../../../assets/FormGroup.css';import '../../../assets/FieldContainer.css';import '../../../assets/FieldGroupContainer.css';/* empty css                                  */
-/* empty css                             */
-/* empty css                        */
-/* empty css                         */
-import "@tanstack/react-table";
-import "../../grid/base/utils/ColumnConverter.js";
-import "dayjs";
-import "../../grid/utils/FormatterFactory.js";
-import "react-accessible-treeview";
-import "classnames";
-import "../../../chunks/index.js";
-import "react-router-dom";
-import "../../menu/AsyncTreeMenuEditor.js";
-import "../../acl/AclAPIEditor.js";
-const nt = (r, t, s) => {
-  const o = l(0), u = l(""), [f, a] = F([]), y = s?.preProcessSearchText || ((e) => "*" + e + "*"), p = Q(r, t, s), q = D(t), d = () => {
+const J = (r, t, o) => {
+  const s = f(0), a = f(""), [m, i] = F([]), y = o?.preProcessSearchText || ((e) => "*" + e + "*"), c = Q(r, t, o), q = D(t), d = () => {
     const {
       lookupOptions: e,
       storeOptions: M,
@@ -30,7 +13,7 @@ const nt = (r, t, s) => {
       fetchDefault: E,
       defaultParams: j,
       ...A
-    } = p.getFieldProps();
+    } = c.getFieldProps();
     return A;
   }, g = t.queryOptions?.queryAttribute || t.queryOptions?.labelAttribute || "name", O = {
     store: q,
@@ -43,32 +26,32 @@ const nt = (r, t, s) => {
     defaultParams: t.defaultParams,
     transformRequest: t.transformRequest,
     transformResult: t.transformResult
-  }, S = T(O), { setQuickSearch: c, refresh: h, getCurrentData: P, getTotalRecords: x } = S, i = P(), n = x();
+  }, S = T(O), { setQuickSearch: p, refresh: h, getCurrentData: P, getTotalRecords: x } = S, n = P(), u = x();
   R(() => {
-    const e = i ? [...i] : [];
-    a(e), o.current < n && (o.current = n);
-  }, [i, n]);
+    const e = n ? [...n] : [];
+    i(e), s.current < u && (s.current = u);
+  }, [n, u]);
   const b = (e) => {
-    u.current = e || "", m();
+    a.current = e || "", l();
   };
-  function m() {
-    const e = u.current;
-    e.length > 0 ? c(y(e)) : i ? c(null) : h();
+  function l() {
+    const e = a.current;
+    e.length > 0 ? p(y(e)) : n ? p(null) : h();
   }
   return {
-    ...p,
+    ...c,
     setSearchText: b,
-    refreshOptions: m,
-    options: f,
-    setOptions: a,
+    refreshOptions: l,
+    options: m,
+    setOptions: i,
     getFieldProps: d
   };
 };
 function D(r) {
-  const t = k(v), s = r.queryOptions?.queryAttribute || "name";
-  var o = {};
-  return C(o, r.queryOptions), t.getLookupStore(o, r.queryOptions.endPoint, s);
+  const t = k(v), o = r.queryOptions?.queryAttribute || "name";
+  var s = {};
+  return C(s, r.queryOptions), t.getLookupStore(s, r.queryOptions.endPoint, o);
 }
 export {
-  nt as useServerQueryFieldManager
+  J as useServerQueryFieldManager
 };

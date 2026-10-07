@@ -1,5 +1,23 @@
 import { IEndPoint, StoreFactory, StoreOptions, Tree, TreeQueryStore } from '@palmyralabs/palmyra-wire';
+import { ComponentType } from 'react';
 import { IconProvider } from './IconProvider';
+interface TreeIconProps {
+    className?: string;
+    onClick?: (e: any) => void;
+    'aria-hidden'?: boolean;
+}
+type TreeIcon = ComponentType<TreeIconProps>;
+interface TreeNodeIcons {
+    arrow?: TreeIcon;
+    loading?: TreeIcon;
+}
+interface CheckBoxIcons {
+    checked?: TreeIcon;
+    unchecked?: TreeIcon;
+    indeterminate?: TreeIcon;
+}
+interface TreeIcons extends TreeNodeIcons, CheckBoxIcons {
+}
 interface IChildTreeRequest {
     parent?: number;
 }
@@ -24,6 +42,7 @@ interface TreeMenuInput {
 interface IAsyncTreeMenuInput {
     store: TreeQueryStore<IChildTreeRequest, any>;
     iconProvider?: IconProvider;
+    icons?: TreeNodeIcons;
 }
 interface IAsyncTreeEditorInput {
     storeFactory: StoreFactory<IChildTreeRequest, StoreOptions>;
@@ -31,6 +50,7 @@ interface IAsyncTreeEditorInput {
     groupId: number;
     readOnly?: boolean;
     fineGrained?: boolean;
+    icons?: TreeIcons;
 }
 interface Node {
     id: number;
@@ -44,4 +64,4 @@ interface Node {
 interface IAsyncTreeEditor {
     getValue: () => Node;
 }
-export type { TreeListener, MenuDef, TreeMenuInput, IChildTreeRequest, IAsyncTreeEditorInput, IAsyncTreeEditor, IAsyncTreeMenuInput };
+export type { TreeListener, MenuDef, TreeMenuInput, IChildTreeRequest, IAsyncTreeEditorInput, IAsyncTreeEditor, IAsyncTreeMenuInput, TreeIconProps, TreeIcon, TreeNodeIcons, CheckBoxIcons, TreeIcons };

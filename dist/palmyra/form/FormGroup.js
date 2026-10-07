@@ -1,12 +1,11 @@
-import { jsxs as o, jsx as p } from "react/jsx-runtime";
-import '../../assets/FormGroup.css';/* empty css                     */
-const l = ({ title: i, children: m, headerContent: r }) => /* @__PURE__ */ o("div", { className: "py-form-group", children: [
+import { jsxs as o, jsx as m } from "react/jsx-runtime";
+import '../../assets/FormGroup.css';const c = ({ title: i, children: s, headerContent: r }) => /* @__PURE__ */ o("div", { className: "py-form-group", children: [
   /* @__PURE__ */ o("div", { className: "py-form-group-title", children: [
     i,
-    r && /* @__PURE__ */ p("div", { children: r })
+    r && /* @__PURE__ */ m("div", { children: r })
   ] }),
-  m
+  s
 ] });
 export {
-  l as FormGroup
+  c as FormGroup
 };

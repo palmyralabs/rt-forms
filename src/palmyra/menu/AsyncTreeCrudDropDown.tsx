@@ -1,14 +1,18 @@
-import { FaSquare, FaCheckSquare, FaMinusSquare } from "react-icons/fa";
+import { FaSquare } from "react-icons/fa";
+import { CheckBoxIcon } from "./CheckBoxIcon";
+import { CheckBoxIcons } from "./types";
 
 interface drodownInput {
     handleSelect?: any,
     isHalfSelected?: boolean,
     isSelected?: boolean,
+    icons?: CheckBoxIcons
 }
 const AsyncTreeCrudDropDown = (props: drodownInput) => {
     const handleSelect = props.handleSelect;
     const isHalfSelected = props.isHalfSelected;
     const isSelected = props.isSelected;
+    const icons: CheckBoxIcons = { unchecked: FaSquare, ...props.icons };
     return (
         <div className="crud-dropdown-content">
             <div className="crud-checkbox-list">
@@ -16,6 +20,7 @@ const AsyncTreeCrudDropDown = (props: drodownInput) => {
                     <div>
                         <CheckBoxIcon
                             className="checkbox-icon"
+                            icons={icons}
                             onClick={(e) => {
                                 handleSelect(e);
                                 e.stopPropagation();
@@ -33,6 +38,7 @@ const AsyncTreeCrudDropDown = (props: drodownInput) => {
                     <div>
                         <CheckBoxIcon
                             className="checkbox-icon"
+                            icons={icons}
                             onClick={(e) => {
                                 handleSelect(e);
                                 e.stopPropagation();
@@ -50,6 +56,7 @@ const AsyncTreeCrudDropDown = (props: drodownInput) => {
                     <div>
                         <CheckBoxIcon
                             className="checkbox-icon"
+                            icons={icons}
                             onClick={(e) => {
                                 handleSelect(e);
                                 e.stopPropagation();
@@ -69,16 +76,3 @@ const AsyncTreeCrudDropDown = (props: drodownInput) => {
 }
 
 export default AsyncTreeCrudDropDown
-
-const CheckBoxIcon = ({ variant, ...rest }) => {
-    switch (variant) {
-        case "all":
-            return <FaCheckSquare style={{ color: 'rgb(44, 134, 213)', backgroundColor: 'white' }}{...rest} />;
-        case "none":
-            return <FaSquare style={{ color: 'white', border: '1px solid rgba(128, 128,128, 0.2)' }} {...rest} />;
-        case "some":
-            return <FaMinusSquare style={{ color: 'rgb(44, 134, 213)', backgroundColor: 'white' }} {...rest} />;
-        default:
-            return null;
-    }
-};

@@ -1,22 +1,42 @@
 {
   "name": "@palmyralabs/rt-forms",
-  "private": true,
+  "private": false,
   "version": "0.3.0",
+  "description": "Headless React form, grid and menu building blocks for Palmyra applications",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/palmyralabs/rt-forms.git"
+  },
+  "homepage": "https://github.com/palmyralabs/rt-forms#readme",
+  "bugs": {
+    "url": "https://github.com/palmyralabs/rt-forms/issues"
+  },
+  "keywords": [
+    "palmyra",
+    "react",
+    "forms",
+    "grid"
+  ],
   "type": "module",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/main.d.ts",
       "import": "./dist/main.js"
     }
   },
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "vite",
     "dev": "vite", 
-    "build": "vitest --root test/ && tsc --p ./build.tsconfig.json && vite --config vite.config.js build",
+    "build": "vitest run --root test/ && tsc --p ./build.tsconfig.json && vite build",
     "compile": "tsc --p ./demo.tsconfig.json && tsc --p ./build.tsconfig.json",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
@@ -39,7 +59,6 @@
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-icons": "^5.5.0",
-    "react-responsive-masonry": "2.2.0",
     "react-router-dom": "^7.12.0",
     "serve-static": "^2.2.1",
     "ts-node": "^10.9.2",
@@ -52,15 +71,21 @@
   "sideEffects": [
     "**/*.css"
   ],
+  "dependencies": {
+    "classnames": "^2.5.1",
+    "react-responsive-masonry": "2.2.0"
+  },
   "peerDependencies": {
     "@palmyralabs/palmyra-wire": "^1.1.4",
-    "@palmyralabs/ts-predicates": "github:palmyralabs/ts-predicates",
+    "@palmyralabs/ts-predicates": "^0.3.0",
     "@palmyralabs/ts-utils": "^0.3.0",
     "@tanstack/react-table": "^8.20.5",
     "axios": "^1.7.5",
     "dayjs": "^1.11.13",
+    "react": "^19.0.0",
     "react-accessible-treeview": "^2.9.1",
-    "react-responsive-masonry": "2.2.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.0"
   },
   "overrides": {
     "glob": "^13.0.0",

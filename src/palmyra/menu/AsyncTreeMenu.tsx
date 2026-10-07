@@ -5,7 +5,7 @@ import "./AsyncTreeMenu.css";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLoading } from "react-icons/ai";
 import { IoIosArrowForward } from "react-icons/io";
-import { IAsyncTreeMenuInput, IChildTreeRequest } from "./types";
+import { IAsyncTreeMenuInput, IChildTreeRequest, TreeIcon } from "./types";
 import { TreeQueryStore } from "@palmyralabs/palmyra-wire";
 import { IconProvider, SimpleIconProvider } from "./IconProvider";
 
@@ -124,6 +124,8 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
         childNodes.forEach((child) => removeWithChildren(child.id));
     };
     const iconProvider: IconProvider = props.iconProvider || SimpleIconProvider;
+    const icons = props.icons;
+    const LoadingIcon = icons?.loading || AiOutlineLoading;
     return (
         <>
             <div className="sidebar-asyn-menu">
@@ -187,13 +189,13 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
                                             >
                                                 loading {element.name}
                                             </span>
-                                            <AiOutlineLoading
+                                            <LoadingIcon
                                                 aria-hidden={true}
                                                 className="loading-icon"
                                             />
                                         </>
                                     ) : (
-                                        <ArrowIcon isOpen={isExpanded} />
+                                        <ArrowIcon isOpen={isExpanded} icon={icons?.arrow} />
                                     );
                                 };
 
@@ -234,11 +236,13 @@ export default function AsyncTreeMenu(props: IAsyncTreeMenuInput) {
 
 interface IArrowIconInput {
     isOpen: boolean,
-    className?: string
+    className?: string,
+    icon?: TreeIcon
 }
 
 const ArrowIcon = (props: IArrowIconInput) => {
     const { isOpen, className } = props;
+    const Icon = props.icon || IoIosArrowForward;
     const baseClass = "arrow";
     const classes = cx(
         baseClass,
@@ -246,5 +250,5 @@ const ArrowIcon = (props: IArrowIconInput) => {
         { [`${baseClass}--open`]: isOpen },
         className
     );
-    return <IoIosArrowForward className={classes} />;
+    return <Icon className={classes} />;
 };

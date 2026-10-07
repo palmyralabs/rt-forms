@@ -1,4 +1,4 @@
-import { c as o } from "../../chunks/ServerCardLayout.js";
+import { useServerQuery as o } from "./ServerQueryManager.js";
 export {
   o as useServerQuery
 };

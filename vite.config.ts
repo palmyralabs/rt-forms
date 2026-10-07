@@ -20,6 +20,7 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
+    copyPublicDir: false,
     modulePreload: {
       polyfill: false,
     },
@@ -45,7 +46,7 @@ export default defineConfig({
         'react',
         'html2canvas',
         'react-dom',
-        'react-icons',
+        'react-responsive-masonry',
         'react-router-dom',
         'react/jsx-runtime',
         'react-chartjs-2',        

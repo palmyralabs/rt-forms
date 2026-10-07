@@ -1,60 +1,52 @@
-import { jsx as e, jsxs as o } from "react/jsx-runtime";
-import { F as i, a as d, b as t } from "../../chunks/index2.js";
-const b = (l) => {
-  const a = l.handleSelect, n = l.isHalfSelected, r = l.isSelected;
-  return /* @__PURE__ */ e("div", { className: "crud-dropdown-content", children: /* @__PURE__ */ o("div", { className: "crud-checkbox-list", children: [
-    /* @__PURE__ */ o("div", { className: "crud-checkbox", children: [
-      /* @__PURE__ */ e("div", { children: /* @__PURE__ */ e(
-        s,
+import { jsx as c, jsxs as l } from "react/jsx-runtime";
+import { C as d, F as r } from "../../chunks/CheckBoxIcon.js";
+const m = (a) => {
+  const n = a.handleSelect, o = a.isHalfSelected, s = a.isSelected, i = { unchecked: r, ...a.icons };
+  return /* @__PURE__ */ c("div", { className: "crud-dropdown-content", children: /* @__PURE__ */ l("div", { className: "crud-checkbox-list", children: [
+    /* @__PURE__ */ l("div", { className: "crud-checkbox", children: [
+      /* @__PURE__ */ c("div", { children: /* @__PURE__ */ c(
+        d,
         {
           className: "checkbox-icon",
-          onClick: (c) => {
-            a(c), c.stopPropagation();
+          icons: i,
+          onClick: (e) => {
+            n(e), e.stopPropagation();
           },
-          variant: n ? "some" : r ? "all" : "none"
+          variant: o ? "some" : s ? "all" : "none"
         }
       ) }),
-      /* @__PURE__ */ e("div", { children: /* @__PURE__ */ e("span", { className: "crud-checkbox-label", children: "Create" }) })
+      /* @__PURE__ */ c("div", { children: /* @__PURE__ */ c("span", { className: "crud-checkbox-label", children: "Create" }) })
     ] }),
-    /* @__PURE__ */ o("div", { className: "crud-checkbox", children: [
-      /* @__PURE__ */ e("div", { children: /* @__PURE__ */ e(
-        s,
+    /* @__PURE__ */ l("div", { className: "crud-checkbox", children: [
+      /* @__PURE__ */ c("div", { children: /* @__PURE__ */ c(
+        d,
         {
           className: "checkbox-icon",
-          onClick: (c) => {
-            a(c), c.stopPropagation();
+          icons: i,
+          onClick: (e) => {
+            n(e), e.stopPropagation();
           },
-          variant: n ? "some" : r ? "all" : "none"
+          variant: o ? "some" : s ? "all" : "none"
         }
       ) }),
-      /* @__PURE__ */ e("div", { children: /* @__PURE__ */ e("span", { className: "crud-checkbox-label", children: "Update" }) })
+      /* @__PURE__ */ c("div", { children: /* @__PURE__ */ c("span", { className: "crud-checkbox-label", children: "Update" }) })
     ] }),
-    /* @__PURE__ */ o("div", { className: "crud-checkbox", children: [
-      /* @__PURE__ */ e("div", { children: /* @__PURE__ */ e(
-        s,
+    /* @__PURE__ */ l("div", { className: "crud-checkbox", children: [
+      /* @__PURE__ */ c("div", { children: /* @__PURE__ */ c(
+        d,
         {
           className: "checkbox-icon",
-          onClick: (c) => {
-            a(c), c.stopPropagation();
+          icons: i,
+          onClick: (e) => {
+            n(e), e.stopPropagation();
           },
-          variant: n ? "some" : r ? "all" : "none"
+          variant: o ? "some" : s ? "all" : "none"
         }
       ) }),
-      /* @__PURE__ */ e("div", { children: /* @__PURE__ */ e("span", { className: "crud-checkbox-label", children: "Delete" }) })
+      /* @__PURE__ */ c("div", { children: /* @__PURE__ */ c("span", { className: "crud-checkbox-label", children: "Delete" }) })
     ] })
   ] }) });
-}, s = ({ variant: l, ...a }) => {
-  switch (l) {
-    case "all":
-      return /* @__PURE__ */ e(t, { style: { color: "rgb(44, 134, 213)", backgroundColor: "white" }, ...a });
-    case "none":
-      return /* @__PURE__ */ e(d, { style: { color: "white", border: "1px solid rgba(128, 128,128, 0.2)" }, ...a });
-    case "some":
-      return /* @__PURE__ */ e(i, { style: { color: "rgb(44, 134, 213)", backgroundColor: "white" }, ...a });
-    default:
-      return null;
-  }
 };
 export {
-  b as default
+  m as default
 };

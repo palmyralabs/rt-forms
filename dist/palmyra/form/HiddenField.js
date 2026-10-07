@@ -1,24 +1,14 @@
-import "react/jsx-runtime";
-import "react";
-import { H as q } from "../../chunks/ServerCardLayout.js";
-import "@palmyralabs/ts-utils";
-import "./formContext.js";
-import "./PalmyraForm.js";
-import "@palmyralabs/ts-predicates";
-import '../../assets/CardLayout.css';import '../../assets/FormGroup.css';import '../../assets/FieldContainer.css';import '../../assets/FieldGroupContainer.css';/* empty css                               */
-/* empty css                          */
-/* empty css                     */
-/* empty css                      */
-import "@tanstack/react-table";
-import "../grid/base/utils/ColumnConverter.js";
-import "dayjs";
-import "../grid/utils/FormatterFactory.js";
-import "react-accessible-treeview";
-import "classnames";
-import "../../chunks/index.js";
-import "react-router-dom";
-import "../menu/AsyncTreeMenuEditor.js";
-import "../acl/AclAPIEditor.js";
+import { jsx as d, Fragment as u } from "react/jsx-runtime";
+import { forwardRef as l, useRef as s, useImperativeHandle as f } from "react";
+import { useFieldManager as m } from "./useHelpers/useFieldManager.js";
+const H = l(function(e, t) {
+  const r = m(e.attribute, e), n = t || s(null), { getValue: i, setValue: a, isValid: o } = r;
+  return f(n, () => ({
+    getValue: i,
+    setValue: a,
+    isValid: o
+  }), [r]), /* @__PURE__ */ d(u, {});
+});
 export {
-  q as HiddenField
+  H as HiddenField
 };

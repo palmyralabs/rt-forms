@@ -1,13 +1,13 @@
 import { RefObject, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
-import { FaRegSquare, FaCheckSquare, FaMinusSquare } from "react-icons/fa";
 import { IoMdArrowDropright } from "react-icons/io";
 import TreeView, { INode } from "react-accessible-treeview";
 import cx from "classnames";
 
 import "./AsyncTreeMenu.css";
 import { TreeQueryStore } from "@palmyralabs/palmyra-wire";
-import { IAsyncTreeEditor, IAsyncTreeEditorInput, IChildTreeRequest } from "./types";
+import { IAsyncTreeEditor, IAsyncTreeEditorInput, IChildTreeRequest, TreeIcon } from "./types";
+import { CheckBoxIcon } from "./CheckBoxIcon";
 
 const AsyncTreeMenuEditor = forwardRef(function AsyncTreeMenuEditor(props: IAsyncTreeEditorInput,
     ref: RefObject<IAsyncTreeEditor>) {
@@ -117,8 +117,8 @@ const AsyncTreeMenuEditor = forwardRef(function AsyncTreeMenuEditor(props: IAsyn
         return result;
     }
 
-    const style = props.readOnly ? { color: "rgb( 230, 230, 230 )", backgroundColor: 'white' } :
-        { color: "rgb(44, 134, 213)", backgroundColor: 'white' };
+    const icons = props.icons;
+    const LoadingIcon = icons?.loading || AiOutlineLoading;
 
     return (
         <>
@@ -167,13 +167,13 @@ const AsyncTreeMenuEditor = forwardRef(function AsyncTreeMenuEditor(props: IAsyn
                                         >
                                             loading {element.name}
                                         </span>
-                                        <AiOutlineLoading
+                                        <LoadingIcon
                                             aria-hidden={true}
                                             className="loading-icon"
                                         />
                                     </>
                                 ) : (
-                                    <ArrowIcon isOpen={isExpanded} />
+                                    <ArrowIcon isOpen={isExpanded} icon={icons?.arrow} />
                                 );
                             };
 
@@ -191,7 +191,8 @@ const AsyncTreeMenuEditor = forwardRef(function AsyncTreeMenuEditor(props: IAsyn
                                     <CheckBoxIcon
                                         className="checkbox-icon"
                                         onClick={handleClick}
-                                        style={style}
+                                        icons={icons}
+                                        readOnly={props.readOnly}
                                         variant={
                                             isHalfSelected ? "some" : isSelected ? "all" : "none"
                                         }
@@ -223,11 +224,13 @@ const AsyncTreeMenuEditor = forwardRef(function AsyncTreeMenuEditor(props: IAsyn
 
 interface IArrowIconInput {
     isOpen: boolean,
-    className?: string
+    className?: string,
+    icon?: TreeIcon
 }
 
 const ArrowIcon = (props: IArrowIconInput) => {
     const { isOpen, className } = props;
+    const Icon = props.icon || IoMdArrowDropright;
     const baseClass = "arrow";
     const classes = cx(
         baseClass,
@@ -235,22 +238,7 @@ const ArrowIcon = (props: IArrowIconInput) => {
         { [`${baseClass}--open`]: isOpen },
         className
     );
-    return <IoMdArrowDropright className={classes} />;
-};
-
-const CheckBoxIcon = ({ variant, ...rest }) => {
-
-    switch (variant) {
-        case "all":
-            return <FaCheckSquare style={{ color: rest.style.color, backgroundColor: rest.style.backgroundColor }} {...rest} />;
-        case "none":
-            return <FaRegSquare style={{ color: "rgba(128, 128,128, 0.2)" }}
-                onClick={rest.onClick} className={rest.className} />;
-        case "some":
-            return <FaMinusSquare style={{ color: rest.style.color, backgroundColor: rest.style.backgroundColor }} {...rest} />;
-        default:
-            return null;
-    }
+    return <Icon className={classes} />;
 };
 
 interface ILeafNodeProps {
