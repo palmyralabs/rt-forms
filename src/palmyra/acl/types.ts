@@ -25,6 +25,8 @@ interface AclAPIEditorProps {
     showSaveButton?: boolean;
     showSearch?: boolean;
     showSelectAll?: boolean;
+    readOnly?: boolean;
+    showGroupCount?: boolean;
     searchPlaceholder?: string;
     isLoading?: boolean;
     error?: any;

@@ -19,6 +19,7 @@ const APIAclList = () => {
     const [savedAt, setSavedAt] = useState<string>("");
     const [showSearch, setShowSearch] = useState<boolean>(true);
     const [showSelectAll, setShowSelectAll] = useState<boolean>(true);
+    const [readOnly, setReadOnly] = useState<boolean>(false);
 
     const storeFactory = useMemo(() => new PalmyraStoreFactory({ baseUrl: "/api/palmyra" }), []);
 
@@ -52,6 +53,11 @@ const APIAclList = () => {
                         onChange={(e) => setShowSelectAll(e.target.checked)} />
                     <span>Show Select / Clear All</span>
                 </label>
+                <label>
+                    <input type="checkbox" checked={readOnly}
+                        onChange={(e) => setReadOnly(e.target.checked)} />
+                    <span>Read-only</span>
+                </label>
                 <button className="acl-reload-btn" onClick={() => refresh().catch(() => { })}>
                     Reload
                 </button>
@@ -62,10 +68,10 @@ const APIAclList = () => {
                 ref={editorRef}
                 title="API Access Control (admin)"
                 onSave={handleSave}
-                collapsible={false}
                 saveLabel="SAVE ACL"
                 showSearch={showSearch}
                 showSelectAll={showSelectAll}
+                readOnly={readOnly}
                 isLoading={isLoading}
                 error={error}
             />

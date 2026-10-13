@@ -100,12 +100,14 @@ const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, 
     };
 
     const gutter = props.gutter || "12px";
+    const readOnly = !!props.readOnly;
     const collapsible = props.collapsible !== false;
+    const showGroupCount = props.showGroupCount !== false;
     const visibleGroups = data.filter((d) => getVisiblePermissions(d).length > 0);
-    const showSaveButton = !!props.onSave && props.showSaveButton !== false;
+    const showSaveButton = !!props.onSave && props.showSaveButton !== false && !readOnly;
     const showHeader = props.title || showSaveButton;
     const showSearch = props.showSearch !== false;
-    const showSelectAll = props.showSelectAll !== false;
+    const showSelectAll = props.showSelectAll !== false && !readOnly;
     const showToolbar = showSearch || showSelectAll;
     const isLoading = !!props.isLoading;
     const hasError = !props.isLoading && !!props.error;
@@ -117,7 +119,7 @@ const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, 
     const noneSelected = selectedCount === 0;
 
     return (
-        <div className='acl-editor'>
+        <div className={'acl-editor' + (readOnly ? ' acl-readonly' : '')}>
             {showHeader && (
                 <div className='acl-header'>
                     {props.title && <h2 className='acl-title'>{props.title}</h2>}
@@ -139,7 +141,7 @@ const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, 
             )}
 
             {isLoading ? (
-                <div className='acl-state'>{props.loadingMessage || "Loading permissions…"}</div>
+                <div className='acl-state acl-state-loading'>{props.loadingMessage || "Loading permissions…"}</div>
             ) : hasError ? (
                 <div className='acl-state acl-state-error'>{props.errorMessage || "Could not load permissions."}</div>
             ) : isEmpty ? (
@@ -181,22 +183,29 @@ const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, 
                     {visibleGroups.map((d: NestedAPIPermission) => {
                         const groupVariant = getGroupVariant(d);
                         const isCollapsed = collapsible && !q && collapsed[d.className];
+                        const groupPermissions = d.permissions || [];
+                        const groupSelected = groupPermissions.filter((p) => p.mask > 0).length;
                         return (
                             <div key={d.className} className='parent-list' style={{ marginBottom: gutter }}>
-                                <div className='acl-group-header'>
+                                <div
+                                    className='acl-group-header'
+                                    onClick={readOnly ? undefined : () => setGroupMask(d.className, groupVariant === "all" ? 0 : 1)}>
                                     <CheckBoxIcon
                                         className="checkbox-icon"
-                                        onClick={() => setGroupMask(d.className, groupVariant === "all" ? 0 : 1)}
                                         icons={props.icons}
                                         variant={groupVariant}
+                                        readOnly={readOnly}
                                     />
                                     <h3>{d.className}</h3>
+                                    {showGroupCount && (
+                                        <span className='acl-group-count'>{groupSelected}/{groupPermissions.length}</span>
+                                    )}
                                     {collapsible && (
                                         <button
                                             type='button'
                                             className='acl-collapse-btn'
                                             aria-label={isCollapsed ? "Expand" : "Collapse"}
-                                            onClick={() => toggleCollapse(d.className)}>
+                                            onClick={(e) => { e.stopPropagation(); toggleCollapse(d.className); }}>
                                             {isCollapsed ? <FaChevronRight /> : <FaChevronDown />}
                                         </button>
                                     )}
@@ -204,13 +213,16 @@ const AclAPIEditor = forwardRef(function AclAPIEditor(props: AclAPIEditorProps, 
                                 {!isCollapsed && getVisiblePermissions(d).map((permission: APIPermission, index) => {
                                     const isSelected = permission.mask > 0;
                                     return (
-                                        <div className='child-list' key={permission.id ?? permission.code ?? index}>
+                                        <div
+                                            className='child-list'
+                                            key={permission.id ?? permission.code ?? index}
+                                            onClick={readOnly ? undefined : () => setMask(d.className, permission.id, isSelected ? 0 : 1)}>
                                             <div>
                                                 <CheckBoxIcon
                                                     className="checkbox-icon"
-                                                    onClick={() => setMask(d.className, permission.id, isSelected ? 0 : 1)}
                                                     icons={props.icons}
                                                     variant={isSelected ? "all" : "none"}
+                                                    readOnly={readOnly}
                                                 />
                                             </div>
                                             <div className='api-label-field'>
