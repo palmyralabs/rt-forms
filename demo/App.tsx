@@ -7,7 +7,7 @@ import NewForm from "./palmyra/mui/palmyraHooks/NewForm";
 import ViewForm from "./palmyra/mui/palmyraHooks/ViewForm";
 import EditForm from "./palmyra/mui/palmyraHooks/EditFormPage";
 import GridDemo from "./palmyra/grid/GridDemo";
-import ApiAccessMgmt from "./palmyra/apiControl/ApiAccessMgmt";
+import APIAclList from "./palmyra/apiControl/APIAclList";
 import TreeMenu from "./palmyra/menu/TreeMenu";
 import SideMenu from "./palmyra/menu/SideMenu";
 import "./demo.css";
@@ -17,7 +17,7 @@ const tabs = [
     { id: "view", label: "View Form", Comp: ViewForm },
     { id: "edit", label: "Edit Form", Comp: EditForm },
     { id: "grid", label: "Grid", Comp: GridDemo },
-    { id: "acl", label: "ACL Editor", Comp: ApiAccessMgmt },
+    { id: "acl", label: "ACL Editor", Comp: APIAclList },
     { id: "tree", label: "Tree Menu", Comp: TreeMenu },
     { id: "side", label: "Side Menu", Comp: SideMenu }
 ];

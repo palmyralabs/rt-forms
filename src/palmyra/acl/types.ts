@@ -19,6 +19,19 @@ interface AclAPIEditorProps {
     columnsCountBreakPoints?: { [key: number]: number };
     gutter?: string;
     icons?: CheckBoxIcons
+    title?: string;
+    saveLabel?: string;
+    collapsible?: boolean;
+    showSaveButton?: boolean;
+    showSearch?: boolean;
+    showSelectAll?: boolean;
+    searchPlaceholder?: string;
+    isLoading?: boolean;
+    error?: any;
+    loadingMessage?: string;
+    errorMessage?: string;
+    emptyMessage?: string;
+    onSave?: (data: NestedAPIPermission[]) => void | Promise<any>;
 }
 
 interface IAclAPIEditor {
