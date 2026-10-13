@@ -3,7 +3,7 @@ import { IServerLookupDefinition } from "./types";
 import { IFormFieldError, IServerLookupField, useServerLookupFieldManager } from "../../../../src/palmyra";
 import FieldDecorator from "./FieldDecorator";
 import { getFieldLabel } from "./util";
-import { Autocomplete, CircularProgress, FormControl, FormHelperText, TextField } from "@mui/material";
+import { Autocomplete, FormControl, FormHelperText, TextField } from "@mui/material";
 import { delayGenerator } from "@palmyralabs/ts-utils";
 
 
@@ -55,20 +55,13 @@ const MuiServerLookup = forwardRef(function MuiServerLookup(props: IServerLookup
                 renderOption={props.renderOption}
                 isOptionEqualToValue={hasValueInOptions}
                 filterOptions={(x) => x}
-                renderInput={(params) => <TextField {...params} inputRef={(i) => { inputRef.current = i; }}
-                    variant={'standard'} label={props.title}
-                    // autoFocus={props.autoFocus}
-                    required={props.required}
-                    InputProps={{
-                        ...params.InputProps,
-                        endAdornment: (
-                            <>
-                                {loading ? <CircularProgress color="inherit" size={18} /> : null}
-                                {params.InputProps.endAdornment}
-                            </>
-                        ),
-                    }}
-                />}
+                loading={loading}
+                renderInput={(params) => (
+                    <TextField {...params} inputRef={(i) => { inputRef.current = i; }}
+                        variant={'standard'} label={props.title}
+                        required={props.required}
+                    />
+                )}
                 getOptionLabel={(o) => getOptionValue(o) + ''}
                 {...getFieldProps()}
                 value={value}

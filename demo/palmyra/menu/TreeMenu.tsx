@@ -1,47 +1,52 @@
-import { IEndPoint, PalmyraStoreFactory, StoreFactory } from "@palmyralabs/palmyra-wire";
-
 import { useRef, useState } from "react";
 import { Button } from "@mui/material";
 import { AsyncTreeMenuEditor, IAsyncTreeEditor } from "../../../src/palmyra/menu";
-``
-const TreeMenu = () => {
-    const [readOnly, setReadOnly] = useState<boolean>(true);
+import { useDemoConfig } from "../../config/DemoConfigContext";
 
-    const storeFactory: StoreFactory<any, any> = new PalmyraStoreFactory({ baseUrl: '/testdata' });
-    const treeRef = useRef<IAsyncTreeEditor>();
-    const MenuEndPoint: IEndPoint = '/menuData.json';
+const TreeMenu = () => {
+    const { storeFactory, config } = useDemoConfig();
+    const [readOnly, setReadOnly] = useState<boolean>(true);
+    const treeRef = useRef<IAsyncTreeEditor>(null);
 
     const submitValue = () => {
-        const formStore = storeFactory.getFormStore({}, '/menuData.json');
+        if (!treeRef.current)
+            return;
+        const formStore = storeFactory.getFormStore({}, config.menuEndpoint);
         const rootMenu = treeRef.current.getValue();
         const record = {
             rootMenu,
-            name: 'admin',
+            name: "admin",
             status: 1
-        }
-        formStore.put(record).then(() => {
+        };
+        formStore.put(record).then(() => { });
+    };
 
-        });
-    }
+    return (
+        <div className="demo-panel">
+            <h2>Tree Menu</h2>
+            <p className="demo-panel-desc">
+                Editable async menu tree via <code>AsyncTreeMenuEditor</code> loading from
+                {" "}<code>{config.baseUrl}{config.menuEndpoint}</code>.
+            </p>
 
-    const editMenu = () => {
-        setReadOnly(false)
-    }
-
-    return <>
-        <div style={{ display: 'flex', backgroundColor: 'white' }}>
-            {readOnly ? <div> <Button className="filled-button" onClick={editMenu}>Edit</Button> </div> :
-                <div> <Button className="filled-button" onClick={submitValue}>Submit</Button></div>}
-            <div style={{ width: "30%", marginTop: '10px' }}>Tree Menu
-                <AsyncTreeMenuEditor ref={treeRef} storeFactory={storeFactory} endPoint={MenuEndPoint}
-                    groupId={1} fineGrained={true} readOnly={readOnly} />
+            <div className="demo-form-actions" style={{ justifyContent: "flex-start", marginTop: 0, borderTop: "none", paddingTop: 0 }}>
+                {readOnly
+                    ? <Button variant="contained" onClick={() => setReadOnly(false)}>Edit</Button>
+                    : <Button variant="contained" onClick={submitValue}>Submit</Button>}
             </div>
 
-            {/* <div style={{ width: "30%", marginTop: '10px' }}>Static Side Menu
-            
-            </div> */}
+            <div style={{ maxWidth: 360, marginTop: 16 }}>
+                <AsyncTreeMenuEditor
+                    ref={treeRef}
+                    storeFactory={storeFactory}
+                    endPoint={config.menuEndpoint}
+                    groupId={1}
+                    fineGrained={true}
+                    readOnly={readOnly}
+                />
+            </div>
         </div>
-    </>
-}
+    );
+};
 
 export default TreeMenu;

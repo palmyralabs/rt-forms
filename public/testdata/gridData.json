@@ -1,0 +1,13 @@
+{
+    "result": [
+        { "id": 1, "name": "Arjun Rao", "location": "Chennai", "status": "Active", "amount": 1500 },
+        { "id": 2, "name": "Priya Nair", "location": "Madurai", "status": "Active", "amount": 2300 },
+        { "id": 3, "name": "Karthik Raja", "location": "Tenkasi", "status": "Inactive", "amount": 980 },
+        { "id": 4, "name": "Divya Menon", "location": "Coimbatore", "status": "Active", "amount": 4100 },
+        { "id": 5, "name": "Ravi Shankar", "location": "Salem", "status": "Pending", "amount": 760 },
+        { "id": 6, "name": "Meena Kumari", "location": "Trichy", "status": "Active", "amount": 3200 },
+        { "id": 7, "name": "Suresh Babu", "location": "Erode", "status": "Inactive", "amount": 1120 },
+        { "id": 8, "name": "Lakshmi Devi", "location": "Vellore", "status": "Active", "amount": 2750 }
+    ],
+    "total": 8
+}

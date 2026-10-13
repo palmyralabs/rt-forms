@@ -1,4 +1,3 @@
-import { PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
 import { useRef, useState } from "react";
 import { Button } from "@mui/material";
 import MuiTextField from "../form/MuiTextField";
@@ -7,51 +6,67 @@ import MuiDatePicker from "../form/MuiDatePicker";
 import MuiServerLookup from "../form/MuiServerLookup";
 import { PalmyraEditForm } from "../../../../src/palmyra/form/PalmyraEditForm";
 import { ISaveForm } from "../../../../src/palmyra";
-import { FieldGroup } from "../../../../src/palmyra/form/FieldGroup";
+import { FieldGroupContainer } from "../../../../src/palmyra";
+import { useDemoConfig } from "../../../config/DemoConfigContext";
 
 const EditFormPage = () => {
-    const storeFactory = new PalmyraStoreFactory({ baseUrl: '/testdata/' })
+    const { config } = useDemoConfig();
     const [valid, setValid] = useState<any>(false);
+    const formRef = useRef<ISaveForm>(null);
 
-    const formRef = useRef<ISaveForm>();
+    const save = () => {
+        if (formRef.current)
+            formRef.current.saveData();
+    };
 
-    const logData = () => {
-        console.log(formRef.current.saveData());
-    }
+    return (
+        <div className="demo-panel">
+            <h2>Edit Form</h2>
+            <p className="demo-panel-desc">
+                Loads and updates a record via <code>PalmyraEditForm</code>. The lookup field
+                reads from <code>{config.baseUrl}{config.lookupEndpoint}</code>.
+            </p>
 
-    const preSave = (d) => {
+            <PalmyraEditForm
+                onValidChange={setValid}
+                endPoint={{ get: config.formEndpoint, query: config.formEndpoint, put: config.formEndpoint }}
+                id=""
+                ref={formRef}>
+                <FieldGroupContainer columns={2}>
+                    <MuiTextField attribute="text" title="Text Field" required />
+                    <MuiSelect
+                        attribute="select.gender"
+                        title="Select Field"
+                        options={{ m: "Male", f: "Female", t: "Transgender" }}
+                    />
+                    <MuiDatePicker
+                        attribute="date"
+                        title="Date Field"
+                        serverPattern="YYYY/DD/MM"
+                        displayPattern="DD-MMM-YYYY"
+                    />
+                    <MuiServerLookup
+                        attribute="serverLookup"
+                        title="Server Lookup"
+                        lookupOptions={{
+                            idAttribute: "id",
+                            labelAttribute: "name"
+                        }}
+                        queryOptions={{
+                            endPoint: config.lookupEndpoint,
+                            idAttribute: config.lookupIdAttribute,
+                            labelAttribute: config.lookupLabelAttribute
+                        }}
+                    />
+                </FieldGroupContainer>
+            </PalmyraEditForm>
 
-    }
-    if (formRef.current)
-        console.log('re-rendering ', formRef.current.getData());
-
-    return <>
-        <h2>Edit</h2>
-        <Button
-            className='cancel-filled-button'
-            onClick={() => window.history.back()}>
-            Cancel</Button>
-        <Button disabled={!valid}
-            onClick={logData}>Save</Button>
-
-        <PalmyraEditForm onValidChange={setValid} storeFactory={storeFactory} endPoint={
-            { get: 'testFormData.json', query: 'testFormData.json', put: 'testFormData.json' }
-        } id="" key='sdf' ref={formRef}>
-            <MuiTextField attribute="text" title="Text Field" required />
-
-            <FieldGroup name="test">
-
-                <MuiSelect attribute="select.gender"
-                    options={{ m: "Male", f: "Female", t: "Transgender" }} title="Select Field" />
-                <MuiDatePicker
-
-                    attribute="date" title="Date Field" serverPattern="YYYY/DD/MM" displayPattern="DD-MMM-YYYY" />
-                <MuiServerLookup attribute="serverLookup"
-                    lookupOptions={{ idAttribute: 'id', labelAttribute: "name" }}
-                    queryOptions={{ endPoint: '/lookupData.json', idAttribute: 'sid', labelAttribute: "location" }} />
-            </FieldGroup>
-        </PalmyraEditForm>
-    </>
-}
+            <div className="demo-form-actions">
+                <Button variant="outlined" onClick={() => window.history.back()}>Cancel</Button>
+                <Button variant="contained" disabled={!valid} onClick={save}>Save</Button>
+            </div>
+        </div>
+    );
+};
 
 export default EditFormPage;

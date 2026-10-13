@@ -1,66 +1,55 @@
-import { PalmyraStoreFactory } from "@palmyralabs/palmyra-wire";
 import { usePalmyraViewForm } from "../../../../src/palmyra/form/useHelpers/usePalmyraViewForm";
 import { FieldGroupContainer, PalmyraForm } from "../../../../src/palmyra";
 import MuiTextField from "../form/MuiTextField";
 import MuiSelect from "../form/MuiSelect";
 import { FormGroup } from "../../../../src/palmyra/form/FormGroup";
+import { useDemoConfig } from "../../../config/DemoConfigContext";
 
 const ViewForm = () => {
-    const storeFactory = new PalmyraStoreFactory({ baseUrl: '/testdata' })
+    const { config } = useDemoConfig();
 
     const { getData } = usePalmyraViewForm({
-        endPoint: "/testFormData.json",
-        storeFactory,
-        id: ''
-    })
+        endPoint: { get: config.formEndpoint },
+        id: ""
+    });
 
-    return <>
-        <h2>View</h2>
-        <PalmyraForm formData={getData()} onValidChange={() => { }}>
-            <FieldGroupContainer columns={1}>
-                <FormGroup title="section 1">
-                    <MuiTextField attribute="text" />
-                    <MuiTextField attribute="text" />
-                    <MuiTextField attribute="text" />
-                    <MuiTextField attribute="text" />
-                </FormGroup>
+    return (
+        <div className="demo-panel">
+            <h2>View Form</h2>
+            <p className="demo-panel-desc">
+                Read-only layout via <code>usePalmyraViewForm</code> fetching from
+                {" "}<code>{config.baseUrl}{config.formEndpoint}</code>.
+            </p>
 
-                <FormGroup title="section 2">
-                    <FieldGroupContainer columns={2}>
-                        <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                        <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                        <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                        <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                        <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                        <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                        <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                        <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                    </FieldGroupContainer>
-                </FormGroup>
-                {/* <FormGroup title="section 3">
-                    <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                    <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                    <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                    <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                </FormGroup>
-                <FormGroup title="section 4">
-                    <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                    <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                    <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                    <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                </FormGroup>
-                <FormGroup title="section 5">
-                    <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                    <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                    <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                    <MuiSelect attribute="select" options={{ true: "True", false: "False" }} />
-                </FormGroup> */}
-                <MuiSelect attribute="select" options={{ true: "True", false: "False" }}
-                    colspan={2} />
-            </FieldGroupContainer>
-        </PalmyraForm>
+            <PalmyraForm formData={getData()} onValidChange={() => { }}>
+                <FieldGroupContainer columns={1}>
+                    <FormGroup title="Primary Details">
+                        <FieldGroupContainer columns={2}>
+                            <MuiTextField attribute="text" label="Text" readOnly />
+                            <MuiTextField attribute="number" label="Number" readOnly />
+                            <MuiTextField attribute="email" label="Email" readOnly />
+                            <MuiTextField attribute="date" label="Date" readOnly />
+                        </FieldGroupContainer>
+                    </FormGroup>
 
-    </>
-}
+                    <FormGroup title="Classification">
+                        <FieldGroupContainer columns={2}>
+                            <MuiSelect
+                                attribute="select.gender"
+                                label="Gender"
+                                options={{ m: "Male", f: "Female", t: "Transgender" }}
+                            />
+                            <MuiSelect
+                                attribute="selects"
+                                label="Flag"
+                                options={{ 0: "No", 1: "Yes" }}
+                            />
+                        </FieldGroupContainer>
+                    </FormGroup>
+                </FieldGroupContainer>
+            </PalmyraForm>
+        </div>
+    );
+};
 
 export default ViewForm;

@@ -1,46 +1,66 @@
-
-import { useRef } from "react";
-import { CardLayout, ISaveForm, IViewForm } from "../src/palmyra";
-import PalmyraFormPage from "./PalmyraFormPage";
-import EditForm from "./palmyra/mui/palmyraHooks/EditFormPage";
+import { useState } from "react";
+import { MemoryRouter } from "react-router-dom";
+import { StoreFactoryContext } from "../src/palmyra";
+import { DemoConfigProvider, useDemoConfig } from "./config/DemoConfigContext";
+import ConfigBar from "./config/ConfigBar";
 import NewForm from "./palmyra/mui/palmyraHooks/NewForm";
 import ViewForm from "./palmyra/mui/palmyraHooks/ViewForm";
-import TreeMenu from "./palmyra/menu/TreeMenu";
+import EditForm from "./palmyra/mui/palmyraHooks/EditFormPage";
+import GridDemo from "./palmyra/grid/GridDemo";
 import ApiAccessMgmt from "./palmyra/apiControl/ApiAccessMgmt";
-import SideMenu from './palmyra/menu/SideMenu';
-import TreeIconsDemo from './palmyra/menu/TreeIconsDemo';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { DashboardSlide } from "./palmyra/card/DashboardSlide";
+import TreeMenu from "./palmyra/menu/TreeMenu";
+import SideMenu from "./palmyra/menu/SideMenu";
+import "./demo.css";
 
-const slideData = [
-    { label: 'Supreme Court', amount: 150 },
-    { label: 'High Court-A', amount: 200 },
-    { label: 'High Court-B', amount: 500 },
-    { label: 'Other Court', amount: 350 },
-    { label: 'Other Court', amount: 350 },
-    { label: 'Other Court', amount: 350 },
-    { label: 'Other Court', amount: 350 }
+const tabs = [
+    { id: "new", label: "New Form", Comp: NewForm },
+    { id: "view", label: "View Form", Comp: ViewForm },
+    { id: "edit", label: "Edit Form", Comp: EditForm },
+    { id: "grid", label: "Grid", Comp: GridDemo },
+    { id: "acl", label: "ACL Editor", Comp: ApiAccessMgmt },
+    { id: "tree", label: "Tree Menu", Comp: TreeMenu },
+    { id: "side", label: "Side Menu", Comp: SideMenu }
 ];
-const App = () => {
 
-    const formRef = useRef<ISaveForm>();
-    return <>
-        {/* <EditForm /> */}
-        {/* <TreeMenu /> */}
-        {/* <SideMenu /> */}
-        {/* <TreeIconsDemo /> */}
-        {/* <ApiAccessMgmt/> */}
-        {/* <NewForm /> */}
-        {/* <ViewForm /> */}
-        {/* <Router>
-            <Routes>
-                <Route path="/" element={<SideMenu />} />
-            </Routes>
-        </Router> */}
+const DemoBody = () => {
+    const { storeFactory, revision } = useDemoConfig();
+    const [active, setActive] = useState<string>("new");
+    const current = tabs.find((t) => t.id === active) || tabs[0];
+    const Active = current.Comp;
 
-        <CardLayout title="Last Six Months" Child={DashboardSlide} dataList={slideData}
-            childKeyProvider={() => ''} childProps={{ className: 'land-data-slide' }} />
-    </>
-}
+    return (
+        <StoreFactoryContext.Provider value={storeFactory}>
+            <div className="demo-shell">
+                <header className="demo-header">
+                    <h1>rt-forms Demo</h1>
+                    <span className="demo-subtitle">New, View, Edit forms, grid &amp; server lookups</span>
+                </header>
+
+                <ConfigBar />
+
+                <nav className="demo-tabs">
+                    {tabs.map((t) => (
+                        <button
+                            key={t.id}
+                            className={"demo-tab" + (t.id === active ? " active" : "")}
+                            onClick={() => setActive(t.id)}>
+                            {t.label}
+                        </button>
+                    ))}
+                </nav>
+
+                <Active key={`${active}-${revision}`} />
+            </div>
+        </StoreFactoryContext.Provider>
+    );
+};
+
+const App = () => (
+    <DemoConfigProvider>
+        <MemoryRouter>
+            <DemoBody />
+        </MemoryRouter>
+    </DemoConfigProvider>
+);
 
 export default App;
