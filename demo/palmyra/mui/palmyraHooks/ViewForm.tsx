@@ -4,6 +4,7 @@ import MuiTextField from "../form/MuiTextField";
 import MuiSelect from "../form/MuiSelect";
 import { FormGroup } from "../../../../src/palmyra/form/FormGroup";
 import { useDemoConfig } from "../../../config/DemoConfigContext";
+import { IoMdFastforward } from "react-icons/io";
 
 const ViewForm = () => {
     const { config } = useDemoConfig();
@@ -23,7 +24,9 @@ const ViewForm = () => {
 
             <PalmyraForm formData={getData()} onValidChange={() => { }}>
                 <FieldGroupContainer columns={1}>
-                    <FormGroup title="Primary Details">
+                    <FormGroup title="Primary Details" description="asdsd" 
+                   borderless titleIcon={<IoMdFastforward />}
+                    >
                         <FieldGroupContainer columns={2}>
                             <MuiTextField attribute="text" label="Text" readOnly />
                             <MuiTextField attribute="number" label="Number" readOnly />

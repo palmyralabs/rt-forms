@@ -1,10 +1,99 @@
-.py-form-group-title {
-    font-weight: 600;
-    font-size: 1em;
-    padding: 0 1.2em;
+.py-form-group {
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.py-form-group-header {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.py-form-group-header-clickable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.py-form-group-title-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563eb;
+    font-size: 16px;
+}
+
+.py-form-group-title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0;
+    font-weight: 500;
+    font-size: 14px;
+    color: #1f2937;
+}
+
+.py-form-group-flat {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    border-radius: 0;
+}
+
+.py-form-group-flat .py-form-group-header {
+    border-bottom: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.py-form-group-flat .py-form-group-body {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.py-form-group-title-text {
+    letter-spacing: -0.01em;
+}
+
+.py-form-group-desc {
+    font-weight: 400;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.py-form-group-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.py-form-group-collapse {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.py-form-group-collapse:hover {
+    background: rgba(37, 99, 235, 0.12);
+    color: #2563eb;
+}
+
+.py-form-group-body {
+    /* padding: 14px 16px 16px; */
 }
 
 /* -- 1 column layout - */
